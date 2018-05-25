@@ -6,3 +6,8 @@ This repository is in heavy active development, but will eventually contain ROS 
 - Caffe - Generic
 - Tensorflow - Generic
 
+# Documentation
+- [Doxygen][docs]
+
+[digits]: https://github.com/NVIDIA/DIGITS
+[docs]: https://csvance.github.io/ros_jetson_tensorrt/
