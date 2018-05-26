@@ -1,5 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_network_i_o.html" title="NetworkIO" alt="" coords="5,31,91,57"/>
-<area shape="rect" id="node2" href="$class_network_input.html" title="NetworkInput" alt="" coords="144,5,244,32"/>
-<area shape="rect" id="node3" href="$class_network_output.html" title="NetworkOutput" alt="" coords="139,56,249,83"/>
+<area shape="rect" id="node1" href="$class_network_i_o.html" title="Abstract class representing a node in a neural network which takes input or generates output..." alt="" coords="5,31,91,57"/>
+<area shape="rect" id="node2" href="$class_network_input.html" title="Represents an input node in a neural network which accepts a certain dimension and size..." alt="" coords="144,5,244,32"/>
+<area shape="rect" id="node3" href="$class_network_output.html" title="Represents an output node in a neural network which outputs a certain dimension and size..." alt="" coords="139,56,249,83"/>
 </map>

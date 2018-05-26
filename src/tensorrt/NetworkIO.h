@@ -13,6 +13,9 @@
 #include "NvInfer.h"
 #include "NvUtils.h"
 
+/**
+ * @brief Abstract class representing a node in a neural network which takes input or generates output
+ */
 class NetworkIO {
 public:
 	NetworkIO(std::string, nvinfer1::Dims, size_t);

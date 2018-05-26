@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['freegpubuffer',['freeGPUBuffer',['../class_tensor_r_t_engine.html#a3a4a37839c3c4c5eb2833d44265348f1',1,'TensorRTEngine']]]
+  ['enginesummary',['engineSummary',['../class_tensor_r_t_engine.html#aa3588568c8f40c24a8593b9101a25296',1,'TensorRTEngine']]]
 ];

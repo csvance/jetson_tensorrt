@@ -12,6 +12,9 @@
 
 #include "NetworkIO.h"
 
+/**
+ * @brief Represents an input node in a neural network which accepts a certain dimension and size
+ */
 class NetworkInput: public NetworkIO {
 public:
 	NetworkInput(std::string, nvinfer1::Dims, size_t);

@@ -10,6 +10,9 @@
 
 #include "NetworkIO.h"
 
+/**
+ * @brief Represents an output node in a neural network which outputs a certain dimension and size
+ */
 class NetworkOutput: public NetworkIO {
 public:
 	NetworkOutput(std::string, nvinfer1::Dims, size_t);

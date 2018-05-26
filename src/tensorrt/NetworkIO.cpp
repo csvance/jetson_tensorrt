@@ -27,8 +27,7 @@ NetworkIO::NetworkIO(std::string name, nvinfer1::Dims dims, size_t eleSize) {
 /**
  * @brief	NetworkIO destructor
  */
-NetworkIO::~NetworkIO() {
-}
+NetworkIO::~NetworkIO() {}
 
 /**
  * @brief	Returns the size in bytes of the network layer
