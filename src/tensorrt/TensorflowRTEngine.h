@@ -31,22 +31,30 @@
 #include <string>
 #include <vector>
 
-#include "host_common.h"
+#include "HostCommon.h"
 #include "TensorRTEngine.h"
 
+/**
+ * @brief Loads and manages a Tensorflow network in TensorRT
+ */
 class TensorflowRTEngine : public TensorRTEngine {
 public:
 	TensorflowRTEngine();
 	virtual ~TensorflowRTEngine();
 
-	bool loadUff(const char*, size_t, nvinfer1::DataType, size_t);
+	bool loadModel(std::string, size_t, nvinfer1::DataType, size_t);
 
-	void addInput(string, nvinfer1::DimsCHW, size_t);
-	void addOutput(string,  nvinfer1::Dims dims, size_t);
+	void addInput(std::string, nvinfer1::DimsCHW, size_t);
+	void addOutput(std::string,  nvinfer1::Dims dims, size_t);
+
+protected:
+	vector<NetworkInput> networkInputs;
+	vector<NetworkOutput>  networkOutputs;
 
 private:
 	IUffParser* parser;
 
 };
+
 
 #endif /* TFRTENGINE_H_ */

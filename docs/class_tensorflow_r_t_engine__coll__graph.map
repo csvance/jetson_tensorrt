@@ -1,4 +1,4 @@
 <map id="TensorflowRTEngine" name="TensorflowRTEngine">
-<area shape="rect" id="node2" href="$class_tensor_r_t_engine.html" title="TensorRTEngine" alt="" coords="17,171,137,197"/>
+<area shape="rect" id="node2" href="$class_tensor_r_t_engine.html" title="Abstract base class which loads and manages a TensorRT model which hides device/host memory managemen..." alt="" coords="17,171,137,197"/>
 <area shape="rect" id="node3" href="$class_logger.html" title="Logger" alt="" coords="47,81,108,108"/>
 </map>

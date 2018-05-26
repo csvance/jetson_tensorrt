@@ -44,11 +44,13 @@
 #include "NvUffParser.h"
 #include "NvUtils.h"
 
+#include "NetworkInput.h"
+#include "NetworkOutput.h"
+#include "TensorflowRTEngine.h"
+#include "HostCommon.h"
+
 using namespace nvuffparser;
 using namespace nvinfer1;
-
-#include "TensorflowRTEngine.h"
-#include "host_common.h"
 
 
 /**
@@ -67,13 +69,13 @@ TensorflowRTEngine::~TensorflowRTEngine() {
 }
 
 /**
- * @brief	Registers an input to the Tensorflow network
- * @usage	Must be called before loadUff()
+ * @brief	Registers an input to the Tensorflow network.
+ * @usage	Must be called before loadUff().
  * @param	layer	The name of the input layer (i.e. "input_1")
  * @param	dims	Dimensions of the input layer in CHW format
  * @param	eleSize	Size of each element in bytes
  */
-void TensorflowRTEngine::addInput(string layer, nvinfer1::DimsCHW dims, size_t eleSize) {
+void TensorflowRTEngine::addInput(std::string layer, nvinfer1::DimsCHW dims, size_t eleSize) {
 	/*
 	 Register tensorflow input
 	 Even if channel index is last in the data, put it first for TensorRT
@@ -83,18 +85,17 @@ void TensorflowRTEngine::addInput(string layer, nvinfer1::DimsCHW dims, size_t e
 	 */
 	parser->registerInput(layer.c_str(), dims);
 
-	/* Save the size for inferences */
-	networkInputs.push_back(volume(dims) * eleSize);
+	networkInputs.push_back(NetworkInput(layer, dims, eleSize));
 }
 
 /**
- * @brief	Registers an output from the Tensorflow network
- * @usage	Must be called before loadUff()
+ * @brief	Registers an output from the Tensorflow network.
+ * @usage	Must be called before loadUff().
  * @param	layer	The name of the input layer (i.e. "input_1")
  * @param	dims	Dimension of outputs
  * @param	eleSize	Size of each element in bytes
  */
-void TensorflowRTEngine::addOutput(string layer, nvinfer1::Dims dims, size_t eleSize) {
+void TensorflowRTEngine::addOutput(std::string layer, nvinfer1::Dims dims, size_t eleSize) {
 	/*
 	 Name of last operation of last non optimizer layer found with
 	 `convert_to_uff.py tensorflow --input-file graph.pb -l`
@@ -102,18 +103,18 @@ void TensorflowRTEngine::addOutput(string layer, nvinfer1::Dims dims, size_t ele
 	 */
 	parser->registerOutput(layer.c_str());
 
-	/* Save the size for inferences */
-	networkOutputs.push_back(volume(dims) * eleSize);
+	networkOutputs.push_back(NetworkOutput(layer, dims, eleSize));
 }
 
 /**
- * @brief	Loads a frozen Tensorflow .uff graph
- * @usage	Must be called after addInput() and addOutput()
+ * @brief	Loads a frozen Tensorflow .uff graph.
+ * @usage	Must be called after addInput() and addOutput().
  * @param	uffFile	Path to the .uff graph file
  * @param	maximumBatchSize	The maximum number of records to run a forward network pass on. For maximum performance, this should be the only batch size passed to the network.
+ * @param	dataType	The data type of the network to load into TensorRT
  * @param	maxNetworkSize	Maximum amount of GPU RAM the Tensorflow graph is allowed to use
  */
-bool TensorflowRTEngine::loadUff(const char* uffFile, size_t maximumBatchSize,
+bool TensorflowRTEngine::loadModel(std::string uffFile, size_t maximumBatchSize,
 		nvinfer1::DataType dataType = nvinfer1::DataType::kFLOAT, size_t maxNetworkSize=(1<<30)) {
 
 	maxBatchSize = maximumBatchSize;
@@ -123,14 +124,14 @@ bool TensorflowRTEngine::loadUff(const char* uffFile, size_t maximumBatchSize,
 	INetworkDefinition* network = builder->createNetwork();
 
 	if (dataType == DataType::kFLOAT) {
-		if (!parser->parse(uffFile, *network, nvinfer1::DataType::kFLOAT))
+		if (!parser->parse(uffFile.c_str(), *network, nvinfer1::DataType::kFLOAT))
 			RETURN_AND_LOG(false, ERROR, "Fail to parse");
 	} else if (dataType == DataType::kHALF) {
-		if (!parser->parse(uffFile, *network, nvinfer1::DataType::kINT8))
+		if (!parser->parse(uffFile.c_str(), *network, nvinfer1::DataType::kINT8))
 			RETURN_AND_LOG(false, ERROR, "Fail to parse");
 		builder->setHalf2Mode(true);
 	} else if (dataType == DataType::kINT8) {
-		if (!parser->parse(uffFile, *network, nvinfer1::DataType::kINT8))
+		if (!parser->parse(uffFile.c_str(), *network, nvinfer1::DataType::kINT8))
 			RETURN_AND_LOG(false, ERROR, "Fail to parse");
 		builder->setInt8Mode(true);
 	}

@@ -33,13 +33,12 @@
 #include "NvUffParser.h"
 #include "NvUtils.h"
 
-#include "host_common.h"
+#include "HostCommon.h"
 
 using namespace nvuffparser;
 using namespace nvinfer1;
 
 void Logger::log(nvinfer1::ILogger::Severity severity, const char* msg) {
-	// suppress info-level messages
 	if (severity == Severity::kINFO)
 		return;
 

@@ -68,13 +68,18 @@ $(function() {
 <div class="title">TensorRTEngine Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Abstract base class which loads and manages a TensorRT model which hides device/host memory management.  
+ <a href="class_tensor_r_t_engine.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_tensor_r_t_engine_8h_source.html">TensorRTEngine.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for TensorRTEngine:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_tensor_r_t_engine__inherit__graph.png" border="0" usemap="#_tensor_r_t_engine_inherit__map" alt="Inheritance graph"/></div>
 <map name="_tensor_r_t_engine_inherit__map" id="_tensor_r_t_engine_inherit__map">
-<area shape="rect" id="node2" href="class_caffe_r_t_engine.html" title="CaffeRTEngine" alt="" coords="5,80,117,107"/>
-<area shape="rect" id="node3" href="class_tensorflow_r_t_engine.html" title="TensorflowRTEngine" alt="" coords="141,80,285,107"/>
+<area shape="rect" id="node2" href="class_caffe_r_t_engine.html" title="Loads and manages a Caffe network in TensorRT. " alt="" coords="5,80,117,107"/>
+<area shape="rect" id="node3" href="class_tensorflow_r_t_engine.html" title="Loads and manages a Tensorflow network in TensorRT. " alt="" coords="141,80,285,107"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -90,24 +95,30 @@ Collaboration diagram for TensorRTEngine:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a248293c7906b85a9e428cae36482bc9c"><td class="memItemLeft" align="right" valign="top"><a id="a248293c7906b85a9e428cae36482bc9c"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#a248293c7906b85a9e428cae36482bc9c">TensorRTEngine</a> ()</td></tr>
-<tr class="memdesc:a248293c7906b85a9e428cae36482bc9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and manages a new instance of <a class="el" href="class_tensor_r_t_engine.html">TensorRTEngine</a>. <br /></td></tr>
+<tr class="memdesc:a248293c7906b85a9e428cae36482bc9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and manages a new instance of <a class="el" href="class_tensor_r_t_engine.html" title="Abstract base class which loads and manages a TensorRT model which hides device/host memory managemen...">TensorRTEngine</a>. <br /></td></tr>
 <tr class="separator:a248293c7906b85a9e428cae36482bc9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6034b9e893da0087efaae6ba1cbc96e"><td class="memItemLeft" align="right" valign="top"><a id="ad6034b9e893da0087efaae6ba1cbc96e"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#ad6034b9e893da0087efaae6ba1cbc96e">~TensorRTEngine</a> ()</td></tr>
-<tr class="memdesc:ad6034b9e893da0087efaae6ba1cbc96e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_tensor_r_t_engine.html">TensorRTEngine</a> destructor. <br /></td></tr>
+<tr class="memdesc:ad6034b9e893da0087efaae6ba1cbc96e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_tensor_r_t_engine.html" title="Abstract base class which loads and manages a TensorRT model which hides device/host memory managemen...">TensorRTEngine</a> destructor. <br /></td></tr>
 <tr class="separator:ad6034b9e893da0087efaae6ba1cbc96e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a541409db4d9a20f7408ae85503d0b4e6"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; void * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#a541409db4d9a20f7408ae85503d0b4e6">predict</a> (std::vector&lt; std::vector&lt; void *&gt;&gt;)</td></tr>
 <tr class="memdesc:a541409db4d9a20f7408ae85503d0b4e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does a forward pass of the neural network loaded in TensorRT  Should be called after loading the graph and calling <a class="el" href="class_tensor_r_t_engine.html#a0d52bef2871b023365eac36d4a88adc2" title="Allocates the buffers required to copy batches to the GPU  Should be called by a subclass after deter...">allocGPUBuffer()</a>  <a href="#a541409db4d9a20f7408ae85503d0b4e6">More...</a><br /></td></tr>
 <tr class="separator:a541409db4d9a20f7408ae85503d0b4e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c9fe70b8ffbb2a1ce2bef72f9b9a595"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#a1c9fe70b8ffbb2a1ce2bef72f9b9a595">loadCache</a> (std::string, size_t)</td></tr>
+<tr class="memdesc:a1c9fe70b8ffbb2a1ce2bef72f9b9a595"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quick load the TensorRT optimized network  Should be called after addInput and addOutput without calling loadModel.  <a href="#a1c9fe70b8ffbb2a1ce2bef72f9b9a595">More...</a><br /></td></tr>
+<tr class="separator:a1c9fe70b8ffbb2a1ce2bef72f9b9a595"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c864a6ca5823d1f7a87f4c1006d0237"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#a0c864a6ca5823d1f7a87f4c1006d0237">saveCache</a> (std::string)</td></tr>
+<tr class="memdesc:a0c864a6ca5823d1f7a87f4c1006d0237"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save the TensorRT optimized network for quick loading in the future  Should be called after loadModel()  <a href="#a0c864a6ca5823d1f7a87f4c1006d0237">More...</a><br /></td></tr>
+<tr class="separator:a0c864a6ca5823d1f7a87f4c1006d0237"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3588568c8f40c24a8593b9101a25296"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#aa3588568c8f40c24a8593b9101a25296">engineSummary</a> ()</td></tr>
 <tr class="memdesc:aa3588568c8f40c24a8593b9101a25296"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a summary of the loaded network, inputs, and outputs.  <a href="#aa3588568c8f40c24a8593b9101a25296">More...</a><br /></td></tr>
 <tr class="separator:aa3588568c8f40c24a8593b9101a25296"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f3ca0023f6b369d163fbec4bf10d36c"><td class="memItemLeft" align="right" valign="top"><a id="a5f3ca0023f6b369d163fbec4bf10d36c"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>addInput</b> (string, nvinfer1::DimsCHW, size_t)</td></tr>
-<tr class="separator:a5f3ca0023f6b369d163fbec4bf10d36c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2b832f59c0464f10307c3bb3e6c270f"><td class="memItemLeft" align="right" valign="top"><a id="ab2b832f59c0464f10307c3bb3e6c270f"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>addOutput</b> (string, nvinfer1::Dims, size_t)</td></tr>
-<tr class="separator:ab2b832f59c0464f10307c3bb3e6c270f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3ad7cb78284ad8ed628c2d11940f464"><td class="memItemLeft" align="right" valign="top"><a id="ac3ad7cb78284ad8ed628c2d11940f464"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>addInput</b> (std::string, nvinfer1::DimsCHW, size_t)</td></tr>
+<tr class="separator:ac3ad7cb78284ad8ed628c2d11940f464"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab03aa4f24b8e26e801a3d7ef94e3612c"><td class="memItemLeft" align="right" valign="top"><a id="ab03aa4f24b8e26e801a3d7ef94e3612c"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>addOutput</b> (std::string, nvinfer1::Dims, size_t)</td></tr>
+<tr class="separator:ab03aa4f24b8e26e801a3d7ef94e3612c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -140,14 +151,16 @@ IExecutionContext *&#160;</td><td class="memItemRight" valign="bottom"><b>contex
 <tr class="memitem:a25b90b417fa350769139922e4456ed6e"><td class="memItemLeft" align="right" valign="top"><a id="a25b90b417fa350769139922e4456ed6e"></a>
 <a class="el" href="class_logger.html">Logger</a>&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b></td></tr>
 <tr class="separator:a25b90b417fa350769139922e4456ed6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e526cf32783b6fd59c7d605a9761dcb"><td class="memItemLeft" align="right" valign="top"><a id="a9e526cf32783b6fd59c7d605a9761dcb"></a>
-vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>networkInputs</b></td></tr>
-<tr class="separator:a9e526cf32783b6fd59c7d605a9761dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abfd01b64f310b8cf6512ddeb41d56c60"><td class="memItemLeft" align="right" valign="top"><a id="abfd01b64f310b8cf6512ddeb41d56c60"></a>
-vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>networkOutputs</b></td></tr>
-<tr class="separator:abfd01b64f310b8cf6512ddeb41d56c60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbe2baaa3d517d957ad20d1fca4395e9"><td class="memItemLeft" align="right" valign="top"><a id="abbe2baaa3d517d957ad20d1fca4395e9"></a>
+vector&lt; <a class="el" href="class_network_input.html">NetworkInput</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>networkInputs</b></td></tr>
+<tr class="separator:abbe2baaa3d517d957ad20d1fca4395e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85508d6f89834def1683b7ba9ac601e5"><td class="memItemLeft" align="right" valign="top"><a id="a85508d6f89834def1683b7ba9ac601e5"></a>
+vector&lt; <a class="el" href="class_network_output.html">NetworkOutput</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>networkOutputs</b></td></tr>
+<tr class="separator:a85508d6f89834def1683b7ba9ac601e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Abstract base class which loads and manages a TensorRT model which hides device/host memory management. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aa3588568c8f40c24a8593b9101a25296"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa3588568c8f40c24a8593b9101a25296">&#9670;&nbsp;</a></span>engineSummary()</h2>
 
@@ -165,6 +178,44 @@ vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>net
 
 <p>Returns a summary of the loaded network, inputs, and outputs. </p>
 <dl class="section return"><dt>Returns</dt><dd>String containing the summary </dd></dl>
+
+</div>
+</div>
+<a id="a1c9fe70b8ffbb2a1ce2bef72f9b9a595"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c9fe70b8ffbb2a1ce2bef72f9b9a595">&#9670;&nbsp;</a></span>loadCache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool TensorRTEngine::loadCache </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>cachePath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>maxBatchSize</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Quick load the TensorRT optimized network  Should be called after addInput and addOutput without calling loadModel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cachePath</td><td>Path to the network cache file </td></tr>
+    <tr><td class="paramname">maxBatchSize</td><td>The max batch size of the saved network. If the batch size needs to be changed, the network should be rebuilt with the new size and not simply changed here. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Whether the load succeeded or not </dd></dl>
 
 </div>
 </div>
@@ -195,9 +246,36 @@ vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>net
 
 </div>
 </div>
+<a id="a0c864a6ca5823d1f7a87f4c1006d0237"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c864a6ca5823d1f7a87f4c1006d0237">&#9670;&nbsp;</a></span>saveCache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool TensorRTEngine::saveCache </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>cachePath</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Save the TensorRT optimized network for quick loading in the future  Should be called after loadModel() </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cachePath</td><td>Path to the network cache file </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Whether the save succeeded or not </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>tensorrt/<a class="el" href="_tensor_r_t_engine_8h_source.html">TensorRTEngine.h</a></li>
-<li>tensorrt/<a class="el" href="_tensor_r_t_engine_8cpp.html">TensorRTEngine.cpp</a></li>
+<li>src/tensorrt/<a class="el" href="_tensor_r_t_engine_8h_source.html">TensorRTEngine.h</a></li>
+<li>src/tensorrt/<a class="el" href="_tensor_r_t_engine_8cpp.html">TensorRTEngine.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -60,17 +60,23 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="class_tensorflow_r_t_engine-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">TensorflowRTEngine Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Loads and manages a Tensorflow network in TensorRT.  
+ <a href="class_tensorflow_r_t_engine.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_tensorflow_r_t_engine_8h_source.html">TensorflowRTEngine.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for TensorflowRTEngine:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_tensorflow_r_t_engine__inherit__graph.png" border="0" usemap="#_tensorflow_r_t_engine_inherit__map" alt="Inheritance graph"/></div>
 <map name="_tensorflow_r_t_engine_inherit__map" id="_tensorflow_r_t_engine_inherit__map">
-<area shape="rect" id="node2" href="class_tensor_r_t_engine.html" title="TensorRTEngine" alt="" coords="17,5,137,32"/>
+<area shape="rect" id="node2" href="class_tensor_r_t_engine.html" title="Abstract base class which loads and manages a TensorRT model which hides device/host memory managemen..." alt="" coords="17,5,137,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -78,7 +84,7 @@ Collaboration diagram for TensorflowRTEngine:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_tensorflow_r_t_engine__coll__graph.png" border="0" usemap="#_tensorflow_r_t_engine_coll__map" alt="Collaboration graph"/></div>
 <map name="_tensorflow_r_t_engine_coll__map" id="_tensorflow_r_t_engine_coll__map">
-<area shape="rect" id="node2" href="class_tensor_r_t_engine.html" title="TensorRTEngine" alt="" coords="17,171,137,197"/>
+<area shape="rect" id="node2" href="class_tensor_r_t_engine.html" title="Abstract base class which loads and manages a TensorRT model which hides device/host memory managemen..." alt="" coords="17,171,137,197"/>
 <area shape="rect" id="node3" href="class_logger.html" title="Logger" alt="" coords="47,81,108,108"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -87,36 +93,67 @@ Collaboration diagram for TensorflowRTEngine:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ae52b785b706fd9d84d3258799a12d670"><td class="memItemLeft" align="right" valign="top"><a id="ae52b785b706fd9d84d3258799a12d670"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensorflow_r_t_engine.html#ae52b785b706fd9d84d3258799a12d670">TensorflowRTEngine</a> ()</td></tr>
-<tr class="memdesc:ae52b785b706fd9d84d3258799a12d670"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new instance of <a class="el" href="class_tensorflow_r_t_engine.html">TensorflowRTEngine</a>. <br /></td></tr>
+<tr class="memdesc:ae52b785b706fd9d84d3258799a12d670"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new instance of <a class="el" href="class_tensorflow_r_t_engine.html" title="Loads and manages a Tensorflow network in TensorRT. ">TensorflowRTEngine</a>. <br /></td></tr>
 <tr class="separator:ae52b785b706fd9d84d3258799a12d670"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a387485b4b4e54f577f4a891798ec8660"><td class="memItemLeft" align="right" valign="top"><a id="a387485b4b4e54f577f4a891798ec8660"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensorflow_r_t_engine.html#a387485b4b4e54f577f4a891798ec8660">~TensorflowRTEngine</a> ()</td></tr>
-<tr class="memdesc:a387485b4b4e54f577f4a891798ec8660"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_tensorflow_r_t_engine.html">TensorflowRTEngine</a> Destructor. <br /></td></tr>
+<tr class="memdesc:a387485b4b4e54f577f4a891798ec8660"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_tensorflow_r_t_engine.html" title="Loads and manages a Tensorflow network in TensorRT. ">TensorflowRTEngine</a> Destructor. <br /></td></tr>
 <tr class="separator:a387485b4b4e54f577f4a891798ec8660"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31cc80a8a2e287c0168bf47eed734702"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensorflow_r_t_engine.html#a31cc80a8a2e287c0168bf47eed734702">loadUff</a> (const char *, size_t, nvinfer1::DataType, size_t)</td></tr>
-<tr class="memdesc:a31cc80a8a2e287c0168bf47eed734702"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a frozen Tensorflow .uff graph  Must be called after <a class="el" href="class_tensorflow_r_t_engine.html#a533b35f1f27799cb4981d0ab38d8fbed" title="Registers an input to the Tensorflow network  Must be called before loadUff() ">addInput()</a> and <a class="el" href="class_tensorflow_r_t_engine.html#ab560fe21264894fc02fce3481c87b182" title="Registers an output from the Tensorflow network  Must be called before loadUff() ">addOutput()</a>  <a href="#a31cc80a8a2e287c0168bf47eed734702">More...</a><br /></td></tr>
-<tr class="separator:a31cc80a8a2e287c0168bf47eed734702"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a533b35f1f27799cb4981d0ab38d8fbed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensorflow_r_t_engine.html#a533b35f1f27799cb4981d0ab38d8fbed">addInput</a> (string, nvinfer1::DimsCHW, size_t)</td></tr>
-<tr class="memdesc:a533b35f1f27799cb4981d0ab38d8fbed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an input to the Tensorflow network  Must be called before <a class="el" href="class_tensorflow_r_t_engine.html#a31cc80a8a2e287c0168bf47eed734702" title="Loads a frozen Tensorflow .uff graph  Must be called after addInput() and addOutput() ...">loadUff()</a>  <a href="#a533b35f1f27799cb4981d0ab38d8fbed">More...</a><br /></td></tr>
-<tr class="separator:a533b35f1f27799cb4981d0ab38d8fbed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab560fe21264894fc02fce3481c87b182"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensorflow_r_t_engine.html#ab560fe21264894fc02fce3481c87b182">addOutput</a> (string, nvinfer1::Dims dims, size_t)</td></tr>
-<tr class="memdesc:ab560fe21264894fc02fce3481c87b182"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an output from the Tensorflow network  Must be called before <a class="el" href="class_tensorflow_r_t_engine.html#a31cc80a8a2e287c0168bf47eed734702" title="Loads a frozen Tensorflow .uff graph  Must be called after addInput() and addOutput() ...">loadUff()</a>  <a href="#ab560fe21264894fc02fce3481c87b182">More...</a><br /></td></tr>
-<tr class="separator:ab560fe21264894fc02fce3481c87b182"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0035329c2862ccd798e286fc33fa0f3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensorflow_r_t_engine.html#ac0035329c2862ccd798e286fc33fa0f3">loadModel</a> (std::string, size_t, nvinfer1::DataType, size_t)</td></tr>
+<tr class="memdesc:ac0035329c2862ccd798e286fc33fa0f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a frozen Tensorflow .uff graph.  Must be called after <a class="el" href="class_tensorflow_r_t_engine.html#a6fa9853ccceb12ec315daef04da77e25" title="Registers an input to the Tensorflow network.  Must be called before loadUff(). ">addInput()</a> and <a class="el" href="class_tensorflow_r_t_engine.html#af1a89a7e0b1a1319ae597c49be756923" title="Registers an output from the Tensorflow network.  Must be called before loadUff(). ">addOutput()</a>.  <a href="#ac0035329c2862ccd798e286fc33fa0f3">More...</a><br /></td></tr>
+<tr class="separator:ac0035329c2862ccd798e286fc33fa0f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fa9853ccceb12ec315daef04da77e25"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensorflow_r_t_engine.html#a6fa9853ccceb12ec315daef04da77e25">addInput</a> (std::string, nvinfer1::DimsCHW, size_t)</td></tr>
+<tr class="memdesc:a6fa9853ccceb12ec315daef04da77e25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an input to the Tensorflow network.  Must be called before loadUff().  <a href="#a6fa9853ccceb12ec315daef04da77e25">More...</a><br /></td></tr>
+<tr class="separator:a6fa9853ccceb12ec315daef04da77e25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1a89a7e0b1a1319ae597c49be756923"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensorflow_r_t_engine.html#af1a89a7e0b1a1319ae597c49be756923">addOutput</a> (std::string, nvinfer1::Dims dims, size_t)</td></tr>
+<tr class="memdesc:af1a89a7e0b1a1319ae597c49be756923"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an output from the Tensorflow network.  Must be called before loadUff().  <a href="#af1a89a7e0b1a1319ae597c49be756923">More...</a><br /></td></tr>
+<tr class="separator:af1a89a7e0b1a1319ae597c49be756923"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_tensor_r_t_engine"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_tensor_r_t_engine')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_tensor_r_t_engine.html">TensorRTEngine</a></td></tr>
 <tr class="memitem:a248293c7906b85a9e428cae36482bc9c inherit pub_methods_class_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a id="a248293c7906b85a9e428cae36482bc9c"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#a248293c7906b85a9e428cae36482bc9c">TensorRTEngine</a> ()</td></tr>
-<tr class="memdesc:a248293c7906b85a9e428cae36482bc9c inherit pub_methods_class_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and manages a new instance of <a class="el" href="class_tensor_r_t_engine.html">TensorRTEngine</a>. <br /></td></tr>
+<tr class="memdesc:a248293c7906b85a9e428cae36482bc9c inherit pub_methods_class_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and manages a new instance of <a class="el" href="class_tensor_r_t_engine.html" title="Abstract base class which loads and manages a TensorRT model which hides device/host memory managemen...">TensorRTEngine</a>. <br /></td></tr>
 <tr class="separator:a248293c7906b85a9e428cae36482bc9c inherit pub_methods_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6034b9e893da0087efaae6ba1cbc96e inherit pub_methods_class_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a id="ad6034b9e893da0087efaae6ba1cbc96e"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#ad6034b9e893da0087efaae6ba1cbc96e">~TensorRTEngine</a> ()</td></tr>
-<tr class="memdesc:ad6034b9e893da0087efaae6ba1cbc96e inherit pub_methods_class_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_tensor_r_t_engine.html">TensorRTEngine</a> destructor. <br /></td></tr>
+<tr class="memdesc:ad6034b9e893da0087efaae6ba1cbc96e inherit pub_methods_class_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_tensor_r_t_engine.html" title="Abstract base class which loads and manages a TensorRT model which hides device/host memory managemen...">TensorRTEngine</a> destructor. <br /></td></tr>
 <tr class="separator:ad6034b9e893da0087efaae6ba1cbc96e inherit pub_methods_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a541409db4d9a20f7408ae85503d0b4e6 inherit pub_methods_class_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; void * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#a541409db4d9a20f7408ae85503d0b4e6">predict</a> (std::vector&lt; std::vector&lt; void *&gt;&gt;)</td></tr>
 <tr class="memdesc:a541409db4d9a20f7408ae85503d0b4e6 inherit pub_methods_class_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does a forward pass of the neural network loaded in TensorRT  Should be called after loading the graph and calling <a class="el" href="class_tensor_r_t_engine.html#a0d52bef2871b023365eac36d4a88adc2" title="Allocates the buffers required to copy batches to the GPU  Should be called by a subclass after deter...">allocGPUBuffer()</a>  <a href="class_tensor_r_t_engine.html#a541409db4d9a20f7408ae85503d0b4e6">More...</a><br /></td></tr>
 <tr class="separator:a541409db4d9a20f7408ae85503d0b4e6 inherit pub_methods_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c9fe70b8ffbb2a1ce2bef72f9b9a595 inherit pub_methods_class_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#a1c9fe70b8ffbb2a1ce2bef72f9b9a595">loadCache</a> (std::string, size_t)</td></tr>
+<tr class="memdesc:a1c9fe70b8ffbb2a1ce2bef72f9b9a595 inherit pub_methods_class_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quick load the TensorRT optimized network  Should be called after addInput and addOutput without calling loadModel.  <a href="class_tensor_r_t_engine.html#a1c9fe70b8ffbb2a1ce2bef72f9b9a595">More...</a><br /></td></tr>
+<tr class="separator:a1c9fe70b8ffbb2a1ce2bef72f9b9a595 inherit pub_methods_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c864a6ca5823d1f7a87f4c1006d0237 inherit pub_methods_class_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#a0c864a6ca5823d1f7a87f4c1006d0237">saveCache</a> (std::string)</td></tr>
+<tr class="memdesc:a0c864a6ca5823d1f7a87f4c1006d0237 inherit pub_methods_class_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save the TensorRT optimized network for quick loading in the future  Should be called after loadModel()  <a href="class_tensor_r_t_engine.html#a0c864a6ca5823d1f7a87f4c1006d0237">More...</a><br /></td></tr>
+<tr class="separator:a0c864a6ca5823d1f7a87f4c1006d0237 inherit pub_methods_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3588568c8f40c24a8593b9101a25296 inherit pub_methods_class_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#aa3588568c8f40c24a8593b9101a25296">engineSummary</a> ()</td></tr>
 <tr class="memdesc:aa3588568c8f40c24a8593b9101a25296 inherit pub_methods_class_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a summary of the loaded network, inputs, and outputs.  <a href="class_tensor_r_t_engine.html#aa3588568c8f40c24a8593b9101a25296">More...</a><br /></td></tr>
 <tr class="separator:aa3588568c8f40c24a8593b9101a25296 inherit pub_methods_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a7ce8180b8a200df277bf32003e8db648"><td class="memItemLeft" align="right" valign="top"><a id="a7ce8180b8a200df277bf32003e8db648"></a>
+vector&lt; <a class="el" href="class_network_input.html">NetworkInput</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>networkInputs</b></td></tr>
+<tr class="separator:a7ce8180b8a200df277bf32003e8db648"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14c52822b3e6dae61ba5471c6bfa1520"><td class="memItemLeft" align="right" valign="top"><a id="a14c52822b3e6dae61ba5471c6bfa1520"></a>
+vector&lt; <a class="el" href="class_network_output.html">NetworkOutput</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>networkOutputs</b></td></tr>
+<tr class="separator:a14c52822b3e6dae61ba5471c6bfa1520"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_class_tensor_r_t_engine"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_tensor_r_t_engine')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_tensor_r_t_engine.html">TensorRTEngine</a></td></tr>
+<tr class="memitem:ab378fe74661972bfad970ec7d2c6817b inherit pro_attribs_class_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a id="ab378fe74661972bfad970ec7d2c6817b"></a>
+ICudaEngine *&#160;</td><td class="memItemRight" valign="bottom"><b>engine</b></td></tr>
+<tr class="separator:ab378fe74661972bfad970ec7d2c6817b inherit pro_attribs_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaadc61ccb2a1e59f3828419e8c34b7e7 inherit pro_attribs_class_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a id="aaadc61ccb2a1e59f3828419e8c34b7e7"></a>
+IExecutionContext *&#160;</td><td class="memItemRight" valign="bottom"><b>context</b></td></tr>
+<tr class="separator:aaadc61ccb2a1e59f3828419e8c34b7e7 inherit pro_attribs_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25b90b417fa350769139922e4456ed6e inherit pro_attribs_class_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a id="a25b90b417fa350769139922e4456ed6e"></a>
+<a class="el" href="class_logger.html">Logger</a>&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b></td></tr>
+<tr class="separator:a25b90b417fa350769139922e4456ed6e inherit pro_attribs_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbe2baaa3d517d957ad20d1fca4395e9 inherit pro_attribs_class_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a id="abbe2baaa3d517d957ad20d1fca4395e9"></a>
+vector&lt; <a class="el" href="class_network_input.html">NetworkInput</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>networkInputs</b></td></tr>
+<tr class="separator:abbe2baaa3d517d957ad20d1fca4395e9 inherit pro_attribs_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85508d6f89834def1683b7ba9ac601e5 inherit pro_attribs_class_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a id="a85508d6f89834def1683b7ba9ac601e5"></a>
+vector&lt; <a class="el" href="class_network_output.html">NetworkOutput</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>networkOutputs</b></td></tr>
+<tr class="separator:a85508d6f89834def1683b7ba9ac601e5 inherit pro_attribs_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -136,26 +173,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#a3a4a37839c3c4c5eb2833d44265348f1">freeGPUBuffer</a> ()</td></tr>
 <tr class="memdesc:a3a4a37839c3c4c5eb2833d44265348f1 inherit pro_methods_class_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees buffers required to copy batches to the GPU  Should be called by subclass destructor. <br /></td></tr>
 <tr class="separator:a3a4a37839c3c4c5eb2833d44265348f1 inherit pro_methods_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_attribs_class_tensor_r_t_engine"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_tensor_r_t_engine')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_tensor_r_t_engine.html">TensorRTEngine</a></td></tr>
-<tr class="memitem:ab378fe74661972bfad970ec7d2c6817b inherit pro_attribs_class_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a id="ab378fe74661972bfad970ec7d2c6817b"></a>
-ICudaEngine *&#160;</td><td class="memItemRight" valign="bottom"><b>engine</b></td></tr>
-<tr class="separator:ab378fe74661972bfad970ec7d2c6817b inherit pro_attribs_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaadc61ccb2a1e59f3828419e8c34b7e7 inherit pro_attribs_class_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a id="aaadc61ccb2a1e59f3828419e8c34b7e7"></a>
-IExecutionContext *&#160;</td><td class="memItemRight" valign="bottom"><b>context</b></td></tr>
-<tr class="separator:aaadc61ccb2a1e59f3828419e8c34b7e7 inherit pro_attribs_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25b90b417fa350769139922e4456ed6e inherit pro_attribs_class_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a id="a25b90b417fa350769139922e4456ed6e"></a>
-<a class="el" href="class_logger.html">Logger</a>&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b></td></tr>
-<tr class="separator:a25b90b417fa350769139922e4456ed6e inherit pro_attribs_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e526cf32783b6fd59c7d605a9761dcb inherit pro_attribs_class_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a id="a9e526cf32783b6fd59c7d605a9761dcb"></a>
-vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>networkInputs</b></td></tr>
-<tr class="separator:a9e526cf32783b6fd59c7d605a9761dcb inherit pro_attribs_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abfd01b64f310b8cf6512ddeb41d56c60 inherit pro_attribs_class_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a id="abfd01b64f310b8cf6512ddeb41d56c60"></a>
-vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>networkOutputs</b></td></tr>
-<tr class="separator:abfd01b64f310b8cf6512ddeb41d56c60 inherit pro_attribs_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a533b35f1f27799cb4981d0ab38d8fbed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a533b35f1f27799cb4981d0ab38d8fbed">&#9670;&nbsp;</a></span>addInput()</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Loads and manages a Tensorflow network in TensorRT. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6fa9853ccceb12ec315daef04da77e25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fa9853ccceb12ec315daef04da77e25">&#9670;&nbsp;</a></span>addInput()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -166,7 +189,7 @@ vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>net
         <tr>
           <td class="memname">void TensorflowRTEngine::addInput </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>layer</em>, </td>
         </tr>
         <tr>
@@ -194,7 +217,7 @@ vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>net
 </table>
 </div><div class="memdoc">
 
-<p>Registers an input to the Tensorflow network  Must be called before <a class="el" href="class_tensorflow_r_t_engine.html#a31cc80a8a2e287c0168bf47eed734702" title="Loads a frozen Tensorflow .uff graph  Must be called after addInput() and addOutput() ...">loadUff()</a> </p>
+<p>Registers an input to the Tensorflow network.  Must be called before loadUff(). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">layer</td><td>The name of the input layer (i.e. "input_1") </td></tr>
@@ -208,8 +231,8 @@ vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>net
 
 </div>
 </div>
-<a id="ab560fe21264894fc02fce3481c87b182"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab560fe21264894fc02fce3481c87b182">&#9670;&nbsp;</a></span>addOutput()</h2>
+<a id="af1a89a7e0b1a1319ae597c49be756923"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1a89a7e0b1a1319ae597c49be756923">&#9670;&nbsp;</a></span>addOutput()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -220,7 +243,7 @@ vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>net
         <tr>
           <td class="memname">void TensorflowRTEngine::addOutput </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>layer</em>, </td>
         </tr>
         <tr>
@@ -248,7 +271,7 @@ vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>net
 </table>
 </div><div class="memdoc">
 
-<p>Registers an output from the Tensorflow network  Must be called before <a class="el" href="class_tensorflow_r_t_engine.html#a31cc80a8a2e287c0168bf47eed734702" title="Loads a frozen Tensorflow .uff graph  Must be called after addInput() and addOutput() ...">loadUff()</a> </p>
+<p>Registers an output from the Tensorflow network.  Must be called before loadUff(). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">layer</td><td>The name of the input layer (i.e. "input_1") </td></tr>
@@ -262,16 +285,16 @@ vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>net
 
 </div>
 </div>
-<a id="a31cc80a8a2e287c0168bf47eed734702"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31cc80a8a2e287c0168bf47eed734702">&#9670;&nbsp;</a></span>loadUff()</h2>
+<a id="ac0035329c2862ccd798e286fc33fa0f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0035329c2862ccd798e286fc33fa0f3">&#9670;&nbsp;</a></span>loadModel()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool TensorflowRTEngine::loadUff </td>
+          <td class="memname">bool TensorflowRTEngine::loadModel </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>uffFile</em>, </td>
         </tr>
         <tr>
@@ -300,11 +323,12 @@ vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>net
       </table>
 </div><div class="memdoc">
 
-<p>Loads a frozen Tensorflow .uff graph  Must be called after <a class="el" href="class_tensorflow_r_t_engine.html#a533b35f1f27799cb4981d0ab38d8fbed" title="Registers an input to the Tensorflow network  Must be called before loadUff() ">addInput()</a> and <a class="el" href="class_tensorflow_r_t_engine.html#ab560fe21264894fc02fce3481c87b182" title="Registers an output from the Tensorflow network  Must be called before loadUff() ">addOutput()</a> </p>
+<p>Loads a frozen Tensorflow .uff graph.  Must be called after <a class="el" href="class_tensorflow_r_t_engine.html#a6fa9853ccceb12ec315daef04da77e25" title="Registers an input to the Tensorflow network.  Must be called before loadUff(). ">addInput()</a> and <a class="el" href="class_tensorflow_r_t_engine.html#af1a89a7e0b1a1319ae597c49be756923" title="Registers an output from the Tensorflow network.  Must be called before loadUff(). ">addOutput()</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uffFile</td><td>Path to the .uff graph file </td></tr>
     <tr><td class="paramname">maximumBatchSize</td><td>The maximum number of records to run a forward network pass on. For maximum performance, this should be the only batch size passed to the network. </td></tr>
+    <tr><td class="paramname">dataType</td><td>The data type of the network to load into TensorRT </td></tr>
     <tr><td class="paramname">maxNetworkSize</td><td>Maximum amount of GPU RAM the Tensorflow graph is allowed to use </td></tr>
   </table>
   </dd>
@@ -313,8 +337,8 @@ vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>net
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>tensorrt/<a class="el" href="_tensorflow_r_t_engine_8h_source.html">TensorflowRTEngine.h</a></li>
-<li>tensorrt/<a class="el" href="_tensorflow_r_t_engine_8cpp.html">TensorflowRTEngine.cpp</a></li>
+<li>src/tensorrt/<a class="el" href="_tensorflow_r_t_engine_8h_source.html">TensorflowRTEngine.h</a></li>
+<li>src/tensorrt/<a class="el" href="_tensorflow_r_t_engine_8cpp.html">TensorflowRTEngine.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

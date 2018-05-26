@@ -28,15 +28,29 @@
 #ifndef CAFFERTENGINE_H_
 #define CAFFERTENGINE_H_
 
+#include <string>
+
+#include "NvInfer.h"
+#include "NvCaffeParser.h"
+#include "NvUtils.h"
+
 #include "TensorRTEngine.h"
 
+/**
+ * @brief Loads and manages a Caffe network in TensorRT
+ */
 class CaffeRTEngine: public TensorRTEngine {
 public:
 	CaffeRTEngine();
 	virtual ~CaffeRTEngine();
 
-	void addInput(string, nvinfer1::DimsCHW, size_t);
-	void addOutput(string, nvinfer1::Dims, size_t);
+	bool loadModel(std::string, std::string, size_t, nvinfer1::DataType, size_t);
+
+	void addInput(std::string, nvinfer1::DimsCHW, size_t);
+	void addOutput(std::string, nvinfer1::Dims, size_t);
+
+private:
+	nvcaffeparser1::ICaffeParser* parser;
 };
 
 #endif /* CAFFERTENGINE_H_ */

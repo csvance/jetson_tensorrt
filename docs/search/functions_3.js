@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['loaduff',['loadUff',['../class_tensorflow_r_t_engine.html#a31cc80a8a2e287c0168bf47eed734702',1,'TensorflowRTEngine']]]
+  ['freegpubuffer',['freeGPUBuffer',['../class_tensor_r_t_engine.html#a3a4a37839c3c4c5eb2833d44265348f1',1,'TensorRTEngine']]]
 ];

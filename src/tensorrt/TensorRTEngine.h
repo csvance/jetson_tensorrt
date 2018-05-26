@@ -31,8 +31,13 @@
 #include <string>
 #include <vector>
 
-#include "host_common.h"
+#include "NetworkOutput.h"
+#include "NetworkInput.h"
+#include "HostCommon.h"
 
+/**
+ * @brief Abstract base class which loads and manages a TensorRT model which hides device/host memory management
+ */
 class TensorRTEngine {
 public:
 	TensorRTEngine();
@@ -40,10 +45,13 @@ public:
 
 	std::vector<std::vector<void*>> predict(std::vector<std::vector<void*>>);
 
+	bool loadCache(std::string, size_t);
+	bool saveCache(std::string);
+
 	string engineSummary();
 
-	virtual void addInput(string, nvinfer1::DimsCHW, size_t);
-	virtual void addOutput(string, nvinfer1::Dims, size_t);
+	virtual void addInput(std::string, nvinfer1::DimsCHW, size_t);
+	virtual void addOutput(std::string, nvinfer1::Dims, size_t);
 
 	int maxBatchSize;
 	int numBindings;
@@ -53,8 +61,8 @@ protected:
 	IExecutionContext* context;
 	Logger logger;
 
-	vector<size_t> networkInputs;
-	vector<size_t> networkOutputs;
+	vector<NetworkInput> networkInputs;
+	vector<NetworkOutput>  networkOutputs;
 
 	void allocGPUBuffer();
 	void freeGPUBuffer();
@@ -63,5 +71,7 @@ private:
 	std::vector<void*> GPU_Buffers;
 
 };
+
+
 
 #endif

@@ -47,8 +47,7 @@ using namespace nvuffparser;
 using namespace nvinfer1;
 
 #include "TensorRTEngine.h"
-#include "host_common.h"
-
+#include "HostCommon.h"
 
 /**
  * @brief	Creates and manages a new instance of TensorRTEngine
@@ -85,7 +84,7 @@ void TensorRTEngine::allocGPUBuffer() {
 		/* Allocate GPU Input memory */
 		int bindingIdx = 0;
 		for (int i = 0; i < networkInputs.size(); i++) {
-			size_t inputSize = networkInputs[i];
+			size_t inputSize = networkInputs[i].size();
 
 			GPU_Buffers[bindingIdx + b * stepSize] = safeCudaMalloc(inputSize);
 			bindingIdx++;
@@ -93,7 +92,7 @@ void TensorRTEngine::allocGPUBuffer() {
 
 		/* Allocate GPU Output memory */
 		for (int i = 0; i < networkOutputs.size(); i++) {
-			size_t outputSize = networkOutputs[i];
+			size_t outputSize = networkOutputs[i].size();
 
 			GPU_Buffers[bindingIdx + b * stepSize] = safeCudaMalloc(outputSize);
 			bindingIdx++;
@@ -132,7 +131,7 @@ std::vector<std::vector<void*>> TensorRTEngine::predict(
 
 		int bindingIdx = 0;
 		for (int i = 0; i < networkInputs.size(); i++) {
-			size_t inputSize = networkInputs[i];
+			size_t inputSize = networkInputs[i].size();
 
 			CHECK(
 					cudaMemcpy(GPU_Buffers[bindingIdx + b * stepSize],
@@ -153,7 +152,7 @@ std::vector<std::vector<void*>> TensorRTEngine::predict(
 
 		int bindingIdx = batchInputs[b].size();
 		for (int i = 0; i < networkOutputs.size(); i++) {
-			size_t outputSize = networkOutputs[i];
+			size_t outputSize = networkOutputs[i].size();
 
 			/* Allocate a host buffer for the network output */
 			Output_Buffers[b].push_back(new unsigned char[outputSize]);
@@ -190,13 +189,6 @@ string TensorRTEngine::engineSummary() {
 			summary << "Type: Input";
 		else
 			summary << "Type: Output";
-		summary << " DataType: ";
-		if (dtype == DataType::kFLOAT)
-			summary << "kFLOAT";
-		else if (dtype == DataType::kHALF)
-			summary << "kHALF";
-		else if (dtype == DataType::kINT8)
-			summary << "kINT8";
 
 		summary << " Dims: (";
 		for (int j = 0; j < dims.nbDims; j++)
@@ -206,4 +198,75 @@ string TensorRTEngine::engineSummary() {
 	}
 	return summary.str();
 
+}
+
+/**
+ * @brief	Save the TensorRT optimized network for quick loading in the future
+ * @usage	Should be called after loadModel()
+ * @param	cachePath	Path to the network cache file
+ * @return	Whether the save succeeded or not
+ */
+bool TensorRTEngine::saveCache(std::string cachePath){
+	//Serialize the loaded model
+	nvinfer1::IHostMemory* serMem = engine->serialize();
+
+	if( !serMem )
+	{
+		printf("Failed to serialize CUDA engine\n");
+		return false;
+	}
+
+	// Write the cache file to the disk
+	std::ofstream cache;
+	cache.open(cachePath.c_str());
+	cache.write((const char*)serMem->data(), serMem->size());
+	cache.close();
+
+	//Cleanup
+	serMem->destroy();
+}
+
+/**
+ * @brief	Quick load the TensorRT optimized network
+ * @usage	Should be called after addInput and addOutput without calling loadModel
+ * @param	cachePath	Path to the network cache file
+ * @param	maxBatchSize	The max batch size of the saved network. If the batch size needs to be changed, the network should be rebuilt with the new size and not simply changed here.
+ * @return	Whether the load succeeded or not
+ */
+bool TensorRTEngine::loadCache(std::string cachePath, size_t maxBatchSize){
+
+	// Read the cache file from the disk and load it into a stringstream
+	std::ifstream cache;
+	cache.open(cachePath);
+
+	std::stringstream gieModelStream;
+
+	gieModelStream.seekg(0, gieModelStream.beg);
+	gieModelStream << cache.rdbuf();
+	cache.close();
+
+	nvinfer1::IRuntime* infer = nvinfer1::createInferRuntime(logger);
+
+	gieModelStream.seekg(0, std::ios::end);
+	const int modelSize = gieModelStream.tellg();
+	gieModelStream.seekg(0, std::ios::beg);
+
+	void* modelMem = malloc(modelSize);
+	if (!modelMem)
+		RETURN_AND_LOG(false, ERROR, "Unable to allocate memory to deserialize model");
+
+	gieModelStream.read((char*)modelMem, modelSize);
+	nvinfer1::ICudaEngine* engine = infer->deserializeCudaEngine(modelMem, modelSize, NULL);
+
+	free(modelMem);
+
+	if (!engine)
+		RETURN_AND_LOG(false, ERROR, "Unable to create engine from deserialized data");
+
+	// Populate things that need to be populated before allocating memory
+	this->numBindings = engine->getNbBindings();
+	this->maxBatchSize = maxBatchSize;
+
+	//Allocate device memory
+	allocGPUBuffer();
 }
