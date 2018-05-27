@@ -102,9 +102,12 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#ad6034b9e893da0087efaae6ba1cbc96e">~TensorRTEngine</a> ()</td></tr>
 <tr class="memdesc:ad6034b9e893da0087efaae6ba1cbc96e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_tensor_r_t_engine.html" title="Abstract base class which loads and manages a TensorRT model which hides device/host memory managemen...">TensorRTEngine</a> destructor. <br /></td></tr>
 <tr class="separator:ad6034b9e893da0087efaae6ba1cbc96e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a541409db4d9a20f7408ae85503d0b4e6"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; void * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#a541409db4d9a20f7408ae85503d0b4e6">predict</a> (std::vector&lt; std::vector&lt; void *&gt;&gt;)</td></tr>
-<tr class="memdesc:a541409db4d9a20f7408ae85503d0b4e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does a forward pass of the neural network loaded in TensorRT  Should be called after loading the graph and calling <a class="el" href="class_tensor_r_t_engine.html#a0d52bef2871b023365eac36d4a88adc2" title="Allocates the buffers required to copy batches to the GPU  Should be called by a subclass after deter...">allocGPUBuffer()</a>  <a href="#a541409db4d9a20f7408ae85503d0b4e6">More...</a><br /></td></tr>
-<tr class="separator:a541409db4d9a20f7408ae85503d0b4e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa91e56fec5db21b3fea26f09280776e5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; void * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#aa91e56fec5db21b3fea26f09280776e5">predict</a> (std::vector&lt; std::vector&lt; void *&gt;&gt;, bool=false)</td></tr>
+<tr class="memdesc:aa91e56fec5db21b3fea26f09280776e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does a forward pass of the neural network loaded in TensorRT  Should be called after loading the graph and calling <a class="el" href="class_tensor_r_t_engine.html#a0d52bef2871b023365eac36d4a88adc2" title="Allocates the buffers required to copy batches to the GPU  Should be called by a subclass after deter...">allocGPUBuffer()</a>  <a href="#aa91e56fec5db21b3fea26f09280776e5">More...</a><br /></td></tr>
+<tr class="separator:aa91e56fec5db21b3fea26f09280776e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac187c6281801329244e48a0e76ea0835"><td class="memItemLeft" align="right" valign="top"><a id="ac187c6281801329244e48a0e76ea0835"></a>
+std::vector&lt; std::vector&lt; void * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>predictDevice</b> (std::vector&lt; std::vector&lt; void *&gt;&gt;)</td></tr>
+<tr class="separator:ac187c6281801329244e48a0e76ea0835"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d4f98a2215e0dbf877981575a84c3e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#a5d4f98a2215e0dbf877981575a84c3e9">loadCache</a> (std::string, size_t=1)</td></tr>
 <tr class="memdesc:a5d4f98a2215e0dbf877981575a84c3e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quick load the TensorRT optimized network  Should be called after addInput and addOutput without calling loadModel.  <a href="#a5d4f98a2215e0dbf877981575a84c3e9">More...</a><br /></td></tr>
 <tr class="separator:a5d4f98a2215e0dbf877981575a84c3e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -219,8 +222,8 @@ std::vector&lt; <a class="el" href="class_network_output.html">NetworkOutput</a>
 
 </div>
 </div>
-<a id="a541409db4d9a20f7408ae85503d0b4e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a541409db4d9a20f7408ae85503d0b4e6">&#9670;&nbsp;</a></span>predict()</h2>
+<a id="aa91e56fec5db21b3fea26f09280776e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa91e56fec5db21b3fea26f09280776e5">&#9670;&nbsp;</a></span>predict()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -229,8 +232,18 @@ std::vector&lt; <a class="el" href="class_network_output.html">NetworkOutput</a>
           <td class="memname">std::vector&lt; std::vector&lt; void * &gt; &gt; TensorRTEngine::predict </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; std::vector&lt; void *&gt;&gt;&#160;</td>
-          <td class="paramname"><em>batchInputs</em></td><td>)</td>
+          <td class="paramname"><em>batchInputs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>fromDeviceMemory</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -238,7 +251,8 @@ std::vector&lt; <a class="el" href="class_network_output.html">NetworkOutput</a>
 <p>Does a forward pass of the neural network loaded in TensorRT  Should be called after loading the graph and calling <a class="el" href="class_tensor_r_t_engine.html#a0d52bef2871b023365eac36d4a88adc2" title="Allocates the buffers required to copy batches to the GPU  Should be called by a subclass after deter...">allocGPUBuffer()</a> </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">batchInputs</td><td>Raw graph inputs, indexed by [batchIndex][inputIndex] </td></tr>
+    <tr><td class="paramname">batchInputs</td><td>Raw graph inputs on host, indexed by [batchIndex][inputIndex] </td></tr>
+    <tr><td class="paramname">fromDeviceMemory</td><td>Whether batchInputs are in host memory (false) or already in device memory (true) </td></tr>
   </table>
   </dd>
 </dl>

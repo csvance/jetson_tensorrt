@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['hostdevicetransferexception',['HostDeviceTransferException',['../class_host_device_transfer_exception.html',1,'']]],
-  ['hostmemoryallocexception',['HostMemoryAllocException',['../class_host_memory_alloc_exception.html',1,'']]]
+  ['devicehosttransferexception',['DeviceHostTransferException',['../class_device_host_transfer_exception.html',1,'']]],
+  ['devicememoryallocexception',['DeviceMemoryAllocException',['../class_device_memory_alloc_exception.html',1,'']]],
+  ['devicememoryfreeexception',['DeviceMemoryFreeException',['../class_device_memory_free_exception.html',1,'']]]
 ];

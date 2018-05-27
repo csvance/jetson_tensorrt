@@ -50,7 +50,6 @@ public:
 			nvinfer1::DataType =nvinfer1::DataType::kFLOAT, size_t = (1 << 30));
 	virtual ~ClassificationRTEngine();
 
-	std::vector<std::vector<float*>> predict(std::vector<std::vector<float*>>);
 };
 
 #endif /* CLASSIFICATIONRTENGINE_H_ */

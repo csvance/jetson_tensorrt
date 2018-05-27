@@ -75,7 +75,7 @@ TensorRTEngine::~TensorRTEngine() {
 void TensorRTEngine::allocGPUBuffer() {
 	int stepSize = networkInputs.size() + networkOutputs.size();
 
-	GPU_Buffers = std::vector<void*>(maxBatchSize * stepSize);
+	preAllocatedGPUBuffers = std::vector<void*>(maxBatchSize * stepSize);
 
 	/* Allocate GPU Input memory and move input data to it for each batch*/
 	for (int b = 0; b < maxBatchSize; b++) {
@@ -85,7 +85,7 @@ void TensorRTEngine::allocGPUBuffer() {
 		for (int i = 0; i < networkInputs.size(); i++) {
 			size_t inputSize = networkInputs[i].size();
 
-			GPU_Buffers[bindingIdx + b * stepSize] = safeCudaMalloc(inputSize);
+			preAllocatedGPUBuffers[bindingIdx + b * stepSize] = safeCudaMalloc(inputSize);
 			bindingIdx++;
 		}
 
@@ -93,7 +93,7 @@ void TensorRTEngine::allocGPUBuffer() {
 		for (int i = 0; i < networkOutputs.size(); i++) {
 			size_t outputSize = networkOutputs[i].size();
 
-			GPU_Buffers[bindingIdx + b * stepSize] = safeCudaMalloc(outputSize);
+			preAllocatedGPUBuffers[bindingIdx + b * stepSize] = safeCudaMalloc(outputSize);
 			bindingIdx++;
 		}
 
@@ -106,8 +106,8 @@ void TensorRTEngine::allocGPUBuffer() {
  */
 void TensorRTEngine::freeGPUBuffer() {
 	/* Move outputs back to host memory for each batch */
-	for (int b = 0; b < GPU_Buffers.size(); b++){
-		cudaError_t deviceFreeError = cudaFree(GPU_Buffers[b]);
+	for (int b = 0; b < preAllocatedGPUBuffers.size(); b++){
+		cudaError_t deviceFreeError = cudaFree(preAllocatedGPUBuffers[b]);
 		if(deviceFreeError != 0)
 			throw DeviceMemoryFreeException("Error freeing device memory. CUDA Error: " + std::to_string(deviceFreeError));
 	}
@@ -116,39 +116,57 @@ void TensorRTEngine::freeGPUBuffer() {
 /**
  * @brief	Does a forward pass of the neural network loaded in TensorRT
  * @usage	Should be called after loading the graph and calling allocGPUBuffer()
- * @param	batchInputs Raw graph inputs, indexed by [batchIndex][inputIndex]
+ * @param	batchInputs Raw graph inputs on host, indexed by [batchIndex][inputIndex]
+ * @param	fromDeviceMemory	Whether batchInputs are in host memory (false) or already in device memory (true)
  * @return	Raw graph outputs, indexed by [batchIndex][outputNumber]
  */
 std::vector<std::vector<void*>> TensorRTEngine::predict(
-		std::vector<std::vector<void*>> batchInputs) {
+		std::vector<std::vector<void*>> batchInputs, bool fromDeviceMemory) {
 
-	assert(batchInputs.size() <= maxBatchSize);
+	if(batchInputs.size() > maxBatchSize)
+		throw BatchSizeException("Passed batch is larger than maximum batch size");
 
 	int batchCount = batchInputs.size();
 	int stepSize = networkInputs.size() + networkOutputs.size();
 
-	/* Copy batch to GPU */
-	for (int b = 0; b < batchCount; b++) {
+	std::vector<void*> transactionGPUBuffers(batchInputs.size() * stepSize);
 
+	/* Assign transction buffers and copy to GPU if neccisary */
+	for (int b = 0; b < batchCount; b++){
 		int bindingIdx = 0;
+
+		//Inputs
 		for (int i = 0; i < networkInputs.size(); i++) {
 			size_t inputSize = networkInputs[i].size();
 
-			cudaError_t hostDeviceError = cudaMemcpy(GPU_Buffers[bindingIdx + b * stepSize],
-							batchInputs[b][i], inputSize,
-							cudaMemcpyHostToDevice);
-			if (hostDeviceError != 0)
-				throw HostDeviceTransferException("Unable to copy host memory to device for prediction. CUDA Error: " + std::to_string(hostDeviceError));
+			if(!fromDeviceMemory){
+				transactionGPUBuffers[bindingIdx + b * stepSize] = preAllocatedGPUBuffers[bindingIdx + b * stepSize];
 
+				cudaError_t hostDeviceError = cudaMemcpy(transactionGPUBuffers[bindingIdx + b * stepSize],
+								batchInputs[b][i], inputSize,
+								cudaMemcpyHostToDevice);
+				if (hostDeviceError != 0)
+					throw HostDeviceTransferException("Unable to copy host memory to device for prediction. CUDA Error: " + std::to_string(hostDeviceError));
+			}else{
+				// Since the inputs are already in the device, all we need to do is assign them to the transaction buffer
+				transactionGPUBuffers[bindingIdx + b * stepSize] = batchInputs[b][i];
+			}
 			bindingIdx++;
 		}
 
+		//Outputs
+		for (int o = 0; o < networkOutputs.size(); o++){
+			size_t outputSize = networkOutputs[o].size();
+
+			transactionGPUBuffers[bindingIdx + b * stepSize] = preAllocatedGPUBuffers[bindingIdx + b * stepSize];
+			bindingIdx++;
+		}
 	}
 
 	/* Do the inference */
-	assert(context->execute(batchCount, &GPU_Buffers[0]) == true);
+	assert(context->execute(batchCount, &transactionGPUBuffers[0]) == true);
 
-	std::vector<std::vector<void*>> Output_Buffers(batchCount);
+	std::vector<std::vector<void*>> hostOutputBuffers(batchCount);
 
 	/* Move outputs back to host memory for each batch */
 	for (int b = 0; b < batchCount; b++) {
@@ -158,10 +176,10 @@ std::vector<std::vector<void*>> TensorRTEngine::predict(
 			size_t outputSize = networkOutputs[i].size();
 
 			/* Allocate a host buffer for the network output */
-			Output_Buffers[b].push_back(new unsigned char[outputSize]);
+			hostOutputBuffers[b].push_back(new unsigned char[outputSize]);
 
-			cudaError_t deviceHostError = cudaMemcpy(Output_Buffers[b][i],
-							GPU_Buffers[bindingIdx + b * stepSize], outputSize,
+			cudaError_t deviceHostError = cudaMemcpy(hostOutputBuffers[b][i],
+							transactionGPUBuffers[bindingIdx + b * stepSize], outputSize,
 							cudaMemcpyDeviceToHost);
 			if (deviceHostError != 0)
 				throw HostDeviceTransferException("Unable to copy device memory to host for prediction. CUDA Error: " + std::to_string(deviceHostError));
@@ -173,7 +191,7 @@ std::vector<std::vector<void*>> TensorRTEngine::predict(
 
 	}
 
-	return Output_Buffers;
+	return hostOutputBuffers;
 
 }
 

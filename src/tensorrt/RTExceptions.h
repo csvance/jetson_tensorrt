@@ -149,4 +149,17 @@ public:
     }
 };
 
+/**
+ * @brief	Exception thrown batch is larger than models maximum batch size
+ */
+class BatchSizeException: public std::exception {
+private:
+    std::string message_;
+public:
+    explicit BatchSizeException(const std::string& message);
+    virtual const char* what() const throw() {
+        return message_.c_str();
+    }
+};
+
 #endif /* EXCEPTIONS_H_ */

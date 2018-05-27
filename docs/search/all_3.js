@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['enginesummary',['engineSummary',['../class_tensor_r_t_engine.html#aacfa4f720e751a56934a5b105c18fa07',1,'TensorRTEngine']]]
+  ['devicehosttransferexception',['DeviceHostTransferException',['../class_device_host_transfer_exception.html',1,'']]],
+  ['devicememoryallocexception',['DeviceMemoryAllocException',['../class_device_memory_alloc_exception.html',1,'']]],
+  ['devicememoryfreeexception',['DeviceMemoryFreeException',['../class_device_memory_free_exception.html',1,'']]]
 ];

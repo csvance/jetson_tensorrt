@@ -54,7 +54,8 @@ public:
 	TensorRTEngine();
 	virtual ~TensorRTEngine();
 
-	std::vector<std::vector<void*>> predict(std::vector<std::vector<void*>>);
+	std::vector<std::vector<void*>> predict(std::vector<std::vector<void*>>, bool=false);
+	std::vector<std::vector<void*>> predictDevice(std::vector<std::vector<void*>>);
 
 	void loadCache(std::string, size_t=1);
 	void saveCache(std::string);
@@ -79,7 +80,7 @@ protected:
 	void freeGPUBuffer();
 
 private:
-	std::vector<void*> GPU_Buffers;
+	std::vector<void*> preAllocatedGPUBuffers;
 
 };
 

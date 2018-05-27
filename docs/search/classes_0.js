@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['caffertengine',['CaffeRTEngine',['../class_caffe_r_t_engine.html',1,'']]],
-  ['classificationrtengine',['ClassificationRTEngine',['../class_classification_r_t_engine.html',1,'']]]
+  ['batchsizeexception',['BatchSizeException',['../class_batch_size_exception.html',1,'']]]
 ];

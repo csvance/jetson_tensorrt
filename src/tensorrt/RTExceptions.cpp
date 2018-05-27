@@ -36,3 +36,4 @@ DeviceMemoryFreeException::DeviceMemoryFreeException(const std::string& message)
 HostDeviceTransferException::HostDeviceTransferException(const std::string& message) : message_(message){}
 DeviceHostTransferException::DeviceHostTransferException(const std::string& message) : message_(message){}
 ModelDimensionMismatchException::ModelDimensionMismatchException(const std::string& message) : message_(message){}
+BatchSizeException::BatchSizeException(const std::string& message) : message_(message){}

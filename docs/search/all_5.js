@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['hostdevicetransferexception',['HostDeviceTransferException',['../class_host_device_transfer_exception.html',1,'']]],
-  ['hostmemoryallocexception',['HostMemoryAllocException',['../class_host_memory_alloc_exception.html',1,'']]]
+  ['freegpubuffer',['freeGPUBuffer',['../class_tensor_r_t_engine.html#a3a4a37839c3c4c5eb2833d44265348f1',1,'TensorRTEngine']]]
 ];
