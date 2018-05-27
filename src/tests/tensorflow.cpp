@@ -16,7 +16,7 @@
 #include "TensorflowRTEngine.h"
 
 #define NUM_SAMPLES 10
-#define BATCH_SIZE 16*16
+#define BATCH_SIZE 1
 
 using namespace nvinfer1;
 using namespace std;
@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
 	TensorflowRTEngine engine = TensorflowRTEngine();
 	engine.addInput("input", DimsCHW(3, 299, 299), sizeof(float));
 
-	Dims outputDims; outputDims.nbDims = 1; outputDims.d[0] = 1000;
+	Dims outputDims; outputDims.nbDims = 1; outputDims.d[0] = 1001;
 	engine.addOutput("InceptionV3/Predictions/Reshape_1", outputDims, sizeof(float));
 
 	if(!engine.loadCache(string("./tensorflow_cache.tensorcache"), BATCH_SIZE)){
