@@ -1,4 +1,4 @@
-/*
+/**
  * @file	NetworkInput.h
  * @author	Carroll Vance
  * @brief	Manages a neural network input layer dimensions and size

@@ -1,4 +1,4 @@
-/*
+/**
  * @file	NetworkIO.cpp
  * @author	Carroll Vance
  * @brief	Manages a neural network layer dimensions and size

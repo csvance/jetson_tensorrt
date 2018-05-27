@@ -1,4 +1,4 @@
-/*
+/**
  * @file	CaffeRTEngine.cpp
  * @author	Carroll Vance
  * @brief	Loads and manages a Caffe graph with TensorRT
@@ -33,6 +33,7 @@
 #include "NvUtils.h"
 
 #include "CaffeRTEngine.h"
+#include "RTExceptions.h"
 
 using namespace nvinfer1;
 
@@ -63,7 +64,7 @@ void CaffeRTEngine::addInput(std::string layer, nvinfer1::Dims dims,
 }
 
 /**
- * @brief	Registers an output from the Tensorflow network.
+ * @brief	Registers an output from the Caffe network.
  * @usage	Must be called before loadModel().
  * @param	layer	The name of the input layer (i.e. "input_1")
  * @param	dims	Dimension of outputs
@@ -83,11 +84,12 @@ void CaffeRTEngine::addOutput(std::string layer, nvinfer1::Dims dims,
  * @param	dataType	The data type of the network to load into TensorRT
  * @param	maxNetworkSize	Maximum amount of GPU RAM the Tensorflow graph is allowed to use
  */
-bool CaffeRTEngine::loadModel(std::string prototextPath, std::string modelPath,
+void CaffeRTEngine::loadModel(std::string prototextPath, std::string modelPath,
 		size_t maximumBatchSize, nvinfer1::DataType dataType,
 		size_t maxNetworkSize) {
 
-	assert(networkInputs.size() > 0 && networkOutputs.size() > 0);
+	if(networkInputs.size() == 0 || networkOutputs.size() == 0)
+		throw ModelDimensionMismatchException("Must add inputs and outputs before calling loadModel");
 
 	maxBatchSize = maximumBatchSize;
 
@@ -108,7 +110,7 @@ bool CaffeRTEngine::loadModel(std::string prototextPath, std::string modelPath,
 	}
 
 	if (!blobNameToTensor)
-		RETURN_AND_LOG(false, ERROR, "Failed to parse Caffe network");
+		throw ModelBuildException("Failed to parse Caffe network");
 
 	// Register outputs with engine
 	for (int n = 0; n < networkOutputs.size(); n++) {
@@ -122,20 +124,20 @@ bool CaffeRTEngine::loadModel(std::string prototextPath, std::string modelPath,
 
 	engine = builder->buildCudaEngine(*network);
 	if (!engine)
-		RETURN_AND_LOG(false, ERROR, "Unable to create engine");
+		throw ModelBuildException("Failed to create TensorRT engine");
 
 	// Verify registered input shapes match parser
 	for (int n = 0; n < networkInputs.size(); n++) {
 		nvinfer1::Dims dims = engine->getBindingDimensions(n);
 
 		if (dims.nbDims != networkInputs[n].dims.nbDims)
-			RETURN_AND_LOG(false, ERROR,
-					"Engine inputs number of dimensions != registered inputs number of dimensions");
+			throw ModelDimensionMismatchException("Model number of input dimensions do not match what was registered with addInput");
+
 
 		for (int d = 0; d < dims.nbDims; d++)
 			if (dims.d[d] != networkInputs[n].dims.d[d])
-				RETURN_AND_LOG(false, ERROR,
-						"Engine inputs dimensions != registered inputs dimensions");
+				throw ModelDimensionMismatchException("Model input dimensions do not match what was registered with addInput");
+
 	}
 
 	/* Reclaim memory */
@@ -149,8 +151,6 @@ bool CaffeRTEngine::loadModel(std::string prototextPath, std::string modelPath,
 
 	/* Allocate buffers for inference*/
 	allocGPUBuffer();
-
-	return true;
 
 }
 

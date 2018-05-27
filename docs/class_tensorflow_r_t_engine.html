@@ -98,9 +98,9 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensorflow_r_t_engine.html#a387485b4b4e54f577f4a891798ec8660">~TensorflowRTEngine</a> ()</td></tr>
 <tr class="memdesc:a387485b4b4e54f577f4a891798ec8660"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_tensorflow_r_t_engine.html" title="Loads and manages a Tensorflow network in TensorRT. ">TensorflowRTEngine</a> Destructor. <br /></td></tr>
 <tr class="separator:a387485b4b4e54f577f4a891798ec8660"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8dea6e3174d7616b361b98888cd39206"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensorflow_r_t_engine.html#a8dea6e3174d7616b361b98888cd39206">loadModel</a> (std::string, size_t, nvinfer1::DataType=nvinfer1::DataType::kFLOAT, size_t=(1&lt;&lt; 30))</td></tr>
-<tr class="memdesc:a8dea6e3174d7616b361b98888cd39206"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a frozen Tensorflow .uff graph.  Must be called after <a class="el" href="class_tensorflow_r_t_engine.html#a684895b2c86dc37abb06268816422045" title="Registers an input to the Tensorflow network.  Must be called before loadUff(). ">addInput()</a> and <a class="el" href="class_tensorflow_r_t_engine.html#af1a89a7e0b1a1319ae597c49be756923" title="Registers an output from the Tensorflow network.  Must be called before loadUff(). ">addOutput()</a>.  <a href="#a8dea6e3174d7616b361b98888cd39206">More...</a><br /></td></tr>
-<tr class="separator:a8dea6e3174d7616b361b98888cd39206"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f9b4357775613cbaf333dd0dda958a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensorflow_r_t_engine.html#a6f9b4357775613cbaf333dd0dda958a9">loadModel</a> (std::string, size_t=1, nvinfer1::DataType=nvinfer1::DataType::kFLOAT, size_t=(1&lt;&lt; 30))</td></tr>
+<tr class="memdesc:a6f9b4357775613cbaf333dd0dda958a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a frozen Tensorflow .uff graph.  Must be called after <a class="el" href="class_tensorflow_r_t_engine.html#a684895b2c86dc37abb06268816422045" title="Registers an input to the Tensorflow network.  Must be called before loadUff(). ">addInput()</a> and <a class="el" href="class_tensorflow_r_t_engine.html#af1a89a7e0b1a1319ae597c49be756923" title="Registers an output from the Tensorflow network.  Must be called before loadUff(). ">addOutput()</a>.  <a href="#a6f9b4357775613cbaf333dd0dda958a9">More...</a><br /></td></tr>
+<tr class="separator:a6f9b4357775613cbaf333dd0dda958a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a684895b2c86dc37abb06268816422045"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensorflow_r_t_engine.html#a684895b2c86dc37abb06268816422045">addInput</a> (std::string, nvinfer1::Dims, size_t)</td></tr>
 <tr class="memdesc:a684895b2c86dc37abb06268816422045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an input to the Tensorflow network.  Must be called before loadUff().  <a href="#a684895b2c86dc37abb06268816422045">More...</a><br /></td></tr>
 <tr class="separator:a684895b2c86dc37abb06268816422045"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -119,12 +119,12 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:a541409db4d9a20f7408ae85503d0b4e6 inherit pub_methods_class_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; void * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#a541409db4d9a20f7408ae85503d0b4e6">predict</a> (std::vector&lt; std::vector&lt; void *&gt;&gt;)</td></tr>
 <tr class="memdesc:a541409db4d9a20f7408ae85503d0b4e6 inherit pub_methods_class_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does a forward pass of the neural network loaded in TensorRT  Should be called after loading the graph and calling <a class="el" href="class_tensor_r_t_engine.html#a0d52bef2871b023365eac36d4a88adc2" title="Allocates the buffers required to copy batches to the GPU  Should be called by a subclass after deter...">allocGPUBuffer()</a>  <a href="class_tensor_r_t_engine.html#a541409db4d9a20f7408ae85503d0b4e6">More...</a><br /></td></tr>
 <tr class="separator:a541409db4d9a20f7408ae85503d0b4e6 inherit pub_methods_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c9fe70b8ffbb2a1ce2bef72f9b9a595 inherit pub_methods_class_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#a1c9fe70b8ffbb2a1ce2bef72f9b9a595">loadCache</a> (std::string, size_t)</td></tr>
-<tr class="memdesc:a1c9fe70b8ffbb2a1ce2bef72f9b9a595 inherit pub_methods_class_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quick load the TensorRT optimized network  Should be called after addInput and addOutput without calling loadModel.  <a href="class_tensor_r_t_engine.html#a1c9fe70b8ffbb2a1ce2bef72f9b9a595">More...</a><br /></td></tr>
-<tr class="separator:a1c9fe70b8ffbb2a1ce2bef72f9b9a595 inherit pub_methods_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c864a6ca5823d1f7a87f4c1006d0237 inherit pub_methods_class_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#a0c864a6ca5823d1f7a87f4c1006d0237">saveCache</a> (std::string)</td></tr>
-<tr class="memdesc:a0c864a6ca5823d1f7a87f4c1006d0237 inherit pub_methods_class_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save the TensorRT optimized network for quick loading in the future  Should be called after loadModel()  <a href="class_tensor_r_t_engine.html#a0c864a6ca5823d1f7a87f4c1006d0237">More...</a><br /></td></tr>
-<tr class="separator:a0c864a6ca5823d1f7a87f4c1006d0237 inherit pub_methods_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d4f98a2215e0dbf877981575a84c3e9 inherit pub_methods_class_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#a5d4f98a2215e0dbf877981575a84c3e9">loadCache</a> (std::string, size_t=1)</td></tr>
+<tr class="memdesc:a5d4f98a2215e0dbf877981575a84c3e9 inherit pub_methods_class_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quick load the TensorRT optimized network  Should be called after addInput and addOutput without calling loadModel.  <a href="class_tensor_r_t_engine.html#a5d4f98a2215e0dbf877981575a84c3e9">More...</a><br /></td></tr>
+<tr class="separator:a5d4f98a2215e0dbf877981575a84c3e9 inherit pub_methods_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7efccc9b91e9e3a5f0a643eff2a8c19b inherit pub_methods_class_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#a7efccc9b91e9e3a5f0a643eff2a8c19b">saveCache</a> (std::string)</td></tr>
+<tr class="memdesc:a7efccc9b91e9e3a5f0a643eff2a8c19b inherit pub_methods_class_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save the TensorRT optimized network for quick loading in the future  Should be called after loadModel()  <a href="class_tensor_r_t_engine.html#a7efccc9b91e9e3a5f0a643eff2a8c19b">More...</a><br /></td></tr>
+<tr class="separator:a7efccc9b91e9e3a5f0a643eff2a8c19b inherit pub_methods_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aacfa4f720e751a56934a5b105c18fa07 inherit pub_methods_class_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#aacfa4f720e751a56934a5b105c18fa07">engineSummary</a> ()</td></tr>
 <tr class="memdesc:aacfa4f720e751a56934a5b105c18fa07 inherit pub_methods_class_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a summary of the loaded network, inputs, and outputs.  <a href="class_tensor_r_t_engine.html#aacfa4f720e751a56934a5b105c18fa07">More...</a><br /></td></tr>
 <tr class="separator:aacfa4f720e751a56934a5b105c18fa07 inherit pub_methods_class_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -275,14 +275,14 @@ std::vector&lt; <a class="el" href="class_network_output.html">NetworkOutput</a>
 
 </div>
 </div>
-<a id="a8dea6e3174d7616b361b98888cd39206"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8dea6e3174d7616b361b98888cd39206">&#9670;&nbsp;</a></span>loadModel()</h2>
+<a id="a6f9b4357775613cbaf333dd0dda958a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f9b4357775613cbaf333dd0dda958a9">&#9670;&nbsp;</a></span>loadModel()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool TensorflowRTEngine::loadModel </td>
+          <td class="memname">void TensorflowRTEngine::loadModel </td>
           <td>(</td>
           <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>uffFile</em>, </td>
@@ -291,7 +291,7 @@ std::vector&lt; <a class="el" href="class_network_output.html">NetworkOutput</a>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>maximumBatchSize</em>, </td>
+          <td class="paramname"><em>maximumBatchSize</em> = <code>1</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -323,7 +323,6 @@ std::vector&lt; <a class="el" href="class_network_output.html">NetworkOutput</a>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Whether the model was successfully loaded or not </dd></dl>
 
 </div>
 </div>

@@ -78,8 +78,9 @@ Inheritance diagram for TensorRTEngine:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_tensor_r_t_engine__inherit__graph.png" border="0" usemap="#_tensor_r_t_engine_inherit__map" alt="Inheritance graph"/></div>
 <map name="_tensor_r_t_engine_inherit__map" id="_tensor_r_t_engine_inherit__map">
-<area shape="rect" id="node2" href="class_caffe_r_t_engine.html" title="Loads and manages a Caffe network in TensorRT. " alt="" coords="5,80,117,107"/>
-<area shape="rect" id="node3" href="class_tensorflow_r_t_engine.html" title="Loads and manages a Tensorflow network in TensorRT. " alt="" coords="141,80,285,107"/>
+<area shape="rect" id="node2" href="class_caffe_r_t_engine.html" title="Loads and manages a Caffe network in TensorRT. " alt="" coords="29,80,141,107"/>
+<area shape="rect" id="node4" href="class_tensorflow_r_t_engine.html" title="Loads and manages a Tensorflow network in TensorRT. " alt="" coords="165,80,309,107"/>
+<area shape="rect" id="node3" href="class_classification_r_t_engine.html" title="Loads and manages a classification network trained by nVidia DIGITS. " alt="" coords="5,155,164,181"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -104,12 +105,12 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:a541409db4d9a20f7408ae85503d0b4e6"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; void * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#a541409db4d9a20f7408ae85503d0b4e6">predict</a> (std::vector&lt; std::vector&lt; void *&gt;&gt;)</td></tr>
 <tr class="memdesc:a541409db4d9a20f7408ae85503d0b4e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does a forward pass of the neural network loaded in TensorRT  Should be called after loading the graph and calling <a class="el" href="class_tensor_r_t_engine.html#a0d52bef2871b023365eac36d4a88adc2" title="Allocates the buffers required to copy batches to the GPU  Should be called by a subclass after deter...">allocGPUBuffer()</a>  <a href="#a541409db4d9a20f7408ae85503d0b4e6">More...</a><br /></td></tr>
 <tr class="separator:a541409db4d9a20f7408ae85503d0b4e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c9fe70b8ffbb2a1ce2bef72f9b9a595"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#a1c9fe70b8ffbb2a1ce2bef72f9b9a595">loadCache</a> (std::string, size_t)</td></tr>
-<tr class="memdesc:a1c9fe70b8ffbb2a1ce2bef72f9b9a595"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quick load the TensorRT optimized network  Should be called after addInput and addOutput without calling loadModel.  <a href="#a1c9fe70b8ffbb2a1ce2bef72f9b9a595">More...</a><br /></td></tr>
-<tr class="separator:a1c9fe70b8ffbb2a1ce2bef72f9b9a595"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c864a6ca5823d1f7a87f4c1006d0237"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#a0c864a6ca5823d1f7a87f4c1006d0237">saveCache</a> (std::string)</td></tr>
-<tr class="memdesc:a0c864a6ca5823d1f7a87f4c1006d0237"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save the TensorRT optimized network for quick loading in the future  Should be called after loadModel()  <a href="#a0c864a6ca5823d1f7a87f4c1006d0237">More...</a><br /></td></tr>
-<tr class="separator:a0c864a6ca5823d1f7a87f4c1006d0237"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d4f98a2215e0dbf877981575a84c3e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#a5d4f98a2215e0dbf877981575a84c3e9">loadCache</a> (std::string, size_t=1)</td></tr>
+<tr class="memdesc:a5d4f98a2215e0dbf877981575a84c3e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quick load the TensorRT optimized network  Should be called after addInput and addOutput without calling loadModel.  <a href="#a5d4f98a2215e0dbf877981575a84c3e9">More...</a><br /></td></tr>
+<tr class="separator:a5d4f98a2215e0dbf877981575a84c3e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7efccc9b91e9e3a5f0a643eff2a8c19b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#a7efccc9b91e9e3a5f0a643eff2a8c19b">saveCache</a> (std::string)</td></tr>
+<tr class="memdesc:a7efccc9b91e9e3a5f0a643eff2a8c19b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save the TensorRT optimized network for quick loading in the future  Should be called after loadModel()  <a href="#a7efccc9b91e9e3a5f0a643eff2a8c19b">More...</a><br /></td></tr>
+<tr class="separator:a7efccc9b91e9e3a5f0a643eff2a8c19b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aacfa4f720e751a56934a5b105c18fa07"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#aacfa4f720e751a56934a5b105c18fa07">engineSummary</a> ()</td></tr>
 <tr class="memdesc:aacfa4f720e751a56934a5b105c18fa07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a summary of the loaded network, inputs, and outputs.  <a href="#aacfa4f720e751a56934a5b105c18fa07">More...</a><br /></td></tr>
 <tr class="separator:aacfa4f720e751a56934a5b105c18fa07"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -181,14 +182,14 @@ std::vector&lt; <a class="el" href="class_network_output.html">NetworkOutput</a>
 
 </div>
 </div>
-<a id="a1c9fe70b8ffbb2a1ce2bef72f9b9a595"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c9fe70b8ffbb2a1ce2bef72f9b9a595">&#9670;&nbsp;</a></span>loadCache()</h2>
+<a id="a5d4f98a2215e0dbf877981575a84c3e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d4f98a2215e0dbf877981575a84c3e9">&#9670;&nbsp;</a></span>loadCache()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool TensorRTEngine::loadCache </td>
+          <td class="memname">void TensorRTEngine::loadCache </td>
           <td>(</td>
           <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>cachePath</em>, </td>
@@ -197,7 +198,7 @@ std::vector&lt; <a class="el" href="class_network_output.html">NetworkOutput</a>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>maxBatchSize</em>&#160;</td>
+          <td class="paramname"><em>maxBatchSize</em> = <code>1</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -215,7 +216,6 @@ std::vector&lt; <a class="el" href="class_network_output.html">NetworkOutput</a>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Whether the load succeeded or not </dd></dl>
 
 </div>
 </div>
@@ -246,14 +246,14 @@ std::vector&lt; <a class="el" href="class_network_output.html">NetworkOutput</a>
 
 </div>
 </div>
-<a id="a0c864a6ca5823d1f7a87f4c1006d0237"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c864a6ca5823d1f7a87f4c1006d0237">&#9670;&nbsp;</a></span>saveCache()</h2>
+<a id="a7efccc9b91e9e3a5f0a643eff2a8c19b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7efccc9b91e9e3a5f0a643eff2a8c19b">&#9670;&nbsp;</a></span>saveCache()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool TensorRTEngine::saveCache </td>
+          <td class="memname">void TensorRTEngine::saveCache </td>
           <td>(</td>
           <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>cachePath</em></td><td>)</td>
@@ -269,7 +269,6 @@ std::vector&lt; <a class="el" href="class_network_output.html">NetworkOutput</a>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Whether the save succeeded or not </dd></dl>
 
 </div>
 </div>

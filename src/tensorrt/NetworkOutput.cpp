@@ -1,4 +1,4 @@
-/*
+/**
  * @file	NetworkOutput.cpp
  * @author	Carroll Vance
  * @brief	Manages a neural network output layer dimensions and size

@@ -13,9 +13,22 @@
 #include "NvInfer.h"
 
 #include "CaffeRTEngine.h"
+#include "RTExceptions.h"
+
+#define CACHE_FILE "./caffe.tensorcache"
+#define MODEL_FILE "googlenet.prototxt"
+#define WEIGHTS_FILE "bvlc_googlenet.caffemodel"
 
 #define NUM_SAMPLES 10
 #define BATCH_SIZE 1
+
+#define IMAGE_WIDTH 224
+#define IMAGE_HEIGHT 224
+#define IMAGE_DEPTH 3
+#define IMAGE_ELESIZE 4
+
+#define NB_CLASSES 1000
+#define CLASS_ELESIZE 4
 
 using namespace nvinfer1;
 using namespace std;
@@ -23,14 +36,16 @@ using namespace std;
 int main(int argc, char** argv) {
 
 	CaffeRTEngine engine = CaffeRTEngine();
-	engine.addInput("data", DimsCHW(3, 224, 224), sizeof(float));
+	engine.addInput("data", DimsCHW(IMAGE_DEPTH, IMAGE_HEIGHT, IMAGE_WIDTH), IMAGE_ELESIZE);
 
-	Dims outputDims; outputDims.nbDims = 1; outputDims.d[0] = 1000;
-	engine.addOutput("prob", outputDims, sizeof(float));
+	Dims outputDims; outputDims.nbDims = 1; outputDims.d[0] = NB_CLASSES;
+	engine.addOutput("prob", outputDims, CLASS_ELESIZE);
 
-	if(!engine.loadCache(string("caffe.tensorcache"), BATCH_SIZE)){
-		assert(engine.loadModel(string("googlenet.prototxt"), string("bvlc_googlenet.caffemodel"), (size_t) BATCH_SIZE));
-		engine.saveCache(string("caffe.tensorcache"));
+	try{
+		engine.loadCache(CACHE_FILE, BATCH_SIZE);
+	} catch (ModelDeserializeException& e){
+		engine.loadModel(MODEL_FILE, WEIGHTS_FILE, (size_t) BATCH_SIZE);
+		engine.saveCache(CACHE_FILE);
 	}
 
 	std::cout << engine.engineSummary() << std::endl;
@@ -40,7 +55,7 @@ int main(int argc, char** argv) {
 	for (int b=0; b < BATCH_SIZE; b++) {
 
 		//Inputs
-		batch[b].push_back(new unsigned char[3 * 256 * 256 * 4]);
+		batch[b].push_back(new unsigned char[IMAGE_DEPTH * IMAGE_WIDTH * IMAGE_HEIGHT * IMAGE_ELESIZE]);
 	}
 
 	for (;;) {

@@ -1,4 +1,4 @@
-/*
+/**
  * @file	CaffeRTEngine.h
  * @author	Carroll Vance
  * @brief	Loads and manages a Caffe graph with TensorRT
@@ -44,7 +44,7 @@ public:
 	CaffeRTEngine();
 	virtual ~CaffeRTEngine();
 
-	bool loadModel(std::string, std::string, size_t, nvinfer1::DataType =
+	void loadModel(std::string, std::string, size_t = 1, nvinfer1::DataType =
 			nvinfer1::DataType::kFLOAT, size_t = (1 << 30));
 
 	void addInput(std::string, nvinfer1::Dims, size_t);

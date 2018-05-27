@@ -14,9 +14,20 @@
 
 #include "TensorRTEngine.h"
 #include "TensorflowRTEngine.h"
+#include "RTExceptions.h"
 
+#define CACHE_FILE "./tensorflow_cache.tensorcache"
+#define MODEL_FILE "./inception_v3.uff"
 #define NUM_SAMPLES 10
 #define BATCH_SIZE 1
+
+#define IMAGE_WIDTH	299
+#define IMAGE_HEIGHT 299
+#define IMAGE_DEPTH 3
+#define IMAGE_ELESIZE 4
+
+#define CLASS_ELESIZE 4
+#define NB_CLASSES 1001
 
 using namespace nvinfer1;
 using namespace std;
@@ -24,14 +35,16 @@ using namespace std;
 int main(int argc, char** argv) {
 
 	TensorflowRTEngine engine = TensorflowRTEngine();
-	engine.addInput("input", DimsCHW(3, 299, 299), sizeof(float));
+	engine.addInput("input", DimsCHW(IMAGE_DEPTH, IMAGE_HEIGHT, IMAGE_WIDTH), IMAGE_ELESIZE);
 
-	Dims outputDims; outputDims.nbDims = 1; outputDims.d[0] = 1001;
-	engine.addOutput("InceptionV3/Predictions/Reshape_1", outputDims, sizeof(float));
+	Dims outputDims; outputDims.nbDims = 1; outputDims.d[0] = NB_CLASSES;
+	engine.addOutput("InceptionV3/Predictions/Reshape_1", outputDims, CLASS_ELESIZE);
 
-	if(!engine.loadCache(string("./tensorflow_cache.tensorcache"), BATCH_SIZE)){
-		engine.loadModel(string("./inception_v3.uff"), (size_t) BATCH_SIZE);
-		engine.saveCache(string("./tensorflow_cache.tensorcache"));
+	try{
+		engine.loadCache(CACHE_FILE, BATCH_SIZE);
+	} catch (ModelDeserializeException& e){
+		engine.loadModel(MODEL_FILE, (size_t) BATCH_SIZE);
+		engine.saveCache(CACHE_FILE);
 	}
 
 	std::cout << engine.engineSummary() << std::endl;
@@ -41,7 +54,7 @@ int main(int argc, char** argv) {
 	for (int b=0; b < BATCH_SIZE; b++) {
 
 		//Inputs
-		batch[b].push_back(new unsigned char[3 * 224 * 224 * 4]);
+		batch[b].push_back(new unsigned char[IMAGE_DEPTH * IMAGE_WIDTH * IMAGE_HEIGHT * IMAGE_ELESIZE]);
 	}
 
 	for (;;) {

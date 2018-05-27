@@ -46,6 +46,7 @@
 #include "NetworkInput.h"
 #include "NetworkOutput.h"
 #include "TensorflowRTEngine.h"
+#include "RTExceptions.h"
 
 using namespace nvuffparser;
 using namespace nvinfer1;
@@ -83,14 +84,13 @@ void TensorflowRTEngine::addInput(std::string layer, nvinfer1::Dims dims,
 	 Where Y = 30, X = 40, C = 1
 	 */
 
-	// For some reason nVidia forces us to use a DimsCHW when defining inputs for networks loaded from .uff files
-	assert(dims.nbDims == 3);
+	if(dims.nbDims != 3)
+		throw ModelDimensionMismatchException("nVidia requires us to use a 3 channel DimsCHW when defining inputs for networks loaded from .uff files");
 
-	// In CHW format the channel should always be the first dimension
-	assert(dims.d[0] <= dims.d[1] && dims.d[0] <= dims.d[2]);
+	if(dims.d[0] > dims.d[1] || dims.d[0] > dims.d[2])
+		throw ModelDimensionMismatchException("In CHW format the channel should always be the first dimension");
 
-	nvinfer1::DimsCHW chwDims = nvinfer1::DimsCHW(dims.d[0], dims.d[1],
-			dims.d[2]);
+	nvinfer1::DimsCHW chwDims = nvinfer1::DimsCHW(dims.d[0], dims.d[1], dims.d[2]);
 
 	parser->registerInput(layer.c_str(), chwDims);
 
@@ -123,9 +123,8 @@ void TensorflowRTEngine::addOutput(std::string layer, nvinfer1::Dims dims,
  * @param	maximumBatchSize	The maximum number of records to run a forward network pass on. For maximum performance, this should be the only batch size passed to the network.
  * @param	dataType	The data type of the network to load into TensorRT
  * @param	maxNetworkSize	Maximum amount of GPU RAM the Tensorflow graph is allowed to use
- * @return	Whether the model was successfully loaded or not
  */
-bool TensorflowRTEngine::loadModel(std::string uffFile, size_t maximumBatchSize,
+void TensorflowRTEngine::loadModel(std::string uffFile, size_t maximumBatchSize,
 		nvinfer1::DataType dataType, size_t maxNetworkSize) {
 
 	assert(networkInputs.size() > 0 && networkOutputs.size() > 0);
@@ -139,16 +138,16 @@ bool TensorflowRTEngine::loadModel(std::string uffFile, size_t maximumBatchSize,
 	if (dataType == DataType::kFLOAT) {
 		if (!parser->parse(uffFile.c_str(), *network,
 				nvinfer1::DataType::kFLOAT))
-			RETURN_AND_LOG(false, ERROR, "Fail to parse");
+			throw ModelBuildException("Failed to parse .uff file");
 	} else if (dataType == DataType::kHALF) {
 		if (!parser->parse(uffFile.c_str(), *network,
 				nvinfer1::DataType::kINT8))
-			RETURN_AND_LOG(false, ERROR, "Fail to parse");
+			throw ModelBuildException("Failed to parse .uff file");
 		builder->setHalf2Mode(true);
 	} else if (dataType == DataType::kINT8) {
 		if (!parser->parse(uffFile.c_str(), *network,
 				nvinfer1::DataType::kINT8))
-			RETURN_AND_LOG(false, ERROR, "Fail to parse");
+			throw ModelBuildException("Failed to parse .uff file");
 		builder->setInt8Mode(true);
 	}
 
@@ -158,7 +157,7 @@ bool TensorflowRTEngine::loadModel(std::string uffFile, size_t maximumBatchSize,
 
 	engine = builder->buildCudaEngine(*network);
 	if (!engine)
-		RETURN_AND_LOG(false, ERROR, "Unable to create engine");
+		throw ModelBuildException("Failed to create TensorRT engine");
 
 	/* Reclaim memory */
 	network->destroy();

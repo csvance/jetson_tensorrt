@@ -63,8 +63,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#define-members">Macros</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
 <div class="title">TensorRTEngine.h File Reference</div>  </div>
 </div><!--header-->
@@ -77,16 +76,16 @@ $(function() {
 <code>#include &lt;cuda_runtime_api.h&gt;</code><br />
 <code>#include &quot;NvInfer.h&quot;</code><br />
 <code>#include &quot;NvUtils.h&quot;</code><br />
-<code>#include &quot;NetworkOutput.h&quot;</code><br />
-<code>#include &quot;NetworkInput.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="_network_output_8h_source.html">NetworkOutput.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_network_input_8h_source.html">NetworkInput.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for TensorRTEngine.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="_tensor_r_t_engine_8h__incl.png" border="0" usemap="#src_2tensorrt_2_tensor_r_t_engine_8h" alt=""/></div>
 <map name="src_2tensorrt_2_tensor_r_t_engine_8h" id="src_2tensorrt_2_tensor_r_t_engine_8h">
-<area shape="rect" id="node7" href="_network_output_8h_source.html" title="NetworkOutput.h" alt="" coords="165,80,286,107"/>
-<area shape="rect" id="node9" href="_network_input_8h_source.html" title="NetworkInput.h" alt="" coords="30,80,141,107"/>
-<area shape="rect" id="node8" href="_network_i_o_8h_source.html" title="NetworkIO.h" alt="" coords="178,155,274,181"/>
+<area shape="rect" id="node7" href="_network_output_8h.html" title="Manages a neural network output layer dimensions and size. " alt="" coords="165,80,286,107"/>
+<area shape="rect" id="node9" href="_network_input_8h.html" title="Manages a neural network input layer dimensions and size. " alt="" coords="30,80,141,107"/>
+<area shape="rect" id="node8" href="_network_i_o_8h.html" title="Manages a neural network layer dimensions and size. " alt="" coords="178,155,274,181"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -94,10 +93,13 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="_tensor_r_t_engine_8h__dep__incl.png" border="0" usemap="#src_2tensorrt_2_tensor_r_t_engine_8hdep" alt=""/></div>
 <map name="src_2tensorrt_2_tensor_r_t_engine_8hdep" id="src_2tensorrt_2_tensor_r_t_engine_8hdep">
-<area shape="rect" id="node2" href="_caffe_r_t_engine_8h_source.html" title="src/tensorrt/CaffeRTEngine.h" alt="" coords="5,80,199,107"/>
-<area shape="rect" id="node3" href="_tensorflow_r_t_engine_8h.html" title="Loads and manages a Tensorflow graph with TensorRT. " alt="" coords="223,80,448,107"/>
-<area shape="rect" id="node5" href="_tensor_r_t_engine_8cpp.html" title="Abstract class which loads and manages a TensorRT graph. " alt="" coords="472,80,687,107"/>
-<area shape="rect" id="node4" href="_tensorflow_r_t_engine_8cpp.html" title="Loads and manages a Tensorflow graph with TensorRT. " alt="" coords="216,155,455,181"/>
+<area shape="rect" id="node2" href="_caffe_r_t_engine_8h.html" title="Loads and manages a Caffe graph with TensorRT. " alt="" coords="223,80,416,107"/>
+<area shape="rect" id="node6" href="_tensorflow_r_t_engine_8h.html" title="Loads and manages a Tensorflow graph with TensorRT. " alt="" coords="440,80,665,107"/>
+<area shape="rect" id="node8" href="_tensor_r_t_engine_8cpp.html" title="Abstract class which loads and manages a TensorRT graph. " alt="" coords="689,80,904,107"/>
+<area shape="rect" id="node3" href="_caffe_r_t_engine_8cpp.html" title="Loads and manages a Caffe graph with TensorRT. " alt="" coords="5,162,212,189"/>
+<area shape="rect" id="node4" href="_classification_r_t_engine_8h.html" title="Loads and manages a DIGITS classification graph with TensorRT. " alt="" coords="237,155,407,196"/>
+<area shape="rect" id="node5" href="_classification_r_t_engine_8cpp.html" title="Loads and manages a DIGITS classification graph with TensorRT. " alt="" coords="237,244,407,285"/>
+<area shape="rect" id="node7" href="_tensorflow_r_t_engine_8cpp.html" title="Loads and manages a Tensorflow graph with TensorRT. " alt="" coords="433,162,672,189"/>
 </map>
 </div>
 </div>
@@ -111,13 +113,6 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html">TensorRTEngine</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract base class which loads and manages a TensorRT model which hides device/host memory management.  <a href="class_tensor_r_t_engine.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:af1e3af4e5bb866952db0547a7b73660e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>RETURN_AND_LOG</b>(ret,  severity,  message)</td></tr>
-<tr class="separator:af1e3af4e5bb866952db0547a7b73660e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90f1de05853433cb4ac44c2474bae982"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>CHECK</b>(status)</td></tr>
-<tr class="separator:a90f1de05853433cb4ac44c2474bae982"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract class which loads and manages a TensorRT graph. </p>
@@ -125,60 +120,7 @@ Macros</h2></td></tr>
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
 <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
 <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. </p>
-</div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a90f1de05853433cb4ac44c2474bae982"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90f1de05853433cb4ac44c2474bae982">&#9670;&nbsp;</a></span>CHECK</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CHECK</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">status</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">{                                                       \</div><div class="line">    if (status != 0)                                    \</div><div class="line">    {                                                   \</div><div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;Cuda failure: &quot;</span> &lt;&lt; status;        \</div><div class="line">        abort();                                        \</div><div class="line">    }                                                   \</div><div class="line">}</div></div><!-- fragment -->
-</div>
-</div>
-<a id="af1e3af4e5bb866952db0547a7b73660e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1e3af4e5bb866952db0547a7b73660e">&#9670;&nbsp;</a></span>RETURN_AND_LOG</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define RETURN_AND_LOG</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">ret, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">severity, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">message&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {                                                                                    \</div><div class="line">        std::string error_message = <span class="stringliteral">&quot; &quot;</span> + std::string(message);                             \</div><div class="line">        logger.log(ILogger::Severity::k ## severity, error_message.c_str());               \</div><div class="line">        return (ret);                                                                       \</div><div class="line">    } <span class="keywordflow">while</span>(0)</div></div><!-- fragment -->
-</div>
-</div>
-</div><!-- contents -->
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

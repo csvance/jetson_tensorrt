@@ -1,4 +1,5 @@
 <map id="TensorRTEngine" name="TensorRTEngine">
-<area shape="rect" id="node2" href="$class_caffe_r_t_engine.html" title="Loads and manages a Caffe network in TensorRT. " alt="" coords="5,80,117,107"/>
-<area shape="rect" id="node3" href="$class_tensorflow_r_t_engine.html" title="Loads and manages a Tensorflow network in TensorRT. " alt="" coords="141,80,285,107"/>
+<area shape="rect" id="node2" href="$class_caffe_r_t_engine.html" title="Loads and manages a Caffe network in TensorRT. " alt="" coords="29,80,141,107"/>
+<area shape="rect" id="node4" href="$class_tensorflow_r_t_engine.html" title="Loads and manages a Tensorflow network in TensorRT. " alt="" coords="165,80,309,107"/>
+<area shape="rect" id="node3" href="$class_classification_r_t_engine.html" title="Loads and manages a classification network trained by nVidia DIGITS. " alt="" coords="5,155,164,181"/>
 </map>

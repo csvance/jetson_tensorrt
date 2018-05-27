@@ -38,22 +38,6 @@
 #include "NetworkOutput.h"
 #include "NetworkInput.h"
 
-#define RETURN_AND_LOG(ret, severity, message)                                              \
-    do {                                                                                    \
-        std::string error_message = " " + std::string(message);            					\
-        logger.log(ILogger::Severity::k ## severity, error_message.c_str());               \
-        return (ret);                                                                       \
-    } while(0)
-
-#define CHECK(status)									\
-{														\
-	if (status != 0)									\
-	{													\
-		std::cout << "Cuda failure: " << status;		\
-		abort();										\
-	}													\
-}
-
 /**
  * @brief Logger for GIE info/warning/errors
  */
@@ -72,8 +56,8 @@ public:
 
 	std::vector<std::vector<void*>> predict(std::vector<std::vector<void*>>);
 
-	bool loadCache(std::string, size_t);
-	bool saveCache(std::string);
+	void loadCache(std::string, size_t=1);
+	void saveCache(std::string);
 
 	std::string engineSummary();
 

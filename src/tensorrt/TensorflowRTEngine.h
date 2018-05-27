@@ -43,7 +43,7 @@ public:
 	TensorflowRTEngine();
 	virtual ~TensorflowRTEngine();
 
-	bool loadModel(std::string, size_t, nvinfer1::DataType =
+	void loadModel(std::string, size_t = 1, nvinfer1::DataType =
 			nvinfer1::DataType::kFLOAT, size_t = (1 << 30));
 
 	void addInput(std::string, nvinfer1::Dims, size_t);

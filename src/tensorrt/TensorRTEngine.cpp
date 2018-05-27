@@ -45,6 +45,7 @@
 using namespace nvinfer1;
 
 #include "TensorRTEngine.h"
+#include "RTExceptions.h"
 
 void* safeCudaMalloc(size_t);
 
@@ -105,8 +106,11 @@ void TensorRTEngine::allocGPUBuffer() {
  */
 void TensorRTEngine::freeGPUBuffer() {
 	/* Move outputs back to host memory for each batch */
-	for (int b = 0; b < GPU_Buffers.size(); b++)
-		CHECK(cudaFree(GPU_Buffers[b]));
+	for (int b = 0; b < GPU_Buffers.size(); b++){
+		cudaError_t deviceFreeError = cudaFree(GPU_Buffers[b]);
+		if(deviceFreeError != 0)
+			throw DeviceMemoryFreeException("Error freeing device memory. CUDA Error: " + std::to_string(deviceFreeError));
+	}
 }
 
 /**
@@ -130,10 +134,12 @@ std::vector<std::vector<void*>> TensorRTEngine::predict(
 		for (int i = 0; i < networkInputs.size(); i++) {
 			size_t inputSize = networkInputs[i].size();
 
-			CHECK(
-					cudaMemcpy(GPU_Buffers[bindingIdx + b * stepSize],
+			cudaError_t hostDeviceError = cudaMemcpy(GPU_Buffers[bindingIdx + b * stepSize],
 							batchInputs[b][i], inputSize,
-							cudaMemcpyHostToDevice));
+							cudaMemcpyHostToDevice);
+			if (hostDeviceError != 0)
+				throw HostDeviceTransferException("Unable to copy host memory to device for prediction. CUDA Error: " + std::to_string(hostDeviceError));
+
 			bindingIdx++;
 		}
 
@@ -154,10 +160,13 @@ std::vector<std::vector<void*>> TensorRTEngine::predict(
 			/* Allocate a host buffer for the network output */
 			Output_Buffers[b].push_back(new unsigned char[outputSize]);
 
-			CHECK(
-					cudaMemcpy(Output_Buffers[b][i],
+			cudaError_t deviceHostError = cudaMemcpy(Output_Buffers[b][i],
 							GPU_Buffers[bindingIdx + b * stepSize], outputSize,
-							cudaMemcpyDeviceToHost));
+							cudaMemcpyDeviceToHost);
+			if (deviceHostError != 0)
+				throw HostDeviceTransferException("Unable to copy device memory to host for prediction. CUDA Error: " + std::to_string(deviceHostError));
+
+
 
 			bindingIdx++;
 		}
@@ -201,14 +210,13 @@ std::string TensorRTEngine::engineSummary() {
  * @brief	Save the TensorRT optimized network for quick loading in the future
  * @usage	Should be called after loadModel()
  * @param	cachePath	Path to the network cache file
- * @return	Whether the save succeeded or not
  */
-bool TensorRTEngine::saveCache(std::string cachePath) {
+void TensorRTEngine::saveCache(std::string cachePath) {
 	//Serialize the loaded model
 	nvinfer1::IHostMemory* serMem = engine->serialize();
 
 	if (!serMem)
-		RETURN_AND_LOG(false, ERROR, "Failed to serialize CUDA engine");
+		throw ModelSerializeException("Unable to serialize TensorRT engine");
 
 	// Write the cache file to the disk
 	std::ofstream cache;
@@ -218,8 +226,6 @@ bool TensorRTEngine::saveCache(std::string cachePath) {
 
 	//Cleanup
 	serMem->destroy();
-
-	return true;
 }
 
 /**
@@ -227,15 +233,14 @@ bool TensorRTEngine::saveCache(std::string cachePath) {
  * @usage	Should be called after addInput and addOutput without calling loadModel
  * @param	cachePath	Path to the network cache file
  * @param	maxBatchSize	The max batch size of the saved network. If the batch size needs to be changed, the network should be rebuilt with the new size and not simply changed here.
- * @return	Whether the load succeeded or not
  */
-bool TensorRTEngine::loadCache(std::string cachePath, size_t maxBatchSize) {
+void TensorRTEngine::loadCache(std::string cachePath, size_t maxBatchSize) {
 
 	// Read the cache file from the disk and load it into a stringstream
 	std::ifstream cache;
 	cache.open(cachePath);
 	if (!cache.is_open())
-		return false;
+		throw ModelDeserializeException("Unable to open network cache file");
 
 	std::stringstream gieModelStream;
 
@@ -251,8 +256,7 @@ bool TensorRTEngine::loadCache(std::string cachePath, size_t maxBatchSize) {
 
 	void* modelMem = malloc(modelSize);
 	if (!modelMem)
-		RETURN_AND_LOG(false, ERROR,
-				"Unable to allocate memory to deserialize model");
+		throw HostMemoryAllocException("Unable to allocate memory for deserialized model");
 
 	gieModelStream.read((char*) modelMem, modelSize);
 	engine = infer->deserializeCudaEngine(modelMem, modelSize, NULL);
@@ -260,8 +264,7 @@ bool TensorRTEngine::loadCache(std::string cachePath, size_t maxBatchSize) {
 	free(modelMem);
 
 	if (!engine)
-		RETURN_AND_LOG(false, ERROR,
-				"Unable to create engine from deserialized data");
+		throw ModelDeserializeException("Unable to create engine from deserialized data");
 
 	// Populate things that need to be populated before allocating memory
 	this->numBindings = engine->getNbBindings();
@@ -272,7 +275,6 @@ bool TensorRTEngine::loadCache(std::string cachePath, size_t maxBatchSize) {
 	//Allocate device memory
 	allocGPUBuffer();
 
-	return true;
 }
 
 void Logger::log(nvinfer1::ILogger::Severity severity, const char* msg) {
@@ -301,9 +303,14 @@ void Logger::log(nvinfer1::ILogger::Severity severity, const char* msg) {
 
 void* safeCudaMalloc(size_t memSize) {
 	void* deviceMem;
-	CHECK(cudaMalloc(&deviceMem, memSize));
+
+	cudaError_t cudaMallocError = cudaMalloc(&deviceMem, memSize);
+	if(cudaMallocError != 0){
+		throw DeviceMemoryAllocException("CUDA Malloc Error: " + std::to_string(cudaMallocError));
+	}else if(deviceMem == nullptr){
+		throw DeviceMemoryAllocException("Out of device memory");
+	}
 	if (deviceMem == nullptr) {
-		std::cerr << "Out of device memory" << std::endl;
 		abort();
 	}
 	return deviceMem;
