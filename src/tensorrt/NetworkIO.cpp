@@ -28,7 +28,6 @@
 #include <string>
 
 #include "NetworkIO.h"
-#include "HostCommon.h"
 
 using namespace nvinfer1;
 
@@ -55,6 +54,10 @@ NetworkIO::~NetworkIO() {
  * @returns	Size sum in bytes of every element
  */
 size_t NetworkIO::size() {
-	return (size_t) (volume(dims) * eleSize);
+	int64_t volume = 1;
+	for (int64_t i = 0; i < dims.nbDims; i++)
+		volume *= dims.d[i];
+
+	return (size_t) volume * eleSize;
 }
 

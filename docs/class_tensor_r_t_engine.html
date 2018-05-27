@@ -110,9 +110,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:a0c864a6ca5823d1f7a87f4c1006d0237"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#a0c864a6ca5823d1f7a87f4c1006d0237">saveCache</a> (std::string)</td></tr>
 <tr class="memdesc:a0c864a6ca5823d1f7a87f4c1006d0237"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save the TensorRT optimized network for quick loading in the future  Should be called after loadModel()  <a href="#a0c864a6ca5823d1f7a87f4c1006d0237">More...</a><br /></td></tr>
 <tr class="separator:a0c864a6ca5823d1f7a87f4c1006d0237"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3588568c8f40c24a8593b9101a25296"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#aa3588568c8f40c24a8593b9101a25296">engineSummary</a> ()</td></tr>
-<tr class="memdesc:aa3588568c8f40c24a8593b9101a25296"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a summary of the loaded network, inputs, and outputs.  <a href="#aa3588568c8f40c24a8593b9101a25296">More...</a><br /></td></tr>
-<tr class="separator:aa3588568c8f40c24a8593b9101a25296"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacfa4f720e751a56934a5b105c18fa07"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_tensor_r_t_engine.html#aacfa4f720e751a56934a5b105c18fa07">engineSummary</a> ()</td></tr>
+<tr class="memdesc:aacfa4f720e751a56934a5b105c18fa07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a summary of the loaded network, inputs, and outputs.  <a href="#aacfa4f720e751a56934a5b105c18fa07">More...</a><br /></td></tr>
+<tr class="separator:aacfa4f720e751a56934a5b105c18fa07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f2838030a1f1ad6e148e6cd1a972114"><td class="memItemLeft" align="right" valign="top"><a id="a6f2838030a1f1ad6e148e6cd1a972114"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>addInput</b> (std::string, nvinfer1::Dims, size_t)=0</td></tr>
 <tr class="separator:a6f2838030a1f1ad6e148e6cd1a972114"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,33 +142,33 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:ab378fe74661972bfad970ec7d2c6817b"><td class="memItemLeft" align="right" valign="top"><a id="ab378fe74661972bfad970ec7d2c6817b"></a>
-ICudaEngine *&#160;</td><td class="memItemRight" valign="bottom"><b>engine</b></td></tr>
-<tr class="separator:ab378fe74661972bfad970ec7d2c6817b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaadc61ccb2a1e59f3828419e8c34b7e7"><td class="memItemLeft" align="right" valign="top"><a id="aaadc61ccb2a1e59f3828419e8c34b7e7"></a>
-IExecutionContext *&#160;</td><td class="memItemRight" valign="bottom"><b>context</b></td></tr>
-<tr class="separator:aaadc61ccb2a1e59f3828419e8c34b7e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a990a1b4ab4b3b597b41ae392871f6d91"><td class="memItemLeft" align="right" valign="top"><a id="a990a1b4ab4b3b597b41ae392871f6d91"></a>
+nvinfer1::ICudaEngine *&#160;</td><td class="memItemRight" valign="bottom"><b>engine</b></td></tr>
+<tr class="separator:a990a1b4ab4b3b597b41ae392871f6d91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a949848d205a72a816f120e1dbd2bb4fd"><td class="memItemLeft" align="right" valign="top"><a id="a949848d205a72a816f120e1dbd2bb4fd"></a>
+nvinfer1::IExecutionContext *&#160;</td><td class="memItemRight" valign="bottom"><b>context</b></td></tr>
+<tr class="separator:a949848d205a72a816f120e1dbd2bb4fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25b90b417fa350769139922e4456ed6e"><td class="memItemLeft" align="right" valign="top"><a id="a25b90b417fa350769139922e4456ed6e"></a>
 <a class="el" href="class_logger.html">Logger</a>&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b></td></tr>
 <tr class="separator:a25b90b417fa350769139922e4456ed6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbe2baaa3d517d957ad20d1fca4395e9"><td class="memItemLeft" align="right" valign="top"><a id="abbe2baaa3d517d957ad20d1fca4395e9"></a>
-vector&lt; <a class="el" href="class_network_input.html">NetworkInput</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>networkInputs</b></td></tr>
-<tr class="separator:abbe2baaa3d517d957ad20d1fca4395e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85508d6f89834def1683b7ba9ac601e5"><td class="memItemLeft" align="right" valign="top"><a id="a85508d6f89834def1683b7ba9ac601e5"></a>
-vector&lt; <a class="el" href="class_network_output.html">NetworkOutput</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>networkOutputs</b></td></tr>
-<tr class="separator:a85508d6f89834def1683b7ba9ac601e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91379d9d7414be18f522d303fa8b652e"><td class="memItemLeft" align="right" valign="top"><a id="a91379d9d7414be18f522d303fa8b652e"></a>
+std::vector&lt; <a class="el" href="class_network_input.html">NetworkInput</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>networkInputs</b></td></tr>
+<tr class="separator:a91379d9d7414be18f522d303fa8b652e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40aabb2cf3c1195f4de9e8bfbb590933"><td class="memItemLeft" align="right" valign="top"><a id="a40aabb2cf3c1195f4de9e8bfbb590933"></a>
+std::vector&lt; <a class="el" href="class_network_output.html">NetworkOutput</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>networkOutputs</b></td></tr>
+<tr class="separator:a40aabb2cf3c1195f4de9e8bfbb590933"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract base class which loads and manages a TensorRT model which hides device/host memory management. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa3588568c8f40c24a8593b9101a25296"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3588568c8f40c24a8593b9101a25296">&#9670;&nbsp;</a></span>engineSummary()</h2>
+<a id="aacfa4f720e751a56934a5b105c18fa07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacfa4f720e751a56934a5b105c18fa07">&#9670;&nbsp;</a></span>engineSummary()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">string TensorRTEngine::engineSummary </td>
+          <td class="memname">std::string TensorRTEngine::engineSummary </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>

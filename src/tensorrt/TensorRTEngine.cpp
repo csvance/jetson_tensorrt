@@ -40,21 +40,13 @@
 #include <sstream>
 
 #include "NvInfer.h"
-#include "NvUffParser.h"
 #include "NvUtils.h"
 
-using namespace nvuffparser;
 using namespace nvinfer1;
 
 #include "TensorRTEngine.h"
 
 void* safeCudaMalloc(size_t);
-inline int64_t volume(const Dims& d) {
-	int64_t v = 1;
-	for (int64_t i = 0; i < d.nbDims; i++)
-		v *= d.d[i];
-	return v;
-}
 
 /**
  * @brief	Creates and manages a new instance of TensorRTEngine
@@ -73,7 +65,6 @@ TensorRTEngine::~TensorRTEngine() {
 	/* Clean up */
 	context->destroy();
 	engine->destroy();
-	shutdownProtobufLibrary();
 }
 
 /**
@@ -83,7 +74,7 @@ TensorRTEngine::~TensorRTEngine() {
 void TensorRTEngine::allocGPUBuffer() {
 	int stepSize = networkInputs.size() + networkOutputs.size();
 
-	GPU_Buffers = vector<void*>(maxBatchSize * stepSize);
+	GPU_Buffers = std::vector<void*>(maxBatchSize * stepSize);
 
 	/* Allocate GPU Input memory and move input data to it for each batch*/
 	for (int b = 0; b < maxBatchSize; b++) {
@@ -181,7 +172,7 @@ std::vector<std::vector<void*>> TensorRTEngine::predict(
  * @brief	Returns a summary of the loaded network, inputs, and outputs
  * @return	String containing the summary
  */
-string TensorRTEngine::engineSummary() {
+std::string TensorRTEngine::engineSummary() {
 
 	std::stringstream summary;
 

@@ -31,6 +31,8 @@
 #include <string>
 #include <vector>
 
+#include "NvUffParser.h"
+
 #include "TensorRTEngine.h"
 
 /**
@@ -48,7 +50,7 @@ public:
 	void addOutput(std::string, nvinfer1::Dims dims, size_t);
 
 private:
-	IUffParser* parser;
+	nvuffparser::IUffParser* parser;
 
 };
 

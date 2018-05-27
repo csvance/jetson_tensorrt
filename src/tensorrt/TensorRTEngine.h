@@ -30,6 +30,10 @@
 
 #include <string>
 #include <vector>
+#include <cuda_runtime_api.h>
+
+#include "NvInfer.h"
+#include "NvUtils.h"
 
 #include "NetworkOutput.h"
 #include "NetworkInput.h"
@@ -51,6 +55,14 @@
 }
 
 /**
+ * @brief Logger for GIE info/warning/errors
+ */
+class Logger: public nvinfer1::ILogger {
+public:
+	void log(nvinfer1::ILogger::Severity, const char*) override;
+};
+
+/**
  * @brief Abstract base class which loads and manages a TensorRT model which hides device/host memory management
  */
 class TensorRTEngine {
@@ -63,7 +75,7 @@ public:
 	bool loadCache(std::string, size_t);
 	bool saveCache(std::string);
 
-	string engineSummary();
+	std::string engineSummary();
 
 	virtual void addInput(std::string, nvinfer1::Dims, size_t) = 0;
 	virtual void addOutput(std::string, nvinfer1::Dims, size_t) = 0;
@@ -72,12 +84,12 @@ public:
 	int numBindings;
 
 protected:
-	ICudaEngine* engine;
-	IExecutionContext* context;
+	nvinfer1::ICudaEngine* engine;
+	nvinfer1::IExecutionContext* context;
 	Logger logger;
 
-	vector<NetworkInput> networkInputs;
-	vector<NetworkOutput> networkOutputs;
+	std::vector<NetworkInput> networkInputs;
+	std::vector<NetworkOutput> networkOutputs;
 
 	void allocGPUBuffer();
 	void freeGPUBuffer();
@@ -85,14 +97,6 @@ protected:
 private:
 	std::vector<void*> GPU_Buffers;
 
-};
-
-/**
- * @brief Logger for GIE info/warning/errors
- */
-class Logger: public nvinfer1::ILogger {
-public:
-	void log(nvinfer1::ILogger::Severity, const char*) override;
 };
 
 #endif

@@ -12,6 +12,7 @@
 
 #include "NvInfer.h"
 
+#include "TensorRTEngine.h"
 #include "TensorflowRTEngine.h"
 
 #define NUM_SAMPLES 10
