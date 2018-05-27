@@ -72,10 +72,10 @@ TensorflowRTEngine::~TensorflowRTEngine() {
  * @brief	Registers an input to the Tensorflow network.
  * @usage	Must be called before loadUff().
  * @param	layer	The name of the input layer (i.e. "input_1")
- * @param	dims	Dimensions of the input layer in CHW format
+ * @param	dims	Dimensions of the input layer. Must be in CHW format. Ex: (3, 640, 480)
  * @param	eleSize	Size of each element in bytes
  */
-void TensorflowRTEngine::addInput(std::string layer, nvinfer1::DimsCHW dims, size_t eleSize) {
+void TensorflowRTEngine::addInput(std::string layer, nvinfer1::Dims dims, size_t eleSize) {
 	/*
 	 Register tensorflow input
 	 Even if channel index is last in the data, put it first for TensorRT
@@ -83,7 +83,16 @@ void TensorflowRTEngine::addInput(std::string layer, nvinfer1::DimsCHW dims, siz
 	 Input(shape=(Y, X, C))
 	 Where Y = 30, X = 40, C = 1
 	 */
-	parser->registerInput(layer.c_str(), dims);
+
+	// For some reason nVidia forces us to use a DimsCHW when defining inputs for networks loaded from .uff files
+	assert(dims.nbDims == 3);
+
+	// In CHW format the channel should always be the first dimension
+	assert(dims.d[0] <= dims.d[1] && dims.d[0] <= dims.d[2]);
+
+	nvinfer1::DimsCHW chwDims = nvinfer1::DimsCHW(dims.d[0], dims.d[1], dims.d[2]);
+
+	parser->registerInput(layer.c_str(), chwDims);
 
 	networkInputs.push_back(NetworkInput(layer, dims, eleSize));
 }
@@ -113,9 +122,12 @@ void TensorflowRTEngine::addOutput(std::string layer, nvinfer1::Dims dims, size_
  * @param	maximumBatchSize	The maximum number of records to run a forward network pass on. For maximum performance, this should be the only batch size passed to the network.
  * @param	dataType	The data type of the network to load into TensorRT
  * @param	maxNetworkSize	Maximum amount of GPU RAM the Tensorflow graph is allowed to use
+ * @return	Whether the model was successfully loaded or not
  */
 bool TensorflowRTEngine::loadModel(std::string uffFile, size_t maximumBatchSize,
-		nvinfer1::DataType dataType = nvinfer1::DataType::kFLOAT, size_t maxNetworkSize=(1<<30)) {
+		nvinfer1::DataType dataType, size_t maxNetworkSize) {
+
+	assert(networkInputs.size() > 0 && networkOutputs.size() > 0);
 
 	maxBatchSize = maximumBatchSize;
 

@@ -43,3 +43,5 @@ Release
 .settings
 .project
 .cproject
+/test_caffe/
+/test_tensorflow/

@@ -211,10 +211,7 @@ bool TensorRTEngine::saveCache(std::string cachePath){
 	nvinfer1::IHostMemory* serMem = engine->serialize();
 
 	if( !serMem )
-	{
-		printf("Failed to serialize CUDA engine\n");
-		return false;
-	}
+		RETURN_AND_LOG(false, ERROR, "Failed to serialize CUDA engine");
 
 	// Write the cache file to the disk
 	std::ofstream cache;
@@ -224,6 +221,8 @@ bool TensorRTEngine::saveCache(std::string cachePath){
 
 	//Cleanup
 	serMem->destroy();
+
+	return true;
 }
 
 /**

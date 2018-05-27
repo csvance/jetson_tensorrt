@@ -99,11 +99,11 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memdesc:a3b8914eef203f7a45219edcc04ac70bf"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_caffe_r_t_engine.html" title="Loads and manages a Caffe network in TensorRT. ">CaffeRTEngine</a> Destructor. <br /></td></tr>
 <tr class="separator:a3b8914eef203f7a45219edcc04ac70bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87f6ebe976cf168e1b730c1e68513feb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_caffe_r_t_engine.html#a87f6ebe976cf168e1b730c1e68513feb">loadModel</a> (std::string, std::string, size_t, nvinfer1::DataType, size_t)</td></tr>
-<tr class="memdesc:a87f6ebe976cf168e1b730c1e68513feb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a trained Caffe model.  Should be called after registering inputs and outputs with <a class="el" href="class_caffe_r_t_engine.html#a9c1f47fc00c5edb250c029d0da09f55f" title="Registers an input to the Caffe network.  Must be called before loadModel(). ">addInput()</a> and <a class="el" href="class_caffe_r_t_engine.html#abc88adb3f01a9b233d5e213155b23731" title="Registers an output from the Tensorflow network.  Must be called before loadModel(). ">addOutput()</a>.  <a href="#a87f6ebe976cf168e1b730c1e68513feb">More...</a><br /></td></tr>
+<tr class="memdesc:a87f6ebe976cf168e1b730c1e68513feb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a trained Caffe model.  Should be called after registering inputs and outputs with <a class="el" href="class_caffe_r_t_engine.html#a0f0e9704baf0a051cb032d9351cdde44" title="Registers an input to the Caffe network.  Must be called before loadModel(). ">addInput()</a> and <a class="el" href="class_caffe_r_t_engine.html#abc88adb3f01a9b233d5e213155b23731" title="Registers an output from the Tensorflow network.  Must be called before loadModel(). ">addOutput()</a>.  <a href="#a87f6ebe976cf168e1b730c1e68513feb">More...</a><br /></td></tr>
 <tr class="separator:a87f6ebe976cf168e1b730c1e68513feb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c1f47fc00c5edb250c029d0da09f55f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_caffe_r_t_engine.html#a9c1f47fc00c5edb250c029d0da09f55f">addInput</a> (std::string, nvinfer1::DimsCHW, size_t)</td></tr>
-<tr class="memdesc:a9c1f47fc00c5edb250c029d0da09f55f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an input to the Caffe network.  Must be called before <a class="el" href="class_caffe_r_t_engine.html#a87f6ebe976cf168e1b730c1e68513feb" title="Loads a trained Caffe model.  Should be called after registering inputs and outputs with addInput() a...">loadModel()</a>.  <a href="#a9c1f47fc00c5edb250c029d0da09f55f">More...</a><br /></td></tr>
-<tr class="separator:a9c1f47fc00c5edb250c029d0da09f55f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f0e9704baf0a051cb032d9351cdde44"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_caffe_r_t_engine.html#a0f0e9704baf0a051cb032d9351cdde44">addInput</a> (std::string, nvinfer1::Dims, size_t)</td></tr>
+<tr class="memdesc:a0f0e9704baf0a051cb032d9351cdde44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an input to the Caffe network.  Must be called before <a class="el" href="class_caffe_r_t_engine.html#a87f6ebe976cf168e1b730c1e68513feb" title="Loads a trained Caffe model.  Should be called after registering inputs and outputs with addInput() a...">loadModel()</a>.  <a href="#a0f0e9704baf0a051cb032d9351cdde44">More...</a><br /></td></tr>
+<tr class="separator:a0f0e9704baf0a051cb032d9351cdde44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc88adb3f01a9b233d5e213155b23731"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_caffe_r_t_engine.html#abc88adb3f01a9b233d5e213155b23731">addOutput</a> (std::string, nvinfer1::Dims, size_t)</td></tr>
 <tr class="memdesc:abc88adb3f01a9b233d5e213155b23731"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an output from the Tensorflow network.  Must be called before <a class="el" href="class_caffe_r_t_engine.html#a87f6ebe976cf168e1b730c1e68513feb" title="Loads a trained Caffe model.  Should be called after registering inputs and outputs with addInput() a...">loadModel()</a>.  <a href="#abc88adb3f01a9b233d5e213155b23731">More...</a><br /></td></tr>
 <tr class="separator:abc88adb3f01a9b233d5e213155b23731"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -167,8 +167,8 @@ vector&lt; <a class="el" href="class_network_output.html">NetworkOutput</a> &gt;
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Loads and manages a Caffe network in TensorRT. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9c1f47fc00c5edb250c029d0da09f55f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c1f47fc00c5edb250c029d0da09f55f">&#9670;&nbsp;</a></span>addInput()</h2>
+<a id="a0f0e9704baf0a051cb032d9351cdde44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f0e9704baf0a051cb032d9351cdde44">&#9670;&nbsp;</a></span>addInput()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -185,7 +185,7 @@ vector&lt; <a class="el" href="class_network_output.html">NetworkOutput</a> &gt;
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">nvinfer1::DimsCHW&#160;</td>
+          <td class="paramtype">nvinfer1::Dims&#160;</td>
           <td class="paramname"><em>dims</em>, </td>
         </tr>
         <tr>
@@ -217,7 +217,7 @@ vector&lt; <a class="el" href="class_network_output.html">NetworkOutput</a> &gt;
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="class_tensor_r_t_engine.html">TensorRTEngine</a>.</p>
+<p>Implements <a class="el" href="class_tensor_r_t_engine.html">TensorRTEngine</a>.</p>
 
 </div>
 </div>
@@ -271,7 +271,7 @@ vector&lt; <a class="el" href="class_network_output.html">NetworkOutput</a> &gt;
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="class_tensor_r_t_engine.html">TensorRTEngine</a>.</p>
+<p>Implements <a class="el" href="class_tensor_r_t_engine.html">TensorRTEngine</a>.</p>
 
 </div>
 </div>
@@ -319,7 +319,7 @@ vector&lt; <a class="el" href="class_network_output.html">NetworkOutput</a> &gt;
       </table>
 </div><div class="memdoc">
 
-<p>Loads a trained Caffe model.  Should be called after registering inputs and outputs with <a class="el" href="class_caffe_r_t_engine.html#a9c1f47fc00c5edb250c029d0da09f55f" title="Registers an input to the Caffe network.  Must be called before loadModel(). ">addInput()</a> and <a class="el" href="class_caffe_r_t_engine.html#abc88adb3f01a9b233d5e213155b23731" title="Registers an output from the Tensorflow network.  Must be called before loadModel(). ">addOutput()</a>. </p>
+<p>Loads a trained Caffe model.  Should be called after registering inputs and outputs with <a class="el" href="class_caffe_r_t_engine.html#a0f0e9704baf0a051cb032d9351cdde44" title="Registers an input to the Caffe network.  Must be called before loadModel(). ">addInput()</a> and <a class="el" href="class_caffe_r_t_engine.html#abc88adb3f01a9b233d5e213155b23731" title="Registers an output from the Tensorflow network.  Must be called before loadModel(). ">addOutput()</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">prototextPath</td><td>Path to the models prototxt file </td></tr>

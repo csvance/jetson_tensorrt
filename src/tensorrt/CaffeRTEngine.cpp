@@ -55,7 +55,7 @@ CaffeRTEngine::~CaffeRTEngine() {}
  * @param	dims	Dimensions of the input layer in CHW format
  * @param	eleSize	Size of each element in bytes
  */
-void CaffeRTEngine::addInput(std::string layer, nvinfer1::DimsCHW dims, size_t eleSize) {
+void CaffeRTEngine::addInput(std::string layer, nvinfer1::Dims dims, size_t eleSize) {
 	networkInputs.push_back(NetworkInput(layer, dims, eleSize));
 }
 
@@ -80,6 +80,8 @@ void CaffeRTEngine::addOutput(std::string layer, nvinfer1::Dims dims, size_t ele
  * @param	maxNetworkSize	Maximum amount of GPU RAM the Tensorflow graph is allowed to use
  */
 bool CaffeRTEngine::loadModel(std::string prototextPath, std::string modelPath, size_t maximumBatchSize, nvinfer1::DataType dataType = nvinfer1::DataType::kFLOAT, size_t maxNetworkSize=(1<<30)){
+
+	assert(networkInputs.size() > 0 && networkOutputs.size() > 0);
 
 	maxBatchSize = maximumBatchSize;
 

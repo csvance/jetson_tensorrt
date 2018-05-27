@@ -46,7 +46,7 @@ public:
 
 	bool loadModel(std::string, std::string, size_t, nvinfer1::DataType, size_t);
 
-	void addInput(std::string, nvinfer1::DimsCHW, size_t);
+	void addInput(std::string, nvinfer1::Dims, size_t);
 	void addOutput(std::string, nvinfer1::Dims, size_t);
 
 private:

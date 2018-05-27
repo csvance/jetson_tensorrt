@@ -42,14 +42,10 @@ public:
 	TensorflowRTEngine();
 	virtual ~TensorflowRTEngine();
 
-	bool loadModel(std::string, size_t, nvinfer1::DataType, size_t);
+	bool loadModel(std::string, size_t, nvinfer1::DataType = nvinfer1::DataType::kFLOAT, size_t = (1 << 30));
 
-	void addInput(std::string, nvinfer1::DimsCHW, size_t);
+	void addInput(std::string, nvinfer1::Dims, size_t);
 	void addOutput(std::string,  nvinfer1::Dims dims, size_t);
-
-protected:
-	vector<NetworkInput> networkInputs;
-	vector<NetworkOutput>  networkOutputs;
 
 private:
 	IUffParser* parser;

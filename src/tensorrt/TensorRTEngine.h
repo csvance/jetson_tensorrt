@@ -50,8 +50,8 @@ public:
 
 	string engineSummary();
 
-	virtual void addInput(std::string, nvinfer1::DimsCHW, size_t);
-	virtual void addOutput(std::string, nvinfer1::Dims, size_t);
+	virtual void addInput(std::string, nvinfer1::Dims, size_t) = 0;
+	virtual void addOutput(std::string, nvinfer1::Dims, size_t) = 0;
 
 	int maxBatchSize;
 	int numBindings;
