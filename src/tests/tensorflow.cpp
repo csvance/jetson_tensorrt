@@ -24,14 +24,13 @@ using namespace std;
 int main(int argc, char** argv) {
 
 	TensorflowRTEngine engine = TensorflowRTEngine();
-	engine.addInput("input_1", DimsCHW(1, 30, 40), sizeof(float));
-	engine.addInput("input_2", DimsCHW(1, 30, 40), sizeof(float));
+	engine.addInput("input", DimsCHW(3, 299, 299), sizeof(float));
 
-	Dims outputDims; outputDims.nbDims = 1; outputDims.d[0] = 1;
-	engine.addOutput("dense_1/BiasAdd", outputDims, sizeof(float));
+	Dims outputDims; outputDims.nbDims = 1; outputDims.d[0] = 1000;
+	engine.addOutput("InceptionV3/Predictions/Reshape_1", outputDims, sizeof(float));
 
 	if(!engine.loadCache(string("./tensorflow_cache.tensorcache"), BATCH_SIZE)){
-		engine.loadModel(string("./tensorflow_graph.uff"), (size_t) BATCH_SIZE);
+		engine.loadModel(string("./inception_v3.uff"), (size_t) BATCH_SIZE);
 		engine.saveCache(string("./tensorflow_cache.tensorcache"));
 	}
 
@@ -42,8 +41,7 @@ int main(int argc, char** argv) {
 	for (int b=0; b < BATCH_SIZE; b++) {
 
 		//Inputs
-		batch[b].push_back(new unsigned char[1 * 30 * 40 * 4]);
-		batch[b].push_back(new unsigned char[1 * 30 * 40 * 4]);
+		batch[b].push_back(new unsigned char[3 * 224 * 224 * 4]);
 	}
 
 	for (;;) {

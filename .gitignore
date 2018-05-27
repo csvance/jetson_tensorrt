@@ -45,3 +45,4 @@ Release
 .cproject
 /test_caffe/
 /test_tensorflow/
+/data/
