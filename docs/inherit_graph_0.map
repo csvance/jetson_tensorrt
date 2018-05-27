@@ -1,12 +1,12 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node2" href="$class_batch_size_exception.html" title="Exception thrown batch is larger than models maximum batch size. " alt="" coords="179,5,319,32"/>
-<area shape="rect" id="node3" href="$class_device_host_transfer_exception.html" title="Exception thrown memory fails to copy from a CUDA device to the host. " alt="" coords="151,56,348,83"/>
-<area shape="rect" id="node4" href="$class_device_memory_alloc_exception.html" title="Exception thrown a CUDA device memory allocation call fails. " alt="" coords="151,107,348,133"/>
-<area shape="rect" id="node5" href="$class_device_memory_free_exception.html" title="Exception thrown a CUDA device memory free call fails. " alt="" coords="152,157,347,184"/>
-<area shape="rect" id="node6" href="$class_host_device_transfer_exception.html" title="Exception thrown memory fails to copy from the host to a CUDA device. " alt="" coords="151,208,348,235"/>
-<area shape="rect" id="node7" href="$class_host_memory_alloc_exception.html" title="Exception thrown a host memory allocation call fails. " alt="" coords="157,259,341,285"/>
-<area shape="rect" id="node8" href="$class_model_build_exception.html" title="Exception thrown when a new TensorRT model fails to build. " alt="" coords="177,309,321,336"/>
-<area shape="rect" id="node9" href="$class_model_deserialize_exception.html" title="Exception thrown when an existing TensorRT model fails to deserialize. " alt="" coords="159,360,339,387"/>
-<area shape="rect" id="node10" href="$class_model_dimension_mismatch_exception.html" title="Exception thrown when input/output dimensions registered do not match the loaded model. " alt="" coords="132,411,367,437"/>
-<area shape="rect" id="node11" href="$class_model_serialize_exception.html" title="Exception thrown when an existing TensorRT model fails to serialize. " alt="" coords="167,461,332,488"/>
+<area shape="rect" id="node2" href="$classjetson__tensorrt_1_1_batch_size_exception.html" title="Exception thrown batch is larger than models maximum batch size. " alt="" coords="152,5,328,47"/>
+<area shape="rect" id="node3" href="$classjetson__tensorrt_1_1_device_host_transfer_exception.html" title="Exception thrown memory fails to copy from a CUDA device to the host. " alt="" coords="147,71,333,112"/>
+<area shape="rect" id="node4" href="$classjetson__tensorrt_1_1_device_memory_alloc_exception.html" title="Exception thrown a CUDA device memory allocation call fails. " alt="" coords="138,136,342,177"/>
+<area shape="rect" id="node5" href="$classjetson__tensorrt_1_1_device_memory_free_exception.html" title="Exception thrown a CUDA device memory free call fails. " alt="" coords="138,201,342,243"/>
+<area shape="rect" id="node6" href="$classjetson__tensorrt_1_1_host_device_transfer_exception.html" title="Exception thrown memory fails to copy from the host to a CUDA device. " alt="" coords="147,267,333,308"/>
+<area shape="rect" id="node7" href="$classjetson__tensorrt_1_1_host_memory_alloc_exception.html" title="Exception thrown a host memory allocation call fails. " alt="" coords="145,332,335,373"/>
+<area shape="rect" id="node8" href="$classjetson__tensorrt_1_1_model_build_exception.html" title="Exception thrown when a new TensorRT model fails to build. " alt="" coords="150,397,330,439"/>
+<area shape="rect" id="node9" href="$classjetson__tensorrt_1_1_model_deserialize_exception.html" title="Exception thrown when an existing TensorRT model fails to deserialize. " alt="" coords="132,463,348,504"/>
+<area shape="rect" id="node10" href="$classjetson__tensorrt_1_1_model_dimension_mismatch_exception.html" title="Exception thrown when input/output dimensions registered do not match the loaded model. " alt="" coords="133,528,347,569"/>
+<area shape="rect" id="node11" href="$classjetson__tensorrt_1_1_model_serialize_exception.html" title="Exception thrown when an existing TensorRT model fails to serialize. " alt="" coords="139,593,341,635"/>
 </map>

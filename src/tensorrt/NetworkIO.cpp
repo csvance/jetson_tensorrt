@@ -1,7 +1,7 @@
 /**
  * @file	NetworkIO.cpp
  * @author	Carroll Vance
- * @brief	Manages a neural network layer dimensions and size
+ * @brief	Contains classes managing neural network layer dimensions and size
  *
  * Copyright (c) 2018 Carroll Vance.
  * Copyright (c) 2017, NVIDIA CORPORATION. All rights reserved.
@@ -30,6 +30,8 @@
 #include "NetworkIO.h"
 
 using namespace nvinfer1;
+
+namespace jetson_tensorrt{
 
 /**
  * @brief	Creates a new NetworkIO object
@@ -61,3 +63,19 @@ size_t NetworkIO::size() {
 	return (size_t) volume * eleSize;
 }
 
+
+NetworkInput::NetworkInput(std::string name, nvinfer1::Dims dims,
+		size_t eleSize) :
+		NetworkIO(name, dims, eleSize) {
+}
+
+NetworkInput::~NetworkInput() {}
+
+NetworkOutput::NetworkOutput(std::string name, nvinfer1::Dims dims,
+		size_t eleSize) :
+		NetworkIO(name, dims, eleSize) {
+}
+
+NetworkOutput::~NetworkOutput() {}
+
+}

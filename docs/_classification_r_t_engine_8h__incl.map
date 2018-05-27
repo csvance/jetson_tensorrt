@@ -1,7 +1,5 @@
 <map id="src/tensorrt/ClassificationRTEngine.h" name="src/tensorrt/ClassificationRTEngine.h">
-<area shape="rect" id="node7" href="$_caffe_r_t_engine_8h.html" title="Loads and manages a Caffe graph with TensorRT. " alt="" coords="524,95,647,121"/>
-<area shape="rect" id="node8" href="$_tensor_r_t_engine_8h.html" title="Abstract class which loads and manages a TensorRT graph. " alt="" coords="469,169,600,196"/>
-<area shape="rect" id="node10" href="$_network_output_8h.html" title="Manages a neural network output layer dimensions and size. " alt="" coords="195,244,317,271"/>
-<area shape="rect" id="node12" href="$_network_input_8h.html" title="Manages a neural network input layer dimensions and size. " alt="" coords="499,244,610,271"/>
-<area shape="rect" id="node11" href="$_network_i_o_8h.html" title="Manages a neural network layer dimensions and size. " alt="" coords="443,319,539,345"/>
+<area shape="rect" id="node7" href="$_caffe_r_t_engine_8h.html" title="Loads and manages a Caffe graph with TensorRT. " alt="" coords="377,95,499,121"/>
+<area shape="rect" id="node8" href="$_tensor_r_t_engine_8h.html" title="Abstract class which loads and manages a TensorRT graph. " alt="" coords="322,169,453,196"/>
+<area shape="rect" id="node10" href="$_network_i_o_8h.html" title="Contains classes managing neural network layer dimensions and size. " alt="" coords="157,244,253,271"/>
 </map>

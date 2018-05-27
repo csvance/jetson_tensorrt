@@ -36,18 +36,33 @@
 
 #include "RTExceptions.h"
 
-#define DIGITS_CLASSIFICATION_RT_ENGINE_INPUT "data"
-#define DIGITS_CLASSIFICATION_RT_ENGINE_OUTPUT	"prob"
+namespace jetson_tensorrt{
 
+const std::string ClassificationRTEngine::INPUT_BLOB = "data";
+const std::string ClassificationRTEngine::OUTPUT_BLOB = "prob";
+
+/**
+ * @brief	Creates a new instance of ClassificationRTEngine
+ * @param	prototextPath	Path to the .prototext file
+ * @param	modelPath	Path to the .caffemodel file
+ * @param	cachePath	Path to the .tensorcache file which will be loaded instead of building the network if present
+ * @param	nbChannels	Number of channels in the input image. 1 for greyscale, 3 for RGB
+ * @param	width	Width of the input image
+ * @param	height	Height of the input image
+ * @param	nbClasses	Number of classes to predict
+ * @param	maximumBatchSize	Maximum number of images that will be passed at once for prediction
+ * @param	dataType	The data type used to contstruct the TensorRT network. Use FLOAT unless you know how it will effect your model.
+ * @param	maxNetworkSize	Maximum size in bytes of the TensorRT network in device memory
+ */
 ClassificationRTEngine::ClassificationRTEngine(std::string prototextPath, std::string modelPath, std::string cachePath,
 		size_t nbChannels, size_t width, size_t height, size_t nbClasses,
 		size_t maximumBatchSize, nvinfer1::DataType dataType,
 		size_t maxNetworkSize) : CaffeRTEngine(){
 
-	addInput(DIGITS_CLASSIFICATION_RT_ENGINE_INPUT, nvinfer1::DimsCHW(nbChannels, height, width), sizeof(float));
+	addInput(INPUT_BLOB, nvinfer1::DimsCHW(nbChannels, height, width), sizeof(float));
 
 	nvinfer1::Dims outputDims; outputDims.nbDims = 1; outputDims.d[0] = nbClasses;
-	addOutput(DIGITS_CLASSIFICATION_RT_ENGINE_OUTPUT, outputDims, sizeof(float));
+	addOutput(OUTPUT_BLOB, outputDims, sizeof(float));
 
 	try{
 		loadCache(cachePath);
@@ -57,6 +72,11 @@ ClassificationRTEngine::ClassificationRTEngine(std::string prototextPath, std::s
 	}
 }
 
+/**
+ * @brief	ClassificationRTEngine destructor
+ */
 ClassificationRTEngine::~ClassificationRTEngine() {}
+
+}
 
 

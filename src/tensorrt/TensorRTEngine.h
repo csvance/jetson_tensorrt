@@ -35,8 +35,10 @@
 #include "NvInfer.h"
 #include "NvUtils.h"
 
-#include "NetworkOutput.h"
-#include "NetworkInput.h"
+#include "NetworkIO.h"
+
+namespace jetson_tensorrt{
+
 
 /**
  * @brief Logger for GIE info/warning/errors
@@ -83,4 +85,5 @@ private:
 
 };
 
+}
 #endif

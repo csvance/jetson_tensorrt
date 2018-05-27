@@ -47,6 +47,9 @@ using namespace nvinfer1;
 #include "TensorRTEngine.h"
 #include "RTExceptions.h"
 
+namespace jetson_tensorrt{
+
+
 void* safeCudaMalloc(size_t);
 
 /**
@@ -332,4 +335,6 @@ void* safeCudaMalloc(size_t memSize) {
 		abort();
 	}
 	return deviceMem;
+}
+
 }

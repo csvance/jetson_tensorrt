@@ -37,6 +37,8 @@
 
 using namespace nvinfer1;
 
+namespace jetson_tensorrt{
+
 /**
  * @brief	Creates a new instance of CaffeRTEngine
  */
@@ -154,3 +156,4 @@ void CaffeRTEngine::loadModel(std::string prototextPath, std::string modelPath,
 
 }
 
+}

@@ -43,13 +43,14 @@
 #include "NvUffParser.h"
 #include "NvUtils.h"
 
-#include "NetworkInput.h"
-#include "NetworkOutput.h"
+#include "NetworkIO.h"
 #include "TensorflowRTEngine.h"
 #include "RTExceptions.h"
 
 using namespace nvuffparser;
 using namespace nvinfer1;
+
+namespace jetson_tensorrt{
 
 /**
  * @brief	Creates a new instance of TensorflowRTEngine
@@ -170,6 +171,8 @@ void TensorflowRTEngine::loadModel(std::string uffFile, size_t maximumBatchSize,
 
 	/* Allocate buffers for inference*/
 	allocGPUBuffer();
+
+}
 
 }
 

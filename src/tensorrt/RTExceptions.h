@@ -31,6 +31,8 @@
 #include <string>
 #include <exception>
 
+namespace jetson_tensorrt{
+
 /**
  * @brief	Exception thrown when a new TensorRT model fails to build
  */
@@ -161,5 +163,7 @@ public:
         return message_.c_str();
     }
 };
+
+}
 
 #endif /* EXCEPTIONS_H_ */

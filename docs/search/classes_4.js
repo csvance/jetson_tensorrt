@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['logger',['Logger',['../class_logger.html',1,'']]]
+  ['logger',['Logger',['../classjetson__tensorrt_1_1_logger.html',1,'jetson_tensorrt']]]
 ];

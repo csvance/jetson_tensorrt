@@ -31,6 +31,7 @@
 
 using namespace nvinfer1;
 using namespace std;
+using namespace jetson_tensorrt;
 
 int main(int argc, char** argv) {
 

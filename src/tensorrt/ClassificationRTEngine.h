@@ -37,8 +37,8 @@
 
 #include <CaffeRTEngine.h>
 
-#define CHANNELS_GREYSCALE 1
-#define CHANNELS_COLOR 3
+namespace jetson_tensorrt{
+
 
 /**
  * @brief	Loads and manages a classification network trained by nVidia DIGITS
@@ -50,6 +50,14 @@ public:
 			nvinfer1::DataType =nvinfer1::DataType::kFLOAT, size_t = (1 << 30));
 	virtual ~ClassificationRTEngine();
 
+	static const size_t CHANNELS_GREYSCALE = 1;
+	static const size_t CHANNELS_COLOR	= 3;
+
+	static const std::string INPUT_BLOB;
+	static const std::string OUTPUT_BLOB;
+
 };
+
+}
 
 #endif /* CLASSIFICATIONRTENGINE_H_ */

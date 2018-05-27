@@ -27,6 +27,8 @@
 
 #include "RTExceptions.h"
 
+namespace jetson_tensorrt{
+
 ModelBuildException::ModelBuildException(const std::string& message) : message_(message){}
 ModelDeserializeException::ModelDeserializeException(const std::string& message) : message_(message){}
 ModelSerializeException::ModelSerializeException(const std::string& message) : message_(message){}
@@ -37,3 +39,5 @@ HostDeviceTransferException::HostDeviceTransferException(const std::string& mess
 DeviceHostTransferException::DeviceHostTransferException(const std::string& message) : message_(message){}
 ModelDimensionMismatchException::ModelDimensionMismatchException(const std::string& message) : message_(message){}
 BatchSizeException::BatchSizeException(const std::string& message) : message_(message){}
+
+}

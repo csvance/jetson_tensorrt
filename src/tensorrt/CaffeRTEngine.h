@@ -36,6 +36,8 @@
 
 #include "TensorRTEngine.h"
 
+namespace jetson_tensorrt{
+
 /**
  * @brief Loads and manages a Caffe network in TensorRT
  */
@@ -53,5 +55,7 @@ public:
 private:
 	nvcaffeparser1::ICaffeParser* parser;
 };
+
+}
 
 #endif /* CAFFERTENGINE_H_ */
