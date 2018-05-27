@@ -33,7 +33,22 @@
 
 #include "NetworkOutput.h"
 #include "NetworkInput.h"
-#include "HostCommon.h"
+
+#define RETURN_AND_LOG(ret, severity, message)                                              \
+    do {                                                                                    \
+        std::string error_message = " " + std::string(message);            					\
+        logger.log(ILogger::Severity::k ## severity, error_message.c_str());               \
+        return (ret);                                                                       \
+    } while(0)
+
+#define CHECK(status)									\
+{														\
+	if (status != 0)									\
+	{													\
+		std::cout << "Cuda failure: " << status;		\
+		abort();										\
+	}													\
+}
 
 /**
  * @brief Abstract base class which loads and manages a TensorRT model which hides device/host memory management
@@ -62,7 +77,7 @@ protected:
 	Logger logger;
 
 	vector<NetworkInput> networkInputs;
-	vector<NetworkOutput>  networkOutputs;
+	vector<NetworkOutput> networkOutputs;
 
 	void allocGPUBuffer();
 	void freeGPUBuffer();
@@ -72,6 +87,12 @@ private:
 
 };
 
-
+/**
+ * @brief Logger for GIE info/warning/errors
+ */
+class Logger: public nvinfer1::ILogger {
+public:
+	void log(nvinfer1::ILogger::Severity, const char*) override;
+};
 
 #endif

@@ -18,6 +18,7 @@
 #define BATCH_SIZE 16*16
 
 using namespace nvinfer1;
+using namespace std;
 
 int main(int argc, char** argv) {
 
@@ -28,9 +29,10 @@ int main(int argc, char** argv) {
 	Dims outputDims; outputDims.nbDims = 1; outputDims.d[0] = 1;
 	engine.addOutput("dense_1/BiasAdd", outputDims, sizeof(float));
 
-	if(!engine.loadCache(std::string("./tensorflow_cache.tensorcache"), BATCH_SIZE))
-		engine.loadModel(std::string("./tensorflow_graph.uff"), (size_t) BATCH_SIZE);
-	engine.saveCache(std::string("./tensorflow_cache.tensorcache"));
+	if(!engine.loadCache(string("./tensorflow_cache.tensorcache"), BATCH_SIZE)){
+		engine.loadModel(string("./tensorflow_graph.uff"), (size_t) BATCH_SIZE);
+		engine.saveCache(string("./tensorflow_cache.tensorcache"));
+	}
 
 	std::cout << engine.engineSummary() << std::endl;
 

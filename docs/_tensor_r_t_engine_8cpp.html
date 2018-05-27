@@ -62,6 +62,8 @@ $(function() {
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">TensorRTEngine.cpp File Reference</div>  </div>
 </div><!--header-->
@@ -85,20 +87,28 @@ $(function() {
 <code>#include &quot;NvUffParser.h&quot;</code><br />
 <code>#include &quot;NvUtils.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="_tensor_r_t_engine_8h_source.html">TensorRTEngine.h</a>&quot;</code><br />
-<code>#include &quot;HostCommon.h&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for TensorRTEngine.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="_tensor_r_t_engine_8cpp__incl.png" border="0" usemap="#src_2tensorrt_2_tensor_r_t_engine_8cpp" alt=""/></div>
 <map name="src_2tensorrt_2_tensor_r_t_engine_8cpp" id="src_2tensorrt_2_tensor_r_t_engine_8cpp">
-<area shape="rect" id="node17" href="_tensor_r_t_engine_8h.html" title="Abstract class which loads and manages a TensorRT graph. " alt="" coords="865,80,996,107"/>
-<area shape="rect" id="node21" href="_host_common_8h_source.html" title="HostCommon.h" alt="" coords="676,155,791,181"/>
-<area shape="rect" id="node18" href="_network_output_8h_source.html" title="NetworkOutput.h" alt="" coords="866,155,987,181"/>
-<area shape="rect" id="node20" href="_network_input_8h_source.html" title="NetworkInput.h" alt="" coords="1011,155,1122,181"/>
-<area shape="rect" id="node19" href="_network_i_o_8h_source.html" title="NetworkIO.h" alt="" coords="931,229,1027,256"/>
+<area shape="rect" id="node17" href="_tensor_r_t_engine_8h.html" title="Abstract class which loads and manages a TensorRT graph. " alt="" coords="671,80,801,107"/>
+<area shape="rect" id="node18" href="_network_output_8h_source.html" title="NetworkOutput.h" alt="" coords="655,155,777,181"/>
+<area shape="rect" id="node20" href="_network_input_8h_source.html" title="NetworkInput.h" alt="" coords="521,155,631,181"/>
+<area shape="rect" id="node19" href="_network_i_o_8h_source.html" title="NetworkIO.h" alt="" coords="668,229,764,256"/>
 </map>
 </div>
-</div><a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ab09a8fa3767c5d2f499e255bf1cd159d"><td class="memItemLeft" align="right" valign="top"><a id="ab09a8fa3767c5d2f499e255bf1cd159d"></a>
+void *&#160;</td><td class="memItemRight" valign="bottom"><b>safeCudaMalloc</b> (size_t)</td></tr>
+<tr class="separator:ab09a8fa3767c5d2f499e255bf1cd159d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af15866c2e481a392f2c05ae78b0ac8d5"><td class="memItemLeft" align="right" valign="top"><a id="af15866c2e481a392f2c05ae78b0ac8d5"></a>
+int64_t&#160;</td><td class="memItemRight" valign="bottom"><b>volume</b> (const Dims &amp;d)</td></tr>
+<tr class="separator:af15866c2e481a392f2c05ae78b0ac8d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract class which loads and manages a TensorRT graph. </p>
 <dl class="section author"><dt>Author</dt><dd>Carroll Vance Copyright (c) 2018 Carroll Vance. Copyright (c) 2017, NVIDIA CORPORATION. All rights reserved.</dd></dl>
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>

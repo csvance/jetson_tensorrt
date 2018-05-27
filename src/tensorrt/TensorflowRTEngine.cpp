@@ -25,7 +25,6 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-
 #include <algorithm>
 #include <chrono>
 #include <cstdlib>
@@ -47,16 +46,15 @@
 #include "NetworkInput.h"
 #include "NetworkOutput.h"
 #include "TensorflowRTEngine.h"
-#include "HostCommon.h"
 
 using namespace nvuffparser;
 using namespace nvinfer1;
 
-
 /**
  * @brief	Creates a new instance of TensorflowRTEngine
  */
-TensorflowRTEngine::TensorflowRTEngine() : TensorRTEngine() {
+TensorflowRTEngine::TensorflowRTEngine() :
+		TensorRTEngine() {
 	parser = createUffParser();
 }
 
@@ -75,7 +73,8 @@ TensorflowRTEngine::~TensorflowRTEngine() {
  * @param	dims	Dimensions of the input layer. Must be in CHW format. Ex: (3, 640, 480)
  * @param	eleSize	Size of each element in bytes
  */
-void TensorflowRTEngine::addInput(std::string layer, nvinfer1::Dims dims, size_t eleSize) {
+void TensorflowRTEngine::addInput(std::string layer, nvinfer1::Dims dims,
+		size_t eleSize) {
 	/*
 	 Register tensorflow input
 	 Even if channel index is last in the data, put it first for TensorRT
@@ -90,7 +89,8 @@ void TensorflowRTEngine::addInput(std::string layer, nvinfer1::Dims dims, size_t
 	// In CHW format the channel should always be the first dimension
 	assert(dims.d[0] <= dims.d[1] && dims.d[0] <= dims.d[2]);
 
-	nvinfer1::DimsCHW chwDims = nvinfer1::DimsCHW(dims.d[0], dims.d[1], dims.d[2]);
+	nvinfer1::DimsCHW chwDims = nvinfer1::DimsCHW(dims.d[0], dims.d[1],
+			dims.d[2]);
 
 	parser->registerInput(layer.c_str(), chwDims);
 
@@ -104,7 +104,8 @@ void TensorflowRTEngine::addInput(std::string layer, nvinfer1::Dims dims, size_t
  * @param	dims	Dimension of outputs
  * @param	eleSize	Size of each element in bytes
  */
-void TensorflowRTEngine::addOutput(std::string layer, nvinfer1::Dims dims, size_t eleSize) {
+void TensorflowRTEngine::addOutput(std::string layer, nvinfer1::Dims dims,
+		size_t eleSize) {
 	/*
 	 Name of last operation of last non optimizer layer found with
 	 `convert_to_uff.py tensorflow --input-file graph.pb -l`
@@ -136,14 +137,17 @@ bool TensorflowRTEngine::loadModel(std::string uffFile, size_t maximumBatchSize,
 	INetworkDefinition* network = builder->createNetwork();
 
 	if (dataType == DataType::kFLOAT) {
-		if (!parser->parse(uffFile.c_str(), *network, nvinfer1::DataType::kFLOAT))
+		if (!parser->parse(uffFile.c_str(), *network,
+				nvinfer1::DataType::kFLOAT))
 			RETURN_AND_LOG(false, ERROR, "Fail to parse");
 	} else if (dataType == DataType::kHALF) {
-		if (!parser->parse(uffFile.c_str(), *network, nvinfer1::DataType::kINT8))
+		if (!parser->parse(uffFile.c_str(), *network,
+				nvinfer1::DataType::kINT8))
 			RETURN_AND_LOG(false, ERROR, "Fail to parse");
 		builder->setHalf2Mode(true);
 	} else if (dataType == DataType::kINT8) {
-		if (!parser->parse(uffFile.c_str(), *network, nvinfer1::DataType::kINT8))
+		if (!parser->parse(uffFile.c_str(), *network,
+				nvinfer1::DataType::kINT8))
 			RETURN_AND_LOG(false, ERROR, "Fail to parse");
 		builder->setInt8Mode(true);
 	}

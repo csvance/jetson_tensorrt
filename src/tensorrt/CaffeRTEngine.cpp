@@ -39,14 +39,16 @@ using namespace nvinfer1;
 /**
  * @brief	Creates a new instance of CaffeRTEngine
  */
-CaffeRTEngine::CaffeRTEngine() : TensorRTEngine() {
+CaffeRTEngine::CaffeRTEngine() :
+		TensorRTEngine() {
 	parser = nvcaffeparser1::createCaffeParser();
 }
 
 /**
  * @brief	CaffeRTEngine Destructor
  */
-CaffeRTEngine::~CaffeRTEngine() {}
+CaffeRTEngine::~CaffeRTEngine() {
+}
 
 /**
  * @brief	Registers an input to the Caffe network.
@@ -55,7 +57,8 @@ CaffeRTEngine::~CaffeRTEngine() {}
  * @param	dims	Dimensions of the input layer in CHW format
  * @param	eleSize	Size of each element in bytes
  */
-void CaffeRTEngine::addInput(std::string layer, nvinfer1::Dims dims, size_t eleSize) {
+void CaffeRTEngine::addInput(std::string layer, nvinfer1::Dims dims,
+		size_t eleSize) {
 	networkInputs.push_back(NetworkInput(layer, dims, eleSize));
 }
 
@@ -66,7 +69,8 @@ void CaffeRTEngine::addInput(std::string layer, nvinfer1::Dims dims, size_t eleS
  * @param	dims	Dimension of outputs
  * @param	eleSize	Size of each element in bytes
  */
-void CaffeRTEngine::addOutput(std::string layer, nvinfer1::Dims dims, size_t eleSize) {
+void CaffeRTEngine::addOutput(std::string layer, nvinfer1::Dims dims,
+		size_t eleSize) {
 	networkOutputs.push_back(NetworkOutput(layer, dims, eleSize));
 }
 
@@ -79,7 +83,9 @@ void CaffeRTEngine::addOutput(std::string layer, nvinfer1::Dims dims, size_t ele
  * @param	dataType	The data type of the network to load into TensorRT
  * @param	maxNetworkSize	Maximum amount of GPU RAM the Tensorflow graph is allowed to use
  */
-bool CaffeRTEngine::loadModel(std::string prototextPath, std::string modelPath, size_t maximumBatchSize, nvinfer1::DataType dataType = nvinfer1::DataType::kFLOAT, size_t maxNetworkSize=(1<<30)){
+bool CaffeRTEngine::loadModel(std::string prototextPath, std::string modelPath,
+		size_t maximumBatchSize, nvinfer1::DataType dataType,
+		size_t maxNetworkSize) {
 
 	assert(networkInputs.size() > 0 && networkOutputs.size() > 0);
 
@@ -89,11 +95,8 @@ bool CaffeRTEngine::loadModel(std::string prototextPath, std::string modelPath, 
 
 	INetworkDefinition* network = builder->createNetwork();
 
-	const nvcaffeparser1::IBlobNameToTensor *blobNameToTensor =
-			parser->parse(prototextPath.c_str(),
-						  modelPath.c_str(),
-						 *network,
-						  dataType);
+	const nvcaffeparser1::IBlobNameToTensor *blobNameToTensor = parser->parse(
+			prototextPath.c_str(), modelPath.c_str(), *network, dataType);
 
 	if (dataType == DataType::kFLOAT) {
 
@@ -104,24 +107,13 @@ bool CaffeRTEngine::loadModel(std::string prototextPath, std::string modelPath, 
 		builder->setInt8Mode(true);
 	}
 
-	if( !blobNameToTensor )
+	if (!blobNameToTensor)
 		RETURN_AND_LOG(false, ERROR, "Failed to parse Caffe network");
 
-	// Verify registered input shapes match parser
-	for(int n=0; n < networkInputs.size(); n++){
-		nvinfer1::Dims dims = engine->getBindingDimensions(n);
-
-		if(dims.nbDims != networkInputs[n].dims.nbDims)
-			RETURN_AND_LOG(false, ERROR, "Engine inputs number of dimensions != registered inputs number of dimensions");
-
-		for(int d=0; d<dims.nbDims; d++)
-			if (dims.d[d] != networkInputs[n].dims.d[d])
-				RETURN_AND_LOG(false, ERROR, "Engine inputs dimensions != registered inputs dimensions");
-	}
-
 	// Register outputs with engine
-	for(int n=0; n < networkOutputs.size(); n++){
-		nvinfer1::ITensor* tensor = blobNameToTensor->find(networkOutputs[n].name.c_str());
+	for (int n = 0; n < networkOutputs.size(); n++) {
+		nvinfer1::ITensor* tensor = blobNameToTensor->find(
+				networkOutputs[n].name.c_str());
 		network->markOutput(*tensor);
 	}
 
@@ -131,6 +123,20 @@ bool CaffeRTEngine::loadModel(std::string prototextPath, std::string modelPath, 
 	engine = builder->buildCudaEngine(*network);
 	if (!engine)
 		RETURN_AND_LOG(false, ERROR, "Unable to create engine");
+
+	// Verify registered input shapes match parser
+	for (int n = 0; n < networkInputs.size(); n++) {
+		nvinfer1::Dims dims = engine->getBindingDimensions(n);
+
+		if (dims.nbDims != networkInputs[n].dims.nbDims)
+			RETURN_AND_LOG(false, ERROR,
+					"Engine inputs number of dimensions != registered inputs number of dimensions");
+
+		for (int d = 0; d < dims.nbDims; d++)
+			if (dims.d[d] != networkInputs[n].dims.d[d])
+				RETURN_AND_LOG(false, ERROR,
+						"Engine inputs dimensions != registered inputs dimensions");
+	}
 
 	/* Reclaim memory */
 	network->destroy();
@@ -143,6 +149,8 @@ bool CaffeRTEngine::loadModel(std::string prototextPath, std::string modelPath, 
 
 	/* Allocate buffers for inference*/
 	allocGPUBuffer();
+
+	return true;
 
 }
 

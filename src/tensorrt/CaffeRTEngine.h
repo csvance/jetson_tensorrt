@@ -44,7 +44,8 @@ public:
 	CaffeRTEngine();
 	virtual ~CaffeRTEngine();
 
-	bool loadModel(std::string, std::string, size_t, nvinfer1::DataType, size_t);
+	bool loadModel(std::string, std::string, size_t, nvinfer1::DataType =
+			nvinfer1::DataType::kFLOAT, size_t = (1 << 30));
 
 	void addInput(std::string, nvinfer1::Dims, size_t);
 	void addOutput(std::string, nvinfer1::Dims, size_t);
