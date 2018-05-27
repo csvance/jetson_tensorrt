@@ -237,6 +237,8 @@ bool TensorRTEngine::loadCache(std::string cachePath, size_t maxBatchSize){
 	// Read the cache file from the disk and load it into a stringstream
 	std::ifstream cache;
 	cache.open(cachePath);
+	if(!cache.is_open())
+		return false;
 
 	std::stringstream gieModelStream;
 
@@ -255,7 +257,7 @@ bool TensorRTEngine::loadCache(std::string cachePath, size_t maxBatchSize){
 		RETURN_AND_LOG(false, ERROR, "Unable to allocate memory to deserialize model");
 
 	gieModelStream.read((char*)modelMem, modelSize);
-	nvinfer1::ICudaEngine* engine = infer->deserializeCudaEngine(modelMem, modelSize, NULL);
+	engine = infer->deserializeCudaEngine(modelMem, modelSize, NULL);
 
 	free(modelMem);
 
@@ -266,6 +268,10 @@ bool TensorRTEngine::loadCache(std::string cachePath, size_t maxBatchSize){
 	this->numBindings = engine->getNbBindings();
 	this->maxBatchSize = maxBatchSize;
 
+	context = engine->createExecutionContext();
+
 	//Allocate device memory
 	allocGPUBuffer();
+
+	return true;
 }

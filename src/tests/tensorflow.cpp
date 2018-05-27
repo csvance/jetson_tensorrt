@@ -28,7 +28,10 @@ int main(int argc, char** argv) {
 	Dims outputDims; outputDims.nbDims = 1; outputDims.d[0] = 1;
 	engine.addOutput("dense_1/BiasAdd", outputDims, sizeof(float));
 
-	engine.loadModel(std::string("./tensorflow_graph.uff"), (size_t) BATCH_SIZE);
+	if(!engine.loadCache(std::string("./tensorflow_cache.tensorcache"), BATCH_SIZE))
+		engine.loadModel(std::string("./tensorflow_graph.uff"), (size_t) BATCH_SIZE);
+	engine.saveCache(std::string("./tensorflow_cache.tensorcache"));
+
 	std::cout << engine.engineSummary() << std::endl;
 
 	/* Allocate memory for predictions */
