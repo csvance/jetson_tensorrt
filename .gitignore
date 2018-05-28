@@ -46,3 +46,4 @@ Release
 /test_caffe/
 /test_tensorflow/
 /data/
+/test_classification/
