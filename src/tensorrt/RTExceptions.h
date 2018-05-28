@@ -177,6 +177,19 @@ public:
     }
 };
 
+/**
+ * @brief	Exception thrown if the TensorRT engine fails to execute during a prediction
+ */
+class UnsupportedConfigurationException: public std::exception {
+private:
+    std::string message_;
+public:
+    explicit UnsupportedConfigurationException(const std::string& message);
+    virtual const char* what() const throw() {
+        return message_.c_str();
+    }
+};
+
 }
 
 #endif /* EXCEPTIONS_H_ */

@@ -1,7 +1,7 @@
 /**
  * @file	ClassificationRTEngine.cpp
  * @author	Carroll Vance
- * @brief	Loads and manages a DIGITS classification graph with TensorRT
+ * @brief	Loads and manages a DIGITS ImageNet graph with TensorRT
  *
  * Copyright (c) 2018 Carroll Vance.
  * Copyright (c) 2017, NVIDIA CORPORATION. All rights reserved.
@@ -32,14 +32,14 @@
 #include "NvCaffeParser.h"
 #include "NvUtils.h"
 
-#include <ClassificationRTEngine.h>
+#include "ClassificationRTEngine.h"
 
 #include "RTExceptions.h"
 
 namespace jetson_tensorrt{
 
-const std::string ClassificationRTEngine::INPUT_BLOB = "data";
-const std::string ClassificationRTEngine::OUTPUT_BLOB = "prob";
+const std::string ClassificationRTEngine::INPUT_NAME = "data";
+const std::string ClassificationRTEngine::OUTPUT_NAME = "prob";
 
 /**
  * @brief	Creates a new instance of ClassificationRTEngine
@@ -59,10 +59,10 @@ ClassificationRTEngine::ClassificationRTEngine(std::string prototextPath, std::s
 		size_t maximumBatchSize, nvinfer1::DataType dataType,
 		size_t maxNetworkSize) : CaffeRTEngine(){
 
-	addInput(INPUT_BLOB, nvinfer1::DimsCHW(nbChannels, height, width), sizeof(float));
+	addInput(INPUT_NAME, nvinfer1::DimsCHW(nbChannels, height, width), sizeof(float));
 
 	nvinfer1::Dims outputDims; outputDims.nbDims = 1; outputDims.d[0] = nbClasses;
-	addOutput(OUTPUT_BLOB, outputDims, sizeof(float));
+	addOutput(OUTPUT_NAME, outputDims, sizeof(float));
 
 	try{
 		loadCache(cachePath);

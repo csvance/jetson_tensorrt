@@ -1,6 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classjetson__tensorrt_1_1_tensor_r_t_engine.html" title="Abstract base class which loads and manages a TensorRT model which hides device/host memory managemen..." alt="" coords="5,42,220,69"/>
-<area shape="rect" id="node2" href="$classjetson__tensorrt_1_1_caffe_r_t_engine.html" title="Loads and manages a Caffe network in TensorRT. " alt="" coords="268,13,475,39"/>
-<area shape="rect" id="node4" href="$classjetson__tensorrt_1_1_tensorflow_r_t_engine.html" title="Loads and manages a Tensorflow network in TensorRT. " alt="" coords="281,64,461,105"/>
-<area shape="rect" id="node3" href="$classjetson__tensorrt_1_1_classification_r_t_engine.html" title="Loads and manages a classification network trained by nVidia DIGITS. " alt="" coords="523,5,717,47"/>
+<area shape="rect" id="node1" href="$classjetson__tensorrt_1_1_network_i_o.html" title="Abstract class representing a node in a neural network which takes input or generates output..." alt="" coords="5,46,184,73"/>
+<area shape="rect" id="node2" href="$classjetson__tensorrt_1_1_network_input.html" title="Represents an input node in a neural network which accepts a certain dimension and size..." alt="" coords="232,5,397,47"/>
+<area shape="rect" id="node3" href="$classjetson__tensorrt_1_1_network_output.html" title="Represents an output node in a neural network which outputs a certain dimension and size..." alt="" coords="232,71,397,112"/>
 </map>

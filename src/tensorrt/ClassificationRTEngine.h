@@ -1,7 +1,7 @@
 /**
  * @file	ClassificationRTEngine.h
  * @author	Carroll Vance
- * @brief	Loads and manages a DIGITS classification graph with TensorRT
+ * @brief	Loads and manages a DIGITS ImageNet graph with TensorRT
  *
  * Copyright (c) 2018 Carroll Vance.
  * Copyright (c) 2017, NVIDIA CORPORATION. All rights reserved.
@@ -41,20 +41,21 @@ namespace jetson_tensorrt{
 
 
 /**
- * @brief	Loads and manages a classification network trained by nVidia DIGITS
+ * @brief	Loads and manages a DIGITS ImageNet graph with TensorRT
  */
 class ClassificationRTEngine: public CaffeRTEngine {
 public:
 	ClassificationRTEngine(std::string, std::string, std::string="classification.tensorcache",
-			size_t=CHANNELS_COLOR, size_t=224, size_t=224, size_t=1, size_t=1000,
+			size_t=CHANNELS_BGR, size_t=224, size_t=224, size_t=1, size_t=1000,
 			nvinfer1::DataType =nvinfer1::DataType::kFLOAT, size_t = (1 << 30));
 	virtual ~ClassificationRTEngine();
 
 	static const size_t CHANNELS_GREYSCALE = 1;
-	static const size_t CHANNELS_COLOR	= 3;
+	static const size_t CHANNELS_BGR	= 3;
 
-	static const std::string INPUT_BLOB;
-	static const std::string OUTPUT_BLOB;
+private:
+	static const std::string INPUT_NAME;
+	static const std::string OUTPUT_NAME;
 
 };
 

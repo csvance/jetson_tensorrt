@@ -40,5 +40,7 @@ DeviceHostTransferException::DeviceHostTransferException(const std::string& mess
 ModelDimensionMismatchException::ModelDimensionMismatchException(const std::string& message) : message_(message){}
 BatchSizeException::BatchSizeException(const std::string& message) : message_(message){}
 EngineExecutionException::EngineExecutionException(const std::string& message) : message_(message){}
+UnsupportedConfigurationException::UnsupportedConfigurationException(const std::string& message) : message_(message){}
+
 
 }

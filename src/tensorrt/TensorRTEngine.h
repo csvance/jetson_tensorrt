@@ -77,11 +77,13 @@ protected:
 	std::vector<NetworkInput> networkInputs;
 	std::vector<NetworkOutput> networkOutputs;
 
+private:
+	std::vector<void*> preAllocatedGPUBuffers;
+
 	void allocGPUBuffer();
 	void freeGPUBuffer();
 
-private:
-	std::vector<void*> preAllocatedGPUBuffers;
+	bool gpuBufferPreAllocated;
 
 };
 

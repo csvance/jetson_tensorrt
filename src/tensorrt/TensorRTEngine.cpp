@@ -60,6 +60,7 @@ TensorRTEngine::TensorRTEngine() {
 	maxBatchSize = 0;
 	context = NULL;
 	engine = NULL;
+	gpuBufferPreAllocated = false;
 }
 
 /**
@@ -69,11 +70,13 @@ TensorRTEngine::~TensorRTEngine() {
 	/* Clean up */
 	context->destroy();
 	engine->destroy();
+
+	freeGPUBuffer();
 }
 
 /**
  * @brief	Allocates the buffers required to copy batches to the GPU
- * @usage	Should be called by a subclass after determining the number and size of all graph inputs and outputs
+ * @usage	Should be called before the first prediction from host memory
  */
 void TensorRTEngine::allocGPUBuffer() {
 	int stepSize = networkInputs.size() + networkOutputs.size();
@@ -101,18 +104,26 @@ void TensorRTEngine::allocGPUBuffer() {
 		}
 
 	}
+
+	gpuBufferPreAllocated = true;
 }
 
 /**
  * @brief	Frees buffers required to copy batches to the GPU
- * @usage	Should be called by subclass destructor
  */
 void TensorRTEngine::freeGPUBuffer() {
-	/* Move outputs back to host memory for each batch */
-	for (int b = 0; b < preAllocatedGPUBuffers.size(); b++){
-		cudaError_t deviceFreeError = cudaFree(preAllocatedGPUBuffers[b]);
-		if(deviceFreeError != 0)
-			throw DeviceMemoryFreeException("Error freeing device memory. CUDA Error: " + std::to_string(deviceFreeError));
+
+	if(gpuBufferPreAllocated){
+
+		/* Move outputs back to host memory for each batch */
+		for (int b = 0; b < preAllocatedGPUBuffers.size(); b++){
+			cudaError_t deviceFreeError = cudaFree(preAllocatedGPUBuffers[b]);
+			if(deviceFreeError != 0)
+				throw DeviceMemoryFreeException("Error freeing device memory. CUDA Error: " + std::to_string(deviceFreeError));
+		}
+
+		gpuBufferPreAllocated = false;
+
 	}
 }
 
@@ -134,7 +145,11 @@ std::vector<std::vector<void*>> TensorRTEngine::predict(
 
 	std::vector<void*> transactionGPUBuffers(batchInputs.size() * stepSize);
 
-	/* Assign transction buffers and copy to GPU if neccisary */
+	//If this is the first time we are doing a prediction from host memory, allocate a GPU buffer to copy the host batch from
+	if(!fromDeviceMemory && !gpuBufferPreAllocated)
+		allocGPUBuffer();
+
+	/* Assign transaction buffers and copy to GPU if neccisary */
 	for (int b = 0; b < batchCount; b++){
 		int bindingIdx = 0;
 
@@ -294,9 +309,6 @@ void TensorRTEngine::loadCache(std::string cachePath, size_t maxBatchSize) {
 	this->maxBatchSize = maxBatchSize;
 
 	context = engine->createExecutionContext();
-
-	//Allocate device memory
-	allocGPUBuffer();
 
 }
 

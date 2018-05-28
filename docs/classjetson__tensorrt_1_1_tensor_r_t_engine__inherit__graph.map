@@ -1,5 +1,6 @@
 <map id="jetson_tensorrt::TensorRTEngine" name="jetson_tensorrt::TensorRTEngine">
-<area shape="rect" id="node2" href="$classjetson__tensorrt_1_1_caffe_r_t_engine.html" title="Loads and manages a Caffe network in TensorRT. " alt="" coords="5,87,212,114"/>
-<area shape="rect" id="node4" href="$classjetson__tensorrt_1_1_tensorflow_r_t_engine.html" title="Loads and manages a Tensorflow network in TensorRT. " alt="" coords="236,80,416,121"/>
-<area shape="rect" id="node3" href="$classjetson__tensorrt_1_1_classification_r_t_engine.html" title="Loads and manages a classification network trained by nVidia DIGITS. " alt="" coords="11,169,206,211"/>
+<area shape="rect" id="node2" href="$classjetson__tensorrt_1_1_caffe_r_t_engine.html" title="Loads and manages a Caffe network in TensorRT. " alt="" coords="103,87,310,114"/>
+<area shape="rect" id="node5" href="$classjetson__tensorrt_1_1_tensorflow_r_t_engine.html" title="Loads and manages a Tensorflow network in TensorRT. " alt="" coords="334,80,514,121"/>
+<area shape="rect" id="node3" href="$classjetson__tensorrt_1_1_classification_r_t_engine.html" title="Loads and manages a classification network trained by nVidia DIGITS. " alt="" coords="5,169,200,211"/>
+<area shape="rect" id="node4" href="$classjetson__tensorrt_1_1_detection_r_t_engine.html" title="Loads and manages a DIGITS DetectNet graph with TensorRT. " alt="" coords="225,169,397,211"/>
 </map>

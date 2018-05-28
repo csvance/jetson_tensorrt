@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['enginesummary',['engineSummary',['../classjetson__tensorrt_1_1_tensor_r_t_engine.html#ac170c23a337a439cb674a40b005483ff',1,'jetson_tensorrt::TensorRTEngine']]]
+  ['detectionrtengine',['DetectionRTEngine',['../classjetson__tensorrt_1_1_detection_r_t_engine.html#a20ec5f10c82f269b4780c7dc2eefcc73',1,'jetson_tensorrt::DetectionRTEngine']]]
 ];

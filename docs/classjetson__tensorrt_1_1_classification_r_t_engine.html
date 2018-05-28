@@ -97,9 +97,9 @@ Collaboration diagram for jetson_tensorrt::ClassificationRTEngine:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:abf63c180714719a46912292e04059c1e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_classification_r_t_engine.html#abf63c180714719a46912292e04059c1e">ClassificationRTEngine</a> (std::string, std::string, std::string=&quot;classification.tensorcache&quot;, size_t=CHANNELS_COLOR, size_t=224, size_t=224, size_t=1, size_t=1000, nvinfer1::DataType=nvinfer1::DataType::kFLOAT, size_t=(1&lt;&lt; 30))</td></tr>
-<tr class="memdesc:abf63c180714719a46912292e04059c1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new instance of <a class="el" href="classjetson__tensorrt_1_1_classification_r_t_engine.html" title="Loads and manages a classification network trained by nVidia DIGITS. ">ClassificationRTEngine</a>.  <a href="#abf63c180714719a46912292e04059c1e">More...</a><br /></td></tr>
-<tr class="separator:abf63c180714719a46912292e04059c1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1742008948c4deab9a99a8ec670eb706"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_classification_r_t_engine.html#a1742008948c4deab9a99a8ec670eb706">ClassificationRTEngine</a> (std::string, std::string, std::string=&quot;classification.tensorcache&quot;, size_t=CHANNELS_BGR, size_t=224, size_t=224, size_t=1, size_t=1000, nvinfer1::DataType=nvinfer1::DataType::kFLOAT, size_t=(1&lt;&lt; 30))</td></tr>
+<tr class="memdesc:a1742008948c4deab9a99a8ec670eb706"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new instance of <a class="el" href="classjetson__tensorrt_1_1_classification_r_t_engine.html" title="Loads and manages a classification network trained by nVidia DIGITS. ">ClassificationRTEngine</a>.  <a href="#a1742008948c4deab9a99a8ec670eb706">More...</a><br /></td></tr>
+<tr class="separator:a1742008948c4deab9a99a8ec670eb706"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82ac5bc6a82067e82b7a690c9366b88a"><td class="memItemLeft" align="right" valign="top"><a id="a82ac5bc6a82067e82b7a690c9366b88a"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_classification_r_t_engine.html#a82ac5bc6a82067e82b7a690c9366b88a">~ClassificationRTEngine</a> ()</td></tr>
 <tr class="memdesc:a82ac5bc6a82067e82b7a690c9366b88a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classjetson__tensorrt_1_1_classification_r_t_engine.html" title="Loads and manages a classification network trained by nVidia DIGITS. ">ClassificationRTEngine</a> destructor. <br /></td></tr>
@@ -132,7 +132,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memdesc:a5827e6a45961997612abd071eb283489 inherit pub_methods_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html" title="Abstract base class which loads and manages a TensorRT model which hides device/host memory managemen...">TensorRTEngine</a> destructor. <br /></td></tr>
 <tr class="separator:a5827e6a45961997612abd071eb283489 inherit pub_methods_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7fd5051de8f6169707f9330ff727609 inherit pub_methods_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; void * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#ac7fd5051de8f6169707f9330ff727609">predict</a> (std::vector&lt; std::vector&lt; void *&gt;&gt;, bool=false)</td></tr>
-<tr class="memdesc:ac7fd5051de8f6169707f9330ff727609 inherit pub_methods_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does a forward pass of the neural network loaded in TensorRT  Should be called after loading the graph and calling <a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a3e8a00548a2c0a30da0c1893248b232c" title="Allocates the buffers required to copy batches to the GPU  Should be called by a subclass after deter...">allocGPUBuffer()</a>  <a href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#ac7fd5051de8f6169707f9330ff727609">More...</a><br /></td></tr>
+<tr class="memdesc:ac7fd5051de8f6169707f9330ff727609 inherit pub_methods_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does a forward pass of the neural network loaded in TensorRT  Should be called after loading the graph and calling allocGPUBuffer()  <a href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#ac7fd5051de8f6169707f9330ff727609">More...</a><br /></td></tr>
 <tr class="separator:ac7fd5051de8f6169707f9330ff727609 inherit pub_methods_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02971597bdbe88001dcb3cd2f55c3f32 inherit pub_methods_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a02971597bdbe88001dcb3cd2f55c3f32">loadCache</a> (std::string, size_t=1)</td></tr>
 <tr class="memdesc:a02971597bdbe88001dcb3cd2f55c3f32 inherit pub_methods_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quick load the TensorRT optimized network  Should be called after addInput and addOutput without calling loadModel.  <a href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a02971597bdbe88001dcb3cd2f55c3f32">More...</a><br /></td></tr>
@@ -149,15 +149,9 @@ Static Public Attributes</h2></td></tr>
 <tr class="memitem:ad38d266e62af591ee5013df71291b9fb"><td class="memItemLeft" align="right" valign="top"><a id="ad38d266e62af591ee5013df71291b9fb"></a>
 static const size_t&#160;</td><td class="memItemRight" valign="bottom"><b>CHANNELS_GREYSCALE</b> = 1</td></tr>
 <tr class="separator:ad38d266e62af591ee5013df71291b9fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf1109bb6e047d729638292041b482d6"><td class="memItemLeft" align="right" valign="top"><a id="abf1109bb6e047d729638292041b482d6"></a>
-static const size_t&#160;</td><td class="memItemRight" valign="bottom"><b>CHANNELS_COLOR</b> = 3</td></tr>
-<tr class="separator:abf1109bb6e047d729638292041b482d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c7d196630a6e8eaa1b45b779195b714"><td class="memItemLeft" align="right" valign="top"><a id="a5c7d196630a6e8eaa1b45b779195b714"></a>
-static const std::string&#160;</td><td class="memItemRight" valign="bottom"><b>INPUT_BLOB</b> = &quot;data&quot;</td></tr>
-<tr class="separator:a5c7d196630a6e8eaa1b45b779195b714"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af200c6f206b9c947e4f5bff3695f6aca"><td class="memItemLeft" align="right" valign="top"><a id="af200c6f206b9c947e4f5bff3695f6aca"></a>
-static const std::string&#160;</td><td class="memItemRight" valign="bottom"><b>OUTPUT_BLOB</b> = &quot;prob&quot;</td></tr>
-<tr class="separator:af200c6f206b9c947e4f5bff3695f6aca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab07281b570097956c66119eda698f7a2"><td class="memItemLeft" align="right" valign="top"><a id="ab07281b570097956c66119eda698f7a2"></a>
+static const size_t&#160;</td><td class="memItemRight" valign="bottom"><b>CHANNELS_BGR</b> = 3</td></tr>
+<tr class="separator:ab07281b570097956c66119eda698f7a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -168,15 +162,6 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>maxBatchSize</b></td><
 <tr class="memitem:ae21681fa49f30a92585a70b0a78d48b3 inherit pub_attribs_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a id="ae21681fa49f30a92585a70b0a78d48b3"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>numBindings</b></td></tr>
 <tr class="separator:ae21681fa49f30a92585a70b0a78d48b3 inherit pub_attribs_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_classjetson__tensorrt_1_1_tensor_r_t_engine"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classjetson__tensorrt_1_1_tensor_r_t_engine')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html">jetson_tensorrt::TensorRTEngine</a></td></tr>
-<tr class="memitem:a3e8a00548a2c0a30da0c1893248b232c inherit pro_methods_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a id="a3e8a00548a2c0a30da0c1893248b232c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a3e8a00548a2c0a30da0c1893248b232c">allocGPUBuffer</a> ()</td></tr>
-<tr class="memdesc:a3e8a00548a2c0a30da0c1893248b232c inherit pro_methods_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates the buffers required to copy batches to the GPU  Should be called by a subclass after determining the number and size of all graph inputs and outputs. <br /></td></tr>
-<tr class="separator:a3e8a00548a2c0a30da0c1893248b232c inherit pro_methods_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2488aea00cfa47a41e0da23377590b89 inherit pro_methods_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a id="a2488aea00cfa47a41e0da23377590b89"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a2488aea00cfa47a41e0da23377590b89">freeGPUBuffer</a> ()</td></tr>
-<tr class="memdesc:a2488aea00cfa47a41e0da23377590b89 inherit pro_methods_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees buffers required to copy batches to the GPU  Should be called by subclass destructor. <br /></td></tr>
-<tr class="separator:a2488aea00cfa47a41e0da23377590b89 inherit pro_methods_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classjetson__tensorrt_1_1_tensor_r_t_engine"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classjetson__tensorrt_1_1_tensor_r_t_engine')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html">jetson_tensorrt::TensorRTEngine</a></td></tr>
 <tr class="memitem:a29f0c3bbbc3e1b87ba0e92aef0450284 inherit pro_attribs_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a id="a29f0c3bbbc3e1b87ba0e92aef0450284"></a>
 nvinfer1::ICudaEngine *&#160;</td><td class="memItemRight" valign="bottom"><b>engine</b></td></tr>
@@ -197,8 +182,8 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Loads and manages a classification network trained by nVidia DIGITS. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="abf63c180714719a46912292e04059c1e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf63c180714719a46912292e04059c1e">&#9670;&nbsp;</a></span>ClassificationRTEngine()</h2>
+<a id="a1742008948c4deab9a99a8ec670eb706"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1742008948c4deab9a99a8ec670eb706">&#9670;&nbsp;</a></span>ClassificationRTEngine()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -225,7 +210,7 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>nbChannels</em> = <code>CHANNELS_COLOR</code>, </td>
+          <td class="paramname"><em>nbChannels</em> = <code>CHANNELS_BGR</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

@@ -51,6 +51,7 @@ CaffeRTEngine::CaffeRTEngine() :
  * @brief	CaffeRTEngine Destructor
  */
 CaffeRTEngine::~CaffeRTEngine() {
+	parser->destroy();
 }
 
 /**
@@ -150,9 +151,6 @@ void CaffeRTEngine::loadModel(std::string prototextPath, std::string modelPath,
 	context = engine->createExecutionContext();
 
 	numBindings = engine->getNbBindings();
-
-	/* Allocate buffers for inference*/
-	allocGPUBuffer();
 
 }
 

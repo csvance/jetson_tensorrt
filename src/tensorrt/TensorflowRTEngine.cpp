@@ -65,7 +65,6 @@ TensorflowRTEngine::TensorflowRTEngine() :
  */
 TensorflowRTEngine::~TensorflowRTEngine() {
 	parser->destroy();
-	freeGPUBuffer();
 }
 
 /**
@@ -168,9 +167,6 @@ void TensorflowRTEngine::loadModel(std::string uffFile, size_t maximumBatchSize,
 	context = engine->createExecutionContext();
 
 	numBindings = engine->getNbBindings();
-
-	/* Allocate buffers for inference*/
-	allocGPUBuffer();
 
 }
 

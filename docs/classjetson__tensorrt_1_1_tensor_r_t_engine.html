@@ -65,7 +65,6 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classjetson__tensorrt_1_1_tensor_r_t_engine-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -82,9 +81,10 @@ Inheritance diagram for jetson_tensorrt::TensorRTEngine:</div>
 <div class="dyncontent">
 <div class="center"><img src="classjetson__tensorrt_1_1_tensor_r_t_engine__inherit__graph.png" border="0" usemap="#jetson__tensorrt_1_1_tensor_r_t_engine_inherit__map" alt="Inheritance graph"/></div>
 <map name="jetson__tensorrt_1_1_tensor_r_t_engine_inherit__map" id="jetson__tensorrt_1_1_tensor_r_t_engine_inherit__map">
-<area shape="rect" id="node2" href="classjetson__tensorrt_1_1_caffe_r_t_engine.html" title="Loads and manages a Caffe network in TensorRT. " alt="" coords="5,87,212,114"/>
-<area shape="rect" id="node4" href="classjetson__tensorrt_1_1_tensorflow_r_t_engine.html" title="Loads and manages a Tensorflow network in TensorRT. " alt="" coords="236,80,416,121"/>
-<area shape="rect" id="node3" href="classjetson__tensorrt_1_1_classification_r_t_engine.html" title="Loads and manages a classification network trained by nVidia DIGITS. " alt="" coords="11,169,206,211"/>
+<area shape="rect" id="node2" href="classjetson__tensorrt_1_1_caffe_r_t_engine.html" title="Loads and manages a Caffe network in TensorRT. " alt="" coords="103,87,310,114"/>
+<area shape="rect" id="node5" href="classjetson__tensorrt_1_1_tensorflow_r_t_engine.html" title="Loads and manages a Tensorflow network in TensorRT. " alt="" coords="334,80,514,121"/>
+<area shape="rect" id="node3" href="classjetson__tensorrt_1_1_classification_r_t_engine.html" title="Loads and manages a classification network trained by nVidia DIGITS. " alt="" coords="5,169,200,211"/>
+<area shape="rect" id="node4" href="classjetson__tensorrt_1_1_detection_r_t_engine.html" title="Loads and manages a DIGITS DetectNet graph with TensorRT. " alt="" coords="225,169,397,211"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -107,7 +107,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memdesc:a5827e6a45961997612abd071eb283489"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html" title="Abstract base class which loads and manages a TensorRT model which hides device/host memory managemen...">TensorRTEngine</a> destructor. <br /></td></tr>
 <tr class="separator:a5827e6a45961997612abd071eb283489"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7fd5051de8f6169707f9330ff727609"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; void * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#ac7fd5051de8f6169707f9330ff727609">predict</a> (std::vector&lt; std::vector&lt; void *&gt;&gt;, bool=false)</td></tr>
-<tr class="memdesc:ac7fd5051de8f6169707f9330ff727609"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does a forward pass of the neural network loaded in TensorRT  Should be called after loading the graph and calling <a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a3e8a00548a2c0a30da0c1893248b232c" title="Allocates the buffers required to copy batches to the GPU  Should be called by a subclass after deter...">allocGPUBuffer()</a>  <a href="#ac7fd5051de8f6169707f9330ff727609">More...</a><br /></td></tr>
+<tr class="memdesc:ac7fd5051de8f6169707f9330ff727609"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does a forward pass of the neural network loaded in TensorRT  Should be called after loading the graph and calling allocGPUBuffer()  <a href="#ac7fd5051de8f6169707f9330ff727609">More...</a><br /></td></tr>
 <tr class="separator:ac7fd5051de8f6169707f9330ff727609"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02971597bdbe88001dcb3cd2f55c3f32"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a02971597bdbe88001dcb3cd2f55c3f32">loadCache</a> (std::string, size_t=1)</td></tr>
 <tr class="memdesc:a02971597bdbe88001dcb3cd2f55c3f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quick load the TensorRT optimized network  Should be called after addInput and addOutput without calling loadModel.  <a href="#a02971597bdbe88001dcb3cd2f55c3f32">More...</a><br /></td></tr>
@@ -133,17 +133,6 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>maxBatchSize</b></td><
 <tr class="memitem:ae21681fa49f30a92585a70b0a78d48b3"><td class="memItemLeft" align="right" valign="top"><a id="ae21681fa49f30a92585a70b0a78d48b3"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>numBindings</b></td></tr>
 <tr class="separator:ae21681fa49f30a92585a70b0a78d48b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a3e8a00548a2c0a30da0c1893248b232c"><td class="memItemLeft" align="right" valign="top"><a id="a3e8a00548a2c0a30da0c1893248b232c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a3e8a00548a2c0a30da0c1893248b232c">allocGPUBuffer</a> ()</td></tr>
-<tr class="memdesc:a3e8a00548a2c0a30da0c1893248b232c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates the buffers required to copy batches to the GPU  Should be called by a subclass after determining the number and size of all graph inputs and outputs. <br /></td></tr>
-<tr class="separator:a3e8a00548a2c0a30da0c1893248b232c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2488aea00cfa47a41e0da23377590b89"><td class="memItemLeft" align="right" valign="top"><a id="a2488aea00cfa47a41e0da23377590b89"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a2488aea00cfa47a41e0da23377590b89">freeGPUBuffer</a> ()</td></tr>
-<tr class="memdesc:a2488aea00cfa47a41e0da23377590b89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees buffers required to copy batches to the GPU  Should be called by subclass destructor. <br /></td></tr>
-<tr class="separator:a2488aea00cfa47a41e0da23377590b89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -249,7 +238,7 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
       </table>
 </div><div class="memdoc">
 
-<p>Does a forward pass of the neural network loaded in TensorRT  Should be called after loading the graph and calling <a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a3e8a00548a2c0a30da0c1893248b232c" title="Allocates the buffers required to copy batches to the GPU  Should be called by a subclass after deter...">allocGPUBuffer()</a> </p>
+<p>Does a forward pass of the neural network loaded in TensorRT  Should be called after loading the graph and calling allocGPUBuffer() </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">batchInputs</td><td>Raw graph inputs on host, indexed by [batchIndex][inputIndex] </td></tr>
