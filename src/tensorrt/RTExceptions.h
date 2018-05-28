@@ -152,13 +152,26 @@ public:
 };
 
 /**
- * @brief	Exception thrown batch is larger than models maximum batch size
+ * @brief	Exception thrown when batch is larger than models maximum batch size
  */
 class BatchSizeException: public std::exception {
 private:
     std::string message_;
 public:
     explicit BatchSizeException(const std::string& message);
+    virtual const char* what() const throw() {
+        return message_.c_str();
+    }
+};
+
+/**
+ * @brief	Exception thrown if the TensorRT engine fails to execute during a prediction
+ */
+class EngineExecutionException: public std::exception {
+private:
+    std::string message_;
+public:
+    explicit EngineExecutionException(const std::string& message);
     virtual const char* what() const throw() {
         return message_.c_str();
     }

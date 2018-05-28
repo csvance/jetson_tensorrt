@@ -143,6 +143,7 @@ std::vector<std::vector<void*>> TensorRTEngine::predict(
 			size_t inputSize = networkInputs[i].size();
 
 			if(!fromDeviceMemory){
+				//If the batches are in host memory, we need to copy them to the device
 				transactionGPUBuffers[bindingIdx + b * stepSize] = preAllocatedGPUBuffers[bindingIdx + b * stepSize];
 
 				cudaError_t hostDeviceError = cudaMemcpy(transactionGPUBuffers[bindingIdx + b * stepSize],
@@ -167,7 +168,8 @@ std::vector<std::vector<void*>> TensorRTEngine::predict(
 	}
 
 	/* Do the inference */
-	assert(context->execute(batchCount, &transactionGPUBuffers[0]) == true);
+	if(!context->execute(batchCount, &transactionGPUBuffers[0]))
+		throw EngineExecutionException("TensorRT engine execution returned unsuccessfully");
 
 	std::vector<std::vector<void*>> hostOutputBuffers(batchCount);
 
