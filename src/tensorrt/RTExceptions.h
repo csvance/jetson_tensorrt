@@ -178,7 +178,7 @@ public:
 };
 
 /**
- * @brief	Exception thrown if the TensorRT engine fails to execute during a prediction
+ * @brief	Exception thrown if an unsupported parameter is passed to an RTEngine
  */
 class UnsupportedConfigurationException: public std::exception {
 private:
