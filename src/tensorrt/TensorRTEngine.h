@@ -40,7 +40,7 @@
 namespace jetson_tensorrt{
 
 /**
- * @brief Represents a set of batches located either in host or device memory
+ * @brief Represents all of a batches inputs or outputs located either in host or device memory
  */
 class LocatedExecutionMemory{
 public:
@@ -51,19 +51,19 @@ public:
 
 	/**
 	 * @brief LocatedExecutionMemory constructor
-	 * @param location	The location of the batches, either in HOST or DEVICE memory
-	 * @param batches	Batches of inputs or outputs
+	 * @param location	The location of the batch inputs or outputs, either in HOST or DEVICE memory
+	 * @param batch	Batch of inputs or outputs
 	 */
-	LocatedExecutionMemory(Location location, std::vector<std::vector<void*>> batches){
-		this->batches = batches;
+	LocatedExecutionMemory(Location location, std::vector<std::vector<void*>> batch){
+		this->batch = batch;
 		this->location = location;
 	}
 
 	Location location;
-	std::vector<std::vector<void*>> batches;
+	std::vector<std::vector<void*>> batch;
 
 	std::vector<void*>& operator[] (const int index){
-    	return batches[index];
+    	return batch[index];
     }
 
 	/**
@@ -71,7 +71,7 @@ public:
 	 * @return	Number of units in a batch
 	 */
 	size_t size(){
-		return batches.size();
+		return batch.size();
 	}
 };
 
