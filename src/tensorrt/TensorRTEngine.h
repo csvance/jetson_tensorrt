@@ -39,6 +39,42 @@
 
 namespace jetson_tensorrt{
 
+/**
+ * @brief Represents a set of batches located either in host or device memory
+ */
+class LocatedExecutionMemory{
+public:
+	enum Location{
+		HOST,
+		DEVICE
+	};
+
+	/**
+	 * @brief LocatedExecutionMemory constructor
+	 * @param location	The location of the batches, either in HOST or DEVICE memory
+	 * @param batches	Batches of inputs or outputs
+	 */
+	LocatedExecutionMemory(Location location, std::vector<std::vector<void*>> batches){
+		this->batches = batches;
+		this->location = location;
+	}
+
+	Location location;
+	std::vector<std::vector<void*>> batches;
+
+	std::vector<void*>& operator[] (const int index){
+    	return batches[index];
+    }
+
+	/**
+	 * @brief Gets the number of units in a batch
+	 * @return	Number of units in a batch
+	 */
+	size_t size(){
+		return batches.size();
+	}
+};
+
 
 /**
  * @brief Logger for GIE info/warning/errors
@@ -56,7 +92,7 @@ public:
 	TensorRTEngine();
 	virtual ~TensorRTEngine();
 
-	std::vector<std::vector<void*>> predict(std::vector<std::vector<void*>>, bool=false);
+	LocatedExecutionMemory predict(LocatedExecutionMemory&, bool=true);
 
 	void loadCache(std::string, size_t=1);
 	void saveCache(std::string);

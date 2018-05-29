@@ -106,9 +106,9 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a5827e6a45961997612abd071eb283489">~TensorRTEngine</a> ()</td></tr>
 <tr class="memdesc:a5827e6a45961997612abd071eb283489"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html" title="Abstract base class which loads and manages a TensorRT model which hides device/host memory managemen...">TensorRTEngine</a> destructor. <br /></td></tr>
 <tr class="separator:a5827e6a45961997612abd071eb283489"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7fd5051de8f6169707f9330ff727609"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; void * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#ac7fd5051de8f6169707f9330ff727609">predict</a> (std::vector&lt; std::vector&lt; void *&gt;&gt;, bool=false)</td></tr>
-<tr class="memdesc:ac7fd5051de8f6169707f9330ff727609"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does a forward pass of the neural network loaded in TensorRT  Should be called after loading the graph and calling allocGPUBuffer()  <a href="#ac7fd5051de8f6169707f9330ff727609">More...</a><br /></td></tr>
-<tr class="separator:ac7fd5051de8f6169707f9330ff727609"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15c0805f04b7396470c32958bc6a523b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a15c0805f04b7396470c32958bc6a523b">predict</a> (<a class="el" href="classjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a> &amp;, bool=true)</td></tr>
+<tr class="memdesc:a15c0805f04b7396470c32958bc6a523b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does a forward pass of the neural network loaded in TensorRT  Should be called after loading the graph and calling allocGPUBuffer()  <a href="#a15c0805f04b7396470c32958bc6a523b">More...</a><br /></td></tr>
+<tr class="separator:a15c0805f04b7396470c32958bc6a523b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02971597bdbe88001dcb3cd2f55c3f32"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a02971597bdbe88001dcb3cd2f55c3f32">loadCache</a> (std::string, size_t=1)</td></tr>
 <tr class="memdesc:a02971597bdbe88001dcb3cd2f55c3f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quick load the TensorRT optimized network  Should be called after addInput and addOutput without calling loadModel.  <a href="#a02971597bdbe88001dcb3cd2f55c3f32">More...</a><br /></td></tr>
 <tr class="separator:a02971597bdbe88001dcb3cd2f55c3f32"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -212,23 +212,23 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
 
 </div>
 </div>
-<a id="ac7fd5051de8f6169707f9330ff727609"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7fd5051de8f6169707f9330ff727609">&#9670;&nbsp;</a></span>predict()</h2>
+<a id="a15c0805f04b7396470c32958bc6a523b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15c0805f04b7396470c32958bc6a523b">&#9670;&nbsp;</a></span>predict()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; std::vector&lt; void * &gt; &gt; jetson_tensorrt::TensorRTEngine::predict </td>
+          <td class="memname"><a class="el" href="classjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a> jetson_tensorrt::TensorRTEngine::predict </td>
           <td>(</td>
-          <td class="paramtype">std::vector&lt; std::vector&lt; void *&gt;&gt;&#160;</td>
-          <td class="paramname"><em>batchInputs</em>, </td>
+          <td class="paramtype"><a class="el" href="classjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a> &amp;&#160;</td>
+          <td class="paramname"><em>inputs</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>fromDeviceMemory</em> = <code>false</code>&#160;</td>
+          <td class="paramname"><em>copyOutputToHost</em> = <code>true</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -241,12 +241,12 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
 <p>Does a forward pass of the neural network loaded in TensorRT  Should be called after loading the graph and calling allocGPUBuffer() </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">batchInputs</td><td>Raw graph inputs on host, indexed by [batchIndex][inputIndex] </td></tr>
-    <tr><td class="paramname">fromDeviceMemory</td><td>Whether batchInputs are in host memory (false) or already in device memory (true) </td></tr>
+    <tr><td class="paramname">inputs</td><td>Graph inputs on either the device or host, indexed by [batchIndex][inputIndex] </td></tr>
+    <tr><td class="paramname">copyOutputToHost</td><td>Controls whether the outputs are copied back to host memory (true) or left in device memory (false) after executing the prediction </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Raw graph outputs, indexed by [batchIndex][outputNumber] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A LocatedResult of outputs, indexed by [batchIndex][outputNumber] </dd></dl>
 
 </div>
 </div>

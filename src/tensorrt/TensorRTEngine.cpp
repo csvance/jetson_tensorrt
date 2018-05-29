@@ -130,23 +130,23 @@ void TensorRTEngine::freeGPUBuffer() {
 /**
  * @brief	Does a forward pass of the neural network loaded in TensorRT
  * @usage	Should be called after loading the graph and calling allocGPUBuffer()
- * @param	batchInputs Raw graph inputs on host, indexed by [batchIndex][inputIndex]
- * @param	fromDeviceMemory	Whether batchInputs are in host memory (false) or already in device memory (true)
- * @return	Raw graph outputs, indexed by [batchIndex][outputNumber]
+ * @param	inputs Graph inputs on either the device or host, indexed by [batchIndex][inputIndex]
+ * @param	copyOutputToHost	Controls whether the outputs are copied back to host memory (true) or left in device memory (false) after executing the prediction
+ * @return	A LocatedResult of outputs, indexed by [batchIndex][outputNumber]
  */
-std::vector<std::vector<void*>> TensorRTEngine::predict(
-		std::vector<std::vector<void*>> batchInputs, bool fromDeviceMemory) {
+LocatedExecutionMemory TensorRTEngine::predict(
+		LocatedExecutionMemory& inputs, bool copyOutputToHost) {
 
-	if(batchInputs.size() > maxBatchSize)
+	if(inputs.size() > maxBatchSize)
 		throw BatchSizeException("Passed batch is larger than maximum batch size");
 
-	int batchCount = batchInputs.size();
+	int batchCount = inputs.size();
 	int stepSize = networkInputs.size() + networkOutputs.size();
 
-	std::vector<void*> transactionGPUBuffers(batchInputs.size() * stepSize);
+	std::vector<void*> transactionGPUBuffers(inputs.size() * stepSize);
 
-	//If this is the first time we are doing a prediction from host memory, allocate a GPU buffer to copy the host batch from
-	if(!fromDeviceMemory && !gpuBufferPreAllocated)
+	//If this is the first time we are doing a prediction allocate memory for inputs and outputs
+	if(!gpuBufferPreAllocated)
 		allocGPUBuffer();
 
 	/* Assign transaction buffers and copy to GPU if neccisary */
@@ -157,18 +157,18 @@ std::vector<std::vector<void*>> TensorRTEngine::predict(
 		for (int i = 0; i < networkInputs.size(); i++) {
 			size_t inputSize = networkInputs[i].size();
 
-			if(!fromDeviceMemory){
+			if(inputs.location == LocatedExecutionMemory::Location::HOST){
 				//If the batches are in host memory, we need to copy them to the device
 				transactionGPUBuffers[bindingIdx + b * stepSize] = preAllocatedGPUBuffers[bindingIdx + b * stepSize];
 
 				cudaError_t hostDeviceError = cudaMemcpy(transactionGPUBuffers[bindingIdx + b * stepSize],
-								batchInputs[b][i], inputSize,
+								inputs[b][i], inputSize,
 								cudaMemcpyHostToDevice);
 				if (hostDeviceError != 0)
 					throw HostDeviceTransferException("Unable to copy host memory to device for prediction. CUDA Error: " + std::to_string(hostDeviceError));
 			}else{
 				// Since the inputs are already in the device, all we need to do is assign them to the transaction buffer
-				transactionGPUBuffers[bindingIdx + b * stepSize] = batchInputs[b][i];
+				transactionGPUBuffers[bindingIdx + b * stepSize] = inputs[b][i];
 			}
 			bindingIdx++;
 		}
@@ -178,6 +178,7 @@ std::vector<std::vector<void*>> TensorRTEngine::predict(
 			size_t outputSize = networkOutputs[o].size();
 
 			transactionGPUBuffers[bindingIdx + b * stepSize] = preAllocatedGPUBuffers[bindingIdx + b * stepSize];
+
 			bindingIdx++;
 		}
 	}
@@ -186,32 +187,38 @@ std::vector<std::vector<void*>> TensorRTEngine::predict(
 	if(!context->execute(batchCount, &transactionGPUBuffers[0]))
 		throw EngineExecutionException("TensorRT engine execution returned unsuccessfully");
 
-	std::vector<std::vector<void*>> hostOutputBuffers(batchCount);
+	std::vector<std::vector<void*>> batchOutputs(batchCount);
 
-	/* Move outputs back to host memory for each batch */
+	/* Handle outputs for each batch */
 	for (int b = 0; b < batchCount; b++) {
 
-		int bindingIdx = batchInputs[b].size();
+		int bindingIdx = inputs[b].size();
 		for (int i = 0; i < networkOutputs.size(); i++) {
 			size_t outputSize = networkOutputs[i].size();
 
-			/* Allocate a host buffer for the network output */
-			hostOutputBuffers[b].push_back(new unsigned char[outputSize]);
+			if(copyOutputToHost){
+				/* Allocate a host buffer for the network output */
+				batchOutputs[b].push_back(new unsigned char[outputSize]);
 
-			cudaError_t deviceHostError = cudaMemcpy(hostOutputBuffers[b][i],
-							transactionGPUBuffers[bindingIdx + b * stepSize], outputSize,
-							cudaMemcpyDeviceToHost);
-			if (deviceHostError != 0)
-				throw HostDeviceTransferException("Unable to copy device memory to host for prediction. CUDA Error: " + std::to_string(deviceHostError));
-
-
+				cudaError_t deviceHostError = cudaMemcpy(batchOutputs[b][i],
+								transactionGPUBuffers[bindingIdx + b * stepSize], outputSize,
+								cudaMemcpyDeviceToHost);
+				if (deviceHostError != 0)
+					throw HostDeviceTransferException("Unable to copy device memory to host for prediction. CUDA Error: " + std::to_string(deviceHostError));
+			}else{
+				batchOutputs[b].push_back(transactionGPUBuffers[bindingIdx + b * stepSize]);
+			}
 
 			bindingIdx++;
 		}
 
 	}
 
-	return hostOutputBuffers;
+	if(copyOutputToHost){
+		return LocatedExecutionMemory(LocatedExecutionMemory::Location::HOST, batchOutputs);
+	}else{
+		return LocatedExecutionMemory(LocatedExecutionMemory::Location::DEVICE, batchOutputs);
+	}
 
 }
 
