@@ -37,44 +37,11 @@
 
 #include "CaffeRTEngine.h"
 #include "ImageNetPreprocessor.h"
+#include "ClusteredNonMaximumSuppression.h"
 
 namespace jetson_tensorrt {
 
-/**
- * @brief	Represents a classified region of an image with a zero indexed class ID and probability value
- */
-struct ClassRectangle {
 
-	/**
-	 * @brief	Zero Indexed Class ID
-	 */
-	int id;
-
-	/**
-	 * @brief	The confidence of the model's prediction
-	 */
-	float confidence;
-
-	/**
-	 * @brief	X Coordinate in pixels
-	 */
-	int x;
-
-	/**
-	 * @brief	Y Coordinate in pixels
-	 */
-	int y;
-
-	/**
-	 * @brief	Width in pixels
-	 */
-	int w;
-
-	/**
-	 * @brief	Height in pixels
-	 */
-	int h;
-};
 
 /**
  * @brief	Loads and manages a DIGITS DetectNet graph with TensorRT
@@ -128,6 +95,8 @@ public:
 	size_t modelHeight;
 	size_t modelDepth;
 
+	size_t nbClasses;
+
 	static const size_t CHANNELS_GREYSCALE = 1;
 	static const size_t CHANNELS_BGR = 3;
 
@@ -140,6 +109,8 @@ private:
 	static const size_t BBOX_DIM_Y = 32;
 
 	ImageNetPreprocessor* preprocessor;
+
+	ClusteredNonMaximumSuppression suppressor;
 
 };
 

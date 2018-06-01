@@ -70,12 +70,16 @@ DIGITSDetector::DIGITSDetector(std::string prototextPath, std::string modelPath,
 		saveCache(cachePath);
 	}
 
-	modelWidth = width;
-	modelHeight = height;
-	modelDepth = nbChannels;
+	this->modelWidth = width;
+	this->modelHeight = height;
+	this->modelDepth = nbChannels;
+	this->nbClasses = nbClasses;
 
 	preprocessor = new ImageNetPreprocessor(imageNetMean);
 
+	//Configure non-maximum suppression based on what we currently know
+	suppressor.setupInput(width, height);
+	suppressor.setupGrid(BBOX_DIM_X, BBOX_DIM_Y);
 }
 
 DIGITSDetector::~DIGITSDetector() {}
@@ -103,9 +107,11 @@ std::vector<ClassRectangle> DIGITSDetector::detectRGBA(float* rbga, size_t width
 	//Execute inference
 	LocatedExecutionMemory predictionOutputs = predict(predictionInputs, true);
 
+	//Configure non-maximum suppressor for the current image size
+	suppressor.setupImage(width, height);
 
-	//TODO
-	return std::vector<ClassRectangle>();
+	return suppressor.execute((float*) predictionOutputs.batch[0][0],(float*) predictionOutputs.batch[0][1], nbClasses);
+
 
 }
 

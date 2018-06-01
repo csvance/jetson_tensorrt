@@ -1,6 +1,7 @@
 var searchData=
 [
   ['_7ecaffertengine',['~CaffeRTEngine',['../classjetson__tensorrt_1_1_caffe_r_t_engine.html#a32fbc55503c5e32cc7c35087a9515870',1,'jetson_tensorrt::CaffeRTEngine']]],
+  ['_7eclusterednonmaximumsuppression',['~ClusteredNonMaximumSuppression',['../classjetson__tensorrt_1_1_clustered_non_maximum_suppression.html#a102e54604ea18a81b5cb6e33a92f6f98',1,'jetson_tensorrt::ClusteredNonMaximumSuppression']]],
   ['_7ecudasizedmemcache',['~CUDASizedMemCache',['../classjetson__tensorrt_1_1_c_u_d_a_sized_mem_cache.html#ade5b159608543c1106865f84d12d237d',1,'jetson_tensorrt::CUDASizedMemCache']]],
   ['_7edigitsclassifier',['~DIGITSClassifier',['../classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html#a3374b2511fa9a43071df0fdc92767779',1,'jetson_tensorrt::DIGITSClassifier']]],
   ['_7edigitsdetector',['~DIGITSDetector',['../classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html#a73a2e3a8fa4c9541f1e8ebadbe5b06ef',1,'jetson_tensorrt::DIGITSDetector']]],
