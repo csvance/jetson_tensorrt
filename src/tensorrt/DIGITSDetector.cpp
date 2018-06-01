@@ -37,7 +37,7 @@ const std::string DIGITSDetector::OUTPUT_BBOXES_NAME = "bboxes";
 
 DIGITSDetector::DIGITSDetector(std::string prototextPath, std::string modelPath,
 		std::string cachePath, size_t nbChannels, size_t width, size_t height,
-		size_t nbClasses, size_t maximumBatchSize, float3 imageNetMean, nvinfer1::DataType dataType,
+		size_t nbClasses, float3 imageNetMean, nvinfer1::DataType dataType,
 		size_t maxNetworkSize) :
 		CaffeRTEngine() {
 
@@ -65,7 +65,7 @@ DIGITSDetector::DIGITSDetector(std::string prototextPath, std::string modelPath,
 	try {
 		loadCache(cachePath);
 	} catch (ModelDeserializeException& e) {
-		loadModel(prototextPath, modelPath, maximumBatchSize, dataType,
+		loadModel(prototextPath, modelPath, 1, dataType,
 				maxNetworkSize);
 		saveCache(cachePath);
 	}
@@ -86,7 +86,7 @@ std::vector<ClassRectangle> DIGITSDetector::detectRGBA(float* rbga, size_t width
 		//Load the image to device
 		preprocessor->inputFromHost(rbga, width * height * sizeof(float4));
 	}else{
-		//Use the ouput as input
+		//Use the ouput from last preprocessor conversion call as input
 		preprocessor->swapIO();
 	}
 
@@ -114,9 +114,9 @@ std::vector<ClassRectangle> DIGITSDetector::detectNV12(uint8_t* nv12, size_t wid
 	preprocessor->inputFromHost(nv12, width * height * 3);
 
 	//Convert to RGBA
-	float* rgba = preprocessor->NV12toRGBA(width, height);
+	preprocessor->NV12toRGBA(width, height);
 
-	return detectRGBA(rgba, width, height, true);
+	return detectRGBA(nullptr, width, height, true);
 }
 
 } /* namespace jetson_tensorrt */

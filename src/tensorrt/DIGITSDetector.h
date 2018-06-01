@@ -90,13 +90,12 @@ public:
 	 * @param	width	Width of the input image
 	 * @param	height	Height of the input image
 	 * @param	nbClasses	Number of classes to predict
-	 * @param	maximumBatchSize	Maximum number of images that will be passed at once for detection. Leave this at one for maximum realtime performance.
 	 * @param	dataType	The data type used to contstruct the TensorRT network. Use FLOAT unless you know how it will effect your model.
 	 * @param	maxNetworkSize	Maximum size in bytes of the TensorRT network in device memory
 	 */
 	DIGITSDetector(std::string prototextPath, std::string modelPath, std::string cachePath =
-			"detection.tensorcache", size_t nbChannels = CHANNELS_BGR, size_t width = 224,
-			size_t height = 224, size_t nbClasses = 1, size_t maximumBatchSize = 1, float3 imageNetMean = {
+			"detection.tensorcache", size_t nbChannels = CHANNELS_BGR, size_t width = 1024,
+			size_t height = 512, size_t nbClasses = 1, float3 imageNetMean = {
 					0.0, 0.0, 0.0 }, nvinfer1::DataType dataType =
 					nvinfer1::DataType::kFLOAT, size_t maxNetworkSize = (1 << 30));
 

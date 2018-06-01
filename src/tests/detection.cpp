@@ -43,7 +43,7 @@ using namespace jetson_tensorrt;
 int main(int argc, char** argv) {
 
 	DIGITSDetector engine = DIGITSDetector(MODEL_FILE, WEIGHTS_FILE, CACHE_FILE,
-			MODEL_IMAGE_DEPTH, MODEL_IMAGE_WIDTH, MODEL_IMAGE_HEIGHT, NB_CLASSES, BATCH_SIZE);
+			MODEL_IMAGE_DEPTH, MODEL_IMAGE_WIDTH, MODEL_IMAGE_HEIGHT, NB_CLASSES);
 
 	std::cout << engine.engineSummary() << std::endl;
 

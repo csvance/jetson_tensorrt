@@ -98,9 +98,9 @@ Collaboration diagram for jetson_tensorrt::DIGITSClassifier:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a51e149855c32cc89d2d6a5b8d09faca9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html#a51e149855c32cc89d2d6a5b8d09faca9">DIGITSClassifier</a> (std::string prototextPath, std::string modelPath, std::string cachePath=&quot;classification.tensorcache&quot;, size_t nbChannels=CHANNELS_BGR, size_t width=1024, size_t height=512, size_t nbClasses=1, size_t maximumBatchSize=1, float3 imageNetMean={ 0.0, 0.0, 0.0 }, nvinfer1::DataType dataType=nvinfer1::DataType::kFLOAT, size_t maxNetworkSize=(1&lt;&lt; 30))</td></tr>
-<tr class="memdesc:a51e149855c32cc89d2d6a5b8d09faca9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new instance of <a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html" title="Loads and manages a DIGITS ImageNet graph with TensorRT. ">DIGITSClassifier</a>.  <a href="#a51e149855c32cc89d2d6a5b8d09faca9">More...</a><br /></td></tr>
-<tr class="separator:a51e149855c32cc89d2d6a5b8d09faca9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3af8c43a7e11e4d4b05ad8945d1abfc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html#af3af8c43a7e11e4d4b05ad8945d1abfc">DIGITSClassifier</a> (std::string prototextPath, std::string modelPath, std::string cachePath=&quot;classification.tensorcache&quot;, size_t nbChannels=CHANNELS_BGR, size_t width=224, size_t height=224, size_t nbClasses=1, float3 imageNetMean={ 0.0, 0.0, 0.0 }, nvinfer1::DataType dataType=nvinfer1::DataType::kFLOAT, size_t maxNetworkSize=(1&lt;&lt; 30))</td></tr>
+<tr class="memdesc:af3af8c43a7e11e4d4b05ad8945d1abfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new instance of <a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html" title="Loads and manages a DIGITS ImageNet graph with TensorRT. ">DIGITSClassifier</a>.  <a href="#af3af8c43a7e11e4d4b05ad8945d1abfc">More...</a><br /></td></tr>
+<tr class="separator:af3af8c43a7e11e4d4b05ad8945d1abfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3374b2511fa9a43071df0fdc92767779"><td class="memItemLeft" align="right" valign="top"><a id="a3374b2511fa9a43071df0fdc92767779"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html#a3374b2511fa9a43071df0fdc92767779">~DIGITSClassifier</a> ()</td></tr>
 <tr class="memdesc:a3374b2511fa9a43071df0fdc92767779"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html" title="Loads and manages a DIGITS ImageNet graph with TensorRT. ">DIGITSClassifier</a> destructor. <br /></td></tr>
@@ -201,8 +201,8 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Loads and manages a DIGITS ImageNet graph with TensorRT. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a51e149855c32cc89d2d6a5b8d09faca9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a51e149855c32cc89d2d6a5b8d09faca9">&#9670;&nbsp;</a></span>DIGITSClassifier()</h2>
+<a id="af3af8c43a7e11e4d4b05ad8945d1abfc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3af8c43a7e11e4d4b05ad8945d1abfc">&#9670;&nbsp;</a></span>DIGITSClassifier()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -235,25 +235,19 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>width</em> = <code>1024</code>, </td>
+          <td class="paramname"><em>width</em> = <code>224</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>height</em> = <code>512</code>, </td>
+          <td class="paramname"><em>height</em> = <code>224</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
           <td class="paramname"><em>nbClasses</em> = <code>1</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>maximumBatchSize</em> = <code>1</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -291,7 +285,6 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
     <tr><td class="paramname">width</td><td>Width of the input image </td></tr>
     <tr><td class="paramname">height</td><td>Height of the input image </td></tr>
     <tr><td class="paramname">nbClasses</td><td>Number of classes to predict </td></tr>
-    <tr><td class="paramname">maximumBatchSize</td><td>Maximum number of images that will be passed at once for prediction. Leave this at one for maximum realtime performance. </td></tr>
     <tr><td class="paramname">imageNetMean</td><td>The mean value to adjust images to during preprocessing step. 0.0 will disable. </td></tr>
     <tr><td class="paramname">dataType</td><td>The data type used to contstruct the TensorRT network. Use FLOAT unless you know how it will effect your model. </td></tr>
     <tr><td class="paramname">maxNetworkSize</td><td>Maximum size in bytes of the TensorRT network in device memory </td></tr>

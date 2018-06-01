@@ -45,7 +45,7 @@ const std::string DIGITSClassifier::OUTPUT_NAME = "prob";
 
 DIGITSClassifier::DIGITSClassifier(std::string prototextPath,
 		std::string modelPath, std::string cachePath, size_t nbChannels,
-		size_t width, size_t height, size_t nbClasses, size_t maximumBatchSize,
+		size_t width, size_t height, size_t nbClasses,
 		float3 imageNetMean, nvinfer1::DataType dataType, size_t maxNetworkSize) :
 		CaffeRTEngine() {
 
@@ -60,7 +60,7 @@ DIGITSClassifier::DIGITSClassifier(std::string prototextPath,
 	try {
 		loadCache(cachePath);
 	} catch (ModelDeserializeException& e) {
-		loadModel(prototextPath, modelPath, maximumBatchSize, dataType,
+		loadModel(prototextPath, modelPath, 1, dataType,
 				maxNetworkSize);
 		saveCache(cachePath);
 	}
