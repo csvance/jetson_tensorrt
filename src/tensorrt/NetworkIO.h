@@ -40,14 +40,28 @@ namespace jetson_tensorrt {
  */
 class NetworkIO {
 public:
-	NetworkIO(std::string, nvinfer1::Dims, size_t);
+	/**
+	 * @brief	Creates a new NetworkIO object
+	 * @param	name	Name of the network layer
+	 * @param	dims	Dimensions of the network layer
+	 * @param	eleSize	Size of each individual dimension element
+	 */
+	NetworkIO(std::string name, nvinfer1::Dims dims, size_t eleSize);
+
+	/**
+	 * @brief	NetworkIO destructor
+	 */
 	virtual ~NetworkIO();
+
+	/**
+	 * @brief	Returns the size in bytes of the network layer
+	 * @returns	Size sum in bytes of every element
+	 */
+	size_t size();
 
 	std::string name;
 	nvinfer1::Dims dims;
 	size_t eleSize;
-
-	size_t size();
 };
 
 /**
@@ -55,7 +69,17 @@ public:
  */
 class NetworkInput: public NetworkIO {
 public:
-	NetworkInput(std::string, nvinfer1::Dims, size_t);
+	/**
+	 * @brief	Creates a new NetworkInput object
+	 * @param	name	Name of the network input layer
+	 * @param	dims	Dimensions of the network input layer
+	 * @param	eleSize	Size of each individual dimension element
+	 */
+	NetworkInput(std::string name, nvinfer1::Dims dims, size_t eleSize);
+
+	/**
+	 * @brief	NetworkInput destructor
+	 */
 	virtual ~NetworkInput();
 };
 
@@ -64,7 +88,17 @@ public:
  */
 class NetworkOutput: public NetworkIO {
 public:
-	NetworkOutput(std::string, nvinfer1::Dims, size_t);
+	/**
+	 * @brief	Creates a new NetworkOutput object
+	 * @param	name	Name of the network output layer
+	 * @param	dims	Dimensions of the network output layer
+	 * @param	eleSize	Size of each individual dimension element
+	 */
+	NetworkOutput(std::string name, nvinfer1::Dims dims, size_t eleSize);
+
+	/**
+	 * @brief	NetworkOutput destructor
+	 */
 	virtual ~NetworkOutput();
 };
 

@@ -47,3 +47,4 @@ Release
 /test_tensorflow/
 /data/
 /test_classification/
+/test_detection/

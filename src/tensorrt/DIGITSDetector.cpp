@@ -34,22 +34,10 @@ const std::string DIGITSDetector::INPUT_NAME = "data";
 const std::string DIGITSDetector::OUTPUT_COVERAGE_NAME = "coverage";
 const std::string DIGITSDetector::OUTPUT_BBOXES_NAME = "bboxes";
 
-/**
- * @brief	Creates a new instance of DIGITSDetector
- * @param	prototextPath	Path to the .prototext file
- * @param	modelPath	Path to the .caffemodel file
- * @param	cachePath	Path to the .tensorcache file which will be loaded instead of building the network if present
- * @param	nbChannels	Number of channels in the input image. 1 for greyscale, 3 for RGB
- * @param	width	Width of the input image
- * @param	height	Height of the input image
- * @param	nbClasses	Number of classes to predict
- * @param	maximumBatchSize	Maximum number of images that will be passed at once for detection. Leave this at one for maximum realtime performance.
- * @param	dataType	The data type used to contstruct the TensorRT network. Use FLOAT unless you know how it will effect your model.
- * @param	maxNetworkSize	Maximum size in bytes of the TensorRT network in device memory
- */
+
 DIGITSDetector::DIGITSDetector(std::string prototextPath, std::string modelPath,
 		std::string cachePath, size_t nbChannels, size_t width, size_t height,
-		size_t nbClasses, size_t maximumBatchSize, nvinfer1::DataType dataType,
+		size_t nbClasses, size_t maximumBatchSize, float3 imageNetMean, nvinfer1::DataType dataType,
 		size_t maxNetworkSize) :
 		CaffeRTEngine() {
 
@@ -90,14 +78,8 @@ DIGITSDetector::DIGITSDetector(std::string prototextPath, std::string modelPath,
 
 }
 
-/**
- * @brief	Detects in a a single RBGA format image.
- * @param	rbga	Pointer to the RBGA image in host memory
- * @param	width	Width of the image in pixels
- * @param	height	Height of the input image in pixels
- * @return	Pointer to a one dimensional array of probabilities for each class
- *
- */
+DIGITSDetector::~DIGITSDetector() {}
+
 std::vector<ClassRectangle> DIGITSDetector::detectRGBA(float* rbga, size_t width, size_t height){
 
 	//Load the image to device
@@ -117,13 +99,6 @@ std::vector<ClassRectangle> DIGITSDetector::detectRGBA(float* rbga, size_t width
 	LocatedExecutionMemory predictionOutputs = predict(predictionInputs, true);
 
 
-}
-
-
-/**
- * @brief DIGITSDetector destructor
- */
-DIGITSDetector::~DIGITSDetector() {
 }
 
 } /* namespace jetson_tensorrt */

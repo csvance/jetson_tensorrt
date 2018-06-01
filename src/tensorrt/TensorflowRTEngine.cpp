@@ -52,28 +52,18 @@ using namespace nvinfer1;
 
 namespace jetson_tensorrt {
 
-/**
- * @brief	Creates a new instance of TensorflowRTEngine
- */
+
 TensorflowRTEngine::TensorflowRTEngine() :
 		TensorRTEngine() {
 	parser = createUffParser();
 }
 
-/**
- * @brief	TensorflowRTEngine Destructor
- */
+
 TensorflowRTEngine::~TensorflowRTEngine() {
 	parser->destroy();
 }
 
-/**
- * @brief	Registers an input to the Tensorflow network.
- * @usage	Must be called before loadUff().
- * @param	layer	The name of the input layer (i.e. "input_1")
- * @param	dims	Dimensions of the input layer. Must be in CHW format. Ex: (3, 640, 480)
- * @param	eleSize	Size of each element in bytes
- */
+
 void TensorflowRTEngine::addInput(std::string layer, nvinfer1::Dims dims,
 		size_t eleSize) {
 	/*
@@ -100,13 +90,7 @@ void TensorflowRTEngine::addInput(std::string layer, nvinfer1::Dims dims,
 	networkInputs.push_back(NetworkInput(layer, dims, eleSize));
 }
 
-/**
- * @brief	Registers an output from the Tensorflow network.
- * @usage	Must be called before loadUff().
- * @param	layer	The name of the input layer (i.e. "input_1")
- * @param	dims	Dimension of outputs
- * @param	eleSize	Size of each element in bytes
- */
+
 void TensorflowRTEngine::addOutput(std::string layer, nvinfer1::Dims dims,
 		size_t eleSize) {
 	/*
@@ -119,21 +103,14 @@ void TensorflowRTEngine::addOutput(std::string layer, nvinfer1::Dims dims,
 	networkOutputs.push_back(NetworkOutput(layer, dims, eleSize));
 }
 
-/**
- * @brief	Loads a frozen Tensorflow .uff graph.
- * @usage	Must be called after addInput() and addOutput().
- * @param	uffFile	Path to the .uff graph file
- * @param	maximumBatchSize	The maximum number of records to run a forward network pass on. For maximum performance, this should be the only batch size passed to the network.
- * @param	dataType	The data type of the network to load into TensorRT
- * @param	maxNetworkSize	Maximum amount of GPU RAM the Tensorflow graph is allowed to use
- */
-void TensorflowRTEngine::loadModel(std::string uffFile, size_t maximumBatchSize,
+
+void TensorflowRTEngine::loadModel(std::string uffFile, size_t maxBatchSize,
 		nvinfer1::DataType dataType, size_t maxNetworkSize) {
 
 	assert(networkInputs.size() > 0 && networkOutputs.size() > 0);
 
 	this->dataType = dataType;
-	maxBatchSize = maximumBatchSize;
+	this->maxBatchSize = maxBatchSize;
 
 	IBuilder* builder = createInferBuilder(logger);
 

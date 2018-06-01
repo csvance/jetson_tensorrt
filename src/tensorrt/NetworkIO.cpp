@@ -33,28 +33,18 @@ using namespace nvinfer1;
 
 namespace jetson_tensorrt {
 
-/**
- * @brief	Creates a new NetworkIO object
- * @param	name	Name of the network layer
- * @param	dims	Dimensions of the network layer
- * @param	eleSize	Size of each individual dimension element
- */
+
 NetworkIO::NetworkIO(std::string name, nvinfer1::Dims dims, size_t eleSize) {
 	this->name = name;
 	this->dims = dims;
 	this->eleSize = eleSize;
 }
 
-/**
- * @brief	NetworkIO destructor
- */
+
 NetworkIO::~NetworkIO() {
 }
 
-/**
- * @brief	Returns the size in bytes of the network layer
- * @returns	Size sum in bytes of every element
- */
+
 size_t NetworkIO::size() {
 	int64_t volume = 1;
 	for (int64_t i = 0; i < dims.nbDims; i++)

@@ -42,20 +42,7 @@ namespace jetson_tensorrt {
 const std::string DIGITSClassifier::INPUT_NAME = "data";
 const std::string DIGITSClassifier::OUTPUT_NAME = "prob";
 
-/**
- * @brief	Creates a new instance of DIGITSClassifier
- * @param	prototextPath	Path to the .prototext file
- * @param	modelPath	Path to the .caffemodel file
- * @param	cachePath	Path to the .tensorcache file which will be loaded instead of building the network if present
- * @param	nbChannels	Number of channels in the input image. 1 for greyscale, 3 for RGB
- * @param	width	Width of the input image
- * @param	height	Height of the input image
- * @param	nbClasses	Number of classes to predict
- * @param	maximumBatchSize	Maximum number of images that will be passed at once for prediction. Leave this at one for maximum realtime performance.
- * @param	imageNetMean	The mean value to adjust images to during preprocessing step. 0.0 will disable.
- * @param	dataType	The data type used to contstruct the TensorRT network. Use FLOAT unless you know how it will effect your model.
- * @param	maxNetworkSize	Maximum size in bytes of the TensorRT network in device memory
- */
+
 DIGITSClassifier::DIGITSClassifier(std::string prototextPath,
 		std::string modelPath, std::string cachePath, size_t nbChannels,
 		size_t width, size_t height, size_t nbClasses, size_t maximumBatchSize,
@@ -85,21 +72,10 @@ DIGITSClassifier::DIGITSClassifier(std::string prototextPath,
 	preprocessor = ImageNetPreprocessor(imageNetMean);
 }
 
-/**
- * @brief	DIGITSClassifier destructor
- */
+
 DIGITSClassifier::~DIGITSClassifier() {
 }
 
-/**
- * @brief	Classifies a single RBGA format image.
- * @usage	To prevent memory leakage, the result of classifyRBGA must be deleted after they are no longer needed.
- * @param	rbga	Pointer to the RBGA image in host memory
- * @param	width	Width of the image in pixels
- * @param	height	Height of the input image in pixels
- * @return	Pointer to a one dimensional array of probabilities for each class
- *
- */
 float* DIGITSClassifier::classifyRBGA(float* rbga, size_t width,
 		size_t height) {
 

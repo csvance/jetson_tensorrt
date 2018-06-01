@@ -37,10 +37,29 @@ namespace jetson_tensorrt {
  */
 class CUDASizedMemCache {
 public:
+
+	/**
+	 * @brief	CUDASizedMemCache constructor
+	 */
 	CUDASizedMemCache();
+
+	/**
+	 * @brief	CUDASizedMemCache destructor
+	 */
 	virtual ~CUDASizedMemCache();
 
-	void* getCUDAAlloc(size_t);
+	/**
+	 * @brief	Gets a memory allocation from the cache
+	 * The allocation will be reused between calls if size remains the same
+	 * If the size changes, the original allocation will be freed and a new one allocated
+	 * @param	size	Size of the requested memory allocation
+	 * @return	Pointer/handle to the device memory
+	 */
+	void* getCUDAAlloc(size_t size);
+
+	/**
+	 * @brief	Frees the allocated cache memory
+	 */
 	void freeCUDAAlloc();
 
 private:

@@ -106,24 +106,24 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a5827e6a45961997612abd071eb283489">~TensorRTEngine</a> ()</td></tr>
 <tr class="memdesc:a5827e6a45961997612abd071eb283489"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html" title="Abstract base class which loads and manages a TensorRT model which hides device/host memory managemen...">TensorRTEngine</a> destructor. <br /></td></tr>
 <tr class="separator:a5827e6a45961997612abd071eb283489"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15c0805f04b7396470c32958bc6a523b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a15c0805f04b7396470c32958bc6a523b">predict</a> (<a class="el" href="classjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a> &amp;, bool=true)</td></tr>
-<tr class="memdesc:a15c0805f04b7396470c32958bc6a523b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does a forward pass of the neural network loaded in TensorRT  Should be called after loading the graph and calling allocGPUBuffer()  <a href="#a15c0805f04b7396470c32958bc6a523b">More...</a><br /></td></tr>
-<tr class="separator:a15c0805f04b7396470c32958bc6a523b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02971597bdbe88001dcb3cd2f55c3f32"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a02971597bdbe88001dcb3cd2f55c3f32">loadCache</a> (std::string, size_t=1)</td></tr>
-<tr class="memdesc:a02971597bdbe88001dcb3cd2f55c3f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quick load the TensorRT optimized network  Should be called after addInput and addOutput without calling loadModel.  <a href="#a02971597bdbe88001dcb3cd2f55c3f32">More...</a><br /></td></tr>
-<tr class="separator:a02971597bdbe88001dcb3cd2f55c3f32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71a9dc43064c31c0a52f41eea270de27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a71a9dc43064c31c0a52f41eea270de27">saveCache</a> (std::string)</td></tr>
-<tr class="memdesc:a71a9dc43064c31c0a52f41eea270de27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save the TensorRT optimized network for quick loading in the future  Should be called after loadModel()  <a href="#a71a9dc43064c31c0a52f41eea270de27">More...</a><br /></td></tr>
-<tr class="separator:a71a9dc43064c31c0a52f41eea270de27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76a179006a6fa4d445e19de632435035"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a76a179006a6fa4d445e19de632435035">predict</a> (<a class="el" href="classjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a> &amp;inputs, bool copyOutputToHost=true)</td></tr>
+<tr class="memdesc:a76a179006a6fa4d445e19de632435035"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does a forward pass of the neural network loaded in TensorRT  Should be called after loading the graph and calling allocGPUBuffer()  <a href="#a76a179006a6fa4d445e19de632435035">More...</a><br /></td></tr>
+<tr class="separator:a76a179006a6fa4d445e19de632435035"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cb4769d3d947aba0b9baeffc68f547e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a3cb4769d3d947aba0b9baeffc68f547e">loadCache</a> (std::string cachePath, size_t maxBatchSize=1)</td></tr>
+<tr class="memdesc:a3cb4769d3d947aba0b9baeffc68f547e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quick load the TensorRT optimized network  Should be called after addInput and addOutput without calling loadModel.  <a href="#a3cb4769d3d947aba0b9baeffc68f547e">More...</a><br /></td></tr>
+<tr class="separator:a3cb4769d3d947aba0b9baeffc68f547e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07eab63439fd6c12542d1f37540175a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a07eab63439fd6c12542d1f37540175a9">saveCache</a> (std::string cachePath)</td></tr>
+<tr class="memdesc:a07eab63439fd6c12542d1f37540175a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save the TensorRT optimized network for quick loading in the future  Should be called after loadModel()  <a href="#a07eab63439fd6c12542d1f37540175a9">More...</a><br /></td></tr>
+<tr class="separator:a07eab63439fd6c12542d1f37540175a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac170c23a337a439cb674a40b005483ff"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#ac170c23a337a439cb674a40b005483ff">engineSummary</a> ()</td></tr>
 <tr class="memdesc:ac170c23a337a439cb674a40b005483ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a summary of the loaded network, inputs, and outputs.  <a href="#ac170c23a337a439cb674a40b005483ff">More...</a><br /></td></tr>
 <tr class="separator:ac170c23a337a439cb674a40b005483ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac0e48afbacab48fbff9559afe9c5046"><td class="memItemLeft" align="right" valign="top"><a id="aac0e48afbacab48fbff9559afe9c5046"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>addInput</b> (std::string, nvinfer1::Dims, size_t)=0</td></tr>
-<tr class="separator:aac0e48afbacab48fbff9559afe9c5046"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf85e57fc985520dbc86c6b0c1e8a2f2"><td class="memItemLeft" align="right" valign="top"><a id="abf85e57fc985520dbc86c6b0c1e8a2f2"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>addOutput</b> (std::string, nvinfer1::Dims, size_t)=0</td></tr>
-<tr class="separator:abf85e57fc985520dbc86c6b0c1e8a2f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7abf6bf75df01eab197bfac5e6ce570c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a7abf6bf75df01eab197bfac5e6ce570c">addInput</a> (std::string layerName, nvinfer1::Dims dims, size_t eleSize)=0</td></tr>
+<tr class="memdesc:a7abf6bf75df01eab197bfac5e6ce570c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract method which registers an input to the network.  <a href="#a7abf6bf75df01eab197bfac5e6ce570c">More...</a><br /></td></tr>
+<tr class="separator:a7abf6bf75df01eab197bfac5e6ce570c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2759405de044e028586f068f5e631a61"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a2759405de044e028586f068f5e631a61">addOutput</a> (std::string layerName, nvinfer1::Dims dims, size_t eleSize)=0</td></tr>
+<tr class="memdesc:a2759405de044e028586f068f5e631a61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract method which registers an output to the network.  <a href="#a2759405de044e028586f068f5e631a61">More...</a><br /></td></tr>
+<tr class="separator:a2759405de044e028586f068f5e631a61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -158,6 +158,114 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract base class which loads and manages a TensorRT model which hides device/host memory management. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a7abf6bf75df01eab197bfac5e6ce570c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7abf6bf75df01eab197bfac5e6ce570c">&#9670;&nbsp;</a></span>addInput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void jetson_tensorrt::TensorRTEngine::addInput </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>layerName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">nvinfer1::Dims&#160;</td>
+          <td class="paramname"><em>dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>eleSize</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Abstract method which registers an input to the network. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">layer</td><td>The name of the input layer (i.e. "input_1") </td></tr>
+    <tr><td class="paramname">dims</td><td>Dimensions of the input layer. Must be in CHW format. Ex: (3, 640, 480) </td></tr>
+    <tr><td class="paramname">eleSize</td><td>Size of each element in bytes </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classjetson__tensorrt_1_1_caffe_r_t_engine.html#a069c0b9bb940323ebe97b0351a2d773f">jetson_tensorrt::CaffeRTEngine</a>, and <a class="el" href="classjetson__tensorrt_1_1_tensorflow_r_t_engine.html#a5e45db4146cacd2218601d9273800d8a">jetson_tensorrt::TensorflowRTEngine</a>.</p>
+
+</div>
+</div>
+<a id="a2759405de044e028586f068f5e631a61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2759405de044e028586f068f5e631a61">&#9670;&nbsp;</a></span>addOutput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void jetson_tensorrt::TensorRTEngine::addOutput </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>layerName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">nvinfer1::Dims&#160;</td>
+          <td class="paramname"><em>dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>eleSize</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Abstract method which registers an output to the network. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">layer</td><td>The name of the input layer (i.e. "input_1") </td></tr>
+    <tr><td class="paramname">dims</td><td>Dimension of outputs </td></tr>
+    <tr><td class="paramname">eleSize</td><td>Size of each element in bytes </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classjetson__tensorrt_1_1_caffe_r_t_engine.html#a33d219f730749dbb4cb62ce29e1934de">jetson_tensorrt::CaffeRTEngine</a>, and <a class="el" href="classjetson__tensorrt_1_1_tensorflow_r_t_engine.html#aff7580475377d4e86d59f016dd72f83a">jetson_tensorrt::TensorflowRTEngine</a>.</p>
+
+</div>
+</div>
 <a id="ac170c23a337a439cb674a40b005483ff"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac170c23a337a439cb674a40b005483ff">&#9670;&nbsp;</a></span>engineSummary()</h2>
 
@@ -178,8 +286,8 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
 
 </div>
 </div>
-<a id="a02971597bdbe88001dcb3cd2f55c3f32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02971597bdbe88001dcb3cd2f55c3f32">&#9670;&nbsp;</a></span>loadCache()</h2>
+<a id="a3cb4769d3d947aba0b9baeffc68f547e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cb4769d3d947aba0b9baeffc68f547e">&#9670;&nbsp;</a></span>loadCache()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -215,8 +323,8 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
 
 </div>
 </div>
-<a id="a15c0805f04b7396470c32958bc6a523b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a15c0805f04b7396470c32958bc6a523b">&#9670;&nbsp;</a></span>predict()</h2>
+<a id="a76a179006a6fa4d445e19de632435035"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76a179006a6fa4d445e19de632435035">&#9670;&nbsp;</a></span>predict()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -253,8 +361,8 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
 
 </div>
 </div>
-<a id="a71a9dc43064c31c0a52f41eea270de27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71a9dc43064c31c0a52f41eea270de27">&#9670;&nbsp;</a></span>saveCache()</h2>
+<a id="a07eab63439fd6c12542d1f37540175a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07eab63439fd6c12542d1f37540175a9">&#9670;&nbsp;</a></span>saveCache()</h2>
 
 <div class="memitem">
 <div class="memproto">

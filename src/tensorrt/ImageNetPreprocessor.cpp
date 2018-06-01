@@ -34,9 +34,7 @@
 
 namespace jetson_tensorrt {
 
-/**
- * @brief	ImageNetPreprocessor default constructor. Does not use mean preprocessing.
- */
+
 ImageNetPreprocessor::ImageNetPreprocessor() :
 		CUDAImagePreprocessor() {
 	this->mean.x = 0.0;
@@ -44,17 +42,12 @@ ImageNetPreprocessor::ImageNetPreprocessor() :
 	this->mean.z = 0.0;
 }
 
-/**
- * @brief	ImageNetPreprocessor constructor using custom mean preprocessing values for each channel
- */
+
 ImageNetPreprocessor::ImageNetPreprocessor(float3 mean) :
 		CUDAImagePreprocessor() {
 	this->mean = mean;
 }
 
-/**
- * @brief	ImageNetPreprocessor constructor using a custom mean preprocessing value for all channels
- */
 ImageNetPreprocessor::ImageNetPreprocessor(float mean) :
 		CUDAImagePreprocessor() {
 	this->mean.x = mean;
@@ -62,20 +55,11 @@ ImageNetPreprocessor::ImageNetPreprocessor(float mean) :
 	this->mean.z = mean;
 }
 
-/**
- * @brief	ImageNetPreprocesor destructor
- */
+
 ImageNetPreprocessor::~ImageNetPreprocessor() {
 }
 
-/**
- * @brief	Implements resizing and conversion of an RBGA image in device memory to BGR
- * @param	inputWidth	The width of the input image
- * @param	inputHeight	The height of the input image
- * @param	outputWidth	The width of the converted BGR image
- * @param	outputHeight	The height of the converted BGR image
- * @return	Device pointer to the BGR image
- */
+
 float* ImageNetPreprocessor::RBGAtoBGR(size_t inputWidth, size_t inputHeight,
 		size_t outputWidth, size_t outputHeight) {
 

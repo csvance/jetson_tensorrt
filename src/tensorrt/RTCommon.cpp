@@ -35,11 +35,7 @@
 
 namespace jetson_tensorrt {
 
-/**
- * @brief	Allocates CUDA device memory or throws an exception
- * @param	memSize	The size of the requested memory allocation in bytes
- * @return	A handle corresponding to the device memory allocation.
- */
+
 void* safeCudaMalloc(size_t memSize) {
 	void* deviceMem;
 

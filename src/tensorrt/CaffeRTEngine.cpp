@@ -39,56 +39,31 @@ using namespace nvinfer1;
 
 namespace jetson_tensorrt {
 
-/**
- * @brief	Creates a new instance of CaffeRTEngine
- */
+
 CaffeRTEngine::CaffeRTEngine() :
 		TensorRTEngine() {
 	parser = nvcaffeparser1::createCaffeParser();
 }
 
-/**
- * @brief	CaffeRTEngine Destructor
- */
+
 CaffeRTEngine::~CaffeRTEngine() {
 	parser->destroy();
 }
 
-/**
- * @brief	Registers an input to the Caffe network.
- * @usage	Must be called before loadModel().
- * @param	layer	The name of the input layer (i.e. "input_1")
- * @param	dims	Dimensions of the input layer in CHW format
- * @param	eleSize	Size of each element in bytes
- */
+
 void CaffeRTEngine::addInput(std::string layer, nvinfer1::Dims dims,
 		size_t eleSize) {
 	networkInputs.push_back(NetworkInput(layer, dims, eleSize));
 }
 
-/**
- * @brief	Registers an output from the Caffe network.
- * @usage	Must be called before loadModel().
- * @param	layer	The name of the input layer (i.e. "input_1")
- * @param	dims	Dimension of outputs
- * @param	eleSize	Size of each element in bytes
- */
+
 void CaffeRTEngine::addOutput(std::string layer, nvinfer1::Dims dims,
 		size_t eleSize) {
 	networkOutputs.push_back(NetworkOutput(layer, dims, eleSize));
 }
 
-/**
- * @brief	Loads a trained Caffe model.
- * @usage	Should be called after registering inputs and outputs with addInput() and addOutput().
- * @param	prototextPath	Path to the models prototxt file
- * @param	modelPath	Path to the .caffemodel file
- * @param	maxBatchSize	The maximum number of records to run a forward network pass on. For maximum performance, this should be the only batch size passed to the network.
- * @param	dataType	The data type of the network to load into TensorRT
- * @param	maxNetworkSize	Maximum amount of GPU RAM the Tensorflow graph is allowed to use
- */
 void CaffeRTEngine::loadModel(std::string prototextPath, std::string modelPath,
-		size_t maximumBatchSize, nvinfer1::DataType dataType,
+		size_t maxBatchSize, nvinfer1::DataType dataType,
 		size_t maxNetworkSize) {
 
 	if (networkInputs.size() == 0 || networkOutputs.size() == 0)

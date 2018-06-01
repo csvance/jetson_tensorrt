@@ -50,11 +50,8 @@ using namespace nvinfer1;
 
 namespace jetson_tensorrt {
 
-void* safeCudaMalloc(size_t);
 
-/**
- * @brief	Creates and manages a new instance of TensorRTEngine
- */
+
 TensorRTEngine::TensorRTEngine() {
 	numBindings = 0;
 	maxBatchSize = 0;
@@ -64,9 +61,7 @@ TensorRTEngine::TensorRTEngine() {
 	dataType = nvinfer1::DataType::kFLOAT;
 }
 
-/**
- * @brief	TensorRTEngine destructor
- */
+
 TensorRTEngine::~TensorRTEngine() {
 	/* Clean up */
 	context->destroy();
@@ -75,10 +70,7 @@ TensorRTEngine::~TensorRTEngine() {
 	freeGPUBuffer();
 }
 
-/**
- * @brief	Allocates the buffers required to copy batches to the GPU
- * @usage	Should be called before the first prediction from host memory
- */
+
 void TensorRTEngine::allocGPUBuffer() {
 	int stepSize = networkInputs.size() + networkOutputs.size();
 
@@ -111,9 +103,7 @@ void TensorRTEngine::allocGPUBuffer() {
 	gpuBufferPreAllocated = true;
 }
 
-/**
- * @brief	Frees buffers required to copy batches to the GPU
- */
+
 void TensorRTEngine::freeGPUBuffer() {
 
 	if (gpuBufferPreAllocated) {
@@ -132,13 +122,6 @@ void TensorRTEngine::freeGPUBuffer() {
 	}
 }
 
-/**
- * @brief	Does a forward pass of the neural network loaded in TensorRT
- * @usage	Should be called after loading the graph and calling allocGPUBuffer()
- * @param	inputs Graph inputs on either the device or host, indexed by [batchIndex][inputIndex]
- * @param	copyOutputToHost	Controls whether the outputs are copied back to host memory (true) or left in device memory (false) after executing the prediction
- * @return	A LocatedResult of outputs, indexed by [batchIndex][outputNumber]
- */
 LocatedExecutionMemory TensorRTEngine::predict(LocatedExecutionMemory& inputs,
 		bool copyOutputToHost) {
 
@@ -238,10 +221,7 @@ LocatedExecutionMemory TensorRTEngine::predict(LocatedExecutionMemory& inputs,
 
 }
 
-/**
- * @brief	Returns a summary of the loaded network, inputs, and outputs
- * @return	String containing the summary
- */
+
 std::string TensorRTEngine::engineSummary() {
 
 	std::stringstream summary;
@@ -267,11 +247,7 @@ std::string TensorRTEngine::engineSummary() {
 
 }
 
-/**
- * @brief	Save the TensorRT optimized network for quick loading in the future
- * @usage	Should be called after loadModel()
- * @param	cachePath	Path to the network cache file
- */
+
 void TensorRTEngine::saveCache(std::string cachePath) {
 	//Serialize the loaded model
 	nvinfer1::IHostMemory* serMem = engine->serialize();
@@ -289,12 +265,7 @@ void TensorRTEngine::saveCache(std::string cachePath) {
 	serMem->destroy();
 }
 
-/**
- * @brief	Quick load the TensorRT optimized network
- * @usage	Should be called after addInput and addOutput without calling loadModel
- * @param	cachePath	Path to the network cache file
- * @param	maxBatchSize	The max batch size of the saved network. If the batch size needs to be changed, the network should be rebuilt with the new size and not simply changed here.
- */
+
 void TensorRTEngine::loadCache(std::string cachePath, size_t maxBatchSize) {
 
 	// Read the cache file from the disk and load it into a stringstream

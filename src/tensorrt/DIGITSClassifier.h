@@ -45,14 +45,42 @@ namespace jetson_tensorrt {
  */
 class DIGITSClassifier: public CaffeRTEngine {
 public:
-	DIGITSClassifier(std::string, std::string, std::string =
-			"classification.tensorcache", size_t = CHANNELS_BGR, size_t = 224,
-			size_t = 224, size_t = 1, size_t = 1000, float3 imageNetMean = {
-					0.0, 0.0, 0.0 }, nvinfer1::DataType =
-					nvinfer1::DataType::kFLOAT, size_t = (1 << 30));
+
+	/**
+	 * @brief	Creates a new instance of DIGITSClassifier
+	 * @param	prototextPath	Path to the .prototext file
+	 * @param	modelPath	Path to the .caffemodel file
+	 * @param	cachePath	Path to the .tensorcache file which will be loaded instead of building the network if present
+	 * @param	nbChannels	Number of channels in the input image. 1 for greyscale, 3 for RGB
+	 * @param	width	Width of the input image
+	 * @param	height	Height of the input image
+	 * @param	nbClasses	Number of classes to predict
+	 * @param	maximumBatchSize	Maximum number of images that will be passed at once for prediction. Leave this at one for maximum realtime performance.
+	 * @param	imageNetMean	The mean value to adjust images to during preprocessing step. 0.0 will disable.
+	 * @param	dataType	The data type used to contstruct the TensorRT network. Use FLOAT unless you know how it will effect your model.
+	 * @param	maxNetworkSize	Maximum size in bytes of the TensorRT network in device memory
+	 */
+	DIGITSClassifier(std::string prototextPath, std::string modelPath, std::string cachePath =
+			"classification.tensorcache", size_t nbChannels = CHANNELS_BGR, size_t width = 224,
+			size_t height = 224, size_t nbClasses = 1, size_t maximumBatchSize = 1, float3 imageNetMean = {
+					0.0, 0.0, 0.0 }, nvinfer1::DataType dataType =
+					nvinfer1::DataType::kFLOAT, size_t maxNetworkSize = (1 << 30));
+
+	/**
+	 * @brief	DIGITSClassifier destructor
+	 */
 	virtual ~DIGITSClassifier();
 
-	float* classifyRBGA(float*, size_t, size_t);
+	/**
+	 * @brief	Classifies a single RBGA format image.
+	 * @usage	To prevent memory leakage, the result of classifyRBGA must be deleted after they are no longer needed.
+	 * @param	rbga	Pointer to the RBGA image in host memory
+	 * @param	width	Width of the image in pixels
+	 * @param	height	Height of the input image in pixels
+	 * @return	Pointer to a one dimensional array of probabilities for each class
+	 *
+	 */
+	float* classifyRBGA(float* rbga, size_t width, size_t height);
 
 	static const size_t CHANNELS_GREYSCALE = 1;
 	static const size_t CHANNELS_BGR = 3;

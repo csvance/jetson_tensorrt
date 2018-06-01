@@ -1,6 +1,9 @@
 <map id="src/tensorrt/DIGITSDetector.h" name="src/tensorrt/DIGITSDetector.h">
-<area shape="rect" id="node7" href="$_caffe_r_t_engine_8h.html" title="Loads and manages a Caffe graph with TensorRT. " alt="" coords="303,80,426,107"/>
-<area shape="rect" id="node8" href="$_tensor_r_t_engine_8h.html" title="Abstract class which loads and manages a TensorRT graph. " alt="" coords="249,155,379,181"/>
-<area shape="rect" id="node10" href="$_network_i_o_8h.html" title="Contains classes managing neural network layer dimensions and size. " alt="" coords="146,229,242,256"/>
-<area shape="rect" id="node11" href="$_r_t_common_8h.html" title="Contains common functionality used by the TensoRT layer. " alt="" coords="699,229,803,256"/>
+<area shape="rect" id="node7" href="$_caffe_r_t_engine_8h.html" title="Loads and manages a Caffe graph with TensorRT. " alt="" coords="190,80,313,107"/>
+<area shape="rect" id="node13" href="$_image_net_preprocessor_8h.html" title="Class representing a CUDA accelerated ImageNet image preprocessor. " alt="" coords="792,80,959,107"/>
+<area shape="rect" id="node8" href="$_tensor_r_t_engine_8h.html" title="Abstract class which loads and manages a TensorRT graph. " alt="" coords="295,155,426,181"/>
+<area shape="rect" id="node10" href="$_network_i_o_8h.html" title="Contains classes managing neural network layer dimensions and size. " alt="" coords="377,229,473,256"/>
+<area shape="rect" id="node11" href="$_r_t_common_8h.html" title="Contains common functionality used by the TensoRT layer. " alt="" coords="750,229,854,256"/>
+<area shape="rect" id="node16" href="$_c_u_d_a_image_preprocessor_8h.html" title="Abstract class representing a CUDA accelerated image preprocessor. " alt="" coords="972,155,1157,181"/>
+<area shape="rect" id="node17" href="$_c_u_d_a_sized_mem_cache_8h.html" title="Abstract class of a cached CUDA allocation of a specific size. " alt="" coords="979,229,1151,256"/>
 </map>

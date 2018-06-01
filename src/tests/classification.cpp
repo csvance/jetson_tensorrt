@@ -37,7 +37,7 @@ using namespace jetson_tensorrt;
 
 int main(int argc, char** argv) {
 
-	DIGITSClassifier engine = DIGITSClassifier(MODEL_FILE, WEIGHTS_FILE, CACHE_FILE, IMAGE_DEPTH, IMAGE_WIDTH, IMAGE_HEIGHT, BATCH_SIZE, NB_CLASSES);
+	DIGITSClassifier engine = DIGITSClassifier(MODEL_FILE, WEIGHTS_FILE, CACHE_FILE, IMAGE_DEPTH, IMAGE_WIDTH, IMAGE_HEIGHT, NB_CLASSES, BATCH_SIZE);
 
 	std::cout << engine.engineSummary() << std::endl;
 
