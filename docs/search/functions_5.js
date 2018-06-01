@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['networkio',['NetworkIO',['../classjetson__tensorrt_1_1_network_i_o.html#ae70c6b100c48219db688edbfd07ed9b4',1,'jetson_tensorrt::NetworkIO']]]
+  ['getcudaalloc',['getCUDAAlloc',['../classjetson__tensorrt_1_1_c_u_d_a_sized_mem_cache.html#a5d9a7e8201a988f5aceab481ea4297dc',1,'jetson_tensorrt::CUDASizedMemCache']]]
 ];

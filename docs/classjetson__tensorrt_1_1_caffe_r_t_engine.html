@@ -79,9 +79,9 @@ Inheritance diagram for jetson_tensorrt::CaffeRTEngine:</div>
 <div class="dyncontent">
 <div class="center"><img src="classjetson__tensorrt_1_1_caffe_r_t_engine__inherit__graph.png" border="0" usemap="#jetson__tensorrt_1_1_caffe_r_t_engine_inherit__map" alt="Inheritance graph"/></div>
 <map name="jetson__tensorrt_1_1_caffe_r_t_engine_inherit__map" id="jetson__tensorrt_1_1_caffe_r_t_engine_inherit__map">
-<area shape="rect" id="node3" href="classjetson__tensorrt_1_1_classification_r_t_engine.html" title="Loads and manages a DIGITS ImageNet graph with TensorRT. " alt="" coords="5,155,200,196"/>
-<area shape="rect" id="node4" href="classjetson__tensorrt_1_1_detection_r_t_engine.html" title="Loads and manages a DIGITS DetectNet graph with TensorRT. " alt="" coords="225,155,397,196"/>
-<area shape="rect" id="node2" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html" title="Abstract base class which loads and manages a TensorRT model which hides device/host memory managemen..." alt="" coords="99,5,314,32"/>
+<area shape="rect" id="node3" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html" title="Loads and manages a DIGITS ImageNet graph with TensorRT. " alt="" coords="5,155,221,181"/>
+<area shape="rect" id="node4" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html" title="Loads and manages a DIGITS DetectNet graph with TensorRT. " alt="" coords="245,155,456,181"/>
+<area shape="rect" id="node2" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html" title="Abstract base class which loads and manages a TensorRT model which hides device/host memory managemen..." alt="" coords="125,5,339,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -144,6 +144,9 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>maxBatchSize</b></td><
 <tr class="memitem:ae21681fa49f30a92585a70b0a78d48b3 inherit pub_attribs_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a id="ae21681fa49f30a92585a70b0a78d48b3"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>numBindings</b></td></tr>
 <tr class="separator:ae21681fa49f30a92585a70b0a78d48b3 inherit pub_attribs_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a361ed692f7ee58e11fc09fb8b611e456 inherit pub_attribs_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a id="a361ed692f7ee58e11fc09fb8b611e456"></a>
+nvinfer1::DataType&#160;</td><td class="memItemRight" valign="bottom"><b>dataType</b></td></tr>
+<tr class="separator:a361ed692f7ee58e11fc09fb8b611e456 inherit pub_attribs_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classjetson__tensorrt_1_1_tensor_r_t_engine"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classjetson__tensorrt_1_1_tensor_r_t_engine')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html">jetson_tensorrt::TensorRTEngine</a></td></tr>
 <tr class="memitem:a29f0c3bbbc3e1b87ba0e92aef0450284 inherit pro_attribs_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a id="a29f0c3bbbc3e1b87ba0e92aef0450284"></a>
 nvinfer1::ICudaEngine *&#160;</td><td class="memItemRight" valign="bottom"><b>engine</b></td></tr>
@@ -321,7 +324,7 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
   <table class="params">
     <tr><td class="paramname">prototextPath</td><td>Path to the models prototxt file </td></tr>
     <tr><td class="paramname">modelPath</td><td>Path to the .caffemodel file </td></tr>
-    <tr><td class="paramname">maximumBatchSize</td><td>The maximum number of records to run a forward network pass on. For maximum performance, this should be the only batch size passed to the network. </td></tr>
+    <tr><td class="paramname">maxBatchSize</td><td>The maximum number of records to run a forward network pass on. For maximum performance, this should be the only batch size passed to the network. </td></tr>
     <tr><td class="paramname">dataType</td><td>The data type of the network to load into TensorRT </td></tr>
     <tr><td class="paramname">maxNetworkSize</td><td>Maximum amount of GPU RAM the Tensorflow graph is allowed to use </td></tr>
   </table>

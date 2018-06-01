@@ -46,9 +46,9 @@ using namespace nvinfer1;
 
 #include "TensorRTEngine.h"
 #include "RTExceptions.h"
+#include "RTCommon.h"
 
-namespace jetson_tensorrt{
-
+namespace jetson_tensorrt {
 
 void* safeCudaMalloc(size_t);
 
@@ -61,6 +61,7 @@ TensorRTEngine::TensorRTEngine() {
 	context = NULL;
 	engine = NULL;
 	gpuBufferPreAllocated = false;
+	dataType = nvinfer1::DataType::kFLOAT;
 }
 
 /**
@@ -91,7 +92,8 @@ void TensorRTEngine::allocGPUBuffer() {
 		for (int i = 0; i < networkInputs.size(); i++) {
 			size_t inputSize = networkInputs[i].size();
 
-			preAllocatedGPUBuffers[bindingIdx + b * stepSize] = safeCudaMalloc(inputSize);
+			preAllocatedGPUBuffers[bindingIdx + b * stepSize] = safeCudaMalloc(
+					inputSize);
 			bindingIdx++;
 		}
 
@@ -99,7 +101,8 @@ void TensorRTEngine::allocGPUBuffer() {
 		for (int i = 0; i < networkOutputs.size(); i++) {
 			size_t outputSize = networkOutputs[i].size();
 
-			preAllocatedGPUBuffers[bindingIdx + b * stepSize] = safeCudaMalloc(outputSize);
+			preAllocatedGPUBuffers[bindingIdx + b * stepSize] = safeCudaMalloc(
+					outputSize);
 			bindingIdx++;
 		}
 
@@ -113,13 +116,15 @@ void TensorRTEngine::allocGPUBuffer() {
  */
 void TensorRTEngine::freeGPUBuffer() {
 
-	if(gpuBufferPreAllocated){
+	if (gpuBufferPreAllocated) {
 
 		/* Move outputs back to host memory for each batch */
-		for (int b = 0; b < preAllocatedGPUBuffers.size(); b++){
+		for (int b = 0; b < preAllocatedGPUBuffers.size(); b++) {
 			cudaError_t deviceFreeError = cudaFree(preAllocatedGPUBuffers[b]);
-			if(deviceFreeError != 0)
-				throw DeviceMemoryFreeException("Error freeing device memory. CUDA Error: " + std::to_string(deviceFreeError));
+			if (deviceFreeError != 0)
+				throw DeviceMemoryFreeException(
+						"Error freeing device memory. CUDA Error: "
+								+ std::to_string(deviceFreeError));
 		}
 
 		gpuBufferPreAllocated = false;
@@ -134,11 +139,12 @@ void TensorRTEngine::freeGPUBuffer() {
  * @param	copyOutputToHost	Controls whether the outputs are copied back to host memory (true) or left in device memory (false) after executing the prediction
  * @return	A LocatedResult of outputs, indexed by [batchIndex][outputNumber]
  */
-LocatedExecutionMemory TensorRTEngine::predict(
-		LocatedExecutionMemory& inputs, bool copyOutputToHost) {
+LocatedExecutionMemory TensorRTEngine::predict(LocatedExecutionMemory& inputs,
+		bool copyOutputToHost) {
 
-	if(inputs.size() > maxBatchSize)
-		throw BatchSizeException("Passed batch is larger than maximum batch size");
+	if (inputs.size() > maxBatchSize)
+		throw BatchSizeException(
+				"Passed batch is larger than maximum batch size");
 
 	int batchCount = inputs.size();
 	int stepSize = networkInputs.size() + networkOutputs.size();
@@ -146,27 +152,30 @@ LocatedExecutionMemory TensorRTEngine::predict(
 	std::vector<void*> transactionGPUBuffers(inputs.size() * stepSize);
 
 	//If this is the first time we are doing a prediction allocate memory for inputs and outputs
-	if(!gpuBufferPreAllocated)
+	if (!gpuBufferPreAllocated)
 		allocGPUBuffer();
 
 	/* Assign transaction buffers and copy to GPU if neccisary */
-	for (int b = 0; b < batchCount; b++){
+	for (int b = 0; b < batchCount; b++) {
 		int bindingIdx = 0;
 
 		//Inputs
 		for (int i = 0; i < networkInputs.size(); i++) {
 			size_t inputSize = networkInputs[i].size();
 
-			if(inputs.location == LocatedExecutionMemory::Location::HOST){
+			if (inputs.location == LocatedExecutionMemory::Location::HOST) {
 				//If the batches are in host memory, we need to copy them to the device
-				transactionGPUBuffers[bindingIdx + b * stepSize] = preAllocatedGPUBuffers[bindingIdx + b * stepSize];
+				transactionGPUBuffers[bindingIdx + b * stepSize] =
+						preAllocatedGPUBuffers[bindingIdx + b * stepSize];
 
-				cudaError_t hostDeviceError = cudaMemcpy(transactionGPUBuffers[bindingIdx + b * stepSize],
-								inputs[b][i], inputSize,
-								cudaMemcpyHostToDevice);
+				cudaError_t hostDeviceError = cudaMemcpy(
+						transactionGPUBuffers[bindingIdx + b * stepSize],
+						inputs[b][i], inputSize, cudaMemcpyHostToDevice);
 				if (hostDeviceError != 0)
-					throw HostDeviceTransferException("Unable to copy host memory to device for prediction. CUDA Error: " + std::to_string(hostDeviceError));
-			}else{
+					throw HostDeviceTransferException(
+							"Unable to copy host memory to device for prediction. CUDA Error: "
+									+ std::to_string(hostDeviceError));
+			} else {
 				// Since the inputs are already in the device, all we need to do is assign them to the transaction buffer
 				transactionGPUBuffers[bindingIdx + b * stepSize] = inputs[b][i];
 			}
@@ -174,18 +183,20 @@ LocatedExecutionMemory TensorRTEngine::predict(
 		}
 
 		//Outputs
-		for (int o = 0; o < networkOutputs.size(); o++){
+		for (int o = 0; o < networkOutputs.size(); o++) {
 			size_t outputSize = networkOutputs[o].size();
 
-			transactionGPUBuffers[bindingIdx + b * stepSize] = preAllocatedGPUBuffers[bindingIdx + b * stepSize];
+			transactionGPUBuffers[bindingIdx + b * stepSize] =
+					preAllocatedGPUBuffers[bindingIdx + b * stepSize];
 
 			bindingIdx++;
 		}
 	}
 
 	/* Do the inference */
-	if(!context->execute(batchCount, &transactionGPUBuffers[0]))
-		throw EngineExecutionException("TensorRT engine execution returned unsuccessfully");
+	if (!context->execute(batchCount, &transactionGPUBuffers[0]))
+		throw EngineExecutionException(
+				"TensorRT engine execution returned unsuccessfully");
 
 	std::vector<std::vector<void*>> batchOutputs(batchCount);
 
@@ -196,17 +207,20 @@ LocatedExecutionMemory TensorRTEngine::predict(
 		for (int i = 0; i < networkOutputs.size(); i++) {
 			size_t outputSize = networkOutputs[i].size();
 
-			if(copyOutputToHost){
+			if (copyOutputToHost) {
 				/* Allocate a host buffer for the network output */
 				batchOutputs[b].push_back(new unsigned char[outputSize]);
 
 				cudaError_t deviceHostError = cudaMemcpy(batchOutputs[b][i],
-								transactionGPUBuffers[bindingIdx + b * stepSize], outputSize,
-								cudaMemcpyDeviceToHost);
+						transactionGPUBuffers[bindingIdx + b * stepSize],
+						outputSize, cudaMemcpyDeviceToHost);
 				if (deviceHostError != 0)
-					throw HostDeviceTransferException("Unable to copy device memory to host for prediction. CUDA Error: " + std::to_string(deviceHostError));
-			}else{
-				batchOutputs[b].push_back(transactionGPUBuffers[bindingIdx + b * stepSize]);
+					throw HostDeviceTransferException(
+							"Unable to copy device memory to host for prediction. CUDA Error: "
+									+ std::to_string(deviceHostError));
+			} else {
+				batchOutputs[b].push_back(
+						transactionGPUBuffers[bindingIdx + b * stepSize]);
 			}
 
 			bindingIdx++;
@@ -214,10 +228,12 @@ LocatedExecutionMemory TensorRTEngine::predict(
 
 	}
 
-	if(copyOutputToHost){
-		return LocatedExecutionMemory(LocatedExecutionMemory::Location::HOST, batchOutputs);
-	}else{
-		return LocatedExecutionMemory(LocatedExecutionMemory::Location::DEVICE, batchOutputs);
+	if (copyOutputToHost) {
+		return LocatedExecutionMemory(LocatedExecutionMemory::Location::HOST,
+				batchOutputs);
+	} else {
+		return LocatedExecutionMemory(LocatedExecutionMemory::Location::DEVICE,
+				batchOutputs);
 	}
 
 }
@@ -301,7 +317,8 @@ void TensorRTEngine::loadCache(std::string cachePath, size_t maxBatchSize) {
 
 	void* modelMem = malloc(modelSize);
 	if (!modelMem)
-		throw HostMemoryAllocException("Unable to allocate memory for deserialized model");
+		throw HostMemoryAllocException(
+				"Unable to allocate memory for deserialized model");
 
 	gieModelStream.read((char*) modelMem, modelSize);
 	engine = infer->deserializeCudaEngine(modelMem, modelSize, NULL);
@@ -309,7 +326,8 @@ void TensorRTEngine::loadCache(std::string cachePath, size_t maxBatchSize) {
 	free(modelMem);
 
 	if (!engine)
-		throw ModelDeserializeException("Unable to create engine from deserialized data");
+		throw ModelDeserializeException(
+				"Unable to create engine from deserialized data");
 
 	// Populate things that need to be populated before allocating memory
 	this->numBindings = engine->getNbBindings();
@@ -341,21 +359,6 @@ void Logger::log(nvinfer1::ILogger::Severity severity, const char* msg) {
 		break;
 	}
 	std::cerr << msg << std::endl;
-}
-
-void* safeCudaMalloc(size_t memSize) {
-	void* deviceMem;
-
-	cudaError_t cudaMallocError = cudaMalloc(&deviceMem, memSize);
-	if(cudaMallocError != 0){
-		throw DeviceMemoryAllocException("CUDA Malloc Error: " + std::to_string(cudaMallocError));
-	}else if(deviceMem == nullptr){
-		throw DeviceMemoryAllocException("Out of device memory");
-	}
-	if (deviceMem == nullptr) {
-		abort();
-	}
-	return deviceMem;
 }
 
 }

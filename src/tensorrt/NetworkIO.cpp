@@ -31,7 +31,7 @@
 
 using namespace nvinfer1;
 
-namespace jetson_tensorrt{
+namespace jetson_tensorrt {
 
 /**
  * @brief	Creates a new NetworkIO object
@@ -63,19 +63,20 @@ size_t NetworkIO::size() {
 	return (size_t) volume * eleSize;
 }
 
-
 NetworkInput::NetworkInput(std::string name, nvinfer1::Dims dims,
 		size_t eleSize) :
 		NetworkIO(name, dims, eleSize) {
 }
 
-NetworkInput::~NetworkInput() {}
+NetworkInput::~NetworkInput() {
+}
 
 NetworkOutput::NetworkOutput(std::string name, nvinfer1::Dims dims,
 		size_t eleSize) :
 		NetworkIO(name, dims, eleSize) {
 }
 
-NetworkOutput::~NetworkOutput() {}
+NetworkOutput::~NetworkOutput() {
+}
 
 }

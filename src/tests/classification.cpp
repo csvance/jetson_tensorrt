@@ -13,7 +13,7 @@
 #include "NvInfer.h"
 
 #include "TensorRTEngine.h"
-#include "ClassificationRTEngine.h"
+#include "DIGITSClassifier.h"
 #include "RTExceptions.h"
 
 #define CACHE_FILE "classification.tensorcache"
@@ -37,7 +37,7 @@ using namespace jetson_tensorrt;
 
 int main(int argc, char** argv) {
 
-	ClassificationRTEngine engine = ClassificationRTEngine(MODEL_FILE, WEIGHTS_FILE, CACHE_FILE, IMAGE_DEPTH, IMAGE_WIDTH, IMAGE_HEIGHT, NB_CLASSES, BATCH_SIZE);
+	DIGITSClassifier engine = DIGITSClassifier(MODEL_FILE, WEIGHTS_FILE, CACHE_FILE, IMAGE_DEPTH, IMAGE_WIDTH, IMAGE_HEIGHT, BATCH_SIZE, NB_CLASSES);
 
 	std::cout << engine.engineSummary() << std::endl;
 

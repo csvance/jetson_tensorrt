@@ -87,22 +87,24 @@ $(function() {
 <code>#include &quot;NvUtils.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="_tensor_r_t_engine_8h_source.html">TensorRTEngine.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_r_t_exceptions_8h_source.html">RTExceptions.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_r_t_common_8h_source.html">RTCommon.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for TensorRTEngine.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="_tensor_r_t_engine_8cpp__incl.png" border="0" usemap="#src_2tensorrt_2_tensor_r_t_engine_8cpp" alt=""/></div>
 <map name="src_2tensorrt_2_tensor_r_t_engine_8cpp" id="src_2tensorrt_2_tensor_r_t_engine_8cpp">
-<area shape="rect" id="node16" href="_tensor_r_t_engine_8h.html" title="Abstract class which loads and manages a TensorRT graph. " alt="" coords="707,80,837,107"/>
-<area shape="rect" id="node18" href="_r_t_exceptions_8h.html" title="Contains exceptions used by the TensorRT layer. " alt="" coords="342,80,458,107"/>
-<area shape="rect" id="node17" href="_network_i_o_8h.html" title="Contains classes managing neural network layer dimensions and size. " alt="" coords="724,155,820,181"/>
+<area shape="rect" id="node16" href="_tensor_r_t_engine_8h.html" title="Abstract class which loads and manages a TensorRT graph. " alt="" coords="785,80,916,107"/>
+<area shape="rect" id="node18" href="_r_t_common_8h.html" title="Contains common functionality used by the TensoRT layer. " alt="" coords="1007,155,1111,181"/>
+<area shape="rect" id="node20" href="_r_t_exceptions_8h.html" title="Contains exceptions used by the TensorRT layer. " alt="" coords="333,80,449,107"/>
+<area shape="rect" id="node17" href="_network_i_o_8h.html" title="Contains classes managing neural network layer dimensions and size. " alt="" coords="785,155,881,181"/>
 </map>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a83d0b0506deb18260ee774f20ff9cdd5"><td class="memItemLeft" align="right" valign="top"><a id="a83d0b0506deb18260ee774f20ff9cdd5"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><b>jetson_tensorrt::safeCudaMalloc</b> (size_t)</td></tr>
-<tr class="separator:a83d0b0506deb18260ee774f20ff9cdd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aace1f654945dc3a0a12ec52f6a533825"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_r_t_common_8cpp.html#aace1f654945dc3a0a12ec52f6a533825">jetson_tensorrt::safeCudaMalloc</a> (size_t memSize)</td></tr>
+<tr class="memdesc:aace1f654945dc3a0a12ec52f6a533825"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates CUDA device memory or throws an exception.  <a href="_r_t_common_8cpp.html#aace1f654945dc3a0a12ec52f6a533825">More...</a><br /></td></tr>
+<tr class="separator:aace1f654945dc3a0a12ec52f6a533825"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract class which loads and manages a TensorRT graph. </p>
@@ -110,7 +112,35 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><b>jetson_tensorrt::sa
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
 <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
 <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="file_aace1f654945dc3a0a12ec52f6a533825"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_aace1f654945dc3a0a12ec52f6a533825">&#9670;&nbsp;</a></span>safeCudaMalloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * jetson_tensorrt::safeCudaMalloc </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>memSize</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocates CUDA device memory or throws an exception. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">memSize</td><td>The size of the requested memory allocation in bytes </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A handle corresponding to the device memory allocation. </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classjetson__tensorrt_1_1_located_execution_memory.html" title="Represents all of a batches inputs or outputs located either in host or device memory. " alt="" coords="5,5,168,47"/>
+<area shape="rect" id="node1" href="$classjetson__tensorrt_1_1_c_u_d_a_image_preprocessor.html" title="Abstract class representing a CUDA accelerated image preprocessor. " alt="" coords="5,5,196,47"/>
+<area shape="rect" id="node2" href="$classjetson__tensorrt_1_1_image_net_preprocessor.html" title="Class representing a CUDA accelerated ImageNet image preprocessor. " alt="" coords="244,5,417,47"/>
 </map>

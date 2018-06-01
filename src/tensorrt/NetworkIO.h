@@ -33,7 +33,7 @@
 #include "NvInfer.h"
 #include "NvUtils.h"
 
-namespace jetson_tensorrt{
+namespace jetson_tensorrt {
 
 /**
  * @brief Abstract class representing a node in a neural network which takes input or generates output

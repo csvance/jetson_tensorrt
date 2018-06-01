@@ -36,45 +36,9 @@
 #include "NvUtils.h"
 
 #include "NetworkIO.h"
+#include "RTCommon.h"
 
-namespace jetson_tensorrt{
-
-/**
- * @brief Represents all of a batches inputs or outputs located either in host or device memory
- */
-class LocatedExecutionMemory{
-public:
-	enum Location{
-		HOST,
-		DEVICE
-	};
-
-	/**
-	 * @brief LocatedExecutionMemory constructor
-	 * @param location	The location of the batch inputs or outputs, either in HOST or DEVICE memory
-	 * @param batch	Batch of inputs or outputs
-	 */
-	LocatedExecutionMemory(Location location, std::vector<std::vector<void*>> batch){
-		this->batch = batch;
-		this->location = location;
-	}
-
-	Location location;
-	std::vector<std::vector<void*>> batch;
-
-	std::vector<void*>& operator[] (const int index){
-    	return batch[index];
-    }
-
-	/**
-	 * @brief Gets the number of units in a batch
-	 * @return	Number of units in a batch
-	 */
-	size_t size(){
-		return batch.size();
-	}
-};
-
+namespace jetson_tensorrt {
 
 /**
  * @brief Logger for GIE info/warning/errors
@@ -92,9 +56,9 @@ public:
 	TensorRTEngine();
 	virtual ~TensorRTEngine();
 
-	LocatedExecutionMemory predict(LocatedExecutionMemory&, bool=true);
+	LocatedExecutionMemory predict(LocatedExecutionMemory&, bool = true);
 
-	void loadCache(std::string, size_t=1);
+	void loadCache(std::string, size_t = 1);
 	void saveCache(std::string);
 
 	std::string engineSummary();
@@ -104,6 +68,8 @@ public:
 
 	int maxBatchSize;
 	int numBindings;
+
+	nvinfer1::DataType dataType;
 
 protected:
 	nvinfer1::ICudaEngine* engine;

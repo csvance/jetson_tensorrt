@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['rtexceptions_2ecpp',['RTExceptions.cpp',['../_r_t_exceptions_8cpp.html',1,'']]],
-  ['rtexceptions_2eh',['RTExceptions.h',['../_r_t_exceptions_8h.html',1,'']]]
+  ['modelbuildexception',['ModelBuildException',['../classjetson__tensorrt_1_1_model_build_exception.html',1,'jetson_tensorrt']]],
+  ['modeldeserializeexception',['ModelDeserializeException',['../classjetson__tensorrt_1_1_model_deserialize_exception.html',1,'jetson_tensorrt']]],
+  ['modeldimensionmismatchexception',['ModelDimensionMismatchException',['../classjetson__tensorrt_1_1_model_dimension_mismatch_exception.html',1,'jetson_tensorrt']]],
+  ['modelserializeexception',['ModelSerializeException',['../classjetson__tensorrt_1_1_model_serialize_exception.html',1,'jetson_tensorrt']]]
 ];

@@ -37,7 +37,7 @@
 
 using namespace nvinfer1;
 
-namespace jetson_tensorrt{
+namespace jetson_tensorrt {
 
 /**
  * @brief	Creates a new instance of CaffeRTEngine
@@ -83,7 +83,7 @@ void CaffeRTEngine::addOutput(std::string layer, nvinfer1::Dims dims,
  * @usage	Should be called after registering inputs and outputs with addInput() and addOutput().
  * @param	prototextPath	Path to the models prototxt file
  * @param	modelPath	Path to the .caffemodel file
- * @param	maximumBatchSize	The maximum number of records to run a forward network pass on. For maximum performance, this should be the only batch size passed to the network.
+ * @param	maxBatchSize	The maximum number of records to run a forward network pass on. For maximum performance, this should be the only batch size passed to the network.
  * @param	dataType	The data type of the network to load into TensorRT
  * @param	maxNetworkSize	Maximum amount of GPU RAM the Tensorflow graph is allowed to use
  */
@@ -91,10 +91,12 @@ void CaffeRTEngine::loadModel(std::string prototextPath, std::string modelPath,
 		size_t maximumBatchSize, nvinfer1::DataType dataType,
 		size_t maxNetworkSize) {
 
-	if(networkInputs.size() == 0 || networkOutputs.size() == 0)
-		throw ModelDimensionMismatchException("Must add inputs and outputs before calling loadModel");
+	if (networkInputs.size() == 0 || networkOutputs.size() == 0)
+		throw ModelDimensionMismatchException(
+				"Must add inputs and outputs before calling loadModel");
 
-	maxBatchSize = maximumBatchSize;
+	this->dataType = dataType;
+	this->maxBatchSize = maxBatchSize;
 
 	IBuilder* builder = createInferBuilder(logger);
 
@@ -134,12 +136,13 @@ void CaffeRTEngine::loadModel(std::string prototextPath, std::string modelPath,
 		nvinfer1::Dims dims = engine->getBindingDimensions(n);
 
 		if (dims.nbDims != networkInputs[n].dims.nbDims)
-			throw ModelDimensionMismatchException("Model number of input dimensions do not match what was registered with addInput");
-
+			throw ModelDimensionMismatchException(
+					"Model number of input dimensions do not match what was registered with addInput");
 
 		for (int d = 0; d < dims.nbDims; d++)
 			if (dims.d[d] != networkInputs[n].dims.d[d])
-				throw ModelDimensionMismatchException("Model input dimensions do not match what was registered with addInput");
+				throw ModelDimensionMismatchException(
+						"Model input dimensions do not match what was registered with addInput");
 
 	}
 

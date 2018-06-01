@@ -35,7 +35,7 @@
 
 #include "TensorRTEngine.h"
 
-namespace jetson_tensorrt{
+namespace jetson_tensorrt {
 
 /**
  * @brief Loads and manages a Tensorflow network in TensorRT

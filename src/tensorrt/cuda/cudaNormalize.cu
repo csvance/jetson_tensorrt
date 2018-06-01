@@ -1,9 +1,4 @@
-/**
- * @file	ClassificationRTEngine.h
- * @author	Carroll Vance
- * @brief	Loads and manages a DIGITS ImageNet graph with TensorRT
- *
- * Copyright (c) 2018 Carroll Vance.
+/*
  * Copyright (c) 2017, NVIDIA CORPORATION. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -25,40 +20,52 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef CLASSIFICATIONRTENGINE_H_
-#define CLASSIFICATIONRTENGINE_H_
-
-#include <string>
-#include <vector>
-
-#include "NvInfer.h"
-#include "NvCaffeParser.h"
-#include "NvUtils.h"
-
-#include <CaffeRTEngine.h>
-
-namespace jetson_tensorrt{
+#include "cudaNormalize.h"
 
 
-/**
- * @brief	Loads and manages a DIGITS ImageNet graph with TensorRT
- */
-class ClassificationRTEngine: public CaffeRTEngine {
-public:
-	ClassificationRTEngine(std::string, std::string, std::string="classification.tensorcache",
-			size_t=CHANNELS_BGR, size_t=224, size_t=224, size_t=1, size_t=1000,
-			nvinfer1::DataType =nvinfer1::DataType::kFLOAT, size_t = (1 << 30));
-	virtual ~ClassificationRTEngine();
 
-	static const size_t CHANNELS_GREYSCALE = 1;
-	static const size_t CHANNELS_BGR	= 3;
+// gpuNormalize
+template <typename T>
+__global__ void gpuNormalize( T* input, T* output, int width, int height, float scaling_factor )
+{
+	const int x = blockIdx.x * blockDim.x + threadIdx.x;
+	const int y = blockIdx.y * blockDim.y + threadIdx.y;
 
-private:
-	static const std::string INPUT_NAME;
-	static const std::string OUTPUT_NAME;
+	if( x >= width || y >= height )
+		return;
 
-};
+	const T px = input[ y * width + x ];
 
+	output[y*width+x] = make_float4(px.x * scaling_factor,
+							  px.y * scaling_factor,
+							  px.z * scaling_factor,
+							  px.w * scaling_factor);
 }
 
-#endif /* CLASSIFICATIONRTENGINE_H_ */
+
+// cudaNormalizeRGBA
+cudaError_t cudaNormalizeRGBA( float4* input, const float2& input_range,
+						 float4* output, const float2& output_range,
+						 size_t  width,  size_t height )
+{
+	if( !input || !output )
+		return cudaErrorInvalidDevicePointer;
+
+	if( width == 0 || height == 0  )
+		return cudaErrorInvalidValue;
+
+	const float multiplier = output_range.y / input_range.y;
+
+	// launch kernel
+	const dim3 blockDim(8, 8);
+	const dim3 gridDim(iDivUp(width,blockDim.x), iDivUp(height,blockDim.y));
+
+	gpuNormalize<float4><<<gridDim, blockDim>>>(input, output, width, height, multiplier);
+
+	return CUDA(cudaGetLastError());
+}
+
+
+
+
+

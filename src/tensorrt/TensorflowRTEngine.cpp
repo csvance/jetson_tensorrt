@@ -50,7 +50,7 @@
 using namespace nvuffparser;
 using namespace nvinfer1;
 
-namespace jetson_tensorrt{
+namespace jetson_tensorrt {
 
 /**
  * @brief	Creates a new instance of TensorflowRTEngine
@@ -84,13 +84,16 @@ void TensorflowRTEngine::addInput(std::string layer, nvinfer1::Dims dims,
 	 Where Y = 30, X = 40, C = 1
 	 */
 
-	if(dims.nbDims != 3)
-		throw ModelDimensionMismatchException("nVidia requires us to use a 3 channel DimsCHW when defining inputs for networks loaded from .uff files");
+	if (dims.nbDims != 3)
+		throw ModelDimensionMismatchException(
+				"nVidia requires us to use a 3 channel DimsCHW when defining inputs for networks loaded from .uff files");
 
-	if(dims.d[0] > dims.d[1] || dims.d[0] > dims.d[2])
-		throw ModelDimensionMismatchException("In CHW format the channel should always be the first dimension");
+	if (dims.d[0] > dims.d[1] || dims.d[0] > dims.d[2])
+		throw ModelDimensionMismatchException(
+				"In CHW format the channel should always be the first dimension");
 
-	nvinfer1::DimsCHW chwDims = nvinfer1::DimsCHW(dims.d[0], dims.d[1], dims.d[2]);
+	nvinfer1::DimsCHW chwDims = nvinfer1::DimsCHW(dims.d[0], dims.d[1],
+			dims.d[2]);
 
 	parser->registerInput(layer.c_str(), chwDims);
 
@@ -129,6 +132,7 @@ void TensorflowRTEngine::loadModel(std::string uffFile, size_t maximumBatchSize,
 
 	assert(networkInputs.size() > 0 && networkOutputs.size() > 0);
 
+	this->dataType = dataType;
 	maxBatchSize = maximumBatchSize;
 
 	IBuilder* builder = createInferBuilder(logger);

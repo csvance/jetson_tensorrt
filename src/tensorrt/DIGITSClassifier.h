@@ -1,7 +1,7 @@
 /**
- * @file	DetectionRTEngine.h
+ * @file	DIGITSClassifier.h
  * @author	Carroll Vance
- * @brief	Loads and manages a DIGITS DetectNet graph with TensorRT
+ * @brief	Loads and manages a DIGITS ImageNet graph with TensorRT
  *
  * Copyright (c) 2018 Carroll Vance.
  * Copyright (c) 2017, NVIDIA CORPORATION. All rights reserved.
@@ -25,8 +25,8 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef DETECTIONRTENGINE_H_
-#define DETECTIONRTENGINE_H_
+#ifndef CLASSIFICATIONRTENGINE_H_
+#define CLASSIFICATIONRTENGINE_H_
 
 #include <string>
 #include <vector>
@@ -35,45 +35,40 @@
 #include "NvCaffeParser.h"
 #include "NvUtils.h"
 
-#include <CaffeRTEngine.h>
+#include "CaffeRTEngine.h"
+#include "ImageNetPreprocessor.h"
 
 namespace jetson_tensorrt {
 
-struct ClassRectange{
-	int id;
-	int x;
-	int y;
-	int w;
-	int h;
-};
-
 /**
- * @brief	Loads and manages a DIGITS DetectNet graph with TensorRT
+ * @brief	Loads and manages a DIGITS ImageNet graph with TensorRT
  */
-class DetectionRTEngine: public CaffeRTEngine {
+class DIGITSClassifier: public CaffeRTEngine {
 public:
-	DetectionRTEngine(std::string, std::string, std::string="classification.tensorcache",
-			size_t=CHANNELS_BGR, size_t=224, size_t=224, size_t=1, size_t=1000,
-			nvinfer1::DataType =nvinfer1::DataType::kFLOAT, size_t = (1 << 30));
+	DIGITSClassifier(std::string, std::string, std::string =
+			"classification.tensorcache", size_t = CHANNELS_BGR, size_t = 224,
+			size_t = 224, size_t = 1, size_t = 1000, float3 imageNetMean = {
+					0.0, 0.0, 0.0 }, nvinfer1::DataType =
+					nvinfer1::DataType::kFLOAT, size_t = (1 << 30));
+	virtual ~DIGITSClassifier();
 
-	std::vector<ClassRectange> detect();
-
-	virtual ~DetectionRTEngine();
+	float* classifyRBGA(float*, size_t, size_t);
 
 	static const size_t CHANNELS_GREYSCALE = 1;
-	static const size_t CHANNELS_BGR	= 3;
+	static const size_t CHANNELS_BGR = 3;
+
+	size_t modelWidth;
+	size_t modelHeight;
+	size_t modelDepth;
 
 private:
 	static const std::string INPUT_NAME;
-	static const std::string OUTPUT_COVERAGE_NAME;
-	static const std::string OUTPUT_BBOXES_NAME;
+	static const std::string OUTPUT_NAME;
 
-
-	static const size_t BBOX_DIM_X = 64;
-	static const size_t BBOX_DIM_Y = 32;
+	ImageNetPreprocessor preprocessor;
 
 };
 
-} /* namespace jetson_tensorrt */
+}
 
-#endif /* DETECTIONRTENGINE_H_ */
+#endif /* CLASSIFICATIONRTENGINE_H_ */

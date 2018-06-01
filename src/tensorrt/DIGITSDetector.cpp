@@ -1,5 +1,5 @@
 /**
- * @file	DetectionRTEngine.cpp
+ * @file	DIGITSDetector.cpp
  * @author	Carroll Vance
  * @brief	Loads and manages a DIGITS DetectNet graph with TensorRT
  *
@@ -25,17 +25,17 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#include "DetectionRTEngine.h"
+#include "DIGITSDetector.h"
 #include "RTExceptions.h"
 
 namespace jetson_tensorrt {
 
-const std::string DetectionRTEngine::INPUT_NAME = "data";
-const std::string DetectionRTEngine::OUTPUT_COVERAGE_NAME = "coverage";
-const std::string DetectionRTEngine::OUTPUT_BBOXES_NAME = "bboxes";
+const std::string DIGITSDetector::INPUT_NAME = "data";
+const std::string DIGITSDetector::OUTPUT_COVERAGE_NAME = "coverage";
+const std::string DIGITSDetector::OUTPUT_BBOXES_NAME = "bboxes";
 
 /**
- * @brief	Creates a new instance of DetectionRTEngine
+ * @brief	Creates a new instance of DIGITSDetector
  * @param	prototextPath	Path to the .prototext file
  * @param	modelPath	Path to the .caffemodel file
  * @param	cachePath	Path to the .tensorcache file which will be loaded instead of building the network if present
@@ -43,40 +43,87 @@ const std::string DetectionRTEngine::OUTPUT_BBOXES_NAME = "bboxes";
  * @param	width	Width of the input image
  * @param	height	Height of the input image
  * @param	nbClasses	Number of classes to predict
- * @param	maximumBatchSize	Maximum number of images that will be passed at once for prediction
+ * @param	maximumBatchSize	Maximum number of images that will be passed at once for detection. Leave this at one for maximum realtime performance.
  * @param	dataType	The data type used to contstruct the TensorRT network. Use FLOAT unless you know how it will effect your model.
  * @param	maxNetworkSize	Maximum size in bytes of the TensorRT network in device memory
  */
-DetectionRTEngine::DetectionRTEngine(std::string prototextPath, std::string modelPath, std::string cachePath,
-		size_t nbChannels, size_t width, size_t height, size_t nbClasses,
-		size_t maximumBatchSize, nvinfer1::DataType dataType,
-		size_t maxNetworkSize) : CaffeRTEngine(){
+DIGITSDetector::DIGITSDetector(std::string prototextPath, std::string modelPath,
+		std::string cachePath, size_t nbChannels, size_t width, size_t height,
+		size_t nbClasses, size_t maximumBatchSize, nvinfer1::DataType dataType,
+		size_t maxNetworkSize) :
+		CaffeRTEngine() {
 
-	if(nbChannels != CHANNELS_BGR)
-		throw UnsupportedConfigurationException("Only BGR DetectNets are supported currently");
+	if (nbChannels != CHANNELS_BGR)
+		throw UnsupportedConfigurationException(
+				"Only BGR DetectNets are supported currently");
 
-	addInput(INPUT_NAME, nvinfer1::DimsCHW(nbChannels, height, width), sizeof(float));
+	addInput(INPUT_NAME, nvinfer1::DimsCHW(nbChannels, height, width),
+			sizeof(float));
 
-	nvinfer1::Dims outputDimsCoverage; outputDimsCoverage.nbDims = 3;
+	nvinfer1::Dims outputDimsCoverage;
+	outputDimsCoverage.nbDims = 3;
 	outputDimsCoverage.d[0] = nbClasses;
 	outputDimsCoverage.d[1] = BBOX_DIM_Y;
 	outputDimsCoverage.d[2] = BBOX_DIM_X;
 	addOutput(OUTPUT_COVERAGE_NAME, outputDimsCoverage, sizeof(float));
 
-	nvinfer1::Dims outputDimsBboxes; outputDimsBboxes.nbDims = 3;
+	nvinfer1::Dims outputDimsBboxes;
+	outputDimsBboxes.nbDims = 3;
 	outputDimsBboxes.d[0] = 4;
 	outputDimsBboxes.d[1] = BBOX_DIM_Y;
 	outputDimsBboxes.d[2] = BBOX_DIM_X;
 	addOutput(OUTPUT_BBOXES_NAME, outputDimsBboxes, sizeof(float));
 
-	try{
+	try {
 		loadCache(cachePath);
-	} catch (ModelDeserializeException& e){
-		loadModel(prototextPath, modelPath, maximumBatchSize, dataType, maxNetworkSize);
+	} catch (ModelDeserializeException& e) {
+		loadModel(prototextPath, modelPath, maximumBatchSize, dataType,
+				maxNetworkSize);
 		saveCache(cachePath);
 	}
+
+	modelWidth = width;
+	modelHeight = height;
+	modelDepth = nbChannels;
+
+	preprocessor = ImageNetPreprocessor(imageNetMean);
+
 }
 
-DetectionRTEngine::~DetectionRTEngine() {}
+/**
+ * @brief	Detects in a a single RBGA format image.
+ * @param	rbga	Pointer to the RBGA image in host memory
+ * @param	width	Width of the image in pixels
+ * @param	height	Height of the input image in pixels
+ * @return	Pointer to a one dimensional array of probabilities for each class
+ *
+ */
+std::vector<ClassRectangle> DIGITSDetector::detectRGBA(float* rbga, size_t width, size_t height){
+
+	//Load the image to device
+	preprocessor.inputFromHost(rbga, width * height * sizeof(float4));
+
+	//Convert to BGR
+	float* preprocessedImageDevice = preprocessor.RBGAtoBGR(width, height,
+			modelWidth, modelHeight);
+
+	//Setup inference
+	std::vector<std::vector<void*>> batchInputs(1);
+	batchInputs[0].push_back((void*) preprocessedImageDevice);
+	LocatedExecutionMemory predictionInputs(LocatedExecutionMemory::DEVICE,
+			batchInputs);
+
+	//Execute inference
+	LocatedExecutionMemory predictionOutputs = predict(predictionInputs, true);
+
+
+}
+
+
+/**
+ * @brief DIGITSDetector destructor
+ */
+DIGITSDetector::~DIGITSDetector() {
+}
 
 } /* namespace jetson_tensorrt */
