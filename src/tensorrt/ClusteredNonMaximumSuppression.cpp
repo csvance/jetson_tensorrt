@@ -32,46 +32,6 @@
 
 namespace jetson_tensorrt {
 
-//TODO: Refactor all of this code to use names that make sense for the task at hand
-struct float6 { float x; float y; float z; float w; float v; float u; };
-static inline float6 make_float6( float x, float y, float z, float w, float v, float u ) { float6 f; f.x = x; f.y = y; f.z = z; f.w = w; f.v = v; f.u = u; return f; }
-
-
-inline static bool rectOverlap(const float6& r1, const float6& r2)
-{
-    return ! ( r2.x > r1.z
-        || r2.z < r1.x
-        || r2.y > r1.w
-        || r2.w < r1.y
-        );
-}
-
-static void mergeRect( std::vector<float6>& rects, const float6& rect )
-{
-	const size_t num_rects = rects.size();
-
-	bool intersects = false;
-
-	for( size_t r=0; r < num_rects; r++ )
-	{
-		if( rectOverlap(rects[r], rect) )
-		{
-			intersects = true;
-
-			if( rect.x < rects[r].x ) 	rects[r].x = rect.x;
-			if( rect.y < rects[r].y ) 	rects[r].y = rect.y;
-			if( rect.z > rects[r].z )	rects[r].z = rect.z;
-			if( rect.w > rects[r].w ) 	rects[r].w = rect.w;
-
-			break;
-		}
-
-	}
-
-	if( !intersects )
-		rects.push_back(rect);
-}
-
 ClusteredNonMaximumSuppression::ClusteredNonMaximumSuppression() {
 
 	imageDimX = 0;
@@ -130,6 +90,47 @@ void ClusteredNonMaximumSuppression::calculateScale(){
 
 	cellWidth = inputDimX / gridDimX;
 	cellHeight = inputDimY / gridDimY;
+}
+
+//TODO: Refactor all of this code to use names that make sense for the task at hand
+struct float6 { float x; float y; float z; float w; float v; float u; };
+static inline float6 make_float6( float x, float y, float z, float w, float v, float u ) { float6 f; f.x = x; f.y = y; f.z = z; f.w = w; f.v = v; f.u = u; return f; }
+
+//TODO: Refactor all of this code to use names that make sense for the task at hand
+inline static bool rectOverlap(const float6& r1, const float6& r2)
+{
+    return ! ( r2.x > r1.z
+        || r2.z < r1.x
+        || r2.y > r1.w
+        || r2.w < r1.y
+        );
+}
+
+//TODO: Refactor all of this code to use names that make sense for the task at hand
+static void mergeRect( std::vector<float6>& rects, const float6& rect )
+{
+	const size_t num_rects = rects.size();
+
+	bool intersects = false;
+
+	for( size_t r=0; r < num_rects; r++ )
+	{
+		if( rectOverlap(rects[r], rect) )
+		{
+			intersects = true;
+
+			if( rect.x < rects[r].x ) 	rects[r].x = rect.x;
+			if( rect.y < rects[r].y ) 	rects[r].y = rect.y;
+			if( rect.z > rects[r].z )	rects[r].z = rect.z;
+			if( rect.w > rects[r].w ) 	rects[r].w = rect.w;
+
+			break;
+		}
+
+	}
+
+	if( !intersects )
+		rects.push_back(rect);
 }
 
 std::vector<ClassRectangle> ClusteredNonMaximumSuppression::execute(float* coverage, float* bboxes, size_t nbClasses, float coverageThreshold){

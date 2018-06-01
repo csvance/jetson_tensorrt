@@ -37,6 +37,7 @@
 
 #include "CaffeRTEngine.h"
 #include "ImageNetPreprocessor.h"
+#include "RTCommon.h"
 
 namespace jetson_tensorrt {
 
@@ -76,10 +77,25 @@ public:
 	 * @param	rbga	Pointer to the RBGA image in host memory
 	 * @param	width	Width of the image in pixels
 	 * @param	height	Height of the input image in pixels
+	 * @param	threshold	Minimum probability of a class detection for it to be returned as a result
+	 * @param	preprocessOutputAsInput	Don't load memory from the host, instead the output of the last preprocessing operation as the input
+	 * @return	Pointer vector of Classification objects above the threshold
+	 *
+	 */
+	std::vector<Classification> classifyRBGA(float* rbga, size_t width, size_t height, float threshold=0.5, bool preprocessOutputAsInput=false);
+
+
+	/**
+	 * @brief	Classifies in a a single NV12 format image.
+	 * @param	nv12	Pointer to the nv12 image in host memory
+	 * @param	width	Width of the image in pixels
+	 * @param	height	Height of the input image in pixels
+	 * @param	threshold	Minimum probability of a class detection for it to be returned as a result
 	 * @return	Pointer to a one dimensional array of probabilities for each class
 	 *
 	 */
-	float* classifyRBGA(float* rbga, size_t width, size_t height);
+	std::vector<Classification> classifyNV12(uint8_t* nv12, size_t width, size_t height, float threshold=0.5);
+
 
 	static const size_t CHANNELS_GREYSCALE = 1;
 	static const size_t CHANNELS_BGR = 3;
@@ -87,6 +103,8 @@ public:
 	size_t modelWidth;
 	size_t modelHeight;
 	size_t modelDepth;
+
+	size_t nbClasses;
 
 private:
 	static const std::string INPUT_NAME;

@@ -84,7 +84,7 @@ DIGITSDetector::DIGITSDetector(std::string prototextPath, std::string modelPath,
 
 DIGITSDetector::~DIGITSDetector() {}
 
-std::vector<ClassRectangle> DIGITSDetector::detectRGBA(float* rbga, size_t width, size_t height, bool preprocessOutputAsInput){
+std::vector<ClassRectangle> DIGITSDetector::detectRGBA(float* rbga, size_t width, size_t height, float threshold, bool preprocessOutputAsInput){
 
 	if(!preprocessOutputAsInput){
 		//Load the image to device
@@ -113,19 +113,18 @@ std::vector<ClassRectangle> DIGITSDetector::detectRGBA(float* rbga, size_t width
 	//Configure non-maximum suppressor for the current image size
 	suppressor.setupImage(width, height);
 
-	return suppressor.execute(coverage, bboxes, nbClasses);
-
+	return suppressor.execute(coverage, bboxes, nbClasses, threshold);
 
 }
 
-std::vector<ClassRectangle> DIGITSDetector::detectNV12(uint8_t* nv12, size_t width, size_t height){
+std::vector<ClassRectangle> DIGITSDetector::detectNV12(uint8_t* nv12, size_t width, size_t height, float threshold){
 	//Load the image to device
 	preprocessor->inputFromHost(nv12, width * height * 3);
 
 	//Convert to RGBA
 	preprocessor->NV12toRGBA(width, height);
 
-	return detectRGBA(nullptr, width, height, true);
+	return detectRGBA(nullptr, width, height, true, threshold);
 }
 
 } /* namespace jetson_tensorrt */

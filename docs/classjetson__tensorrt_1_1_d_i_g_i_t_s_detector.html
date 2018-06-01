@@ -105,12 +105,12 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html#a73a2e3a8fa4c9541f1e8ebadbe5b06ef">~DIGITSDetector</a> ()</td></tr>
 <tr class="memdesc:a73a2e3a8fa4c9541f1e8ebadbe5b06ef"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html" title="Loads and manages a DIGITS DetectNet graph with TensorRT. ">DIGITSDetector</a> destructor. <br /></td></tr>
 <tr class="separator:a73a2e3a8fa4c9541f1e8ebadbe5b06ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abed967b72dc3b607246849a6f7cc4fb0"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structjetson__tensorrt_1_1_class_rectangle.html">ClassRectangle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html#abed967b72dc3b607246849a6f7cc4fb0">detectRGBA</a> (float *rbga, size_t width, size_t height, bool preprocessOutputAsInput=false)</td></tr>
-<tr class="memdesc:abed967b72dc3b607246849a6f7cc4fb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects in a a single RBGA format image.  <a href="#abed967b72dc3b607246849a6f7cc4fb0">More...</a><br /></td></tr>
-<tr class="separator:abed967b72dc3b607246849a6f7cc4fb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bf421208a53c601ec134ce933434084"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structjetson__tensorrt_1_1_class_rectangle.html">ClassRectangle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html#a6bf421208a53c601ec134ce933434084">detectNV12</a> (uint8_t *nv12, size_t width, size_t height)</td></tr>
-<tr class="memdesc:a6bf421208a53c601ec134ce933434084"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects in a a single NV12 format image.  <a href="#a6bf421208a53c601ec134ce933434084">More...</a><br /></td></tr>
-<tr class="separator:a6bf421208a53c601ec134ce933434084"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75bde035ad61f0256f3c1e67c85b78a5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structjetson__tensorrt_1_1_class_rectangle.html">ClassRectangle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html#a75bde035ad61f0256f3c1e67c85b78a5">detectRGBA</a> (float *rbga, size_t width, size_t height, float threshold=0.5, bool preprocessOutputAsInput=false)</td></tr>
+<tr class="memdesc:a75bde035ad61f0256f3c1e67c85b78a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects in a a single RBGA format image.  <a href="#a75bde035ad61f0256f3c1e67c85b78a5">More...</a><br /></td></tr>
+<tr class="separator:a75bde035ad61f0256f3c1e67c85b78a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57d58859e79caf1387350b94db0540bc"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structjetson__tensorrt_1_1_class_rectangle.html">ClassRectangle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html#a57d58859e79caf1387350b94db0540bc">detectNV12</a> (uint8_t *nv12, size_t width, size_t height, float threshold=0.5)</td></tr>
+<tr class="memdesc:a57d58859e79caf1387350b94db0540bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects in a a single NV12 format image.  <a href="#a57d58859e79caf1387350b94db0540bc">More...</a><br /></td></tr>
+<tr class="separator:a57d58859e79caf1387350b94db0540bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjetson__tensorrt_1_1_caffe_r_t_engine"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjetson__tensorrt_1_1_caffe_r_t_engine')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classjetson__tensorrt_1_1_caffe_r_t_engine.html">jetson_tensorrt::CaffeRTEngine</a></td></tr>
 <tr class="memitem:a57470dca90931e8a11c771f79cbc849f inherit pub_methods_classjetson__tensorrt_1_1_caffe_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a id="a57470dca90931e8a11c771f79cbc849f"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_caffe_r_t_engine.html#a57470dca90931e8a11c771f79cbc849f">CaffeRTEngine</a> ()</td></tr>
@@ -138,7 +138,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a5827e6a45961997612abd071eb283489">~TensorRTEngine</a> ()</td></tr>
 <tr class="memdesc:a5827e6a45961997612abd071eb283489 inherit pub_methods_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html" title="Abstract base class which loads and manages a TensorRT model which hides device/host memory managemen...">TensorRTEngine</a> destructor. <br /></td></tr>
 <tr class="separator:a5827e6a45961997612abd071eb283489 inherit pub_methods_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76a179006a6fa4d445e19de632435035 inherit pub_methods_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a76a179006a6fa4d445e19de632435035">predict</a> (<a class="el" href="classjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a> &amp;inputs, bool copyOutputToHost=true)</td></tr>
+<tr class="memitem:a76a179006a6fa4d445e19de632435035 inherit pub_methods_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a76a179006a6fa4d445e19de632435035">predict</a> (<a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a> &amp;inputs, bool copyOutputToHost=true)</td></tr>
 <tr class="memdesc:a76a179006a6fa4d445e19de632435035 inherit pub_methods_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does a forward pass of the neural network loaded in TensorRT  Should be called after loading the graph and calling allocGPUBuffer()  <a href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a76a179006a6fa4d445e19de632435035">More...</a><br /></td></tr>
 <tr class="separator:a76a179006a6fa4d445e19de632435035 inherit pub_methods_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3cb4769d3d947aba0b9baeffc68f547e inherit pub_methods_classjetson__tensorrt_1_1_tensor_r_t_engine"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a3cb4769d3d947aba0b9baeffc68f547e">loadCache</a> (std::string cachePath, size_t maxBatchSize=1)</td></tr>
@@ -300,8 +300,8 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6bf421208a53c601ec134ce933434084"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bf421208a53c601ec134ce933434084">&#9670;&nbsp;</a></span>detectNV12()</h2>
+<a id="a57d58859e79caf1387350b94db0540bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57d58859e79caf1387350b94db0540bc">&#9670;&nbsp;</a></span>detectNV12()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -322,7 +322,13 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>height</em>&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>threshold</em> = <code>0.5</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -338,6 +344,7 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
     <tr><td class="paramname">nv12</td><td>Pointer to the nv12 image in host memory </td></tr>
     <tr><td class="paramname">width</td><td>Width of the image in pixels </td></tr>
     <tr><td class="paramname">height</td><td>Height of the input image in pixels </td></tr>
+    <tr><td class="paramname">threshold</td><td>Minimum coverage threshold for detected regions </td></tr>
   </table>
   </dd>
 </dl>
@@ -345,8 +352,8 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
 
 </div>
 </div>
-<a id="abed967b72dc3b607246849a6f7cc4fb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abed967b72dc3b607246849a6f7cc4fb0">&#9670;&nbsp;</a></span>detectRGBA()</h2>
+<a id="a75bde035ad61f0256f3c1e67c85b78a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75bde035ad61f0256f3c1e67c85b78a5">&#9670;&nbsp;</a></span>detectRGBA()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -372,6 +379,12 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>threshold</em> = <code>0.5</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>preprocessOutputAsInput</em> = <code>false</code>&#160;</td>
         </tr>
@@ -389,6 +402,7 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
     <tr><td class="paramname">rbga</td><td>Pointer to the RBGA image in host memory </td></tr>
     <tr><td class="paramname">width</td><td>Width of the image in pixels </td></tr>
     <tr><td class="paramname">height</td><td>Height of the input image in pixels </td></tr>
+    <tr><td class="paramname">threshold</td><td>Minimum coverage threshold for detected regions </td></tr>
     <tr><td class="paramname">preprocessOutputAsInput</td><td>Don't load memory from the host, instead the output of the last preprocessing operation as the input </td></tr>
   </table>
   </dd>

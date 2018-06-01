@@ -31,52 +31,9 @@
 #include <cstddef>
 #include <vector>
 
+#include "RTCommon.h"
+
 namespace jetson_tensorrt {
-
-/**
- * @brief	Represents a classified region of an image with a zero indexed class ID and probability value
- */
-struct ClassRectangle {
-
-	ClassRectangle(int id, float coverage, size_t x, size_t y, size_t w, size_t h){
-		this->id = id;
-		this->coverage = coverage;
-		this->x = x;
-		this->y = y;
-		this->w = w;
-		this->h = h;
-	}
-
-	/**
-	 * @brief	Zero Indexed Class ID
-	 */
-	int id;
-
-	/**
-	 * @brief	The confidence of the model's prediction
-	 */
-	float coverage;
-
-	/**
-	 * @brief	X Coordinate in pixels
-	 */
-	int x;
-
-	/**
-	 * @brief	Y Coordinate in pixels
-	 */
-	int y;
-
-	/**
-	 * @brief	Width in pixels
-	 */
-	int w;
-
-	/**
-	 * @brief	Height in pixels
-	 */
-	int h;
-};
 
 /**
  * @brief Class which handles refining the results of a DetectNet like detector
@@ -132,8 +89,10 @@ public:
 
 private:
 	bool imageReady, inputReady, gridReady;
+
 	size_t imageDimX, imageDimY;
 	float imageScaleX, imageScaleY;
+
 	size_t inputDimX, inputDimY;
 	size_t gridDimX, gridDimY, cellWidth, cellHeight, gridSize;
 

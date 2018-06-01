@@ -41,10 +41,75 @@ namespace jetson_tensorrt {
 void* safeCudaMalloc(size_t memSize);
 
 /**
+ * @brief	Represents a classified region of an image with a zero indexed class ID and probability value
+ */
+struct ClassRectangle {
+
+	ClassRectangle(unsigned int id, float coverage, size_t x, size_t y, size_t w, size_t h){
+		this->id = id;
+		this->coverage = coverage;
+		this->x = x;
+		this->y = y;
+		this->w = w;
+		this->h = h;
+	}
+
+	/**
+	 * @brief	Zero Indexed Class ID
+	 */
+	unsigned int id;
+
+	/**
+	 * @brief	The confidence of the model's prediction
+	 */
+	float coverage;
+
+	/**
+	 * @brief	X Coordinate in pixels
+	 */
+	size_t x;
+
+	/**
+	 * @brief	Y Coordinate in pixels
+	 */
+	size_t y;
+
+	/**
+	 * @brief	Width in pixels
+	 */
+	size_t w;
+
+	/**
+	 * @brief	Height in pixels
+	 */
+	size_t h;
+};
+
+/**
+ * @brief Represents the probability that a specific class was in a prediction input
+ */
+struct Classification{
+
+	Classification(unsigned int id, float probability){
+		this->id = id;
+		this->probability = probability;
+	}
+
+	/**
+	 * @brief	Zero Indexed Class ID
+	 */
+	unsigned int id;
+
+	/**
+	 * @brief	Probability that a specific class was in the input
+	 */
+	float probability;
+};
+
+/**
  * @brief Represents all of a batches inputs or outputs located either in host or device memory
  */
-class LocatedExecutionMemory {
-public:
+struct LocatedExecutionMemory {
 	enum Location {
 		HOST, DEVICE
 	};

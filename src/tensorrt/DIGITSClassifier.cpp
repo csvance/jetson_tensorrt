@@ -69,6 +69,8 @@ DIGITSClassifier::DIGITSClassifier(std::string prototextPath,
 	modelHeight = height;
 	modelDepth = nbChannels;
 
+	this->nbClasses = nbClasses;
+
 	preprocessor = new ImageNetPreprocessor(imageNetMean);
 }
 
@@ -76,11 +78,16 @@ DIGITSClassifier::DIGITSClassifier(std::string prototextPath,
 DIGITSClassifier::~DIGITSClassifier() {
 }
 
-float* DIGITSClassifier::classifyRBGA(float* rbga, size_t width,
-		size_t height) {
+std::vector<Classification> DIGITSClassifier::classifyRBGA(float* rbga, size_t width,
+		size_t height, float threshold,  bool preprocessOutputAsInput) {
 
-	//Load the image to device
-	preprocessor->inputFromHost(rbga, width * height * sizeof(float4));
+	if(!preprocessOutputAsInput){
+		//Load the image to device
+		preprocessor->inputFromHost(rbga, width * height * sizeof(float4));
+	}else{
+		//Use the ouput from last preprocessor conversion call as input
+		preprocessor->swapIO();
+	}
 
 	//Convert to BGR
 	float* preprocessedImageDevice = preprocessor->RBGAtoBGR(width, height,
@@ -95,8 +102,27 @@ float* DIGITSClassifier::classifyRBGA(float* rbga, size_t width,
 	//Execute inference
 	LocatedExecutionMemory predictionOutputs = predict(predictionInputs, true);
 
-	//We only are classifying a single batch and image
-	return (float*) predictionOutputs[0][0];
+	float* classProbabilities = (float*) predictionOutputs[0][0];
+
+	std::vector<Classification> classifications;
+
+	for(int c=0; c < nbClasses; c++){
+		if (classProbabilities[c] > threshold)
+			classifications.push_back(Classification(c, classProbabilities[c]));
+	}
+
+	return classifications;
+}
+
+std::vector<Classification> DIGITSClassifier::classifyNV12(uint8_t* nv12, size_t width, size_t height, float threshold){
+
+	//Load the image to device
+	preprocessor->inputFromHost(nv12, width * height * 3);
+
+	//Convert to RGBA
+	preprocessor->NV12toRGBA(width, height);
+
+	return classifyRBGA(nullptr, width, height, true, threshold);
 }
 
 }
