@@ -80,10 +80,15 @@ DIGITSDetector::DIGITSDetector(std::string prototextPath, std::string modelPath,
 
 DIGITSDetector::~DIGITSDetector() {}
 
-std::vector<ClassRectangle> DIGITSDetector::detectRGBA(float* rbga, size_t width, size_t height){
+std::vector<ClassRectangle> DIGITSDetector::detectRGBA(float* rbga, size_t width, size_t height, bool preprocessOutputAsInput){
 
-	//Load the image to device
-	preprocessor.inputFromHost(rbga, width * height * sizeof(float4));
+	if(!preprocessOutputAsInput){
+		//Load the image to device
+		preprocessor.inputFromHost(rbga, width * height * sizeof(float4));
+	}else{
+		//Use the ouput as input
+		preprocessor.swapIO();
+	}
 
 	//Convert to BGR
 	float* preprocessedImageDevice = preprocessor.RBGAtoBGR(width, height,
@@ -99,6 +104,16 @@ std::vector<ClassRectangle> DIGITSDetector::detectRGBA(float* rbga, size_t width
 	LocatedExecutionMemory predictionOutputs = predict(predictionInputs, true);
 
 
+}
+
+std::vector<ClassRectangle> DIGITSDetector::detectNV12(uint8_t* nv12, size_t width, size_t height){
+	//Load the image to device
+	preprocessor.inputFromHost(nv12, width * height * 3);
+
+	//Convert to RGBA
+	float* rgba = preprocessor.NV12toRGBA(width, height);
+
+	return detectRGBA(rgba, width, height, true);
 }
 
 } /* namespace jetson_tensorrt */

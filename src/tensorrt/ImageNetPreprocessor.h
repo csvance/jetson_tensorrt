@@ -71,6 +71,15 @@ public:
 	 */
 	float* RBGAtoBGR(size_t inputWidth, size_t inputHeight, size_t outputWidth, size_t outputHeight);
 
+	/**
+	 * @brief	DEVICE -> DEVICE conversion and resizing of an NV12 image to RGBA
+	 * @param	inputWidth	The width of the input image
+	 * @param	inputHeight	The height of the input image
+	 * @return	Device pointer to the RBGA image
+	 */
+	float* NV12toRGBA(size_t inputWidth, size_t inputHeight);
+
+
 private:
 	float3 mean;
 };

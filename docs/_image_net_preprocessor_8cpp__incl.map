@@ -1,5 +1,6 @@
 <map id="src/tensorrt/ImageNetPreprocessor.cpp" name="src/tensorrt/ImageNetPreprocessor.cpp">
-<area shape="rect" id="node4" href="$_image_net_preprocessor_8h.html" title="Class representing a CUDA accelerated ImageNet image preprocessor. " alt="" coords="149,80,316,107"/>
-<area shape="rect" id="node5" href="$_c_u_d_a_image_preprocessor_8h.html" title="Abstract class representing a CUDA accelerated image preprocessor. " alt="" coords="140,155,325,181"/>
-<area shape="rect" id="node7" href="$_c_u_d_a_sized_mem_cache_8h.html" title="Abstract class of a cached CUDA allocation of a specific size. " alt="" coords="208,229,380,256"/>
+<area shape="rect" id="node5" href="$_image_net_preprocessor_8h.html" title="Class representing a CUDA accelerated ImageNet image preprocessor. " alt="" coords="156,80,323,107"/>
+<area shape="rect" id="node9" href="$_r_t_exceptions_8h.html" title="Contains exceptions used by the TensorRT layer. " alt="" coords="463,80,579,107"/>
+<area shape="rect" id="node6" href="$_c_u_d_a_image_preprocessor_8h.html" title="Abstract class representing a CUDA accelerated image preprocessor. " alt="" coords="140,155,325,181"/>
+<area shape="rect" id="node8" href="$_c_u_d_a_sized_mem_cache_8h.html" title="Abstract class of a cached CUDA allocation of a specific size. " alt="" coords="208,229,380,256"/>
 </map>

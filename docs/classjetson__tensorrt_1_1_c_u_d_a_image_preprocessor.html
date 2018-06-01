@@ -97,18 +97,25 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa51a0f548bea9b6953209ded1bddb4ae"><td class="memItemLeft" align="right" valign="top">virtual float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_c_u_d_a_image_preprocessor.html#aa51a0f548bea9b6953209ded1bddb4ae">RBGAtoBGR</a> (size_t inputWidth, size_t inputHeight, size_t outputWidth, size_t outputHeight)=0</td></tr>
 <tr class="memdesc:aa51a0f548bea9b6953209ded1bddb4ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">DEVICE -&gt; DEVICE conversion and resizing of an RBGA image to BGR.  <a href="#aa51a0f548bea9b6953209ded1bddb4ae">More...</a><br /></td></tr>
 <tr class="separator:aa51a0f548bea9b6953209ded1bddb4ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ef7cbcb018a299d6d083215eb6e95de"><td class="memItemLeft" align="right" valign="top">virtual float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_c_u_d_a_image_preprocessor.html#a2ef7cbcb018a299d6d083215eb6e95de">NV12toRGBA</a> (size_t inputWidth, size_t inputHeight)=0</td></tr>
+<tr class="memdesc:a2ef7cbcb018a299d6d083215eb6e95de"><td class="mdescLeft">&#160;</td><td class="mdescRight">DEVICE -&gt; DEVICE conversion and resizing of an NV12 image to RGBA.  <a href="#a2ef7cbcb018a299d6d083215eb6e95de">More...</a><br /></td></tr>
+<tr class="separator:a2ef7cbcb018a299d6d083215eb6e95de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade6d56cc224a31dad91913a679906834"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_c_u_d_a_image_preprocessor.html#ade6d56cc224a31dad91913a679906834">inputFromHost</a> (void *hostMemory, size_t size)</td></tr>
 <tr class="memdesc:ade6d56cc224a31dad91913a679906834"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads host memory into the preprocessors input.  <a href="#ade6d56cc224a31dad91913a679906834">More...</a><br /></td></tr>
 <tr class="separator:ade6d56cc224a31dad91913a679906834"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92d403cdc2ed04583e14e07897b2572c"><td class="memItemLeft" align="right" valign="top"><a id="a92d403cdc2ed04583e14e07897b2572c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_c_u_d_a_image_preprocessor.html#a92d403cdc2ed04583e14e07897b2572c">swapIO</a> ()</td></tr>
+<tr class="memdesc:a92d403cdc2ed04583e14e07897b2572c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps current output with current input. <br /></td></tr>
+<tr class="separator:a92d403cdc2ed04583e14e07897b2572c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a2b040796f94e4c47c8c16891df0f0944"><td class="memItemLeft" align="right" valign="top"><a id="a2b040796f94e4c47c8c16891df0f0944"></a>
-<a class="el" href="classjetson__tensorrt_1_1_c_u_d_a_sized_mem_cache.html">CUDASizedMemCache</a>&#160;</td><td class="memItemRight" valign="bottom"><b>inputCache</b></td></tr>
-<tr class="separator:a2b040796f94e4c47c8c16891df0f0944"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b142dc3da8245938dfaf8425f664a44"><td class="memItemLeft" align="right" valign="top"><a id="a0b142dc3da8245938dfaf8425f664a44"></a>
-<a class="el" href="classjetson__tensorrt_1_1_c_u_d_a_sized_mem_cache.html">CUDASizedMemCache</a>&#160;</td><td class="memItemRight" valign="bottom"><b>outputCache</b></td></tr>
-<tr class="separator:a0b142dc3da8245938dfaf8425f664a44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a708d88384c40301b89b1034e31fdd4d2"><td class="memItemLeft" align="right" valign="top"><a id="a708d88384c40301b89b1034e31fdd4d2"></a>
+<a class="el" href="classjetson__tensorrt_1_1_c_u_d_a_sized_mem_cache.html">CUDASizedMemCache</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>inputCache</b></td></tr>
+<tr class="separator:a708d88384c40301b89b1034e31fdd4d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a32b8ecde27aa85333866afbfc8f033"><td class="memItemLeft" align="right" valign="top"><a id="a0a32b8ecde27aa85333866afbfc8f033"></a>
+<a class="el" href="classjetson__tensorrt_1_1_c_u_d_a_sized_mem_cache.html">CUDASizedMemCache</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>outputCache</b></td></tr>
+<tr class="separator:a0a32b8ecde27aa85333866afbfc8f033"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract class representing a CUDA accelerated image preprocessor. </p>
@@ -147,6 +154,54 @@ Protected Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a2ef7cbcb018a299d6d083215eb6e95de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ef7cbcb018a299d6d083215eb6e95de">&#9670;&nbsp;</a></span>NV12toRGBA()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual float* jetson_tensorrt::CUDAImagePreprocessor::NV12toRGBA </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>inputWidth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>inputHeight</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>DEVICE -&gt; DEVICE conversion and resizing of an NV12 image to RGBA. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inputWidth</td><td>The width of the input image </td></tr>
+    <tr><td class="paramname">inputHeight</td><td>The height of the input image </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Device pointer to the RBGA image </dd></dl>
+
+<p>Implemented in <a class="el" href="classjetson__tensorrt_1_1_image_net_preprocessor.html#a84fa2255d08a6ebf82732de1ca18a6d8">jetson_tensorrt::ImageNetPreprocessor</a>.</p>
 
 </div>
 </div>

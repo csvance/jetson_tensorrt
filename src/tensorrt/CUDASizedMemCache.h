@@ -62,9 +62,8 @@ public:
 	 */
 	void freeCUDAAlloc();
 
-private:
-	void* outputAlloc;
-	size_t outputAllocSize;
+	void* memAlloc;
+	size_t memAllocSize;
 };
 
 } /* namespace jetson_tensorrt */

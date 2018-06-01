@@ -61,8 +61,8 @@ public:
 	 * @param	maxNetworkSize	Maximum size in bytes of the TensorRT network in device memory
 	 */
 	DIGITSClassifier(std::string prototextPath, std::string modelPath, std::string cachePath =
-			"classification.tensorcache", size_t nbChannels = CHANNELS_BGR, size_t width = 224,
-			size_t height = 224, size_t nbClasses = 1, size_t maximumBatchSize = 1, float3 imageNetMean = {
+			"classification.tensorcache", size_t nbChannels = CHANNELS_BGR, size_t width = 1024,
+			size_t height = 512, size_t nbClasses = 1, size_t maximumBatchSize = 1, float3 imageNetMean = {
 					0.0, 0.0, 0.0 }, nvinfer1::DataType dataType =
 					nvinfer1::DataType::kFLOAT, size_t maxNetworkSize = (1 << 30));
 

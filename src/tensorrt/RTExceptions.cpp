@@ -41,6 +41,7 @@ ModelDimensionMismatchException::ModelDimensionMismatchException(const std::stri
 BatchSizeException::BatchSizeException(const std::string& message) : message_(message){}
 EngineExecutionException::EngineExecutionException(const std::string& message) : message_(message){}
 UnsupportedConfigurationException::UnsupportedConfigurationException(const std::string& message) : message_(message){}
+PreprocessorException::PreprocessorException(const std::string& message) : message_(message){}
 
 
 }

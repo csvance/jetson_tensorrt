@@ -38,8 +38,8 @@ namespace jetson_tensorrt {
 
 
 CUDASizedMemCache::CUDASizedMemCache() {
-	outputAlloc = nullptr;
-	outputAllocSize = 0;
+	memAlloc = nullptr;
+	memAllocSize = 0;
 }
 
 
@@ -49,29 +49,34 @@ CUDASizedMemCache::~CUDASizedMemCache() {
 
 
 void* CUDASizedMemCache::getCUDAAlloc(size_t size) {
-	if (outputAlloc && size == outputAllocSize)
-		return outputAlloc;
-	else if (outputAlloc && size != outputAllocSize) {
+	if(!memAlloc){
+		memAlloc = safeCudaMalloc((size_t) size);
+	}else if (memAlloc && size == memAllocSize)
+		return memAlloc;
+	else if (memAlloc && size != memAllocSize) {
 		freeCUDAAlloc();
-		outputAlloc = safeCudaMalloc((size_t) size);
+		memAlloc = safeCudaMalloc((size_t) size);
 	} else {
-		outputAlloc = safeCudaMalloc((size_t) size);
+		memAlloc = safeCudaMalloc((size_t) size);
 	}
 
-	return outputAlloc;
+	memAllocSize = size;
+	return memAlloc;
 }
 
 
 void CUDASizedMemCache::freeCUDAAlloc() {
-	if (outputAlloc) {
-		cudaError_t deviceFreeError = cudaFree(outputAlloc);
+	if (memAlloc) {
+		cudaError_t deviceFreeError = cudaFree(memAlloc);
 		if (deviceFreeError != 0)
 			throw DeviceMemoryFreeException(
 					"Error freeing device memory. CUDA Error: "
 							+ std::to_string(deviceFreeError));
 	}
 
-	outputAlloc = nullptr;
+	memAllocSize = 0;
+	memAlloc = nullptr;
+
 }
 
 } /* namespace jetson_tensorrt */

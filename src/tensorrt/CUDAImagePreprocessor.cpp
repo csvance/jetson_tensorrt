@@ -37,11 +37,17 @@
 
 namespace jetson_tensorrt {
 
-CUDAImagePreprocessor::CUDAImagePreprocessor() {}
-CUDAImagePreprocessor::~CUDAImagePreprocessor() {}
+CUDAImagePreprocessor::CUDAImagePreprocessor() {
+	inputCache = new CUDASizedMemCache();
+	outputCache = new CUDASizedMemCache();
+}
+CUDAImagePreprocessor::~CUDAImagePreprocessor() {
+	delete inputCache;
+	delete outputCache;
+}
 
 void CUDAImagePreprocessor::inputFromHost(void* hostMemory, size_t size) {
-	void* deviceMemory = inputCache.getCUDAAlloc(size);
+	void* deviceMemory = inputCache->getCUDAAlloc(size);
 
 	cudaError_t hostDeviceError = cudaMemcpy(deviceMemory, hostMemory, size,
 			cudaMemcpyHostToDevice);
@@ -51,6 +57,14 @@ void CUDAImagePreprocessor::inputFromHost(void* hostMemory, size_t size) {
 				"Unable to copy host memory to device for preprocessing. CUDA Error: "
 						+ std::to_string(hostDeviceError));
 
+
+}
+
+void CUDAImagePreprocessor::swapIO(){
+	CUDASizedMemCache* tmp = outputCache;
+
+	outputCache = inputCache;
+	inputCache = tmp;
 }
 
 } /* namespace jetson_tensorrt */

@@ -4,5 +4,6 @@ var searchData=
   ['networkio',['NetworkIO',['../classjetson__tensorrt_1_1_network_i_o.html',1,'jetson_tensorrt::NetworkIO'],['../classjetson__tensorrt_1_1_network_i_o.html#a48ca0c44c751d9db281cfda0b7a11717',1,'jetson_tensorrt::NetworkIO::NetworkIO()']]],
   ['networkio_2ecpp',['NetworkIO.cpp',['../_network_i_o_8cpp.html',1,'']]],
   ['networkio_2eh',['NetworkIO.h',['../_network_i_o_8h.html',1,'']]],
-  ['networkoutput',['NetworkOutput',['../classjetson__tensorrt_1_1_network_output.html',1,'jetson_tensorrt::NetworkOutput'],['../classjetson__tensorrt_1_1_network_output.html#adf210c89d0613c67f6924d3dbb79ab46',1,'jetson_tensorrt::NetworkOutput::NetworkOutput()']]]
+  ['networkoutput',['NetworkOutput',['../classjetson__tensorrt_1_1_network_output.html',1,'jetson_tensorrt::NetworkOutput'],['../classjetson__tensorrt_1_1_network_output.html#adf210c89d0613c67f6924d3dbb79ab46',1,'jetson_tensorrt::NetworkOutput::NetworkOutput()']]],
+  ['nv12torgba',['NV12toRGBA',['../classjetson__tensorrt_1_1_c_u_d_a_image_preprocessor.html#a2ef7cbcb018a299d6d083215eb6e95de',1,'jetson_tensorrt::CUDAImagePreprocessor::NV12toRGBA()'],['../classjetson__tensorrt_1_1_image_net_preprocessor.html#a84fa2255d08a6ebf82732de1ca18a6d8',1,'jetson_tensorrt::ImageNetPreprocessor::NV12toRGBA()']]]
 ];

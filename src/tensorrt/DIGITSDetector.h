@@ -110,12 +110,20 @@ public:
 	 * @param	rbga	Pointer to the RBGA image in host memory
 	 * @param	width	Width of the image in pixels
 	 * @param	height	Height of the input image in pixels
+	 * @param	preprocessOutputAsInput	Don't load memory from the host, instead the output of the last preprocessing operation as the input
+	 * @return	Pointer to a one dimensional array of probabilities for each class
+	 */
+	std::vector<ClassRectangle> detectRGBA(float* rbga, size_t width, size_t height, bool preprocessOutputAsInput=false);
+
+	/**
+	 * @brief	Detects in a a single NV12 format image.
+	 * @param	nv12	Pointer to the nv12 image in host memory
+	 * @param	width	Width of the image in pixels
+	 * @param	height	Height of the input image in pixels
 	 * @return	Pointer to a one dimensional array of probabilities for each class
 	 *
 	 */
-	std::vector<ClassRectangle> detectRGBA(float* rbga, size_t width, size_t height);
-
-
+	std::vector<ClassRectangle> detectNV12(uint8_t* nv12, size_t width, size_t height);
 
 	size_t modelWidth;
 	size_t modelHeight;

@@ -190,6 +190,20 @@ public:
     }
 };
 
+/**
+ * @brief	Exception thrown if an error occurs during image preprocessing
+ */
+class PreprocessorException: public std::exception {
+private:
+    std::string message_;
+public:
+    explicit PreprocessorException(const std::string& message);
+    virtual const char* what() const throw() {
+        return message_.c_str();
+    }
+};
+
+
 }
 
 #endif /* EXCEPTIONS_H_ */

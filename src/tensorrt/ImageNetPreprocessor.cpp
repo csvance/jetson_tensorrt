@@ -25,12 +25,16 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
+#include <string>
+
 #include <cuda_runtime.h>
 #include <cuda.h>
 
 #include "ImageNetPreprocessor.h"
+#include "RTExceptions.h"
 
 #include "cudaImageNetPreprocess.h"
+#include "cudaYUV.h"
 
 namespace jetson_tensorrt {
 
@@ -60,22 +64,36 @@ ImageNetPreprocessor::~ImageNetPreprocessor() {
 }
 
 
+float* ImageNetPreprocessor::NV12toRGBA(size_t inputWidth, size_t inputHeight){
+
+	uint8_t* preprocessInput = (uint8_t*) inputCache->memAlloc;
+	float4* preprocessOutput = (float4*) inputCache->getCUDAAlloc(inputWidth * inputHeight * sizeof(float4));
+
+	cudaError_t cudaError = cudaNV12ToRGBAf(preprocessInput, preprocessOutput, inputWidth, inputHeight);
+	if(cudaError)
+		throw PreprocessorException("cudaRGBToRGBAf threw error: " + std::to_string(cudaError));
+
+	return (float*) preprocessOutput;
+}
+
 float* ImageNetPreprocessor::RBGAtoBGR(size_t inputWidth, size_t inputHeight,
 		size_t outputWidth, size_t outputHeight) {
 
-	float* preprocessOutput = (float*) outputCache.getCUDAAlloc(
-			outputWidth * outputHeight * sizeof(float));
+	float4* preprocessInput = (float4*) inputCache->memAlloc;
+
+	float* preprocessOutput = (float*) outputCache->getCUDAAlloc(
+			3 * outputWidth * outputHeight * sizeof(float));
 
 	if (mean.x == 0 && mean.y == 0.0 && mean.z == 0.0) {
-		cudaPreImageNet(
-				(float4*) inputCache.getCUDAAlloc(
-						inputWidth * inputHeight * sizeof(float4)), inputWidth,
+		cudaError_t cudaError = cudaPreImageNet(preprocessInput, inputWidth,
 				inputHeight, preprocessOutput, outputWidth, outputHeight);
+		if(cudaError)
+			throw PreprocessorException("cudaPreImageNet threw error: " + std::to_string(cudaError));
 	} else {
-		cudaPreImageNetMean(
-				(float4*) inputCache.getCUDAAlloc(
-						inputWidth * inputHeight * sizeof(float4)), inputWidth,
+		cudaError_t cudaError = cudaPreImageNetMean(preprocessInput, inputWidth,
 				inputHeight, preprocessOutput, outputWidth, outputHeight, mean);
+		if(cudaError)
+			throw PreprocessorException("cudaPreImageNetMean threw error: " + std::to_string(cudaError));
 	}
 
 	return preprocessOutput;

@@ -4,8 +4,9 @@
 <area shape="rect" id="node4" href="$_c_u_d_a_sized_mem_cache_8cpp.html" title="Abstract class of a cached CUDA allocation of a specific size. " alt="" coords="531,80,724,121"/>
 <area shape="rect" id="node5" href="$_d_i_g_i_t_s_classifier_8cpp.html" title="Loads and manages a DIGITS ImageNet graph with TensorRT. " alt="" coords="748,87,965,114"/>
 <area shape="rect" id="node6" href="$_d_i_g_i_t_s_detector_8cpp.html" title="Loads and manages a DIGITS DetectNet graph with TensorRT. " alt="" coords="989,87,1201,114"/>
-<area shape="rect" id="node7" href="$_r_t_common_8cpp.html" title="Contains common functionality used by the TensoRT layer. " alt="" coords="1225,87,1413,114"/>
-<area shape="rect" id="node8" href="$_r_t_exceptions_8cpp.html" title="Contains exceptions used by the TensorRT layer. " alt="" coords="1438,87,1638,114"/>
-<area shape="rect" id="node9" href="$_tensorflow_r_t_engine_8cpp.html" title="Loads and manages a Tensorflow graph with TensorRT. " alt="" coords="1663,87,1901,114"/>
-<area shape="rect" id="node10" href="$_tensor_r_t_engine_8cpp.html" title="Abstract class which loads and manages a TensorRT graph. " alt="" coords="1925,87,2140,114"/>
+<area shape="rect" id="node7" href="$_image_net_preprocessor_8cpp.html" title="Class representing a CUDA accelerated ImageNet image preprocessor. " alt="" coords="1226,87,1477,114"/>
+<area shape="rect" id="node8" href="$_r_t_common_8cpp.html" title="Contains common functionality used by the TensoRT layer. " alt="" coords="1501,87,1689,114"/>
+<area shape="rect" id="node9" href="$_r_t_exceptions_8cpp.html" title="Contains exceptions used by the TensorRT layer. " alt="" coords="1714,87,1914,114"/>
+<area shape="rect" id="node10" href="$_tensorflow_r_t_engine_8cpp.html" title="Loads and manages a Tensorflow graph with TensorRT. " alt="" coords="1939,87,2177,114"/>
+<area shape="rect" id="node11" href="$_tensor_r_t_engine_8cpp.html" title="Abstract class which loads and manages a TensorRT graph. " alt="" coords="2201,87,2416,114"/>
 </map>

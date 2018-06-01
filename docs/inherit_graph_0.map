@@ -10,5 +10,6 @@
 <area shape="rect" id="node10" href="$classjetson__tensorrt_1_1_model_deserialize_exception.html" title="Exception thrown when an existing TensorRT model fails to deserialize. " alt="" coords="132,528,348,569"/>
 <area shape="rect" id="node11" href="$classjetson__tensorrt_1_1_model_dimension_mismatch_exception.html" title="Exception thrown when input/output dimensions registered do not match the loaded model. " alt="" coords="133,593,347,635"/>
 <area shape="rect" id="node12" href="$classjetson__tensorrt_1_1_model_serialize_exception.html" title="Exception thrown when an existing TensorRT model fails to serialize. " alt="" coords="139,659,341,700"/>
-<area shape="rect" id="node13" href="$classjetson__tensorrt_1_1_unsupported_configuration_exception.html" title="Exception thrown if an unsupported parameter is passed to an RTEngine. " alt="" coords="145,724,335,765"/>
+<area shape="rect" id="node13" href="$classjetson__tensorrt_1_1_preprocessor_exception.html" title="Exception thrown if an error occurs during image preprocessing. " alt="" coords="143,724,337,765"/>
+<area shape="rect" id="node14" href="$classjetson__tensorrt_1_1_unsupported_configuration_exception.html" title="Exception thrown if an unsupported parameter is passed to an RTEngine. " alt="" coords="145,789,335,831"/>
 </map>

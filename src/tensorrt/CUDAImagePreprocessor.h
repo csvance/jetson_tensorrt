@@ -54,15 +54,28 @@ public:
 			size_t outputWidth, size_t outputHeight) = 0;
 
 	/**
+	 * @brief	DEVICE -> DEVICE conversion and resizing of an NV12 image to RGBA
+	 * @param	inputWidth	The width of the input image
+	 * @param	inputHeight	The height of the input image
+	 * @return	Device pointer to the RBGA image
+	 */
+	virtual float* NV12toRGBA(size_t inputWidth, size_t inputHeight) = 0;
+
+	/**
 	 * @brief	Loads host memory into the preprocessors input
 	 * @param	hostMemory	Pointer to the memory on the host
 	 * @param	size	Size of the memory on the host
 	 */
 	void inputFromHost(void* hostMemory, size_t size);
 
+	/**
+	 * @brief	Swaps current output with current input
+	 */
+	void swapIO();
+
 protected:
-	CUDASizedMemCache inputCache;
-	CUDASizedMemCache outputCache;
+	CUDASizedMemCache* inputCache;
+	CUDASizedMemCache* outputCache;
 
 };
 
