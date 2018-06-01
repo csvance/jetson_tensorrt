@@ -43,8 +43,9 @@ Release
 .settings
 .project
 .cproject
-/test_caffe/
-/test_tensorflow/
+/test_caffe/*
+/test_tensorflow/*
 /data/
-/test_classification/
+/test_classification/*
+/test_detection/*
 /test_detection/
