@@ -8,7 +8,7 @@ var searchData=
   ['clusterednonmaximumsuppression',['ClusteredNonMaximumSuppression',['../classjetson__tensorrt_1_1_clustered_non_maximum_suppression.html',1,'jetson_tensorrt::ClusteredNonMaximumSuppression'],['../classjetson__tensorrt_1_1_clustered_non_maximum_suppression.html#a11e2a6319cacd1db05b024fbb8e26121',1,'jetson_tensorrt::ClusteredNonMaximumSuppression::ClusteredNonMaximumSuppression()']]],
   ['clusterednonmaximumsuppression_2ecpp',['ClusteredNonMaximumSuppression.cpp',['../_clustered_non_maximum_suppression_8cpp.html',1,'']]],
   ['clusterednonmaximumsuppression_2eh',['ClusteredNonMaximumSuppression.h',['../_clustered_non_maximum_suppression_8h.html',1,'']]],
-  ['confidence',['confidence',['../structjetson__tensorrt_1_1_class_rectangle.html#abfbcdfdbb1aa2c0e62461333e52115af',1,'jetson_tensorrt::ClassRectangle']]],
+  ['coverage',['coverage',['../structjetson__tensorrt_1_1_class_rectangle.html#a49f4023db64d95401b5ddc543691a9ea',1,'jetson_tensorrt::ClassRectangle']]],
   ['cudaimagepreprocessor',['CUDAImagePreprocessor',['../classjetson__tensorrt_1_1_c_u_d_a_image_preprocessor.html',1,'jetson_tensorrt']]],
   ['cudaimagepreprocessor_2ecpp',['CUDAImagePreprocessor.cpp',['../_c_u_d_a_image_preprocessor_8cpp.html',1,'']]],
   ['cudaimagepreprocessor_2eh',['CUDAImagePreprocessor.h',['../_c_u_d_a_image_preprocessor_8h.html',1,'']]],

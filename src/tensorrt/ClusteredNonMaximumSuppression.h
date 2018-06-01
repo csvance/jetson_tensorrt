@@ -38,6 +38,15 @@ namespace jetson_tensorrt {
  */
 struct ClassRectangle {
 
+	ClassRectangle(int id, float coverage, size_t x, size_t y, size_t w, size_t h){
+		this->id = id;
+		this->coverage = coverage;
+		this->x = x;
+		this->y = y;
+		this->w = w;
+		this->h = h;
+	}
+
 	/**
 	 * @brief	Zero Indexed Class ID
 	 */
@@ -46,7 +55,7 @@ struct ClassRectangle {
 	/**
 	 * @brief	The confidence of the model's prediction
 	 */
-	float confidence;
+	float coverage;
 
 	/**
 	 * @brief	X Coordinate in pixels
@@ -116,7 +125,7 @@ public:
 	 * @param	coverage	Coverage Map - Pointer to an n dimensional array of floating point values representing the most dominance of an object in a grid rectangle indexed by [class][y][x]
 	 * @param	bboxes	Detection Regions - Pointer to a 4 dimensional array of floating point values representing a rectangle indexed by [x1=0, y1=1, x2=2, y2=3][y][x]
 	 * @param	nbClasses	Number of classes in the coverage map
-	 * @param	detectionThreshold	The threshold a detection region must have to be considered
+	 * @param	coverageThreshold	The threshold a detection region must have to be considered
 	 * @return	A vector of class tagged detection regions
 	 */
 	std::vector<ClassRectangle> execute(float* coverage, float* bboxes, size_t nbClasses=1, float detectionThreshold=0.5);
@@ -126,7 +135,7 @@ private:
 	size_t imageDimX, imageDimY;
 	float imageScaleX, imageScaleY;
 	size_t inputDimX, inputDimY;
-	size_t gridDimX, gridDimY, unitWidth, unitHeight, gridSize;
+	size_t gridDimX, gridDimY, cellWidth, cellHeight, gridSize;
 
 	void calculateScale();
 };

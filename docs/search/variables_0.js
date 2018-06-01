@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['confidence',['confidence',['../structjetson__tensorrt_1_1_class_rectangle.html#abfbcdfdbb1aa2c0e62461333e52115af',1,'jetson_tensorrt::ClassRectangle']]]
+  ['coverage',['coverage',['../structjetson__tensorrt_1_1_class_rectangle.html#a49f4023db64d95401b5ddc543691a9ea',1,'jetson_tensorrt::ClassRectangle']]]
 ];

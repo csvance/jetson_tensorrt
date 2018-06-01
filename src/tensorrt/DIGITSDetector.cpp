@@ -107,10 +107,13 @@ std::vector<ClassRectangle> DIGITSDetector::detectRGBA(float* rbga, size_t width
 	//Execute inference
 	LocatedExecutionMemory predictionOutputs = predict(predictionInputs, true);
 
+	float* coverage = (float*) predictionOutputs.batch[0][0];
+	float* bboxes = (float*) predictionOutputs.batch[0][1];
+
 	//Configure non-maximum suppressor for the current image size
 	suppressor.setupImage(width, height);
 
-	return suppressor.execute((float*) predictionOutputs.batch[0][0],(float*) predictionOutputs.batch[0][1], nbClasses);
+	return suppressor.execute(coverage, bboxes, nbClasses);
 
 
 }
