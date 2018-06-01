@@ -140,7 +140,7 @@ private:
 	static const size_t BBOX_DIM_X = 64;
 	static const size_t BBOX_DIM_Y = 32;
 
-	ImageNetPreprocessor preprocessor;
+	ImageNetPreprocessor* preprocessor;
 
 };
 

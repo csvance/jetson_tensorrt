@@ -74,7 +74,7 @@ DIGITSDetector::DIGITSDetector(std::string prototextPath, std::string modelPath,
 	modelHeight = height;
 	modelDepth = nbChannels;
 
-	preprocessor = ImageNetPreprocessor(imageNetMean);
+	preprocessor = new ImageNetPreprocessor(imageNetMean);
 
 }
 
@@ -84,14 +84,14 @@ std::vector<ClassRectangle> DIGITSDetector::detectRGBA(float* rbga, size_t width
 
 	if(!preprocessOutputAsInput){
 		//Load the image to device
-		preprocessor.inputFromHost(rbga, width * height * sizeof(float4));
+		preprocessor->inputFromHost(rbga, width * height * sizeof(float4));
 	}else{
 		//Use the ouput as input
-		preprocessor.swapIO();
+		preprocessor->swapIO();
 	}
 
 	//Convert to BGR
-	float* preprocessedImageDevice = preprocessor.RBGAtoBGR(width, height,
+	float* preprocessedImageDevice = preprocessor->RBGAtoBGR(width, height,
 			modelWidth, modelHeight);
 
 	//Setup inference
@@ -104,14 +104,17 @@ std::vector<ClassRectangle> DIGITSDetector::detectRGBA(float* rbga, size_t width
 	LocatedExecutionMemory predictionOutputs = predict(predictionInputs, true);
 
 
+	//TODO
+	return std::vector<ClassRectangle>();
+
 }
 
 std::vector<ClassRectangle> DIGITSDetector::detectNV12(uint8_t* nv12, size_t width, size_t height){
 	//Load the image to device
-	preprocessor.inputFromHost(nv12, width * height * 3);
+	preprocessor->inputFromHost(nv12, width * height * 3);
 
 	//Convert to RGBA
-	float* rgba = preprocessor.NV12toRGBA(width, height);
+	float* rgba = preprocessor->NV12toRGBA(width, height);
 
 	return detectRGBA(rgba, width, height, true);
 }

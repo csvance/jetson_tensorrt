@@ -69,7 +69,7 @@ DIGITSClassifier::DIGITSClassifier(std::string prototextPath,
 	modelHeight = height;
 	modelDepth = nbChannels;
 
-	preprocessor = ImageNetPreprocessor(imageNetMean);
+	preprocessor = new ImageNetPreprocessor(imageNetMean);
 }
 
 
@@ -80,10 +80,10 @@ float* DIGITSClassifier::classifyRBGA(float* rbga, size_t width,
 		size_t height) {
 
 	//Load the image to device
-	preprocessor.inputFromHost(rbga, width * height * sizeof(float4));
+	preprocessor->inputFromHost(rbga, width * height * sizeof(float4));
 
 	//Convert to BGR
-	float* preprocessedImageDevice = preprocessor.RBGAtoBGR(width, height,
+	float* preprocessedImageDevice = preprocessor->RBGAtoBGR(width, height,
 			modelWidth, modelHeight);
 
 	//Setup inference

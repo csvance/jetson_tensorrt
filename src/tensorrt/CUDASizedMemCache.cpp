@@ -38,7 +38,7 @@ namespace jetson_tensorrt {
 
 
 CUDASizedMemCache::CUDASizedMemCache() {
-	memAlloc = nullptr;
+	memAlloc = 0;
 	memAllocSize = 0;
 }
 
@@ -75,7 +75,7 @@ void CUDASizedMemCache::freeCUDAAlloc() {
 	}
 
 	memAllocSize = 0;
-	memAlloc = nullptr;
+	memAlloc = 0;
 
 }
 

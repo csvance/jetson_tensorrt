@@ -93,7 +93,7 @@ private:
 	static const std::string INPUT_NAME;
 	static const std::string OUTPUT_NAME;
 
-	ImageNetPreprocessor preprocessor;
+	ImageNetPreprocessor* preprocessor;
 
 };
 
