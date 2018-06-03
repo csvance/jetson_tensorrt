@@ -80,7 +80,7 @@ public:
 	 * @param	preprocessOutputAsInput	Don't load memory from the host, instead the output of the last preprocessing operation as the input
 	 * @return	Pointer to a one dimensional array of probabilities for each class
 	 */
-	std::vector<ClassRectangle> detectRGBA(float* rbga, size_t width, size_t height, float threshold=0.5, bool preprocessOutputAsInput=false);
+	std::vector<ClassRectangle> detectRGBAf(float* rbga, size_t width, size_t height, float threshold=0.5, bool preprocessOutputAsInput=false);
 
 	/**
 	 * @brief	Detects in a a single NV12 format image.

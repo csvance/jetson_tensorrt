@@ -78,7 +78,7 @@ DIGITSClassifier::DIGITSClassifier(std::string prototextPath,
 DIGITSClassifier::~DIGITSClassifier() {
 }
 
-std::vector<Classification> DIGITSClassifier::classifyRBGA(float* rbga, size_t width,
+std::vector<Classification> DIGITSClassifier::classifyRBGAf(float* rbga, size_t width,
 		size_t height, float threshold,  bool preprocessOutputAsInput) {
 
 	if(!preprocessOutputAsInput){
@@ -90,7 +90,7 @@ std::vector<Classification> DIGITSClassifier::classifyRBGA(float* rbga, size_t w
 	}
 
 	//Convert to BGR
-	float* preprocessedImageDevice = preprocessor->RBGAtoBGR(width, height,
+	float* preprocessedImageDevice = preprocessor->RBGAftoBGR(width, height,
 			modelWidth, modelHeight);
 
 	//Setup inference
@@ -120,9 +120,9 @@ std::vector<Classification> DIGITSClassifier::classifyNV12(uint8_t* nv12, size_t
 	preprocessor->inputFromHost(nv12, width * height * 3);
 
 	//Convert to RGBA
-	preprocessor->NV12toRGBA(width, height);
+	preprocessor->NV12toRGBAf(width, height);
 
-	return classifyRBGA(nullptr, width, height, true, threshold);
+	return classifyRBGAf(nullptr, width, height, true, threshold);
 }
 
 }

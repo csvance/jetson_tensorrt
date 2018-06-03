@@ -1,7 +1,7 @@
 var searchData=
 [
   ['detectnv12',['detectNV12',['../classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html#a57d58859e79caf1387350b94db0540bc',1,'jetson_tensorrt::DIGITSDetector']]],
-  ['detectrgba',['detectRGBA',['../classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html#a75bde035ad61f0256f3c1e67c85b78a5',1,'jetson_tensorrt::DIGITSDetector']]],
+  ['detectrgbaf',['detectRGBAf',['../classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html#ab42fb403ea87a15e5a0e61ff1439a751',1,'jetson_tensorrt::DIGITSDetector']]],
   ['devicehosttransferexception',['DeviceHostTransferException',['../classjetson__tensorrt_1_1_device_host_transfer_exception.html',1,'jetson_tensorrt']]],
   ['devicememoryallocexception',['DeviceMemoryAllocException',['../classjetson__tensorrt_1_1_device_memory_alloc_exception.html',1,'jetson_tensorrt']]],
   ['devicememoryfreeexception',['DeviceMemoryFreeException',['../classjetson__tensorrt_1_1_device_memory_free_exception.html',1,'jetson_tensorrt']]],

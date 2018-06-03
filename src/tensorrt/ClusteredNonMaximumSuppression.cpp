@@ -178,13 +178,13 @@ std::vector<ClassRectangle> ClusteredNonMaximumSuppression::execute(float* cover
 		{
 			const float6 r = rects[c][b];
 
-			size_t x1 = int(r.x);
-			size_t y1 = int(r.y);
-			size_t x2 = int(r.z);
-			size_t y2 = int(r.w);
+			const int classID = (size_t) r.u;
+			const float coverage = r.v;
 
-			float coverage = r.v;
-			int classID = int(r.u);
+			const size_t x1 = (size_t) r.x;
+			const size_t y1 = (size_t) r.y;
+			const size_t x2 = (size_t) r.z;
+			const size_t y2 = (size_t) r.w;
 
 			classRectangles.push_back(ClassRectangle(classID, coverage, x1, y1, x2-x1, y2-y1));
 

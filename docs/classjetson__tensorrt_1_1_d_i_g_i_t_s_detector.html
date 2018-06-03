@@ -105,9 +105,9 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html#a73a2e3a8fa4c9541f1e8ebadbe5b06ef">~DIGITSDetector</a> ()</td></tr>
 <tr class="memdesc:a73a2e3a8fa4c9541f1e8ebadbe5b06ef"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html" title="Loads and manages a DIGITS DetectNet graph with TensorRT. ">DIGITSDetector</a> destructor. <br /></td></tr>
 <tr class="separator:a73a2e3a8fa4c9541f1e8ebadbe5b06ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75bde035ad61f0256f3c1e67c85b78a5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structjetson__tensorrt_1_1_class_rectangle.html">ClassRectangle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html#a75bde035ad61f0256f3c1e67c85b78a5">detectRGBA</a> (float *rbga, size_t width, size_t height, float threshold=0.5, bool preprocessOutputAsInput=false)</td></tr>
-<tr class="memdesc:a75bde035ad61f0256f3c1e67c85b78a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects in a a single RBGA format image.  <a href="#a75bde035ad61f0256f3c1e67c85b78a5">More...</a><br /></td></tr>
-<tr class="separator:a75bde035ad61f0256f3c1e67c85b78a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab42fb403ea87a15e5a0e61ff1439a751"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structjetson__tensorrt_1_1_class_rectangle.html">ClassRectangle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html#ab42fb403ea87a15e5a0e61ff1439a751">detectRGBAf</a> (float *rbga, size_t width, size_t height, float threshold=0.5, bool preprocessOutputAsInput=false)</td></tr>
+<tr class="memdesc:ab42fb403ea87a15e5a0e61ff1439a751"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects in a a single RBGA format image.  <a href="#ab42fb403ea87a15e5a0e61ff1439a751">More...</a><br /></td></tr>
+<tr class="separator:ab42fb403ea87a15e5a0e61ff1439a751"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57d58859e79caf1387350b94db0540bc"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structjetson__tensorrt_1_1_class_rectangle.html">ClassRectangle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html#a57d58859e79caf1387350b94db0540bc">detectNV12</a> (uint8_t *nv12, size_t width, size_t height, float threshold=0.5)</td></tr>
 <tr class="memdesc:a57d58859e79caf1387350b94db0540bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects in a a single NV12 format image.  <a href="#a57d58859e79caf1387350b94db0540bc">More...</a><br /></td></tr>
 <tr class="separator:a57d58859e79caf1387350b94db0540bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -352,14 +352,14 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
 
 </div>
 </div>
-<a id="a75bde035ad61f0256f3c1e67c85b78a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75bde035ad61f0256f3c1e67c85b78a5">&#9670;&nbsp;</a></span>detectRGBA()</h2>
+<a id="ab42fb403ea87a15e5a0e61ff1439a751"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab42fb403ea87a15e5a0e61ff1439a751">&#9670;&nbsp;</a></span>detectRGBAf()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="structjetson__tensorrt_1_1_class_rectangle.html">ClassRectangle</a> &gt; jetson_tensorrt::DIGITSDetector::detectRGBA </td>
+          <td class="memname">std::vector&lt; <a class="el" href="structjetson__tensorrt_1_1_class_rectangle.html">ClassRectangle</a> &gt; jetson_tensorrt::DIGITSDetector::detectRGBAf </td>
           <td>(</td>
           <td class="paramtype">float *&#160;</td>
           <td class="paramname"><em>rbga</em>, </td>

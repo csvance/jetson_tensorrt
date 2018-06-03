@@ -50,7 +50,7 @@ public:
 	 * @param	outputHeight	The height of the converted BGR image
 	 * @return	Device pointer to the BGR image
 	 */
-	virtual float* RBGAtoBGR(size_t inputWidth, size_t inputHeight,
+	virtual float* RBGAftoBGR(size_t inputWidth, size_t inputHeight,
 			size_t outputWidth, size_t outputHeight) = 0;
 
 	/**
@@ -59,7 +59,7 @@ public:
 	 * @param	inputHeight	The height of the input image
 	 * @return	Device pointer to the RBGA image
 	 */
-	virtual float* NV12toRGBA(size_t inputWidth, size_t inputHeight) = 0;
+	virtual float* NV12toRGBAf(size_t inputWidth, size_t inputHeight) = 0;
 
 	/**
 	 * @brief	Loads host memory into the preprocessors input

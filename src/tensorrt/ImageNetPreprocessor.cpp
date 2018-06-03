@@ -64,7 +64,7 @@ ImageNetPreprocessor::~ImageNetPreprocessor() {
 }
 
 
-float* ImageNetPreprocessor::NV12toRGBA(size_t inputWidth, size_t inputHeight){
+float* ImageNetPreprocessor::NV12toRGBAf(size_t inputWidth, size_t inputHeight){
 
 	uint8_t* preprocessInput = (uint8_t*) inputCache->memAlloc;
 	float4* preprocessOutput = (float4*) inputCache->getCUDAAlloc(inputWidth * inputHeight * sizeof(float4));
@@ -76,7 +76,7 @@ float* ImageNetPreprocessor::NV12toRGBA(size_t inputWidth, size_t inputHeight){
 	return (float*) preprocessOutput;
 }
 
-float* ImageNetPreprocessor::RBGAtoBGR(size_t inputWidth, size_t inputHeight,
+float* ImageNetPreprocessor::RBGAftoBGR(size_t inputWidth, size_t inputHeight,
 		size_t outputWidth, size_t outputHeight) {
 
 	float4* preprocessInput = (float4*) inputCache->memAlloc;

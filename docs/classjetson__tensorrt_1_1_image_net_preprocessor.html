@@ -110,12 +110,12 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_image_net_preprocessor.html#aca63533ba348706078ffb9daffa97968">~ImageNetPreprocessor</a> ()</td></tr>
 <tr class="memdesc:aca63533ba348706078ffb9daffa97968"><td class="mdescLeft">&#160;</td><td class="mdescRight">ImageNetPreprocesor destructor. <br /></td></tr>
 <tr class="separator:aca63533ba348706078ffb9daffa97968"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40c962c4959b3cc14c7e2edf14a03c91"><td class="memItemLeft" align="right" valign="top">float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_image_net_preprocessor.html#a40c962c4959b3cc14c7e2edf14a03c91">RBGAtoBGR</a> (size_t inputWidth, size_t inputHeight, size_t outputWidth, size_t outputHeight)</td></tr>
-<tr class="memdesc:a40c962c4959b3cc14c7e2edf14a03c91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements resizing and conversion of an RBGA image in device memory to BGR.  <a href="#a40c962c4959b3cc14c7e2edf14a03c91">More...</a><br /></td></tr>
-<tr class="separator:a40c962c4959b3cc14c7e2edf14a03c91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84fa2255d08a6ebf82732de1ca18a6d8"><td class="memItemLeft" align="right" valign="top">float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_image_net_preprocessor.html#a84fa2255d08a6ebf82732de1ca18a6d8">NV12toRGBA</a> (size_t inputWidth, size_t inputHeight)</td></tr>
-<tr class="memdesc:a84fa2255d08a6ebf82732de1ca18a6d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">DEVICE -&gt; DEVICE conversion and resizing of an NV12 image to RGBA.  <a href="#a84fa2255d08a6ebf82732de1ca18a6d8">More...</a><br /></td></tr>
-<tr class="separator:a84fa2255d08a6ebf82732de1ca18a6d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adeaf457e67a94303771a537edd7fba60"><td class="memItemLeft" align="right" valign="top">float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_image_net_preprocessor.html#adeaf457e67a94303771a537edd7fba60">RBGAftoBGR</a> (size_t inputWidth, size_t inputHeight, size_t outputWidth, size_t outputHeight)</td></tr>
+<tr class="memdesc:adeaf457e67a94303771a537edd7fba60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements resizing and conversion of an RBGA image in device memory to BGR.  <a href="#adeaf457e67a94303771a537edd7fba60">More...</a><br /></td></tr>
+<tr class="separator:adeaf457e67a94303771a537edd7fba60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e19a585f32243cebef561755a7882e0"><td class="memItemLeft" align="right" valign="top">float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_image_net_preprocessor.html#a7e19a585f32243cebef561755a7882e0">NV12toRGBAf</a> (size_t inputWidth, size_t inputHeight)</td></tr>
+<tr class="memdesc:a7e19a585f32243cebef561755a7882e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">DEVICE -&gt; DEVICE conversion and resizing of an NV12 image to RGBA.  <a href="#a7e19a585f32243cebef561755a7882e0">More...</a><br /></td></tr>
+<tr class="separator:a7e19a585f32243cebef561755a7882e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjetson__tensorrt_1_1_c_u_d_a_image_preprocessor"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjetson__tensorrt_1_1_c_u_d_a_image_preprocessor')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classjetson__tensorrt_1_1_c_u_d_a_image_preprocessor.html">jetson_tensorrt::CUDAImagePreprocessor</a></td></tr>
 <tr class="memitem:ade6d56cc224a31dad91913a679906834 inherit pub_methods_classjetson__tensorrt_1_1_c_u_d_a_image_preprocessor"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_c_u_d_a_image_preprocessor.html#ade6d56cc224a31dad91913a679906834">inputFromHost</a> (void *hostMemory, size_t size)</td></tr>
 <tr class="memdesc:ade6d56cc224a31dad91913a679906834 inherit pub_methods_classjetson__tensorrt_1_1_c_u_d_a_image_preprocessor"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads host memory into the preprocessors input.  <a href="classjetson__tensorrt_1_1_c_u_d_a_image_preprocessor.html#ade6d56cc224a31dad91913a679906834">More...</a><br /></td></tr>
@@ -138,8 +138,8 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class representing a CUDA accelerated ImageNet image preprocessor. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a84fa2255d08a6ebf82732de1ca18a6d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84fa2255d08a6ebf82732de1ca18a6d8">&#9670;&nbsp;</a></span>NV12toRGBA()</h2>
+<a id="a7e19a585f32243cebef561755a7882e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e19a585f32243cebef561755a7882e0">&#9670;&nbsp;</a></span>NV12toRGBAf()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -148,7 +148,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">float * jetson_tensorrt::ImageNetPreprocessor::NV12toRGBA </td>
+          <td class="memname">float * jetson_tensorrt::ImageNetPreprocessor::NV12toRGBAf </td>
           <td>(</td>
           <td class="paramtype">size_t&#160;</td>
           <td class="paramname"><em>inputWidth</em>, </td>
@@ -182,12 +182,12 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Device pointer to the RBGA image </dd></dl>
 
-<p>Implements <a class="el" href="classjetson__tensorrt_1_1_c_u_d_a_image_preprocessor.html#a2ef7cbcb018a299d6d083215eb6e95de">jetson_tensorrt::CUDAImagePreprocessor</a>.</p>
+<p>Implements <a class="el" href="classjetson__tensorrt_1_1_c_u_d_a_image_preprocessor.html#ac587c47ef9f587f56705bba0f5f46791">jetson_tensorrt::CUDAImagePreprocessor</a>.</p>
 
 </div>
 </div>
-<a id="a40c962c4959b3cc14c7e2edf14a03c91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40c962c4959b3cc14c7e2edf14a03c91">&#9670;&nbsp;</a></span>RBGAtoBGR()</h2>
+<a id="adeaf457e67a94303771a537edd7fba60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adeaf457e67a94303771a537edd7fba60">&#9670;&nbsp;</a></span>RBGAftoBGR()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -196,7 +196,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">float * jetson_tensorrt::ImageNetPreprocessor::RBGAtoBGR </td>
+          <td class="memname">float * jetson_tensorrt::ImageNetPreprocessor::RBGAftoBGR </td>
           <td>(</td>
           <td class="paramtype">size_t&#160;</td>
           <td class="paramname"><em>inputWidth</em>, </td>
@@ -244,7 +244,7 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Device pointer to the BGR image </dd></dl>
 
-<p>Implements <a class="el" href="classjetson__tensorrt_1_1_c_u_d_a_image_preprocessor.html#aa51a0f548bea9b6953209ded1bddb4ae">jetson_tensorrt::CUDAImagePreprocessor</a>.</p>
+<p>Implements <a class="el" href="classjetson__tensorrt_1_1_c_u_d_a_image_preprocessor.html#ac911adfae4fa8bc98e3b3cde168bf33e">jetson_tensorrt::CUDAImagePreprocessor</a>.</p>
 
 </div>
 </div>

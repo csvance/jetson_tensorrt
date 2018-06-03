@@ -82,7 +82,7 @@ public:
 	 * @return	Pointer vector of Classification objects above the threshold
 	 *
 	 */
-	std::vector<Classification> classifyRBGA(float* rbga, size_t width, size_t height, float threshold=0.5, bool preprocessOutputAsInput=false);
+	std::vector<Classification> classifyRBGAf(float* rbga, size_t width, size_t height, float threshold=0.5, bool preprocessOutputAsInput=false);
 
 
 	/**

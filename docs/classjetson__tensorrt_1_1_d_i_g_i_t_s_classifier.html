@@ -105,9 +105,9 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html#a3374b2511fa9a43071df0fdc92767779">~DIGITSClassifier</a> ()</td></tr>
 <tr class="memdesc:a3374b2511fa9a43071df0fdc92767779"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html" title="Loads and manages a DIGITS ImageNet graph with TensorRT. ">DIGITSClassifier</a> destructor. <br /></td></tr>
 <tr class="separator:a3374b2511fa9a43071df0fdc92767779"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fc6b3fc4e50dc2219e2757c015eb17e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structjetson__tensorrt_1_1_classification.html">Classification</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html#a0fc6b3fc4e50dc2219e2757c015eb17e">classifyRBGA</a> (float *rbga, size_t width, size_t height, float threshold=0.5, bool preprocessOutputAsInput=false)</td></tr>
-<tr class="memdesc:a0fc6b3fc4e50dc2219e2757c015eb17e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Classifies a single RBGA format image.  To prevent memory leakage, the result of classifyRBGA must be deleted after they are no longer needed.  <a href="#a0fc6b3fc4e50dc2219e2757c015eb17e">More...</a><br /></td></tr>
-<tr class="separator:a0fc6b3fc4e50dc2219e2757c015eb17e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a578ab9e61cc18365a17356fb9d44b905"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structjetson__tensorrt_1_1_classification.html">Classification</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html#a578ab9e61cc18365a17356fb9d44b905">classifyRBGAf</a> (float *rbga, size_t width, size_t height, float threshold=0.5, bool preprocessOutputAsInput=false)</td></tr>
+<tr class="memdesc:a578ab9e61cc18365a17356fb9d44b905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Classifies a single RBGA format image.  To prevent memory leakage, the result of classifyRBGA must be deleted after they are no longer needed.  <a href="#a578ab9e61cc18365a17356fb9d44b905">More...</a><br /></td></tr>
+<tr class="separator:a578ab9e61cc18365a17356fb9d44b905"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21344dfb88c3e6c6b2c47dc55a0f5a4b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structjetson__tensorrt_1_1_classification.html">Classification</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html#a21344dfb88c3e6c6b2c47dc55a0f5a4b">classifyNV12</a> (uint8_t *nv12, size_t width, size_t height, float threshold=0.5)</td></tr>
 <tr class="memdesc:a21344dfb88c3e6c6b2c47dc55a0f5a4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Classifies in a a single NV12 format image.  <a href="#a21344dfb88c3e6c6b2c47dc55a0f5a4b">More...</a><br /></td></tr>
 <tr class="separator:a21344dfb88c3e6c6b2c47dc55a0f5a4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -353,14 +353,14 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
 
 </div>
 </div>
-<a id="a0fc6b3fc4e50dc2219e2757c015eb17e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0fc6b3fc4e50dc2219e2757c015eb17e">&#9670;&nbsp;</a></span>classifyRBGA()</h2>
+<a id="a578ab9e61cc18365a17356fb9d44b905"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a578ab9e61cc18365a17356fb9d44b905">&#9670;&nbsp;</a></span>classifyRBGAf()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="structjetson__tensorrt_1_1_classification.html">Classification</a> &gt; jetson_tensorrt::DIGITSClassifier::classifyRBGA </td>
+          <td class="memname">std::vector&lt; <a class="el" href="structjetson__tensorrt_1_1_classification.html">Classification</a> &gt; jetson_tensorrt::DIGITSClassifier::classifyRBGAf </td>
           <td>(</td>
           <td class="paramtype">float *&#160;</td>
           <td class="paramname"><em>rbga</em>, </td>

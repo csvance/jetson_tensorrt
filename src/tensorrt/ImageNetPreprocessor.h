@@ -69,7 +69,7 @@ public:
 	 * @param	outputHeight	The height of the converted BGR image
 	 * @return	Device pointer to the BGR image
 	 */
-	float* RBGAtoBGR(size_t inputWidth, size_t inputHeight, size_t outputWidth, size_t outputHeight);
+	float* RBGAftoBGR(size_t inputWidth, size_t inputHeight, size_t outputWidth, size_t outputHeight);
 
 	/**
 	 * @brief	DEVICE -> DEVICE conversion and resizing of an NV12 image to RGBA
@@ -77,7 +77,10 @@ public:
 	 * @param	inputHeight	The height of the input image
 	 * @return	Device pointer to the RBGA image
 	 */
-	float* NV12toRGBA(size_t inputWidth, size_t inputHeight);
+	float* NV12toRGBAf(size_t inputWidth, size_t inputHeight);
+
+
+
 
 
 private:

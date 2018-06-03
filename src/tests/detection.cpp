@@ -55,7 +55,9 @@ int main(int argc, char** argv) {
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			auto t_start = std::chrono::high_resolution_clock::now();
 
-			std::vector<ClassRectangle> detections = engine.detectRGBA(rgba, INPUT_IMAGE_WIDTH, INPUT_IMAGE_HEIGHT);
+			std::vector<ClassRectangle> detections = engine.detectRGBAf(rgba, INPUT_IMAGE_WIDTH, INPUT_IMAGE_HEIGHT);
+
+			std::cout << detections.size() << std::endl;
 
 			auto t_end = std::chrono::high_resolution_clock::now();
 			auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(t_end - t_start).count();
