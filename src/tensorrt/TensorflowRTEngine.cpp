@@ -45,7 +45,6 @@
 
 #include "NetworkIO.h"
 #include "TensorflowRTEngine.h"
-#include "RTExceptions.h"
 
 using namespace nvuffparser;
 using namespace nvinfer1;
@@ -75,11 +74,11 @@ void TensorflowRTEngine::addInput(std::string layer, nvinfer1::Dims dims,
 	 */
 
 	if (dims.nbDims != 3)
-		throw ModelDimensionMismatchException(
+		throw std::invalid_argument(
 				"nVidia requires us to use a 3 channel DimsCHW when defining inputs for networks loaded from .uff files");
 
 	if (dims.d[0] > dims.d[1] || dims.d[0] > dims.d[2])
-		throw ModelDimensionMismatchException(
+		throw std::invalid_argument(
 				"In CHW format the channel should always be the first dimension");
 
 	nvinfer1::DimsCHW chwDims = nvinfer1::DimsCHW(dims.d[0], dims.d[1],
@@ -119,16 +118,16 @@ void TensorflowRTEngine::loadModel(std::string uffFile, size_t maxBatchSize,
 	if (dataType == DataType::kFLOAT) {
 		if (!parser->parse(uffFile.c_str(), *network,
 				nvinfer1::DataType::kFLOAT))
-			throw ModelBuildException("Failed to parse .uff file");
+			throw std::runtime_error("Failed to parse .uff file");
 	} else if (dataType == DataType::kHALF) {
 		if (!parser->parse(uffFile.c_str(), *network,
 				nvinfer1::DataType::kINT8))
-			throw ModelBuildException("Failed to parse .uff file");
+			throw std::runtime_error("Failed to parse .uff file");
 		builder->setHalf2Mode(true);
 	} else if (dataType == DataType::kINT8) {
 		if (!parser->parse(uffFile.c_str(), *network,
 				nvinfer1::DataType::kINT8))
-			throw ModelBuildException("Failed to parse .uff file");
+			throw std::runtime_error("Failed to parse .uff file");
 		builder->setInt8Mode(true);
 	}
 
@@ -138,7 +137,7 @@ void TensorflowRTEngine::loadModel(std::string uffFile, size_t maxBatchSize,
 
 	engine = builder->buildCudaEngine(*network);
 	if (!engine)
-		throw ModelBuildException("Failed to create TensorRT engine");
+		throw std::runtime_error("Failed to create TensorRT engine");
 
 	/* Reclaim memory */
 	network->destroy();
@@ -152,4 +151,3 @@ void TensorflowRTEngine::loadModel(std::string uffFile, size_t maxBatchSize,
 }
 
 }
-

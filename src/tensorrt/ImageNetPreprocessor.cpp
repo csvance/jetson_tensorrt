@@ -26,12 +26,12 @@
  */
 
 #include <string>
+#include <stdexcept>
 
 #include <cuda_runtime.h>
 #include <cuda.h>
 
 #include "ImageNetPreprocessor.h"
-#include "RTExceptions.h"
 
 #include "cudaImageNetPreprocess.h"
 #include "cudaYUV.h"
@@ -71,7 +71,7 @@ float* ImageNetPreprocessor::NV12toRGBAf(size_t inputWidth, size_t inputHeight){
 
 	cudaError_t cudaError = cudaNV12ToRGBAf(preprocessInput, preprocessOutput, inputWidth, inputHeight);
 	if(cudaError)
-		throw PreprocessorException("cudaRGBToRGBAf threw error: " + std::to_string(cudaError));
+		throw std::runtime_error("cudaRGBToRGBAf threw error: " + std::to_string(cudaError));
 
 	return (float*) preprocessOutput;
 }
@@ -88,16 +88,15 @@ float* ImageNetPreprocessor::RBGAftoBGR(size_t inputWidth, size_t inputHeight,
 		cudaError_t cudaError = cudaPreImageNet(preprocessInput, inputWidth,
 				inputHeight, preprocessOutput, outputWidth, outputHeight);
 		if(cudaError)
-			throw PreprocessorException("cudaPreImageNet threw error: " + std::to_string(cudaError));
+			throw std::runtime_error("cudaPreImageNet threw error: " + std::to_string(cudaError));
 	} else {
 		cudaError_t cudaError = cudaPreImageNetMean(preprocessInput, inputWidth,
 				inputHeight, preprocessOutput, outputWidth, outputHeight, mean);
 		if(cudaError)
-			throw PreprocessorException("cudaPreImageNetMean threw error: " + std::to_string(cudaError));
+			throw std::runtime_error("cudaPreImageNetMean threw error: " + std::to_string(cudaError));
 	}
 
 	return preprocessOutput;
 }
 
 } /* namespace jetson_tensorrt */
-

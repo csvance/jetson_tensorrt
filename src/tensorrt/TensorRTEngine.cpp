@@ -38,6 +38,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <stdexcept>
 
 #include "NvInfer.h"
 #include "NvUtils.h"
@@ -45,7 +46,6 @@
 using namespace nvinfer1;
 
 #include "TensorRTEngine.h"
-#include "RTExceptions.h"
 #include "RTCommon.h"
 
 namespace jetson_tensorrt {
@@ -112,7 +112,7 @@ void TensorRTEngine::freeGPUBuffer() {
 		for (int b = 0; b < preAllocatedGPUBuffers.size(); b++) {
 			cudaError_t deviceFreeError = cudaFree(preAllocatedGPUBuffers[b]);
 			if (deviceFreeError != 0)
-				throw DeviceMemoryFreeException(
+				throw std::runtime_error(
 						"Error freeing device memory. CUDA Error: "
 								+ std::to_string(deviceFreeError));
 		}
@@ -126,7 +126,7 @@ LocatedExecutionMemory TensorRTEngine::predict(LocatedExecutionMemory& inputs,
 		bool copyOutputToHost) {
 
 	if (inputs.size() > maxBatchSize)
-		throw BatchSizeException(
+		throw std::invalid_argument(
 				"Passed batch is larger than maximum batch size");
 
 	int batchCount = inputs.size();
@@ -155,7 +155,7 @@ LocatedExecutionMemory TensorRTEngine::predict(LocatedExecutionMemory& inputs,
 						transactionGPUBuffers[bindingIdx + b * stepSize],
 						inputs[b][i], inputSize, cudaMemcpyHostToDevice);
 				if (hostDeviceError != 0)
-					throw HostDeviceTransferException(
+					throw std::runtime_error(
 							"Unable to copy host memory to device for prediction. CUDA Error: "
 									+ std::to_string(hostDeviceError));
 			} else {
@@ -178,7 +178,7 @@ LocatedExecutionMemory TensorRTEngine::predict(LocatedExecutionMemory& inputs,
 
 	/* Do the inference */
 	if (!context->execute(batchCount, &transactionGPUBuffers[0]))
-		throw EngineExecutionException(
+		throw std::runtime_error(
 				"TensorRT engine execution returned unsuccessfully");
 
 	std::vector<std::vector<void*>> batchOutputs(batchCount);
@@ -198,7 +198,7 @@ LocatedExecutionMemory TensorRTEngine::predict(LocatedExecutionMemory& inputs,
 						transactionGPUBuffers[bindingIdx + b * stepSize],
 						outputSize, cudaMemcpyDeviceToHost);
 				if (deviceHostError != 0)
-					throw HostDeviceTransferException(
+					throw std::runtime_error(
 							"Unable to copy device memory to host for prediction. CUDA Error: "
 									+ std::to_string(deviceHostError));
 			} else {
@@ -253,7 +253,7 @@ void TensorRTEngine::saveCache(std::string cachePath) {
 	nvinfer1::IHostMemory* serMem = engine->serialize();
 
 	if (!serMem)
-		throw ModelSerializeException("Unable to serialize TensorRT engine");
+		throw std::runtime_error("Unable to serialize TensorRT engine");
 
 	// Write the cache file to the disk
 	std::ofstream cache;
@@ -272,7 +272,7 @@ void TensorRTEngine::loadCache(std::string cachePath, size_t maxBatchSize) {
 	std::ifstream cache;
 	cache.open(cachePath);
 	if (!cache.is_open())
-		throw ModelDeserializeException("Unable to open network cache file");
+		throw std::runtime_error("Unable to open network cache file");
 
 	std::stringstream gieModelStream;
 
@@ -288,8 +288,7 @@ void TensorRTEngine::loadCache(std::string cachePath, size_t maxBatchSize) {
 
 	void* modelMem = malloc(modelSize);
 	if (!modelMem)
-		throw HostMemoryAllocException(
-				"Unable to allocate memory for deserialized model");
+		throw std::bad_alloc();
 
 	gieModelStream.read((char*) modelMem, modelSize);
 	engine = infer->deserializeCudaEngine(modelMem, modelSize, NULL);
@@ -297,7 +296,7 @@ void TensorRTEngine::loadCache(std::string cachePath, size_t maxBatchSize) {
 	free(modelMem);
 
 	if (!engine)
-		throw ModelDeserializeException(
+		throw std::invalid_argument(
 				"Unable to create engine from deserialized data");
 
 	// Populate things that need to be populated before allocating memory

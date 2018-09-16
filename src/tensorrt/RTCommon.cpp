@@ -26,12 +26,12 @@
  */
 
 #include <string>
+#include <stdexcept>
 
 #include <cuda_runtime.h>
 #include <cuda.h>
 
 #include "RTCommon.h"
-#include "RTExceptions.h"
 
 namespace jetson_tensorrt {
 
@@ -41,10 +41,10 @@ void* safeCudaMalloc(size_t memSize) {
 
 	cudaError_t cudaMallocError = cudaMalloc(&deviceMem, memSize);
 	if (cudaMallocError != 0) {
-		throw DeviceMemoryAllocException(
+		throw std::runtime_error(
 				"CUDA Malloc Error: " + std::to_string(cudaMallocError));
 	} else if (deviceMem == nullptr) {
-		throw DeviceMemoryAllocException("Out of device memory");
+		throw std::runtime_error("Out of device memory");
 	}
 
 	return deviceMem;

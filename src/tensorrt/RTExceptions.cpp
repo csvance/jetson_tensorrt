@@ -29,7 +29,7 @@
 
 namespace jetson_tensorrt{
 
-ModelBuildException::ModelBuildException(const std::string& message) : message_(message){}
+ModelBuildException::ModelBuildException(const std::string& message) : message_(message) {}
 ModelDeserializeException::ModelDeserializeException(const std::string& message) : message_(message){}
 ModelSerializeException::ModelSerializeException(const std::string& message) : message_(message){}
 HostMemoryAllocException::HostMemoryAllocException(const std::string& message) : message_(message){}

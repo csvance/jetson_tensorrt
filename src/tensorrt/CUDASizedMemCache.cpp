@@ -26,13 +26,14 @@
  */
 
 #include <string>
+#include <stdexcept>
 
 #include <cuda_runtime.h>
 #include <cuda.h>
 
 #include "CUDASizedMemCache.h"
 #include "RTCommon.h"
-#include "RTExceptions.h"
+
 
 namespace jetson_tensorrt {
 
@@ -69,7 +70,7 @@ void CUDASizedMemCache::freeCUDAAlloc() {
 	if (memAlloc) {
 		cudaError_t deviceFreeError = cudaFree(memAlloc);
 		if (deviceFreeError != 0)
-			throw DeviceMemoryFreeException(
+			throw std::runtime_error(
 					"Error freeing device memory. CUDA Error: "
 							+ std::to_string(deviceFreeError));
 	}
@@ -80,4 +81,3 @@ void CUDASizedMemCache::freeCUDAAlloc() {
 }
 
 } /* namespace jetson_tensorrt */
-

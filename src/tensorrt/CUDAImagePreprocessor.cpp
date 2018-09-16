@@ -27,13 +27,14 @@
 
 #include <string>
 #include <cstddef>
+#include <stdexcept>
 
 #include <cuda_runtime.h>
 #include <cuda.h>
 
 #include "CUDAImagePreprocessor.h"
 #include "RTCommon.h"
-#include "RTExceptions.h"
+
 
 namespace jetson_tensorrt {
 
@@ -53,7 +54,7 @@ void CUDAImagePreprocessor::inputFromHost(void* hostMemory, size_t size) {
 			cudaMemcpyHostToDevice);
 
 	if (hostDeviceError != 0)
-		throw HostDeviceTransferException(
+		throw std::runtime_error(
 				"Unable to copy host memory to device for preprocessing. CUDA Error: "
 						+ std::to_string(hostDeviceError));
 

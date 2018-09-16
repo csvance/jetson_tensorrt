@@ -25,8 +25,9 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
+#include <fstream>
+
 #include "DIGITSDetector.h"
-#include "RTExceptions.h"
 
 namespace jetson_tensorrt {
 
@@ -42,7 +43,7 @@ DIGITSDetector::DIGITSDetector(std::string prototextPath, std::string modelPath,
 		CaffeRTEngine() {
 
 	if (nbChannels != CHANNELS_BGR)
-		throw UnsupportedConfigurationException(
+		throw std::invalid_argument(
 				"Only BGR DetectNets are supported currently");
 
 	addInput(INPUT_NAME, nvinfer1::DimsCHW(nbChannels, height, width),
@@ -62,9 +63,10 @@ DIGITSDetector::DIGITSDetector(std::string prototextPath, std::string modelPath,
 	outputDimsBboxes.d[2] = BBOX_DIM_X;
 	addOutput(OUTPUT_BBOXES_NAME, outputDimsBboxes, sizeof(float));
 
-	try {
+	std::ifstream infile(cachePath);
+	if (infile.good()){
 		loadCache(cachePath);
-	} catch (ModelDeserializeException& e) {
+	}else{
 		loadModel(prototextPath, modelPath, 1, dataType,
 				maxNetworkSize);
 		saveCache(cachePath);

@@ -28,14 +28,13 @@
 #include <cassert>
 #include <string>
 #include <vector>
+#include <fstream>
 
 #include "NvInfer.h"
 #include "NvCaffeParser.h"
 #include "NvUtils.h"
 
 #include "DIGITSClassifier.h"
-
-#include "RTExceptions.h"
 
 namespace jetson_tensorrt {
 
@@ -57,9 +56,10 @@ DIGITSClassifier::DIGITSClassifier(std::string prototextPath,
 	outputDims.d[0] = nbClasses;
 	addOutput(OUTPUT_NAME, outputDims, sizeof(float));
 
-	try {
+	std::ifstream infile(cachePath);
+	if (infile.good()){
 		loadCache(cachePath);
-	} catch (ModelDeserializeException& e) {
+	}else{
 		loadModel(prototextPath, modelPath, 1, dataType,
 				maxNetworkSize);
 		saveCache(cachePath);
@@ -126,4 +126,3 @@ std::vector<Classification> DIGITSClassifier::classifyNV12(uint8_t* nv12, size_t
 }
 
 }
-

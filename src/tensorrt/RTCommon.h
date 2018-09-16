@@ -120,13 +120,13 @@ struct LocatedExecutionMemory {
 	 * @param batch	Batch of inputs or outputs
 	 */
 	LocatedExecutionMemory(Location location,
-			std::vector<std::vector<void*>> batch) {
+			std::vector<std::vector<void*> > batch) {
 		this->batch = batch;
 		this->location = location;
 	}
 
 	Location location;
-	std::vector<std::vector<void*>> batch;
+	std::vector<std::vector<void*> > batch;
 
 	std::vector<void*>& operator[](const int index) {
 		return batch[index];

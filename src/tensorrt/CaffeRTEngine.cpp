@@ -27,13 +27,13 @@
 
 #include <string>
 #include <cassert>
+#include <stdexcept>
 
 #include "NvInfer.h"
 #include "NvCaffeParser.h"
 #include "NvUtils.h"
 
 #include "CaffeRTEngine.h"
-#include "RTExceptions.h"
 
 using namespace nvinfer1;
 
@@ -67,7 +67,7 @@ void CaffeRTEngine::loadModel(std::string prototextPath, std::string modelPath,
 		size_t maxNetworkSize) {
 
 	if (networkInputs.size() == 0 || networkOutputs.size() == 0)
-		throw ModelDimensionMismatchException(
+		throw std::invalid_argument(
 				"Must add inputs and outputs before calling loadModel");
 
 	this->dataType = dataType;
@@ -90,7 +90,7 @@ void CaffeRTEngine::loadModel(std::string prototextPath, std::string modelPath,
 	}
 
 	if (!blobNameToTensor)
-		throw ModelBuildException("Failed to parse Caffe network");
+		throw std::invalid_argument("Failed to parse Caffe network");
 
 	// Register outputs with engine
 	for (int n = 0; n < networkOutputs.size(); n++) {
@@ -104,19 +104,19 @@ void CaffeRTEngine::loadModel(std::string prototextPath, std::string modelPath,
 
 	engine = builder->buildCudaEngine(*network);
 	if (!engine)
-		throw ModelBuildException("Failed to create TensorRT engine");
+		throw std::runtime_error("Failed to create TensorRT engine");
 
 	// Verify registered input shapes match parser
 	for (int n = 0; n < networkInputs.size(); n++) {
 		nvinfer1::Dims dims = engine->getBindingDimensions(n);
 
 		if (dims.nbDims != networkInputs[n].dims.nbDims)
-			throw ModelDimensionMismatchException(
+			throw std::invalid_argument(
 					"Model number of input dimensions do not match what was registered with addInput");
 
 		for (int d = 0; d < dims.nbDims; d++)
 			if (dims.d[d] != networkInputs[n].dims.d[d])
-				throw ModelDimensionMismatchException(
+				throw std::invalid_argument(
 						"Model input dimensions do not match what was registered with addInput");
 
 	}

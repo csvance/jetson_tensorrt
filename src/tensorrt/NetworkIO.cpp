@@ -26,6 +26,7 @@
  */
 
 #include <string>
+#include <stdexcept>
 
 #include "NetworkIO.h"
 
