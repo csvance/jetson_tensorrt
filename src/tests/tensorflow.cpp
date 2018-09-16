@@ -13,7 +13,6 @@
 #include "NvInfer.h"
 
 #include "TensorflowRTEngine.h"
-#include "RTExceptions.h"
 
 #define CACHE_FILE "./tensorflow_cache.tensorcache"
 #define MODEL_FILE "./inception_v3.uff"
@@ -40,9 +39,10 @@ int main(int argc, char** argv) {
 	Dims outputDims; outputDims.nbDims = 1; outputDims.d[0] = NB_CLASSES;
 	engine.addOutput("InceptionV3/Predictions/Reshape_1", outputDims, CLASS_ELESIZE);
 
-	try{
+	std::ifstream infile(CACHE_FILE);
+	if (infile.good()){
 		engine.loadCache(CACHE_FILE, BATCH_SIZE);
-	} catch (ModelDeserializeException& e){
+	}else{
 		engine.loadModel(MODEL_FILE, (size_t) BATCH_SIZE);
 		engine.saveCache(CACHE_FILE);
 	}
@@ -81,5 +81,3 @@ int main(int argc, char** argv) {
 
 	}
 }
-
-

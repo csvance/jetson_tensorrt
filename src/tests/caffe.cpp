@@ -13,7 +13,6 @@
 #include "NvInfer.h"
 
 #include "CaffeRTEngine.h"
-#include "RTExceptions.h"
 
 #define CACHE_FILE "./caffe.tensorcache"
 #define MODEL_FILE "googlenet.prototxt"
@@ -42,9 +41,10 @@ int main(int argc, char** argv) {
 	Dims outputDims; outputDims.nbDims = 1; outputDims.d[0] = NB_CLASSES;
 	engine.addOutput("prob", outputDims, CLASS_ELESIZE);
 
-	try{
+	std::ifstream infile(CACHE_FILE);
+	if (infile.good()){
 		engine.loadCache(CACHE_FILE, BATCH_SIZE);
-	} catch (ModelDeserializeException& e){
+	}else{
 		engine.loadModel(MODEL_FILE, WEIGHTS_FILE, (size_t) BATCH_SIZE);
 		engine.saveCache(CACHE_FILE);
 	}
@@ -83,5 +83,3 @@ int main(int argc, char** argv) {
 
 	}
 }
-
-
