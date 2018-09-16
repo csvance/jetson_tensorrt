@@ -5,6 +5,19 @@ This repository is in heavy active development, but will eventually contain ROS 
 - [DIGITS][digits] - ImageNet, DetectNet, SegNet
 - Caffe - Generic
 - Tensorflow - Generic
+- PyTorch - Generic
+
+# Requirements
+- Jetpack 3.3
+- CMake
+
+# Build
+```
+cd ros_jetson_tensorrt
+mkdir build && cd build
+cmake -DCMAKE ..
+make
+```
 
 # Documentation
 - [Doxygen][docs]
