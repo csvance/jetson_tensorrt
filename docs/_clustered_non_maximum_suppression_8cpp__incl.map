@@ -1,4 +1,4 @@
 <map id="src/tensorrt/ClusteredNonMaximumSuppression.cpp" name="src/tensorrt/ClusteredNonMaximumSuppression.cpp">
-<area shape="rect" id="node4" href="$_clustered_non_maximum_suppression_8h.html" title="Contains a class which handles refining the results of a DetectNet like detector. ..." alt="" coords="28,95,271,121"/>
-<area shape="rect" id="node5" href="$_r_t_common_8h.html" title="Contains common functionality used by the TensoRT layer. " alt="" coords="98,169,202,196"/>
+<area shape="rect" id="node4" href="$_clustered_non_maximum_suppression_8h.html" title="Contains a class which handles refining the results of a DetectNet like detector. ..." alt="" coords="28,92,273,117"/>
+<area shape="rect" id="node5" href="$_r_t_common_8h.html" title="Contains common functionality used by the TensoRT layer. " alt="" coords="98,165,203,191"/>
 </map>

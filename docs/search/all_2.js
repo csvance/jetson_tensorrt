@@ -1,20 +1,11 @@
 var searchData=
 [
-  ['caffertengine',['CaffeRTEngine',['../classjetson__tensorrt_1_1_caffe_r_t_engine.html',1,'jetson_tensorrt::CaffeRTEngine'],['../classjetson__tensorrt_1_1_caffe_r_t_engine.html#a57470dca90931e8a11c771f79cbc849f',1,'jetson_tensorrt::CaffeRTEngine::CaffeRTEngine()']]],
-  ['caffertengine_2ecpp',['CaffeRTEngine.cpp',['../_caffe_r_t_engine_8cpp.html',1,'']]],
-  ['caffertengine_2eh',['CaffeRTEngine.h',['../_caffe_r_t_engine_8h.html',1,'']]],
-  ['classification',['Classification',['../structjetson__tensorrt_1_1_classification.html',1,'jetson_tensorrt']]],
-  ['classifynv12',['classifyNV12',['../classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html#a21344dfb88c3e6c6b2c47dc55a0f5a4b',1,'jetson_tensorrt::DIGITSClassifier']]],
-  ['classifyrbgaf',['classifyRBGAf',['../classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html#a578ab9e61cc18365a17356fb9d44b905',1,'jetson_tensorrt::DIGITSClassifier']]],
-  ['classrectangle',['ClassRectangle',['../structjetson__tensorrt_1_1_class_rectangle.html',1,'jetson_tensorrt']]],
-  ['clusterednonmaximumsuppression',['ClusteredNonMaximumSuppression',['../classjetson__tensorrt_1_1_clustered_non_maximum_suppression.html',1,'jetson_tensorrt::ClusteredNonMaximumSuppression'],['../classjetson__tensorrt_1_1_clustered_non_maximum_suppression.html#a11e2a6319cacd1db05b024fbb8e26121',1,'jetson_tensorrt::ClusteredNonMaximumSuppression::ClusteredNonMaximumSuppression()']]],
-  ['clusterednonmaximumsuppression_2ecpp',['ClusteredNonMaximumSuppression.cpp',['../_clustered_non_maximum_suppression_8cpp.html',1,'']]],
-  ['clusterednonmaximumsuppression_2eh',['ClusteredNonMaximumSuppression.h',['../_clustered_non_maximum_suppression_8h.html',1,'']]],
-  ['coverage',['coverage',['../structjetson__tensorrt_1_1_class_rectangle.html#a49f4023db64d95401b5ddc543691a9ea',1,'jetson_tensorrt::ClassRectangle']]],
-  ['cudaimagepreprocessor',['CUDAImagePreprocessor',['../classjetson__tensorrt_1_1_c_u_d_a_image_preprocessor.html',1,'jetson_tensorrt']]],
-  ['cudaimagepreprocessor_2ecpp',['CUDAImagePreprocessor.cpp',['../_c_u_d_a_image_preprocessor_8cpp.html',1,'']]],
-  ['cudaimagepreprocessor_2eh',['CUDAImagePreprocessor.h',['../_c_u_d_a_image_preprocessor_8h.html',1,'']]],
-  ['cudasizedmemcache',['CUDASizedMemCache',['../classjetson__tensorrt_1_1_c_u_d_a_sized_mem_cache.html',1,'jetson_tensorrt::CUDASizedMemCache'],['../classjetson__tensorrt_1_1_c_u_d_a_sized_mem_cache.html#aec0be097a19f0830655a815d87eef06f',1,'jetson_tensorrt::CUDASizedMemCache::CUDASizedMemCache()']]],
-  ['cudasizedmemcache_2ecpp',['CUDASizedMemCache.cpp',['../_c_u_d_a_sized_mem_cache_8cpp.html',1,'']]],
-  ['cudasizedmemcache_2eh',['CUDASizedMemCache.h',['../_c_u_d_a_sized_mem_cache_8h.html',1,'']]]
+  ['detectnv12',['detectNV12',['../classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html#a57d58859e79caf1387350b94db0540bc',1,'jetson_tensorrt::DIGITSDetector']]],
+  ['detectrgbaf',['detectRGBAf',['../classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html#ab42fb403ea87a15e5a0e61ff1439a751',1,'jetson_tensorrt::DIGITSDetector']]],
+  ['digitsclassifier',['DIGITSClassifier',['../classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html',1,'jetson_tensorrt::DIGITSClassifier'],['../classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html#af3af8c43a7e11e4d4b05ad8945d1abfc',1,'jetson_tensorrt::DIGITSClassifier::DIGITSClassifier()']]],
+  ['digitsclassifier_2ecpp',['DIGITSClassifier.cpp',['../_d_i_g_i_t_s_classifier_8cpp.html',1,'']]],
+  ['digitsclassifier_2eh',['DIGITSClassifier.h',['../_d_i_g_i_t_s_classifier_8h.html',1,'']]],
+  ['digitsdetector',['DIGITSDetector',['../classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html',1,'jetson_tensorrt::DIGITSDetector'],['../classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html#a95e4fdc13816ef3f0b2e8ed6f31a0dce',1,'jetson_tensorrt::DIGITSDetector::DIGITSDetector()']]],
+  ['digitsdetector_2ecpp',['DIGITSDetector.cpp',['../_d_i_g_i_t_s_detector_8cpp.html',1,'']]],
+  ['digitsdetector_2eh',['DIGITSDetector.h',['../_d_i_g_i_t_s_detector_8h.html',1,'']]]
 ];

@@ -1,4 +1,0 @@
-<map id="CaffeRTEngine" name="CaffeRTEngine">
-<area shape="rect" id="node3" href="$class_classification_r_t_engine.html" title="Loads and manages a classification network trained by nVidia DIGITS. " alt="" coords="5,155,164,181"/>
-<area shape="rect" id="node2" href="$class_tensor_r_t_engine.html" title="Abstract base class which loads and manages a TensorRT model which hides device/host memory managemen..." alt="" coords="25,5,145,32"/>
-</map>

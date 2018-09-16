@@ -1,9 +1,9 @@
 <map id="src/tensorrt/DIGITSClassifier.h" name="src/tensorrt/DIGITSClassifier.h">
-<area shape="rect" id="node7" href="$_caffe_r_t_engine_8h.html" title="Loads and manages a Caffe graph with TensorRT. " alt="" coords="276,80,399,107"/>
-<area shape="rect" id="node11" href="$_r_t_common_8h.html" title="Contains common functionality used by the TensoRT layer. " alt="" coords="817,229,921,256"/>
-<area shape="rect" id="node13" href="$_image_net_preprocessor_8h.html" title="Class representing a CUDA accelerated ImageNet image preprocessor. " alt="" coords="915,80,1082,107"/>
-<area shape="rect" id="node8" href="$_tensor_r_t_engine_8h.html" title="Abstract class which loads and manages a TensorRT graph. " alt="" coords="367,155,497,181"/>
-<area shape="rect" id="node10" href="$_network_i_o_8h.html" title="Contains classes managing neural network layer dimensions and size. " alt="" coords="284,229,380,256"/>
-<area shape="rect" id="node16" href="$_c_u_d_a_image_preprocessor_8h.html" title="Abstract class representing a CUDA accelerated image preprocessor. " alt="" coords="954,155,1139,181"/>
-<area shape="rect" id="node17" href="$_c_u_d_a_sized_mem_cache_8h.html" title="Abstract class of a cached CUDA allocation of a specific size. " alt="" coords="997,229,1169,256"/>
+<area shape="rect" id="node7" href="$_caffe_r_t_engine_8h.html" title="Loads and manages a Caffe graph with TensorRT. " alt="" coords="276,79,399,104"/>
+<area shape="rect" id="node11" href="$_r_t_common_8h.html" title="Contains common functionality used by the TensoRT layer. " alt="" coords="820,225,924,251"/>
+<area shape="rect" id="node13" href="$_image_net_preprocessor_8h.html" title="Class representing a CUDA accelerated ImageNet image preprocessor. " alt="" coords="917,79,1086,104"/>
+<area shape="rect" id="node8" href="$_tensor_r_t_engine_8h.html" title="Abstract class which loads and manages a TensorRT graph. " alt="" coords="368,152,499,177"/>
+<area shape="rect" id="node10" href="$_network_i_o_8h.html" title="Contains classes managing neural network layer dimensions and size. " alt="" coords="285,225,380,251"/>
+<area shape="rect" id="node16" href="$_c_u_d_a_image_preprocessor_8h.html" title="Abstract class representing a CUDA accelerated image preprocessor. " alt="" coords="957,152,1143,177"/>
+<area shape="rect" id="node17" href="$_c_u_d_a_sized_mem_cache_8h.html" title="Abstract class of a cached CUDA allocation of a specific size. " alt="" coords="998,225,1170,251"/>
 </map>

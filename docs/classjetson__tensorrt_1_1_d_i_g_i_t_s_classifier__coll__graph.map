@@ -1,5 +1,5 @@
 <map id="jetson_tensorrt::DIGITSClassifier" name="jetson_tensorrt::DIGITSClassifier">
-<area shape="rect" id="node2" href="$classjetson__tensorrt_1_1_caffe_r_t_engine.html" title="Loads and manages a Caffe network in TensorRT. " alt="" coords="10,247,217,273"/>
-<area shape="rect" id="node3" href="$classjetson__tensorrt_1_1_tensor_r_t_engine.html" title="Abstract base class which loads and manages a TensorRT model which hides device/host memory managemen..." alt="" coords="6,171,221,197"/>
-<area shape="rect" id="node4" href="$classjetson__tensorrt_1_1_logger.html" title="Logger for GIE info/warning/errors. " alt="" coords="36,81,191,108"/>
+<area shape="rect" id="node2" href="$classjetson__tensorrt_1_1_caffe_r_t_engine.html" title="Loads and manages a Caffe network in TensorRT. " alt="" coords="10,241,217,267"/>
+<area shape="rect" id="node3" href="$classjetson__tensorrt_1_1_tensor_r_t_engine.html" title="Abstract base class which loads and manages a TensorRT model which hides device/host memory managemen..." alt="" coords="5,167,221,192"/>
+<area shape="rect" id="node4" href="$classjetson__tensorrt_1_1_logger.html" title="Logger for GIE info/warning/errors. " alt="" coords="34,80,193,105"/>
 </map>

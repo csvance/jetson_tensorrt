@@ -1,5 +1,5 @@
 <map id="jetson_tensorrt::CaffeRTEngine" name="jetson_tensorrt::CaffeRTEngine">
-<area shape="rect" id="node3" href="$classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html" title="Loads and manages a DIGITS ImageNet graph with TensorRT. " alt="" coords="5,155,221,181"/>
-<area shape="rect" id="node4" href="$classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html" title="Loads and manages a DIGITS DetectNet graph with TensorRT. " alt="" coords="245,155,456,181"/>
-<area shape="rect" id="node2" href="$classjetson__tensorrt_1_1_tensor_r_t_engine.html" title="Abstract base class which loads and manages a TensorRT model which hides device/host memory managemen..." alt="" coords="125,5,339,32"/>
+<area shape="rect" id="node3" href="$classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html" title="Loads and manages a DIGITS ImageNet graph with TensorRT. " alt="" coords="5,152,222,177"/>
+<area shape="rect" id="node4" href="$classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html" title="Loads and manages a DIGITS DetectNet graph with TensorRT. " alt="" coords="245,152,457,177"/>
+<area shape="rect" id="node2" href="$classjetson__tensorrt_1_1_tensor_r_t_engine.html" title="Abstract base class which loads and manages a TensorRT model which hides device/host memory managemen..." alt="" coords="124,5,340,31"/>
 </map>

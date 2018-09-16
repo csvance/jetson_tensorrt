@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classjetson__tensorrt_1_1_clustered_non_maximum_suppression.html" title="Class which handles refining the results of a DetectNet like detector. " alt="" coords="5,5,180,47"/>
+<area shape="rect" id="node1" href="$classjetson__tensorrt_1_1_c_u_d_a_image_preprocessor.html" title="Abstract class representing a CUDA accelerated image preprocessor. " alt="" coords="5,5,197,44"/>
+<area shape="rect" id="node2" href="$classjetson__tensorrt_1_1_image_net_preprocessor.html" title="Class representing a CUDA accelerated ImageNet image preprocessor. " alt="" coords="245,5,420,44"/>
 </map>

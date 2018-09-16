@@ -1,9 +1,9 @@
 <map id="src/tensorrt/CUDAImagePreprocessor.h" name="src/tensorrt/CUDAImagePreprocessor.h">
-<area shape="rect" id="node2" href="$_c_u_d_a_image_preprocessor_8cpp.html" title="Abstract class representing a CUDA accelerated image preprocessor. " alt="" coords="5,80,275,107"/>
-<area shape="rect" id="node3" href="$_image_net_preprocessor_8h.html" title="Class representing a CUDA accelerated ImageNet image preprocessor. " alt="" coords="299,80,536,107"/>
-<area shape="rect" id="node4" href="$_d_i_g_i_t_s_classifier_8h.html" title="Loads and manages a DIGITS ImageNet graph with TensorRT. " alt="" coords="88,155,291,181"/>
-<area shape="rect" id="node6" href="$_d_i_g_i_t_s_detector_8h.html" title="Loads and manages a DIGITS DetectNet graph with TensorRT. " alt="" coords="318,155,517,181"/>
-<area shape="rect" id="node8" href="$_image_net_preprocessor_8cpp.html" title="Class representing a CUDA accelerated ImageNet image preprocessor. " alt="" coords="541,155,792,181"/>
-<area shape="rect" id="node5" href="$_d_i_g_i_t_s_classifier_8cpp.html" title="Loads and manages a DIGITS ImageNet graph with TensorRT. " alt="" coords="74,229,291,256"/>
-<area shape="rect" id="node7" href="$_d_i_g_i_t_s_detector_8cpp.html" title="Loads and manages a DIGITS DetectNet graph with TensorRT. " alt="" coords="315,229,527,256"/>
+<area shape="rect" id="node2" href="$_c_u_d_a_image_preprocessor_8cpp.html" title="Abstract class representing a CUDA accelerated image preprocessor. " alt="" coords="5,79,276,104"/>
+<area shape="rect" id="node3" href="$_image_net_preprocessor_8h.html" title="Class representing a CUDA accelerated ImageNet image preprocessor. " alt="" coords="300,79,539,104"/>
+<area shape="rect" id="node4" href="$_d_i_g_i_t_s_classifier_8h.html" title="Loads and manages a DIGITS ImageNet graph with TensorRT. " alt="" coords="92,152,293,177"/>
+<area shape="rect" id="node6" href="$_d_i_g_i_t_s_detector_8h.html" title="Loads and manages a DIGITS DetectNet graph with TensorRT. " alt="" coords="321,152,518,177"/>
+<area shape="rect" id="node8" href="$_image_net_preprocessor_8cpp.html" title="Class representing a CUDA accelerated ImageNet image preprocessor. " alt="" coords="542,152,795,177"/>
+<area shape="rect" id="node5" href="$_d_i_g_i_t_s_classifier_8cpp.html" title="Loads and manages a DIGITS ImageNet graph with TensorRT. " alt="" coords="78,225,294,251"/>
+<area shape="rect" id="node7" href="$_d_i_g_i_t_s_detector_8cpp.html" title="Loads and manages a DIGITS DetectNet graph with TensorRT. " alt="" coords="318,225,529,251"/>
 </map>

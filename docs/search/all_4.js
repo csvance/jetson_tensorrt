@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['engineexecutionexception',['EngineExecutionException',['../classjetson__tensorrt_1_1_engine_execution_exception.html',1,'jetson_tensorrt']]],
-  ['enginesummary',['engineSummary',['../classjetson__tensorrt_1_1_tensor_r_t_engine.html#ac170c23a337a439cb674a40b005483ff',1,'jetson_tensorrt::TensorRTEngine']]],
-  ['execute',['execute',['../classjetson__tensorrt_1_1_clustered_non_maximum_suppression.html#a095f23ede06860adeaa93c4b832ef104',1,'jetson_tensorrt::ClusteredNonMaximumSuppression']]]
+  ['float6',['float6',['../structjetson__tensorrt_1_1float6.html',1,'jetson_tensorrt']]],
+  ['freecudaalloc',['freeCUDAAlloc',['../classjetson__tensorrt_1_1_c_u_d_a_sized_mem_cache.html#a62d6fd676e186c0fa651c0ff9450bcbd',1,'jetson_tensorrt::CUDASizedMemCache']]]
 ];
