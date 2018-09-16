@@ -14,7 +14,6 @@
 
 #include "TensorRTEngine.h"
 #include "DIGITSDetector.h"
-#include "RTExceptions.h"
 
 #define CACHE_FILE "detection.tensorcache"
 #define MODEL_FILE "detectnet.prototxt"
@@ -72,5 +71,3 @@ int main(int argc, char** argv) {
 
 	}
 }
-
-

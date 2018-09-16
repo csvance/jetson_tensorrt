@@ -14,7 +14,6 @@
 
 #include "TensorRTEngine.h"
 #include "DIGITSClassifier.h"
-#include "RTExceptions.h"
 
 #define CACHE_FILE "classification.tensorcache"
 #define MODEL_FILE "googlenet.prototxt"
@@ -72,5 +71,3 @@ int main(int argc, char** argv) {
 
 	}
 }
-
-
