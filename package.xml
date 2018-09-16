@@ -2,7 +2,7 @@
 <package format="2">
   <name>jetson_tensorrt</name>
   <version>0.1.0</version>
-  <description>The jetson_tensorrt package</description>
+  <description>nVidia Jetson TensorRT Nodes</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
