@@ -21,10 +21,3 @@ add_executable(
   tensorflow.cpp
 )
 target_link_libraries(test_tensorflow jetson_tensorrt)
-
-add_custom_command(
-        TARGET test_caffe POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy
-                ${CMAKE_CURRENT_BINARY_DIR}/test_caffe
-                /home/nvidia/test_caffe
-                )
