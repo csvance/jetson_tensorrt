@@ -15,7 +15,7 @@ This repository is in heavy active development, but will eventually contain ROS 
 ```
 cd ros_jetson_tensorrt
 mkdir build && cd build
-cmake -DCMAKE ..
+cmake ..
 make
 ```
 
