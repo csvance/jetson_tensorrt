@@ -65,13 +65,23 @@ public:
 			nvinfer1::DataType::kFLOAT, size_t maxNetworkSize = (1 << 30));
 
 	/**
-	 * @brief	Registers an input to the Tensorflow network.
+	 * @brief	Registers an input to the Tensorflow network. Assumes inputs have no channel dimension.
 	 * @usage	Must be called before loadUff().
 	 * @param	layer	The name of the input layer (i.e. "input_1")
-	 * @param	dims	Dimensions of the input layer. Must be in CHW format. Ex: (3, 640, 480)
+	 * @param	dims	Dimensions of the input layer.
 	 * @param	eleSize	Size of each element in bytes
 	 */
 	void addInput(std::string layer, nvinfer1::Dims dims, size_t eleSize);
+
+	/**
+	 * @brief	Registers an input to the Tensorflow network with a channel dimension and order.
+	 * @usage	Must be called before loadUff().
+	 * @param	layer	The name of the input layer (i.e. "input_1")
+	 * @param	dims	Dimensions of the input layer.
+	 * @param	eleSize	Size of each element in bytes
+         * @param	order Input channel order
+	 */
+	void addInput(std::string layer, nvinfer1::Dims dims, size_t eleSize, nvuffparser::UffInputOrder order);
 
 	/**
 	 * @brief	Registers an output from the Tensorflow network.

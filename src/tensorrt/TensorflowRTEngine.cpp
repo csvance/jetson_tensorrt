@@ -65,26 +65,16 @@ TensorflowRTEngine::~TensorflowRTEngine() {
 
 void TensorflowRTEngine::addInput(std::string layer, nvinfer1::Dims dims,
 		size_t eleSize) {
-	/*
-	 Register tensorflow input
-	 Even if channel index is last in the data, put it first for TensorRT
-	 This network inputs are defined in Keras as follows:
-	 Input(shape=(Y, X, C))
-	 Where Y = 30, X = 40, C = 1
-	 */
 
-	if (dims.nbDims != 3)
-		throw std::invalid_argument(
-				"nVidia requires us to use a 3 channel DimsCHW when defining inputs for networks loaded from .uff files");
+	parser->registerInput(layer.c_str(), dims, UffInputOrder::kNC);
 
-	if (dims.d[0] > dims.d[1] || dims.d[0] > dims.d[2])
-		throw std::invalid_argument(
-				"In CHW format the channel should always be the first dimension");
+	networkInputs.push_back(NetworkInput(layer, dims, eleSize));
+}
 
-	nvinfer1::DimsCHW chwDims = nvinfer1::DimsCHW(dims.d[0], dims.d[1],
-			dims.d[2]);
+void TensorflowRTEngine::addInput(std::string layer, nvinfer1::Dims dims,
+		size_t eleSize, nvuffparser::UffInputOrder order) {
 
-	parser->registerInput(layer.c_str(), chwDims);
+	parser->registerInput(layer.c_str(), dims, order);
 
 	networkInputs.push_back(NetworkInput(layer, dims, eleSize));
 }

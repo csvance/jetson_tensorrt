@@ -106,11 +106,14 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memdesc:a554b33ac21b20b9c209602fbde08f408"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classjetson__tensorrt_1_1_tensorflow_r_t_engine.html" title="Loads and manages a Tensorflow network in TensorRT. ">TensorflowRTEngine</a> Destructor. <br /></td></tr>
 <tr class="separator:a554b33ac21b20b9c209602fbde08f408"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4372af2ee6e6a52c39e55afbac7cf15"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensorflow_r_t_engine.html#af4372af2ee6e6a52c39e55afbac7cf15">loadModel</a> (std::string uffFile, size_t maxBatchSize=1, nvinfer1::DataType dataType=nvinfer1::DataType::kFLOAT, size_t maxNetworkSize=(1&lt;&lt; 30))</td></tr>
-<tr class="memdesc:af4372af2ee6e6a52c39e55afbac7cf15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a frozen Tensorflow .uff graph.  Must be called after <a class="el" href="classjetson__tensorrt_1_1_tensorflow_r_t_engine.html#a5e45db4146cacd2218601d9273800d8a" title="Registers an input to the Tensorflow network.  Must be called before loadUff(). ">addInput()</a> and <a class="el" href="classjetson__tensorrt_1_1_tensorflow_r_t_engine.html#aff7580475377d4e86d59f016dd72f83a" title="Registers an output from the Tensorflow network.  Must be called before loadUff(). ">addOutput()</a>.  <a href="#af4372af2ee6e6a52c39e55afbac7cf15">More...</a><br /></td></tr>
+<tr class="memdesc:af4372af2ee6e6a52c39e55afbac7cf15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a frozen Tensorflow .uff graph.  Must be called after <a class="el" href="classjetson__tensorrt_1_1_tensorflow_r_t_engine.html#a5e45db4146cacd2218601d9273800d8a" title="Registers an input to the Tensorflow network. Assumes inputs have no channel dimension.  Must be called before loadUff(). ">addInput()</a> and <a class="el" href="classjetson__tensorrt_1_1_tensorflow_r_t_engine.html#aff7580475377d4e86d59f016dd72f83a" title="Registers an output from the Tensorflow network.  Must be called before loadUff(). ">addOutput()</a>.  <a href="#af4372af2ee6e6a52c39e55afbac7cf15">More...</a><br /></td></tr>
 <tr class="separator:af4372af2ee6e6a52c39e55afbac7cf15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e45db4146cacd2218601d9273800d8a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensorflow_r_t_engine.html#a5e45db4146cacd2218601d9273800d8a">addInput</a> (std::string layer, nvinfer1::Dims dims, size_t eleSize)</td></tr>
-<tr class="memdesc:a5e45db4146cacd2218601d9273800d8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an input to the Tensorflow network.  Must be called before loadUff().  <a href="#a5e45db4146cacd2218601d9273800d8a">More...</a><br /></td></tr>
+<tr class="memdesc:a5e45db4146cacd2218601d9273800d8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an input to the Tensorflow network. Assumes inputs have no channel dimension.  Must be called before loadUff().  <a href="#a5e45db4146cacd2218601d9273800d8a">More...</a><br /></td></tr>
 <tr class="separator:a5e45db4146cacd2218601d9273800d8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6bd3e8f7f9db8b9ee0dcae641ff912c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensorflow_r_t_engine.html#ad6bd3e8f7f9db8b9ee0dcae641ff912c">addInput</a> (std::string layer, nvinfer1::Dims dims, size_t eleSize, nvuffparser::UffInputOrder order)</td></tr>
+<tr class="memdesc:ad6bd3e8f7f9db8b9ee0dcae641ff912c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an input to the Tensorflow network with a channel dimension and order.  Must be called before loadUff().  <a href="#ad6bd3e8f7f9db8b9ee0dcae641ff912c">More...</a><br /></td></tr>
+<tr class="separator:ad6bd3e8f7f9db8b9ee0dcae641ff912c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff7580475377d4e86d59f016dd72f83a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensorflow_r_t_engine.html#aff7580475377d4e86d59f016dd72f83a">addOutput</a> (std::string layer, nvinfer1::Dims dims, size_t eleSize)</td></tr>
 <tr class="memdesc:aff7580475377d4e86d59f016dd72f83a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an output from the Tensorflow network.  Must be called before loadUff().  <a href="#aff7580475377d4e86d59f016dd72f83a">More...</a><br /></td></tr>
 <tr class="separator:aff7580475377d4e86d59f016dd72f83a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -169,7 +172,7 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
 <div class="textblock"><p>Loads and manages a Tensorflow network in TensorRT. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a5e45db4146cacd2218601d9273800d8a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e45db4146cacd2218601d9273800d8a">&#9670;&nbsp;</a></span>addInput()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e45db4146cacd2218601d9273800d8a">&#9670;&nbsp;</a></span>addInput() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -208,17 +211,68 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
 </table>
 </div><div class="memdoc">
 
-<p>Registers an input to the Tensorflow network.  Must be called before loadUff(). </p>
+<p>Registers an input to the Tensorflow network. Assumes inputs have no channel dimension.  Must be called before loadUff(). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">layer</td><td>The name of the input layer (i.e. "input_1") </td></tr>
-    <tr><td class="paramname">dims</td><td>Dimensions of the input layer. Must be in CHW format. Ex: (3, 640, 480) </td></tr>
+    <tr><td class="paramname">dims</td><td>Dimensions of the input layer. </td></tr>
     <tr><td class="paramname">eleSize</td><td>Size of each element in bytes </td></tr>
   </table>
   </dd>
 </dl>
 
 <p>Implements <a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a7abf6bf75df01eab197bfac5e6ce570c">jetson_tensorrt::TensorRTEngine</a>.</p>
+
+</div>
+</div>
+<a id="ad6bd3e8f7f9db8b9ee0dcae641ff912c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6bd3e8f7f9db8b9ee0dcae641ff912c">&#9670;&nbsp;</a></span>addInput() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jetson_tensorrt::TensorflowRTEngine::addInput </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>layer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">nvinfer1::Dims&#160;</td>
+          <td class="paramname"><em>dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>eleSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">nvuffparser::UffInputOrder&#160;</td>
+          <td class="paramname"><em>order</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Registers an input to the Tensorflow network with a channel dimension and order.  Must be called before loadUff(). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">layer</td><td>The name of the input layer (i.e. "input_1") </td></tr>
+    <tr><td class="paramname">dims</td><td>Dimensions of the input layer. </td></tr>
+    <tr><td class="paramname">eleSize</td><td>Size of each element in bytes </td></tr>
+    <tr><td class="paramname">order</td><td>Input channel order </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -314,7 +368,7 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
       </table>
 </div><div class="memdoc">
 
-<p>Loads a frozen Tensorflow .uff graph.  Must be called after <a class="el" href="classjetson__tensorrt_1_1_tensorflow_r_t_engine.html#a5e45db4146cacd2218601d9273800d8a" title="Registers an input to the Tensorflow network.  Must be called before loadUff(). ">addInput()</a> and <a class="el" href="classjetson__tensorrt_1_1_tensorflow_r_t_engine.html#aff7580475377d4e86d59f016dd72f83a" title="Registers an output from the Tensorflow network.  Must be called before loadUff(). ">addOutput()</a>. </p>
+<p>Loads a frozen Tensorflow .uff graph.  Must be called after <a class="el" href="classjetson__tensorrt_1_1_tensorflow_r_t_engine.html#a5e45db4146cacd2218601d9273800d8a" title="Registers an input to the Tensorflow network. Assumes inputs have no channel dimension.  Must be called before loadUff(). ">addInput()</a> and <a class="el" href="classjetson__tensorrt_1_1_tensorflow_r_t_engine.html#aff7580475377d4e86d59f016dd72f83a" title="Registers an output from the Tensorflow network.  Must be called before loadUff(). ">addOutput()</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">uffFile</td><td>Path to the .uff graph file </td></tr>
