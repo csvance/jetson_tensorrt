@@ -18,4 +18,6 @@ include_directories(
   /usr/local/cuda/include
 )
 
-add_subdirectory(src)
+add_subdirectory(nodes)
+add_subdirectory(tensorrt)
+add_subdirectory(tests)
