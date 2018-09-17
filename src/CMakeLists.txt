@@ -12,8 +12,8 @@ file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 include_directories(
-  src/tensorrt
-  src/tensorrt/cuda
+  tensorrt
+  tensorrt/cuda
   /usr/local/cuda/include
 )
 
