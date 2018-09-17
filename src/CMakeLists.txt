@@ -2,7 +2,6 @@ find_package(CUDA REQUIRED)
 set(CUDA_SEPARABLE_COMPILATION ON)
 set(CUDA_PROPAGATE_HOST_FLAGS OFF)
 
-# Compiler options
 set(
     CUDA_NVCC_FLAGS
     ${CUDA_NVCC_FLAGS};
