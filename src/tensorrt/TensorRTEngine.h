@@ -123,11 +123,7 @@ public:
 	*/
 	LocatedExecutionMemory allocOutputs(LocatedExecutionMemory::Location location);
 
-	/**
-		@brief Frees the allocated memory from allocInputs and allocOutputs
-		@param memory	The allocated memory to free
-	*/
-	void freeLocatedMemory(LocatedExecutionMemory& memory);
+
 
 	int maxBatchSize;
 	int numBindings;

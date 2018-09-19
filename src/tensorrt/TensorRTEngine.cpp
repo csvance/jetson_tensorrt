@@ -164,28 +164,6 @@ LocatedExecutionMemory TensorRTEngine::allocOutputs(LocatedExecutionMemory::Loca
 	return memory;
 }
 
-void freeLocatedMemory(LocatedExecutionMemory& memory){
-	for (int b=0; b < maxBatchSize; b++) {
-		for(int c=0; c < memory[b].size(); c++){
-			if(location == LocatedExecutionMemory::Location::HOST){
-				free(memory[b][c]);
-			}else if(location == LocatedExecutionMemory::Location::DEVICE){
-				cudaError_t deviceFreeError = cudaFree(memory[b][c]);
-				if (deviceFreeError != 0)
-					throw std::runtime_error(
-							"Error freeing device memory. CUDA Error: "
-									+ std::to_string(deviceFreeError));
-			}else if(location == location == LocatedExecutionMemory::Location::MAPPED{
-				cudaError_t hostFreeError = cudaFreeHost(memory[b][c]);
-				if (hostFreeError != 0)
-					throw std::runtime_error(
-							"Error freeing host memory. CUDA Error: "
-									+ std::to_string(hostFreeError));
-			}
-		}
-	}
-}
-
 void TensorRTEngine::predict(LocatedExecutionMemory& inputs,
 		LocatedExecutionMemory& outputs) {
 

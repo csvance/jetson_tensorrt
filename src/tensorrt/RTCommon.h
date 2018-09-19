@@ -31,6 +31,9 @@
 #include <cstddef>
 #include <vector>
 
+#include <cuda_runtime.h>
+#include <cuda.h>
+
 namespace jetson_tensorrt {
 
 /**
@@ -116,7 +119,7 @@ struct LocatedExecutionMemory {
 
 	/**
 	 * @brief LocatedExecutionMemory constructor
-	 * @param location	The location of the batch inputs or outputs, either in HOST or DEVICE memory
+	 * @param location	The location of the batch inputs or outputs, either in HOST, MAPPED, or DEVICE memory
 	 * @param batch	Batch of inputs or outputs
 	 */
 	LocatedExecutionMemory(Location location,
@@ -139,6 +142,40 @@ struct LocatedExecutionMemory {
 	size_t size() {
 		return batch.size();
 	}
+
+	/**
+		@brief Frees the allocated memory
+	*/
+	void free(){
+
+		for (int b=0; b < maxBatchSize; b++) {
+			for(int c=0; c < batch[b].size(); c++){
+
+				if(location == LocatedExecutionMemory::Location::HOST){
+
+					free(batch[b][c]);
+
+				}else if(location == LocatedExecutionMemory::Location::DEVICE){
+
+					cudaError_t deviceFreeError = cudaFree(batch[b][c]);
+					if (deviceFreeError != 0)
+						throw std::runtime_error(
+								"Error freeing device memory. CUDA Error: "
+										+ std::to_string(deviceFreeError));
+
+				}else if(location == location == LocatedExecutionMemory::Location::MAPPED{
+
+					cudaError_t hostFreeError = cudaFreeHost(batch[b][c]);
+					if (hostFreeError != 0)
+						throw std::runtime_error(
+								"Error freeing host memory. CUDA Error: "
+										+ std::to_string(hostFreeError));
+
+				}
+			}
+		}
+	}
+
 };
 
 }
