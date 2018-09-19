@@ -262,14 +262,12 @@ void TensorRTEngine::predict(LocatedExecutionMemory &inputs,
     throw std::runtime_error(
         "TensorRT engine execution returned unsuccessfully");
 
-  std::vector<std::vector<void *>> batchOutputs(batchCount);
-
   /* Handle outputs for each batch */
   for (int b = 0; b < batchCount; b++) {
 
     int bindingIdx = inputs[b].size();
-    for (int i = 0; i < networkOutputs.size(); i++) {
-      size_t outputSize = networkOutputs[i].size();
+    for (int o = 0; o < networkOutputs.size(); o++) {
+      size_t outputSize = networkOutputs[o].size();
 
       if (outputs.location == MemoryLocation::MAPPED) {
 
@@ -278,15 +276,14 @@ void TensorRTEngine::predict(LocatedExecutionMemory &inputs,
       } else if (outputs.location == MemoryLocation::DEVICE) {
 
         // Copy the GPU pointer
-        batchOutputs[b][i] = transactionGPUBuffers[bindingIdx + b * stepSize];
+        outputs[b][o] = transactionGPUBuffers[bindingIdx + b * stepSize];
 
       } else if (outputs.location == MemoryLocation::HOST) {
 
         // Transfer memory from GPU back to Host
-        cudaError_t deviceHostError =
-            cudaMemcpy(batchOutputs[b][i],
-                       transactionGPUBuffers[bindingIdx + b * stepSize],
-                       outputSize, cudaMemcpyDeviceToHost);
+        cudaError_t deviceHostError = cudaMemcpy(
+            outputs[b][o], transactionGPUBuffers[bindingIdx + b * stepSize],
+            outputSize, cudaMemcpyDeviceToHost);
         if (deviceHostError != 0)
           throw std::runtime_error("Unable to copy device memory to host for "
                                    "prediction. CUDA Error: " +
