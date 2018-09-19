@@ -70,7 +70,6 @@ TensorRTEngine::~TensorRTEngine() {
 	freeGPUBuffer();
 }
 
-
 void TensorRTEngine::allocGPUBuffer() {
 	int stepSize = networkInputs.size() + networkOutputs.size();
 
@@ -122,8 +121,73 @@ void TensorRTEngine::freeGPUBuffer() {
 	}
 }
 
-LocatedExecutionMemory TensorRTEngine::predict(LocatedExecutionMemory& inputs,
-		bool copyOutputToHost) {
+LocatedExecutionMemory TensorRTEngine::allocInputs(LocatedExecutionMemory::Location location){
+	LocatedExecutionMemory memory = LocatedExecutionMemory(location, vector<vector<void*>>(maxBatchSize));
+
+	for (int b=0; b < maxBatchSize; b++) {
+
+		/* Input memory management */
+		for (int i = 0; i < networkInputs.size(); i++) {
+			size_t inputSize = networkInputs[i].size();
+			if(location == LocatedExecutionMemory::Location::HOST){
+				memory[b].push_back(safeMalloc(inputSize));
+			}else if(location == LocatedExecutionMemory::Location::DEVICE){
+				memory[b].push_back(safeCudaMalloc(inputSize));
+			}else if(location == location == LocatedExecutionMemory::Location::MAPPED{
+				memory[b].push_back(safeCudaHostMalloc(inputSize));
+			}
+		}
+	}
+
+
+	return memory;
+}
+
+LocatedExecutionMemory TensorRTEngine::allocOutputs(LocatedExecutionMemory::Location location){
+	LocatedExecutionMemory memory = LocatedExecutionMemory(location, vector<vector<void*>>(maxBatchSize));
+
+	for (int b=0; b < maxBatchSize; b++) {
+
+		/* Input memory management */
+		for (int o = 0; i < networkOutputs.size(); i++) {
+			size_t outputSize = networkOutputs[o].size();
+			if(location == LocatedExecutionMemory::Location::HOST){
+				memory[b].push_back(safeMalloc(outputSize));
+			}else if(location == LocatedExecutionMemory::Location::DEVICE){
+				memory[b].push_back(safeCudaMalloc(outputSize));
+			}else if(location == location == LocatedExecutionMemory::Location::MAPPED{
+				memory[b].push_back(safeCudaHostMalloc(outputSize));
+			}
+		}
+	}
+
+	return memory;
+}
+
+void freeLocatedMemory(LocatedExecutionMemory& memory){
+	for (int b=0; b < maxBatchSize; b++) {
+		for(int c=0; c < memory[b].size(); c++){
+			if(location == LocatedExecutionMemory::Location::HOST){
+				free(memory[b][c]);
+			}else if(location == LocatedExecutionMemory::Location::DEVICE){
+				cudaError_t deviceFreeError = cudaFree(memory[b][c]);
+				if (deviceFreeError != 0)
+					throw std::runtime_error(
+							"Error freeing device memory. CUDA Error: "
+									+ std::to_string(deviceFreeError));
+			}else if(location == location == LocatedExecutionMemory::Location::MAPPED{
+				cudaError_t hostFreeError = cudaFreeHost(memory[b][c]);
+				if (hostFreeError != 0)
+					throw std::runtime_error(
+							"Error freeing host memory. CUDA Error: "
+									+ std::to_string(hostFreeError));
+			}
+		}
+	}
+}
+
+void TensorRTEngine::predict(LocatedExecutionMemory& inputs,
+		LocatedExecutionMemory& outputs) {
 
 	if (inputs.size() > maxBatchSize)
 		throw std::invalid_argument(
@@ -134,19 +198,30 @@ LocatedExecutionMemory TensorRTEngine::predict(LocatedExecutionMemory& inputs,
 
 	std::vector<void*> transactionGPUBuffers(inputs.size() * stepSize);
 
-	//If this is the first time we are doing a prediction allocate memory for inputs and outputs
-	if (!gpuBufferPreAllocated)
+	if ((inputs.location == LocatedExecutionMemory::Location::HOST ||
+		  outputs.location == LocatedExecutionMemory::Location::HOST) &&
+			!gpuBufferPreAllocated)
 		allocGPUBuffer();
 
 	/* Assign transaction buffers and copy to GPU if neccisary */
 	for (int b = 0; b < batchCount; b++) {
 		int bindingIdx = 0;
 
-		//Inputs
+		/* Input memory management */
 		for (int i = 0; i < networkInputs.size(); i++) {
 			size_t inputSize = networkInputs[i].size();
 
-			if (inputs.location == LocatedExecutionMemory::Location::HOST) {
+			if (inputs.location == LocatedExecutionMemory::Location::MAPPED){
+
+				cudaError_t err = cudaHostGetDevicePointer(transactionGPUBuffers[bindingIdx + b * stepSize], inputs[b][i], 0);
+				if (err != cudaSuccess){
+					throw std::runtime_error(
+							"Unable to get device pointer for CUDA mapped alloc: "
+									+ std::to_string(hostDeviceError));
+				}
+
+			} else if (inputs.location == LocatedExecutionMemory::Location::HOST) {
+
 				//If the batches are in host memory, we need to copy them to the device
 				transactionGPUBuffers[bindingIdx + b * stepSize] =
 						preAllocatedGPUBuffers[bindingIdx + b * stepSize];
@@ -158,19 +233,48 @@ LocatedExecutionMemory TensorRTEngine::predict(LocatedExecutionMemory& inputs,
 					throw std::runtime_error(
 							"Unable to copy host memory to device for prediction. CUDA Error: "
 									+ std::to_string(hostDeviceError));
-			} else {
+
+			} else if(inputs.location == LocatedExecutionMemory::Location::DEVICE) {
+
 				// Since the inputs are already in the device, all we need to do is assign them to the transaction buffer
 				transactionGPUBuffers[bindingIdx + b * stepSize] = inputs[b][i];
+
 			}
 			bindingIdx++;
 		}
 
-		//Outputs
+		/* Output memory management */
 		for (int o = 0; o < networkOutputs.size(); o++) {
+
 			size_t outputSize = networkOutputs[o].size();
 
-			transactionGPUBuffers[bindingIdx + b * stepSize] =
-					preAllocatedGPUBuffers[bindingIdx + b * stepSize];
+			if (outputs.location == LocatedExecutionMemory::Location::MAPPED) {
+
+				cudaError_t err = cudaHostGetDevicePointer(transactionGPUBuffers[bindingIdx + b * stepSize], outputs[b][o], 0);
+				if (err != cudaSuccess){
+					throw std::runtime_error(
+							"Unable to get device pointer for CUDA mapped alloc: "
+									+ std::to_string(hostDeviceError));
+
+			} else if(outputs.location == LocatedExecutionMemory::Location::DEVICE)
+
+				// Since the inputs are already in the device, all we need to do is assign them to the transaction buffer
+				transactionGPUBuffers[bindingIdx + b * stepSize] = outputs[b][o];
+
+			} else if (outputs.location == LocatedExecutionMemory::Location::HOST) {
+
+				//If the batches are in host memory, we need to copy them to the device
+				transactionGPUBuffers[bindingIdx + b * stepSize] =
+						preAllocatedGPUBuffers[bindingIdx + b * stepSize];
+
+				cudaError_t hostDeviceError = cudaMemcpy(
+						transactionGPUBuffers[bindingIdx + b * stepSize],
+						outputs[b][o], outputSize, cudaMemcpyHostToDevice);
+				if (hostDeviceError != 0)
+					throw std::runtime_error(
+							"Unable to copy host memory to device for prediction. CUDA Error: "
+									+ std::to_string(hostDeviceError));
+			}
 
 			bindingIdx++;
 		}
@@ -190,10 +294,18 @@ LocatedExecutionMemory TensorRTEngine::predict(LocatedExecutionMemory& inputs,
 		for (int i = 0; i < networkOutputs.size(); i++) {
 			size_t outputSize = networkOutputs[i].size();
 
-			if (copyOutputToHost) {
-				/* Allocate a host buffer for the network output */
-				batchOutputs[b].push_back(new unsigned char[outputSize]);
+			if (outputs.location == LocatedExecutionMemory::Location::MAPPED) {
 
+				// Don't need to do anything, memory is already mapped
+
+			} else if(outputs.location == LocatedExecutionMemory::Location::DEVICE)
+
+				// Copy the GPU pointer
+				batchOutputs[b][i] = transactionGPUBuffers[bindingIdx + b * stepSize]);
+
+			} else if (outputs.location == LocatedExecutionMemory::Location::HOST) {
+
+				// Transfer memory from GPU back to Host
 				cudaError_t deviceHostError = cudaMemcpy(batchOutputs[b][i],
 						transactionGPUBuffers[bindingIdx + b * stepSize],
 						outputSize, cudaMemcpyDeviceToHost);
@@ -201,22 +313,11 @@ LocatedExecutionMemory TensorRTEngine::predict(LocatedExecutionMemory& inputs,
 					throw std::runtime_error(
 							"Unable to copy device memory to host for prediction. CUDA Error: "
 									+ std::to_string(deviceHostError));
-			} else {
-				batchOutputs[b].push_back(
-						transactionGPUBuffers[bindingIdx + b * stepSize]);
 			}
 
 			bindingIdx++;
 		}
 
-	}
-
-	if (copyOutputToHost) {
-		return LocatedExecutionMemory(LocatedExecutionMemory::Location::HOST,
-				batchOutputs);
-	} else {
-		return LocatedExecutionMemory(LocatedExecutionMemory::Location::DEVICE,
-				batchOutputs);
 	}
 
 }

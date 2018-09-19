@@ -107,11 +107,11 @@ struct Classification{
 };
 
 /**
- * @brief Represents all of a batches inputs or outputs located either in host or device memory
+ * @brief Represents all of a batches inputs or outputs located either in host, device, or mapped memory
  */
 struct LocatedExecutionMemory {
 	enum Location {
-		HOST, DEVICE
+		HOST, DEVICE, MAPPED
 	};
 
 	/**
