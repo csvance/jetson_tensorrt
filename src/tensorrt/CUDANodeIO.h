@@ -25,8 +25,8 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef CUDANODE_H_
-#define CUDANODE_H_
+#ifndef CUDANODEIO_H_
+#define CUDANODEIO_H_
 
 #include "RTCommon.h"
 

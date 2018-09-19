@@ -6,13 +6,13 @@
 #include <iostream>
 #include <string>
 #include <sys/stat.h>
-#include <unordered_map>
-#include <cassert>
 #include <vector>
 
-#include "NvInfer.h"
-
 #include "TensorflowRTEngine.h"
+#include "CUDANode.h"
+#include "CUDANodeIO.h"
+#include "CUDAPipeline.h"
+
 
 #define CACHE_FILE "./tensorflow_cache.tensorcache"
 #define MODEL_FILE "./inception_v3.uff"

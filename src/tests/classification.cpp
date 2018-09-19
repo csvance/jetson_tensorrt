@@ -14,6 +14,9 @@
 
 #include "DIGITSClassifier.h"
 #include "TensorRTEngine.h"
+#include "CUDANode.h"
+#include "CUDANodeIO.h"
+#include "CUDAPipeline.h"
 
 #define CACHE_FILE "classification.tensorcache"
 #define MODEL_FILE "googlenet.prototxt"
@@ -43,7 +46,7 @@ int main(int argc, char **argv) {
   std::cout << engine.engineSummary() << std::endl;
 
 	// Loads the image into device memory and preprocesses it
-  CUDAPipeline preprocessPipeline = CUDAPipeline::createRGBAfImageNetPipeline(
+  CUDAPipeline* preprocessPipeline = CUDAPipeline::createRGBAfImageNetPipeline(
       INPUT_IMAGE_WIDTH, INPUT_IMAGE_HEIGHT, MODEL_IMAGE_WIDTH,
       MODEL_IMAGE_HEIGHT, make_float3(0.0, 0.0, 0.0));
 
@@ -67,7 +70,7 @@ int main(int argc, char **argv) {
       auto t_start = std::chrono::high_resolution_clock::now();
 
       // Preprocess the image (and load to GPU if needed)
-      CUDANodeIO preprocessOutput = preprocessPipeline.pipe(preprocessInput);
+      CUDANodeIO preprocessOutput = preprocessPipeline->pipe(preprocessInput);
 
       // Load the image into the network inputs (1st batch, 1st input)
       input[0][0] = preprocessOutput.data;

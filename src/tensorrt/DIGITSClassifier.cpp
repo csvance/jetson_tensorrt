@@ -78,9 +78,9 @@ DIGITSClassifier::classify(LocatedExecutionMemory &inputs,
                            LocatedExecutionMemory &outputs, float threshold) {
 
   // Execute inference
-  LocatedExecutionMemory predictionOutputs = predict(inputs, outputs);
+  predict(inputs, outputs);
 
-  float *classProbabilities = (float *)predictionOutputs[0][0];
+  float *classProbabilities = (float *)outputs[0][0];
 
   std::vector<Classification> classifications;
 

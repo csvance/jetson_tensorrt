@@ -38,6 +38,6 @@ CUDANodeIO::CUDANodeIO(MemoryLocation location, void *data, size_t dataSize) {
   this->dataSize = dataSize;
 }
 
-void CUDANodeIO::size() { return dataSize; }
+size_t CUDANodeIO::size() { return dataSize; }
 
 } // namespace jetson_tensorrt

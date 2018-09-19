@@ -32,67 +32,72 @@
 
 namespace jetson_tensorrt {
 
-void CUDAPipeline::addNode(CUDANode node) { nodes.push_back(node); }
+void CUDAPipeline::addNode(CUDANode* node) { nodes.push_back(node); }
 
-CUDANodeIO CUDAPipeline::pipe(CUDANodeIO input) {
+CUDAPipeline::CUDAPipeline(){}
+CUDAPipeline::~CUDAPipeline(){
+  for (int node=0;node<nodes.size();node++)
+    delete nodes[node];
+}
+
+CUDANodeIO CUDAPipeline::pipe(CUDANodeIO& input) {
   CUDANodeIO result = input;
 
   // Move through the pipe
-  for (std::vector<int>::iterator it = nodes.begin(); it != myvector.end();
-       ++it)
-    result = (*it)->pipe(result);
+  for (int node=0;node<nodes.size();node++)
+    result = nodes[node]->pipe(result);
 
   return result;
 }
 
-static CUDAPipeline CUDAPipeline::createNV12ImageNetPipeline(int inputWidth,
+CUDAPipeline* CUDAPipeline::createNV12ImageNetPipeline(int inputWidth,
                                                              int inputHeight,
                                                              int outputWidth,
                                                              int outputHeight,
                                                              float3 mean) {
-  ToDevicePTRNode ptrNode = ToDevicePTRNode();
-  NV12toRGBAfNode nv12Node = NV12toRGBAfNode(inputWidth, inputHeight);
-  RGBAfToImageNetNode imgNetNode = RGBAfToImageNetNode(
+  ToDevicePTRNode* ptrNode = new ToDevicePTRNode();
+  NV12toRGBAfNode* nv12Node = new NV12toRGBAfNode(inputWidth, inputHeight);
+  RGBAfToImageNetNode* imgNetNode = new RGBAfToImageNetNode(
       inputWidth, inputHeight, outputWidth, outputHeight, mean);
 
-  CUDAPipeline pipe = new CUDAPipeline();
-  pipe.addNode(ptrNode);
-  pipe.addNode(nv12Node);
-  pipe.addNode(imgNetNode);
+  CUDAPipeline* pipe = new CUDAPipeline();
+  pipe->addNode(ptrNode);
+  pipe->addNode(nv12Node);
+  pipe->addNode(imgNetNode);
 
   return pipe;
 }
 
-static CUDAPipeline CUDAPipeline::createRGBImageNetPipeline(int inputWidth,
+CUDAPipeline* CUDAPipeline::createRGBImageNetPipeline(int inputWidth,
                                                              int inputHeight,
                                                              int outputWidth,
                                                              int outputHeight,
                                                              float3 mean) {
-  ToDevicePTRNode ptrNode = ToDevicePTRNode();
-  RGBtoRGBAfNode rbgNode = RGBtoRGBAfNode(inputWidth, inputHeight);
-  RGBAfToImageNetNode imgNetNode = RGBAfToImageNetNode(
+  ToDevicePTRNode* ptrNode = new ToDevicePTRNode();
+  RGBToRGBAfNode* rbgNode = new RGBToRGBAfNode(inputWidth, inputHeight);
+  RGBAfToImageNetNode* imgNetNode = new RGBAfToImageNetNode(
       inputWidth, inputHeight, outputWidth, outputHeight, mean);
 
-  CUDAPipeline pipe = new CUDAPipeline();
-  pipe.addNode(ptrNode);
-  pipe.addNode(rgbNode);
-  pipe.addNode(imgNetNode);
+  CUDAPipeline* pipe = new CUDAPipeline();
+  pipe->addNode(ptrNode);
+  pipe->addNode(rbgNode);
+  pipe->addNode(imgNetNode);
 
   return pipe;
 }
 
-static CUDAPipeline CUDAPipeline::createRGBAfImageNetPipeline(int inputWidth,
+CUDAPipeline* CUDAPipeline::createRGBAfImageNetPipeline(int inputWidth,
                                                              int inputHeight,
                                                              int outputWidth,
                                                              int outputHeight,
                                                              float3 mean) {
-  ToDevicePTRNode ptrNode = ToDevicePTRNode();
-  RGBAfToImageNetNode imgNetNode = RGBAfToImageNetNode(
+  ToDevicePTRNode* ptrNode = new ToDevicePTRNode();
+  RGBAfToImageNetNode* imgNetNode = new RGBAfToImageNetNode(
       inputWidth, inputHeight, outputWidth, outputHeight, mean);
 
-  CUDAPipeline pipe = new CUDAPipeline();
-  pipe.addNode(ptrNode);
-  pipe.addNode(imgNetNode);
+  CUDAPipeline* pipe = new CUDAPipeline();
+  pipe->addNode(ptrNode);
+  pipe->addNode(imgNetNode);
 
   return pipe;
 }

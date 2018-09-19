@@ -40,7 +40,6 @@
 #include "CUDAPipeline.h"
 #include "CaffeRTEngine.h"
 #include "ClusteredNonMaximumSuppression.h"
-#include "ImageNetPreprocessor.h"
 
 namespace jetson_tensorrt {
 
@@ -84,8 +83,7 @@ public:
    * @param	threshold	Minimum coverage threshold for detected regions
    * @returned	vector of ClassRectangles representing the detections
    */
-  void predict();
-  std::vector<ClassRectangle> DIGITSDetector::detect(LocatedExecutionMemory &inputs,
+  std::vector<ClassRectangle> detect(LocatedExecutionMemory &inputs,
                                      LocatedExecutionMemory &outputs,
                                      float threshold = 0.5);
 

@@ -28,6 +28,7 @@
 #ifndef CUDANODE_H_
 #define CUDANODE_H_
 
+#include "CUDANode.h"
 #include "CUDANodeIO.h"
 #include "RTCommon.h"
 
@@ -51,14 +52,16 @@ protected:
   MemoryLocation allocLocation;
 };
 
-class ToDevicePTRNode {
+class ToDevicePTRNode : public CUDANode{
 public:
   ToDevicePTRNode();
 
   CUDANodeIO pipe(CUDANodeIO &input);
 };
 
-class RGBToRGBAfNode {
+class RGBToRGBAfNode : public CUDANode{
+public:
+
   RGBToRGBAfNode(size_t inputWidth, size_t inputHeight);
 
   CUDANodeIO pipe(CUDANodeIO &input);
@@ -66,7 +69,9 @@ class RGBToRGBAfNode {
   size_t inputWidth, inputHeight;
 };
 
-class NV12toRGBAfNode {
+class NV12toRGBAfNode : public CUDANode{
+public:
+
   NV12toRGBAfNode(size_t inputWidth, size_t inputHeight);
 
   CUDANodeIO pipe(CUDANodeIO &input);
@@ -74,7 +79,9 @@ class NV12toRGBAfNode {
   size_t inputWidth, inputHeight;
 };
 
-class RGBAfToImageNetNode {
+class RGBAfToImageNetNode : public CUDANode{
+public:
+
   RGBAfToImageNetNode(size_t inputWidth, size_t inputHeight, size_t outputWidth,
                       size_t outputHeight, float3 mean);
 

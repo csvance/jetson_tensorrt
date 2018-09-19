@@ -114,8 +114,8 @@ void TensorRTEngine::freeGPUBuffer() {
 }
 
 LocatedExecutionMemory TensorRTEngine::allocInputs(MemoryLocation location) {
-  LocatedExecutionMemory memory =
-      LocatedExecutionMemory(location, vector<vector<void *>>(maxBatchSize));
+  LocatedExecutionMemory memory = LocatedExecutionMemory(
+      location, std::vector<std::vector<void *>>(maxBatchSize));
 
   for (int b = 0; b < maxBatchSize; b++) {
 
@@ -126,11 +126,11 @@ LocatedExecutionMemory TensorRTEngine::allocInputs(MemoryLocation location) {
         memory[b].push_back(safeMalloc(inputSize));
       } else if (location == MemoryLocation::DEVICE) {
         memory[b].push_back(safeCudaMalloc(inputSize));
-			}else if(location == location == MemoryLocation::MAPPED{
+      } else if (location == location == MemoryLocation::MAPPED) {
         memory[b].push_back(safeCudaHostMalloc(inputSize));
-			} else if (location == MemoryLocation::NONE){
-				memory[b].push_back(nullptr);
-			}
+      } else if (location == MemoryLocation::NONE) {
+        memory[b].push_back(nullptr);
+      }
     }
   }
 
@@ -138,21 +138,21 @@ LocatedExecutionMemory TensorRTEngine::allocInputs(MemoryLocation location) {
 }
 
 LocatedExecutionMemory TensorRTEngine::allocOutputs(MemoryLocation location) {
-  LocatedExecutionMemory memory =
-      LocatedExecutionMemory(location, vector<vector<void *>>(maxBatchSize));
+  LocatedExecutionMemory memory = LocatedExecutionMemory(
+      location, std::vector<std::vector<void *>>(maxBatchSize));
 
   for (int b = 0; b < maxBatchSize; b++) {
 
     /* Input memory management */
-    for (int o = 0; i < networkOutputs.size(); i++) {
+    for (int o = 0; o < networkOutputs.size(); o++) {
       size_t outputSize = networkOutputs[o].size();
       if (location == MemoryLocation::HOST) {
         memory[b].push_back(safeMalloc(outputSize));
       } else if (location == MemoryLocation::DEVICE) {
         memory[b].push_back(safeCudaMalloc(outputSize));
-      }else if(location == location == MemoryLocation::MAPPED{
+      } else if (location == location == MemoryLocation::MAPPED) {
         memory[b].push_back(safeCudaHostMalloc(outputSize));
-			}
+      }
     }
   }
 
@@ -186,12 +186,12 @@ void TensorRTEngine::predict(LocatedExecutionMemory &inputs,
 
       if (inputs.location == MemoryLocation::MAPPED) {
 
-        cudaError_t err = cudaHostGetDevicePointer(
-            transactionGPUBuffers[bindingIdx + b * stepSize], inputs[b][i], 0);
-        if (err != cudaSuccess) {
+        cudaError_t getDevicePtrError = cudaHostGetDevicePointer(
+            &transactionGPUBuffers[bindingIdx + b * stepSize], inputs[b][i], 0);
+        if (getDevicePtrError != cudaSuccess) {
           throw std::runtime_error(
               "Unable to get device pointer for CUDA mapped alloc: " +
-              std::to_string(hostDeviceError));
+              std::to_string(getDevicePtrError));
         }
 
       } else if (inputs.location == MemoryLocation::HOST) {
@@ -224,12 +224,13 @@ void TensorRTEngine::predict(LocatedExecutionMemory &inputs,
 
       if (outputs.location == MemoryLocation::MAPPED) {
 
-        cudaError_t err = cudaHostGetDevicePointer(
-            transactionGPUBuffers[bindingIdx + b * stepSize], outputs[b][o], 0);
-        if (err != cudaSuccess) {
+        cudaError_t getDevicePtrError = cudaHostGetDevicePointer(
+            &transactionGPUBuffers[bindingIdx + b * stepSize], outputs[b][o],
+            0);
+        if (getDevicePtrError != cudaSuccess) {
           throw std::runtime_error(
               "Unable to get device pointer for CUDA mapped alloc: " +
-              std::to_string(hostDeviceError));
+              std::to_string(getDevicePtrError));
 
         } else if (outputs.location == MemoryLocation::DEVICE)
 
@@ -274,26 +275,27 @@ void TensorRTEngine::predict(LocatedExecutionMemory &inputs,
 
         // Don't need to do anything, memory is already mapped
 
-      } else if (outputs.location == MemoryLocation::DEVICE)
+      } else if (outputs.location == MemoryLocation::DEVICE) {
 
         // Copy the GPU pointer
-                                batchOutputs[b][i] = transactionGPUBuffers[bindingIdx + b * stepSize]);
-    }
-    else if (outputs.location == MemoryLocation::HOST) {
+        batchOutputs[b][i] = transactionGPUBuffers[bindingIdx + b * stepSize];
 
-      // Transfer memory from GPU back to Host
-      cudaError_t deviceHostError = cudaMemcpy(
-          batchOutputs[b][i], transactionGPUBuffers[bindingIdx + b * stepSize],
-          outputSize, cudaMemcpyDeviceToHost);
-      if (deviceHostError != 0)
-        throw std::runtime_error("Unable to copy device memory to host for "
-                                 "prediction. CUDA Error: " +
-                                 std::to_string(deviceHostError));
-    }
+      } else if (outputs.location == MemoryLocation::HOST) {
 
-    bindingIdx++;
+        // Transfer memory from GPU back to Host
+        cudaError_t deviceHostError =
+            cudaMemcpy(batchOutputs[b][i],
+                       transactionGPUBuffers[bindingIdx + b * stepSize],
+                       outputSize, cudaMemcpyDeviceToHost);
+        if (deviceHostError != 0)
+          throw std::runtime_error("Unable to copy device memory to host for "
+                                   "prediction. CUDA Error: " +
+                                   std::to_string(deviceHostError));
+      }
+
+      bindingIdx++;
+    }
   }
-}
 
 } // namespace jetson_tensorrt
 
@@ -400,4 +402,4 @@ void Logger::log(nvinfer1::ILogger::Severity severity, const char *msg) {
   }
   std::cerr << msg << std::endl;
 }
-}
+} // namespace jetson_tensorrt

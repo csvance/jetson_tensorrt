@@ -90,13 +90,14 @@ DIGITSDetector::detect(LocatedExecutionMemory &inputs,
                        LocatedExecutionMemory &outputs, float threshold) {
 
   // Execute inference
-  LocatedExecutionMemory predictionOutputs = predict(inputs, outputs);
+  predict(inputs, outputs);
 
-  float *coverage = (float *)predictionOutputs.batch[0][0];
-  float *bboxes = (float *)predictionOutputs.batch[0][1];
+  float *coverage = (float *)outputs.batch[0][0];
+  float *bboxes = (float *)outputs.batch[0][1];
 
   // Configure non-maximum suppressor for the current image size
-  suppressor.setupImage(width, height);
+	// TODO: convert bounding rects back to original image scale
+  suppressor.setupImage(modelWidth, modelHeight);
 
   return suppressor.execute(coverage, bboxes, nbClasses, threshold);
 }

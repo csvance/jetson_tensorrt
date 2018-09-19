@@ -13,6 +13,9 @@
 #include "NvInfer.h"
 
 #include "CaffeRTEngine.h"
+#include "CUDANode.h"
+#include "CUDANodeIO.h"
+#include "CUDAPipeline.h"
 
 #define CACHE_FILE "./caffe.tensorcache"
 #define MODEL_FILE "googlenet.prototxt"

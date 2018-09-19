@@ -29,9 +29,13 @@
 #include "CUDANodeIO.h"
 #include "RTCommon.h"
 
+#include "cudaImageNetPreprocess.h"
+#include "cudaRGB.h"
+#include "cudaYUV.h"
+
 namespace jetson_tensorrt {
 
-CUDANodeIO ToDevicePTRNode::pipe(CUDANodeIO input) {
+CUDANodeIO ToDevicePTRNode::pipe(CUDANodeIO &input) {
   CUDANodeIO output = CUDANodeIO(MemoryLocation::DEVICE, nullptr, input.size());
 
   if (input.location == MemoryLocation::DEVICE) {
@@ -63,11 +67,12 @@ CUDANodeIO ToDevicePTRNode::pipe(CUDANodeIO input) {
 
   } else if (input.location == MemoryLocation::MAPPED) {
 
-    cudaError_t err = cudaHostGetDevicePointer(output.data, input.data, 0);
-    if (err != cudaSuccess) {
+    cudaError_t getDevicePtrError =
+        cudaHostGetDevicePointer(&output.data, input.data, 0);
+    if (getDevicePtrError != cudaSuccess) {
       throw std::runtime_error(
           "Unable to get device pointer for CUDA mapped alloc: " +
-          std::to_string(hostDeviceError));
+          std::to_string(getDevicePtrError));
     }
   }
 
@@ -106,7 +111,7 @@ CUDANodeIO RGBToRGBAfNode::pipe(CUDANodeIO &input) {
   if (kernelError != 0)
     throw std::runtime_error(
         "cudaRGBToRGBAf kernel returned an error. CUDA Error: " +
-        std::to_string(hostDeviceError));
+        std::to_string(kernelError));
 
   return output;
 }
@@ -144,7 +149,7 @@ CUDANodeIO NV12toRGBAfNode::pipe(CUDANodeIO &input) {
   if (kernelError != 0)
     throw std::runtime_error(
         "NV12toRGBAfNode kernel returned an error. CUDA Error: " +
-        std::to_string(hostDeviceError));
+        std::to_string(kernelError));
 
   return output;
 }
@@ -184,20 +189,20 @@ CUDANodeIO RGBAfToImageNetNode::pipe(CUDANodeIO &input) {
 
   if (mean.x == 0.0 && mean.y == 0.0 && mean.z == 0.0) {
     cudaError_t kernelError =
-        cudaPreImageNet((unsigned char *)input.data, (float4 *)output.data,
-                            inputWidth, inputHeight);
+        cudaPreImageNet((float4 *)input.data, inputWidth, inputHeight,
+                        (float *)output.data, outputWidth, outputHeight);
     if (kernelError != 0)
       throw std::runtime_error(
           "cudaPreImageNet kernel returned an error. CUDA Error: " +
-          std::to_string(hostDeviceError));
+          std::to_string(kernelError));
   } else {
     cudaError_t kernelError =
-        cudaPreImageNetMean((unsigned char *)input.data, (float4 *)output.data,
-                            inputWidth, inputHeight, mean);
+    cudaPreImageNetMean((float4 *)input.data, inputWidth, inputHeight,
+                    (float *)output.data, outputWidth, outputHeight, mean);
     if (kernelError != 0)
       throw std::runtime_error(
           "cudaPreImageNetMean kernel returned an error. CUDA Error: " +
-          std::to_string(hostDeviceError));
+          std::to_string(kernelError));
   }
 
   return output;

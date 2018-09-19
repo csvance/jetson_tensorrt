@@ -36,7 +36,6 @@
 #include "NvUtils.h"
 
 #include "CaffeRTEngine.h"
-#include "ImageNetPreprocessor.h"
 #include "RTCommon.h"
 
 namespace jetson_tensorrt {

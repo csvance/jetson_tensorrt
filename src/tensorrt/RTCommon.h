@@ -30,6 +30,9 @@
 
 #include <cstddef>
 #include <vector>
+#include <cstdlib>
+#include <exception>
+#include <stdexcept>
 
 #include <cuda.h>
 #include <cuda_runtime.h>
@@ -146,7 +149,7 @@ struct LocatedExecutionMemory {
     this->location = location;
   }
 
-  Location location;
+  MemoryLocation location;
   std::vector<std::vector<void *>> batch;
 
   std::vector<void *> &operator[](const int index) { return batch[index]; }
@@ -158,11 +161,11 @@ struct LocatedExecutionMemory {
   size_t size() { return batch.size(); }
 
   /**
-          @brief Frees the allocated memory
+  * @brief Frees the allocated memory
   */
-  void free() {
+  void release() {
 
-    for (int b = 0; b < maxBatchSize; b++) {
+    for (int b = 0; b < batch.size(); b++) {
       for (int c = 0; c < batch[b].size(); c++) {
 
         if (location == MemoryLocation::HOST) {
@@ -172,18 +175,20 @@ struct LocatedExecutionMemory {
         } else if (location == MemoryLocation::DEVICE) {
 
           cudaError_t deviceFreeError = cudaFree(batch[b][c]);
-          if (deviceFreeError != 0)
+          if (deviceFreeError != 0) {
             throw std::runtime_error(
                 "Error freeing device memory. CUDA Error: " +
                 std::to_string(deviceFreeError));
+          }
 
-                                }else if(location == location == MemoryLocation::MAPPED{
+				}else if(location == location == MemoryLocation::MAPPED){
           cudaError_t hostFreeError = cudaFreeHost(batch[b][c]);
-          if (hostFreeError != 0)
+          if (hostFreeError != 0) {
             throw std::runtime_error("Error freeing host memory. CUDA Error: " +
                                      std::to_string(hostFreeError));
+          }
 
-				}
+ 				}
       }
     }
   }

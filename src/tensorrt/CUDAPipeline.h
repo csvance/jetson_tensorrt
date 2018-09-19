@@ -31,18 +31,22 @@
 
 #include <vector>
 
+#include "CUDANode.h"
+#include "CUDANodeIO.h"
+
 namespace jetson_tensorrt {
 
 class CUDAPipeline {
 
 public:
   CUDAPipeline();
+  ~CUDAPipeline();
 
   /**
      @brief Add a node to the pipeline
      @param node The node
    */
-  void addNode(CUDANode node);
+  void addNode(CUDANode* node);
 
   /**
      @brief Send an input through the pipeline and get back the output
@@ -60,7 +64,7 @@ public:
   @param mean ImageNet mean
   @return CUDAPipeline configured to do the required image preprocessing
   */
-  static CUDAPipeline CUDAPipeline::createNV12ImageNetPipeline(int inputWidth,
+  static CUDAPipeline* createNV12ImageNetPipeline(int inputWidth,
                                                                int inputHeight,
                                                                int outputWidth,
                                                                int outputHeight,
@@ -74,7 +78,7 @@ public:
   @param mean ImageNet mean
   @return CUDAPipeline configured to do the required image preprocessing
   */
-  static CUDAPipeline CUDAPipeline::createRGBImageNetPipeline(int inputWidth,
+  static CUDAPipeline* createRGBImageNetPipeline(int inputWidth,
                                                               int inputHeight,
                                                               int outputWidth,
                                                               int outputHeight,
@@ -89,12 +93,12 @@ public:
   @param mean ImageNet mean
   @return CUDAPipeline configured to do the required image preprocessing
   */
-  static CUDAPipeline
-  CUDAPipeline::createRGBAfImageNetPipeline(int inputWidth, int inputHeight,
+  static CUDAPipeline*
+  createRGBAfImageNetPipeline(int inputWidth, int inputHeight,
                                             int outputWidth, int outputHeight,
                                             float3 mean);
 
-  std::vector<CUDANode> nodes;
+  std::vector<CUDANode*> nodes;
 };
 
 } // namespace jetson_tensorrt
