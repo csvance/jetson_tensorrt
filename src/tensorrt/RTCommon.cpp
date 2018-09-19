@@ -38,7 +38,8 @@ namespace jetson_tensorrt {
 void *safeCudaHostMalloc(size_t memSize) {
 
   void *hostMem;
-  cudaError_t cudaMallocError = cudaHostAlloc(&hostMem, memSize, cudaHostAllocMapped);
+  cudaError_t cudaMallocError =
+      cudaHostAlloc(&hostMem, memSize, cudaHostAllocMapped);
   if (cudaMallocError != 0) {
     throw std::runtime_error("CUDA Host Malloc Error: " +
                              std::to_string(cudaMallocError));
@@ -61,7 +62,7 @@ void *safeCudaMalloc(size_t memSize) {
   return deviceMem;
 }
 
-void* safeMalloc(size_t memSize) {
+void *safeMalloc(size_t memSize) {
   void *deviceMem;
 
   deviceMem = malloc(memSize);

@@ -51,12 +51,12 @@ int main(int argc, char **argv) {
   std::cout << engine.engineSummary() << std::endl;
 
   // Loads the image into device memory and preprocesses it
-  CUDAPipeline* preprocessPipeline = CUDAPipeline::createRGBAfImageNetPipeline(
+  CUDAPipeline *preprocessPipeline = CUDAPipeline::createRGBAfImageNetPipeline(
       INPUT_IMAGE_WIDTH, INPUT_IMAGE_HEIGHT, MODEL_IMAGE_WIDTH,
       MODEL_IMAGE_HEIGHT, make_float3(0.0, 0.0, 0.0));
 
-      /* Create input structure for predictions */
-      LocatedExecutionMemory input = engine.allocInputs(MemoryLocation::NONE);
+  /* Create input structure for predictions */
+  LocatedExecutionMemory input = engine.allocInputs(MemoryLocation::NONE);
   input.location = MemoryLocation::DEVICE;
 
   /* Create and allocate output structure */
@@ -65,8 +65,8 @@ int main(int argc, char **argv) {
   // Allocate the image memory
   CUDANodeIO preprocessInput = CUDANodeIO(
       MemoryLocation::HOST,
-      new float[INPUT_IMAGE_DEPTH * INPUT_IMAGE_WIDTH * INPUT_IMAGE_HEIGHT];
-      , INPUT_IMAGE_DEPTH * INPUT_IMAGE_WIDTH * INPUT_IMAGE_HEIGHT);
+      new float[INPUT_IMAGE_DEPTH * INPUT_IMAGE_WIDTH * INPUT_IMAGE_HEIGHT],
+      INPUT_IMAGE_DEPTH *INPUT_IMAGE_WIDTH *INPUT_IMAGE_HEIGHT);
 
   for (;;) {
     int totalMs = 0;

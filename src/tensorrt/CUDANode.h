@@ -41,7 +41,7 @@ public:
      @param input The input to the node
      @return The output of the node
    */
-  virtual CUDANodeIO pipe(CUDANodeIO &input);
+  virtual CUDANodeIO pipe(CUDANodeIO &input) {}
 
   void *data;
   size_t size();
@@ -52,16 +52,15 @@ protected:
   MemoryLocation allocLocation;
 };
 
-class ToDevicePTRNode : public CUDANode{
+class ToDevicePTRNode : public CUDANode {
 public:
   ToDevicePTRNode();
 
   CUDANodeIO pipe(CUDANodeIO &input);
 };
 
-class RGBToRGBAfNode : public CUDANode{
+class RGBToRGBAfNode : public CUDANode {
 public:
-
   RGBToRGBAfNode(size_t inputWidth, size_t inputHeight);
 
   CUDANodeIO pipe(CUDANodeIO &input);
@@ -69,9 +68,8 @@ public:
   size_t inputWidth, inputHeight;
 };
 
-class NV12toRGBAfNode : public CUDANode{
+class NV12toRGBAfNode : public CUDANode {
 public:
-
   NV12toRGBAfNode(size_t inputWidth, size_t inputHeight);
 
   CUDANodeIO pipe(CUDANodeIO &input);
@@ -79,9 +77,8 @@ public:
   size_t inputWidth, inputHeight;
 };
 
-class RGBAfToImageNetNode : public CUDANode{
+class RGBAfToImageNetNode : public CUDANode {
 public:
-
   RGBAfToImageNetNode(size_t inputWidth, size_t inputHeight, size_t outputWidth,
                       size_t outputHeight, float3 mean);
 

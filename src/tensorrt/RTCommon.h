@@ -29,10 +29,10 @@
 #define COMMON_H_
 
 #include <cstddef>
-#include <vector>
 #include <cstdlib>
 #include <exception>
 #include <stdexcept>
+#include <vector>
 
 #include <cuda.h>
 #include <cuda_runtime.h>
@@ -161,8 +161,8 @@ struct LocatedExecutionMemory {
   size_t size() { return batch.size(); }
 
   /**
-  * @brief Frees the allocated memory
-  */
+   * @brief Frees the allocated memory
+   */
   void release() {
 
     for (int b = 0; b < batch.size(); b++) {
@@ -181,14 +181,13 @@ struct LocatedExecutionMemory {
                 std::to_string(deviceFreeError));
           }
 
-				}else if(location == location == MemoryLocation::MAPPED){
+        } else if (location == location == MemoryLocation::MAPPED) {
           cudaError_t hostFreeError = cudaFreeHost(batch[b][c]);
           if (hostFreeError != 0) {
             throw std::runtime_error("Error freeing host memory. CUDA Error: " +
                                      std::to_string(hostFreeError));
           }
-
- 				}
+        }
       }
     }
   }

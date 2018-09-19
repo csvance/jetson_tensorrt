@@ -12,11 +12,11 @@
 
 #include "NvInfer.h"
 
-#include "DIGITSClassifier.h"
-#include "TensorRTEngine.h"
 #include "CUDANode.h"
 #include "CUDANodeIO.h"
 #include "CUDAPipeline.h"
+#include "DIGITSClassifier.h"
+#include "TensorRTEngine.h"
 
 #define CACHE_FILE "classification.tensorcache"
 #define MODEL_FILE "googlenet.prototxt"
@@ -29,6 +29,11 @@
 #define IMAGE_HEIGHT 224
 #define IMAGE_DEPTH 3
 #define IMAGE_ELESIZE 4
+
+#define INPUT_IMAGE_WIDTH 640
+#define INPUT_IMAGE_HEIGHT 480
+#define INPUT_IMAGE_DEPTH 4
+#define INPUT_IMAGE_ELESIZE 4
 
 #define NB_CLASSES 1000
 #define CLASS_ELESIZE 4
@@ -45,23 +50,23 @@ int main(int argc, char **argv) {
 
   std::cout << engine.engineSummary() << std::endl;
 
-	// Loads the image into device memory and preprocesses it
-  CUDAPipeline* preprocessPipeline = CUDAPipeline::createRGBAfImageNetPipeline(
-      INPUT_IMAGE_WIDTH, INPUT_IMAGE_HEIGHT, MODEL_IMAGE_WIDTH,
-      MODEL_IMAGE_HEIGHT, make_float3(0.0, 0.0, 0.0));
+  // Loads the image into device memory and preprocesses it
+  CUDAPipeline *preprocessPipeline = CUDAPipeline::createRGBAfImageNetPipeline(
+      INPUT_IMAGE_WIDTH, INPUT_IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_HEIGHT,
+      make_float3(0.0, 0.0, 0.0));
 
-	/* Create input structure for predictions */
+  /* Create input structure for predictions */
   LocatedExecutionMemory input = engine.allocInputs(MemoryLocation::NONE);
-	input.location = MemoryLocation::DEVICE;
+  input.location = MemoryLocation::DEVICE;
 
-	/* Create and allocate output structure */
+  /* Create and allocate output structure */
   LocatedExecutionMemory output = engine.allocOutputs(MemoryLocation::HOST);
 
   // Allocate the image memory
   CUDANodeIO preprocessInput = CUDANodeIO(
       MemoryLocation::HOST,
-      new float[INPUT_IMAGE_DEPTH * INPUT_IMAGE_WIDTH * INPUT_IMAGE_HEIGHT];
-      , INPUT_IMAGE_DEPTH * INPUT_IMAGE_WIDTH * INPUT_IMAGE_HEIGHT);
+      new float[INPUT_IMAGE_DEPTH * INPUT_IMAGE_WIDTH * INPUT_IMAGE_HEIGHT],
+      INPUT_IMAGE_DEPTH *INPUT_IMAGE_WIDTH *INPUT_IMAGE_HEIGHT);
 
   for (;;) {
     int totalMs = 0;

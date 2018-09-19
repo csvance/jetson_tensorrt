@@ -1,7 +1,7 @@
 add_subdirectory(cuda)
 
 add_library(
-    jetson_tensorrt
+    jetson_tensorrt STATIC
     CaffeRTEngine.cpp
     CUDANode.cpp
     CUDANodeIO.cpp

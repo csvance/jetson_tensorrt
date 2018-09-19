@@ -35,6 +35,8 @@
 
 namespace jetson_tensorrt {
 
+ToDevicePTRNode::ToDevicePTRNode() {}
+
 CUDANodeIO ToDevicePTRNode::pipe(CUDANodeIO &input) {
   CUDANodeIO output = CUDANodeIO(MemoryLocation::DEVICE, nullptr, input.size());
 
@@ -196,9 +198,9 @@ CUDANodeIO RGBAfToImageNetNode::pipe(CUDANodeIO &input) {
           "cudaPreImageNet kernel returned an error. CUDA Error: " +
           std::to_string(kernelError));
   } else {
-    cudaError_t kernelError =
-    cudaPreImageNetMean((float4 *)input.data, inputWidth, inputHeight,
-                    (float *)output.data, outputWidth, outputHeight, mean);
+    cudaError_t kernelError = cudaPreImageNetMean(
+        (float4 *)input.data, inputWidth, inputHeight, (float *)output.data,
+        outputWidth, outputHeight, mean);
     if (kernelError != 0)
       throw std::runtime_error(
           "cudaPreImageNetMean kernel returned an error. CUDA Error: " +
