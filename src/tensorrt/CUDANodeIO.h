@@ -1,7 +1,7 @@
 /**
- * @file	CUDASizedMemCache.h
+ * @file	CUDANodeIO.h
  * @author	Carroll Vance
- * @brief	Abstract class of a cached CUDA allocation of a specific size
+ * @brief	Abstract class representing an input or output from a node
  *
  * Copyright (c) 2018 Carroll Vance.
  * Copyright (c) 2017, NVIDIA CORPORATION. All rights reserved.
@@ -25,47 +25,25 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef CUDASIZEDMEMCACHE_H_
-#define CUDASIZEDMEMCACHE_H_
+#ifndef CUDANODE_H_
+#define CUDANODE_H_
 
-#include <cstddef>
+#include "RTCommon.h"
 
 namespace jetson_tensorrt {
 
-/**
- * @brief	Abstract class of a cached CUDA allocation of a specific size
- */
-class CUDASizedMemCache {
+class CUDANodeIO {
 public:
+  CUDANodeIO(MemoryLocation location);
+  CUDANodeIO(MemoryLocation location, void *data, size_t dataSize);
 
-	/**
-	 * @brief	CUDASizedMemCache constructor
-	 */
-	CUDASizedMemCache();
+  size_t size();
 
-	/**
-	 * @brief	CUDASizedMemCache destructor
-	 */
-	virtual ~CUDASizedMemCache();
-
-	/**
-	 * @brief	Gets a memory allocation from the cache
-	 * The allocation will be reused between calls if size remains the same
-	 * If the size changes, the original allocation will be freed and a new one allocated
-	 * @param	size	Size of the requested memory allocation
-	 * @return	Pointer/handle to the device memory
-	 */
-	void* getCUDAAlloc(size_t size);
-
-	/**
-	 * @brief	Frees the allocated cache memory
-	 */
-	void freeCUDAAlloc();
-
-	void* memAlloc;
-	size_t memAllocSize;
+  MemoryLocation location;
+  size_t dataSize;
+  void *data;
 };
 
-} /* namespace jetson_tensorrt */
+} // namespace jetson_tensorrt
 
-#endif /* CUDASIZEDMEMCACHE_H_ */
+#endif

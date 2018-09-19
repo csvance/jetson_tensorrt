@@ -1,7 +1,7 @@
 /**
- * @file	CUDASizedMemCache.cpp
+ * @file	CUDANode.h
  * @author	Carroll Vance
- * @brief	Abstract class of a cached CUDA allocation of a specific size
+ * @brief	Abstract class representing a CUDA input / output pipeline node
  *
  * Copyright (c) 2018 Carroll Vance.
  * Copyright (c) 2017, NVIDIA CORPORATION. All rights reserved.
@@ -25,59 +25,66 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#include <string>
-#include <stdexcept>
+#ifndef CUDANODE_H_
+#define CUDANODE_H_
 
-#include <cuda_runtime.h>
-#include <cuda.h>
-
-#include "CUDASizedMemCache.h"
+#include "CUDANodeIO.h"
 #include "RTCommon.h"
-
 
 namespace jetson_tensorrt {
 
+class CUDANode {
+public:
+  /**
+     @brief Send an input through the node and get back the output
+     @param input The input to the node
+     @return The output of the node
+   */
+  virtual CUDANodeIO pipe(CUDANodeIO &input);
 
-CUDASizedMemCache::CUDASizedMemCache() {
-	memAlloc = 0;
-	memAllocSize = 0;
-}
+  void *data;
+  size_t size();
 
+protected:
+  bool allocated;
+  size_t allocSize;
+  MemoryLocation allocLocation;
+};
 
-CUDASizedMemCache::~CUDASizedMemCache() {
-	freeCUDAAlloc();
-}
+class ToDevicePTRNode {
+public:
+  ToDevicePTRNode();
 
+  CUDANodeIO pipe(CUDANodeIO &input);
+};
 
-void* CUDASizedMemCache::getCUDAAlloc(size_t size) {
-	if(!memAlloc){
-		memAlloc = safeCudaMalloc((size_t) size);
-	}else if (memAlloc && size == memAllocSize)
-		return memAlloc;
-	else if (memAlloc && size != memAllocSize) {
-		freeCUDAAlloc();
-		memAlloc = safeCudaMalloc((size_t) size);
-	} else {
-		memAlloc = safeCudaMalloc((size_t) size);
-	}
+class RGBToRGBAfNode {
+  RGBToRGBAfNode(size_t inputWidth, size_t inputHeight);
 
-	memAllocSize = size;
-	return memAlloc;
-}
+  CUDANodeIO pipe(CUDANodeIO &input);
 
+  size_t inputWidth, inputHeight;
+};
 
-void CUDASizedMemCache::freeCUDAAlloc() {
-	if (memAlloc) {
-		cudaError_t deviceFreeError = cudaFree(memAlloc);
-		if (deviceFreeError != 0)
-			throw std::runtime_error(
-					"Error freeing device memory. CUDA Error: "
-							+ std::to_string(deviceFreeError));
-	}
+class NV12toRGBAfNode {
+  NV12toRGBAfNode(size_t inputWidth, size_t inputHeight);
 
-	memAllocSize = 0;
-	memAlloc = 0;
+  CUDANodeIO pipe(CUDANodeIO &input);
 
-}
+  size_t inputWidth, inputHeight;
+};
 
-} /* namespace jetson_tensorrt */
+class RGBAfToImageNetNode {
+  RGBAfToImageNetNode(size_t inputWidth, size_t inputHeight, size_t outputWidth,
+                      size_t outputHeight, float3 mean);
+
+  CUDANodeIO pipe(CUDANodeIO &input);
+
+  size_t inputWidth, inputHeight;
+  size_t outputWidth, outputHeight;
+  float3 mean;
+};
+
+} // namespace jetson_tensorrt
+
+#endif

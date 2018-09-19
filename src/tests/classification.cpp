@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cassert>
 #include <chrono>
 #include <cstdlib>
 #include <cuda_runtime_api.h>
@@ -7,13 +8,12 @@
 #include <string>
 #include <sys/stat.h>
 #include <unordered_map>
-#include <cassert>
 #include <vector>
 
 #include "NvInfer.h"
 
-#include "TensorRTEngine.h"
 #include "DIGITSClassifier.h"
+#include "TensorRTEngine.h"
 
 #define CACHE_FILE "classification.tensorcache"
 #define MODEL_FILE "googlenet.prototxt"
@@ -34,40 +34,56 @@ using namespace nvinfer1;
 using namespace std;
 using namespace jetson_tensorrt;
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
 
-	DIGITSClassifier engine = DIGITSClassifier(MODEL_FILE, WEIGHTS_FILE, CACHE_FILE, IMAGE_DEPTH, IMAGE_WIDTH, IMAGE_HEIGHT, NB_CLASSES);
+  DIGITSClassifier engine =
+      DIGITSClassifier(MODEL_FILE, WEIGHTS_FILE, CACHE_FILE, IMAGE_DEPTH,
+                       IMAGE_WIDTH, IMAGE_HEIGHT, NB_CLASSES);
 
-	std::cout << engine.engineSummary() << std::endl;
+  std::cout << engine.engineSummary() << std::endl;
 
-	/* Allocate memory for predictions */
-	LocatedExecutionMemory input = LocatedExecutionMemory(LocatedExecutionMemory::Location::HOST, vector<vector<void*>>(BATCH_SIZE));
+	// Loads the image into device memory and preprocesses it
+  CUDAPipeline preprocessPipeline = CUDAPipeline::createRGBAfImageNetPipeline(
+      INPUT_IMAGE_WIDTH, INPUT_IMAGE_HEIGHT, MODEL_IMAGE_WIDTH,
+      MODEL_IMAGE_HEIGHT, make_float3(0.0, 0.0, 0.0));
 
-	for (int b=0; b < BATCH_SIZE; b++) {
-		//Inputs
-		input[b].push_back(new unsigned char[IMAGE_DEPTH * IMAGE_WIDTH * IMAGE_HEIGHT * IMAGE_ELESIZE]);
-	}
+	/* Create input structure for predictions */
+  LocatedExecutionMemory input = engine.allocInputs(MemoryLocation::NONE);
+	input.location = MemoryLocation::DEVICE;
 
-	for (;;) {
-		int totalMs = 0;
+	/* Create and allocate output structure */
+  LocatedExecutionMemory output = engine.allocOutputs(MemoryLocation::HOST);
 
-		for (int i = 0; i < NUM_SAMPLES; i++) {
-			auto t_start = std::chrono::high_resolution_clock::now();
+  // Allocate the image memory
+  CUDANodeIO preprocessInput = CUDANodeIO(
+      MemoryLocation::HOST,
+      new float[INPUT_IMAGE_DEPTH * INPUT_IMAGE_WIDTH * INPUT_IMAGE_HEIGHT];
+      , INPUT_IMAGE_DEPTH * INPUT_IMAGE_WIDTH * INPUT_IMAGE_HEIGHT);
 
-			LocatedExecutionMemory result = engine.predict(input);
-			for (int b = 0; b < result.size(); b++)
-				delete ((unsigned char*)result[b][0]);
+  for (;;) {
+    int totalMs = 0;
 
-			auto t_end = std::chrono::high_resolution_clock::now();
-			auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(t_end - t_start).count();
+    for (int i = 0; i < NUM_SAMPLES; i++) {
+      auto t_start = std::chrono::high_resolution_clock::now();
 
-			totalMs += ms;
+      // Preprocess the image (and load to GPU if needed)
+      CUDANodeIO preprocessOutput = preprocessPipeline.pipe(preprocessInput);
 
-		}
+      // Load the image into the network inputs (1st batch, 1st input)
+      input[0][0] = preprocessOutput.data;
 
-		totalMs /= NUM_SAMPLES;
-		std::cout << "Average over " << NUM_SAMPLES << " runs is " << totalMs
-				<< " ms." << std::endl;
+      engine.predict(input, output);
 
-	}
+      auto t_end = std::chrono::high_resolution_clock::now();
+      auto ms =
+          std::chrono::duration_cast<std::chrono::milliseconds>(t_end - t_start)
+              .count();
+
+      totalMs += ms;
+    }
+
+    totalMs /= NUM_SAMPLES;
+    std::cout << "Average over " << NUM_SAMPLES << " runs is " << totalMs
+              << " ms." << std::endl;
+  }
 }

@@ -114,14 +114,14 @@ public:
 		@param location Whether the memory should be allocated on the HOST, DEVICE, or MAPPED
 		@return The allocated or mapped inputs
 	*/
-	LocatedExecutionMemory allocInputs(LocatedExecutionMemory::Location location);
+	LocatedExecutionMemory allocInputs(MemoryLocation location);
 
 	/**
 		@brief Allocates a located execution memory structure for outputs
 		@param location Whether the memory should be allocated on the HOST, DEVICE, or MAPPED
 		@return The allocated or mapped outputs
 	*/
-	LocatedExecutionMemory allocOutputs(LocatedExecutionMemory::Location location);
+	LocatedExecutionMemory allocOutputs(MemoryLocation location);
 
 
 

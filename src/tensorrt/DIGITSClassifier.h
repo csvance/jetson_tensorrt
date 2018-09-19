@@ -56,14 +56,12 @@ public:
 	 * @param	width	Width of the input image
 	 * @param	height	Height of the input image
 	 * @param	nbClasses	Number of classes to predict
-	 * @param	imageNetMean	The mean value to adjust images to during preprocessing step. 0.0 will disable.
 	 * @param	dataType	The data type used to contstruct the TensorRT network. Use FLOAT unless you know how it will effect your model.
 	 * @param	maxNetworkSize	Maximum size in bytes of the TensorRT network in device memory
 	 */
 	DIGITSClassifier(std::string prototextPath, std::string modelPath, std::string cachePath =
 			"classification.tensorcache", size_t nbChannels = CHANNELS_BGR, size_t width = 224,
-			size_t height = 224, size_t nbClasses = 1, float3 imageNetMean = {
-					0.0, 0.0, 0.0 }, nvinfer1::DataType dataType =
+			size_t height = 224, size_t nbClasses = 1, nvinfer1::DataType dataType =
 					nvinfer1::DataType::kFLOAT, size_t maxNetworkSize = (1 << 30));
 
 	/**
@@ -72,29 +70,16 @@ public:
 	virtual ~DIGITSClassifier();
 
 	/**
-	 * @brief	Classifies a single RBGA format image.
-	 * @usage	To prevent memory leakage, the result of classifyRBGA must be deleted after they are no longer needed.
-	 * @param	rbga	Pointer to the RBGA image in host memory
-	 * @param	width	Width of the image in pixels
-	 * @param	height	Height of the input image in pixels
+	 * @brief	Classifies a single BGR format image.
+	 * @param	inputs Graph inputs indexed by [batchIndex][inputIndex]
+	 * @param	outputs Graph inputs indexed by [batchIndex][inputIndex]
 	 * @param	threshold	Minimum probability of a class detection for it to be returned as a result
-	 * @param	preprocessOutputAsInput	Don't load memory from the host, instead the output of the last preprocessing operation as the input
-	 * @return	Pointer vector of Classification objects above the threshold
+	 * @return	vector of Classification objects above the threshold
 	 *
 	 */
-	std::vector<Classification> classifyRBGAf(float* rbga, size_t width, size_t height, float threshold=0.5, bool preprocessOutputAsInput=false);
-
-
-	/**
-	 * @brief	Classifies in a a single NV12 format image.
-	 * @param	nv12	Pointer to the nv12 image in host memory
-	 * @param	width	Width of the image in pixels
-	 * @param	height	Height of the input image in pixels
-	 * @param	threshold	Minimum probability of a class detection for it to be returned as a result
-	 * @return	Pointer to a one dimensional array of probabilities for each class
-	 *
-	 */
-	std::vector<Classification> classifyNV12(uint8_t* nv12, size_t width, size_t height, float threshold=0.5);
+	std::vector<Classification> classify(LocatedExecutionMemory &inputs,
+																		 LocatedExecutionMemory &outputs,
+																		 float threshold = 0.5);
 
 
 	static const size_t CHANNELS_GREYSCALE = 1;
@@ -109,8 +94,6 @@ public:
 private:
 	static const std::string INPUT_NAME;
 	static const std::string OUTPUT_NAME;
-
-	ImageNetPreprocessor* preprocessor;
 
 };
 

@@ -1,7 +1,7 @@
 /**
- * @file	CUDAImagePreprocessor.cpp
+ * @file	CUDANodeIO.cpp
  * @author	Carroll Vance
- * @brief	Abstract class representing a CUDA accelerated image preprocessor
+ * @brief	Abstract class representing an input or output from a node
  *
  * Copyright (c) 2018 Carroll Vance.
  * Copyright (c) 2017, NVIDIA CORPORATION. All rights reserved.
@@ -25,47 +25,19 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#include <string>
-#include <cstddef>
-#include <stdexcept>
-
-#include <cuda_runtime.h>
-#include <cuda.h>
-
-#include "CUDAImagePreprocessor.h"
+#include "CUDANodeIO.h"
 #include "RTCommon.h"
-
 
 namespace jetson_tensorrt {
 
-CUDAImagePreprocessor::CUDAImagePreprocessor() {
-	inputCache = new CUDASizedMemCache();
-	outputCache = new CUDASizedMemCache();
-}
-CUDAImagePreprocessor::~CUDAImagePreprocessor() {
-	delete inputCache;
-	delete outputCache;
-}
+CUDANodeIO::CUDANodeIO(MemoryLocation location) { this->location = location; }
 
-void CUDAImagePreprocessor::inputFromHost(void* hostMemory, size_t size) {
-	void* deviceMemory = inputCache->getCUDAAlloc(size);
-
-	cudaError_t hostDeviceError = cudaMemcpy(deviceMemory, hostMemory, size,
-			cudaMemcpyHostToDevice);
-
-	if (hostDeviceError != 0)
-		throw std::runtime_error(
-				"Unable to copy host memory to device for preprocessing. CUDA Error: "
-						+ std::to_string(hostDeviceError));
-
-
+CUDANodeIO::CUDANodeIO(MemoryLocation location, void *data, size_t dataSize) {
+  this->location = location;
+  this->data = data;
+  this->dataSize = dataSize;
 }
 
-void CUDAImagePreprocessor::swapIO(){
-	CUDASizedMemCache* tmp = outputCache;
+void CUDANodeIO::size() { return dataSize; }
 
-	outputCache = inputCache;
-	inputCache = tmp;
-}
-
-} /* namespace jetson_tensorrt */
+} // namespace jetson_tensorrt
