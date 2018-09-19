@@ -84,7 +84,7 @@ float* ImageNetPreprocessor::RBGAftoBGR(size_t inputWidth, size_t inputHeight,
 	float* preprocessOutput = (float*) outputCache->getCUDAAlloc(
 			3 * outputWidth * outputHeight * sizeof(float));
 
-	if (mean.x == 0 && mean.y == 0.0 && mean.z == 0.0) {
+	if (mean.x == 0.0 && mean.y == 0.0 && mean.z == 0.0) {
 		cudaError_t cudaError = cudaPreImageNet(preprocessInput, inputWidth,
 				inputHeight, preprocessOutput, outputWidth, outputHeight);
 		if(cudaError)
