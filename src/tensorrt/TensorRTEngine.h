@@ -67,11 +67,10 @@ public:
 	/**
 	 * @brief	Does a forward pass of the neural network loaded in TensorRT
 	 * @usage	Should be called after loading the graph and calling allocGPUBuffer()
-	 * @param	inputs Graph inputs on either the device or host, indexed by [batchIndex][inputIndex]
-	 * @param	copyOutputToHost	Controls whether the outputs are copied back to host memory (true) or left in device memory (false) after executing the prediction
-	 * @return	A LocatedResult of outputs, indexed by [batchIndex][outputNumber]
+	 * @param	inputs Graph inputs indexed by [batchIndex][inputIndex]
+	 * @param	outputs Graph inputs indexed by [batchIndex][inputIndex]
 	 */
-	LocatedExecutionMemory predict(LocatedExecutionMemory& inputs, bool copyOutputToHost = true);
+ 	void predict(LocatedExecutionMemory& inputs, LocatedExecutionMemory& outputs);
 
 	/**
 	 * @brief	Quick load the TensorRT optimized network
@@ -110,6 +109,22 @@ public:
 	 */
 	virtual void addOutput(std::string layerName, nvinfer1::Dims dims, size_t eleSize) = 0;
 
+	/**
+		@brief Allocates a located execution memory structure for inputs
+		@param location Whether the memory should be allocated on the HOST, DEVICE, or MAPPED
+		@return The allocated or mapped inputs
+	*/
+	LocatedExecutionMemory allocInputs(MemoryLocation location);
+
+	/**
+		@brief Allocates a located execution memory structure for outputs
+		@param location Whether the memory should be allocated on the HOST, DEVICE, or MAPPED
+		@return The allocated or mapped outputs
+	*/
+	LocatedExecutionMemory allocOutputs(MemoryLocation location);
+
+
+
 	int maxBatchSize;
 	int numBindings;
 
@@ -127,8 +142,8 @@ private:
 	std::vector<void*> preAllocatedGPUBuffers;
 
 	/**
-	 * @brief	Allocates the buffers required to copy batches to the GPU
-	 * @usage	Should be called before the first prediction from host memory
+	 * @brief	Allocates the buffers required to copy batches to and from the GPU
+	 * @usage	Should be called before the first prediction from host memory if not using mapped memory
 	 */
 	void allocGPUBuffer();
 

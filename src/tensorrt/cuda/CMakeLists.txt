@@ -1,5 +1,5 @@
 cuda_add_library(
-  jetson_tensorrt_cuda
+  jetson_tensorrt_cuda STATIC
   cudaImageNetPreprocess.cu
   cudaNormalize.cu
   cudaOverlay.cu

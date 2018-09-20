@@ -25,29 +25,51 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#include <string>
 #include <stdexcept>
+#include <string>
 
-#include <cuda_runtime.h>
 #include <cuda.h>
+#include <cuda_runtime.h>
 
 #include "RTCommon.h"
 
 namespace jetson_tensorrt {
 
+void *safeCudaHostMalloc(size_t memSize) {
 
-void* safeCudaMalloc(size_t memSize) {
-	void* deviceMem;
-
-	cudaError_t cudaMallocError = cudaMalloc(&deviceMem, memSize);
-	if (cudaMallocError != 0) {
-		throw std::runtime_error(
-				"CUDA Malloc Error: " + std::to_string(cudaMallocError));
-	} else if (deviceMem == nullptr) {
-		throw std::runtime_error("Out of device memory");
-	}
-
-	return deviceMem;
+  void *hostMem;
+  cudaError_t cudaMallocError =
+      cudaHostAlloc(&hostMem, memSize, cudaHostAllocMapped);
+  if (cudaMallocError != 0) {
+    throw std::runtime_error("CUDA Host Malloc Error: " +
+                             std::to_string(cudaMallocError));
+  } else if (hostMem == nullptr) {
+    throw std::runtime_error("Out of device memory");
+  }
 }
 
+void *safeCudaMalloc(size_t memSize) {
+  void *deviceMem;
+
+  cudaError_t cudaMallocError = cudaMalloc(&deviceMem, memSize);
+  if (cudaMallocError != 0) {
+    throw std::runtime_error("CUDA Malloc Error: " +
+                             std::to_string(cudaMallocError));
+  } else if (deviceMem == nullptr) {
+    throw std::runtime_error("Out of device memory");
+  }
+
+  return deviceMem;
 }
+
+void *safeMalloc(size_t memSize) {
+  void *deviceMem;
+
+  deviceMem = malloc(memSize);
+  if (deviceMem == 0)
+    throw std::bad_alloc();
+
+  return deviceMem;
+}
+
+} // namespace jetson_tensorrt

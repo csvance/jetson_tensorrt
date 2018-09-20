@@ -6,13 +6,13 @@
 #include <iostream>
 #include <string>
 #include <sys/stat.h>
-#include <unordered_map>
-#include <cassert>
 #include <vector>
 
-#include "NvInfer.h"
-
 #include "TensorflowRTEngine.h"
+#include "CUDANode.h"
+#include "CUDANodeIO.h"
+#include "CUDAPipeline.h"
+
 
 #define CACHE_FILE "./tensorflow_cache.tensorcache"
 #define MODEL_FILE "./inception_v3.uff"
@@ -49,14 +49,8 @@ int main(int argc, char** argv) {
 
 	std::cout << engine.engineSummary() << std::endl;
 
-	/* Allocate memory for predictions */
-	LocatedExecutionMemory input = LocatedExecutionMemory(LocatedExecutionMemory::Location::HOST, vector<vector<void*>>(BATCH_SIZE));
-
-	for (int b=0; b < BATCH_SIZE; b++) {
-
-		//Inputs
-		input[b].push_back(new unsigned char[IMAGE_DEPTH * IMAGE_WIDTH * IMAGE_HEIGHT * IMAGE_ELESIZE]);
-	}
+	LocatedExecutionMemory input = engine.allocInputs(MemoryLocation::HOST);
+	LocatedExecutionMemory output = engine.allocOutputs(MemoryLocation::HOST);
 
 	for (;;) {
 		int totalMs = 0;
@@ -64,9 +58,7 @@ int main(int argc, char** argv) {
 		for (int i = 0; i < NUM_SAMPLES; i++) {
 			auto t_start = std::chrono::high_resolution_clock::now();
 
-			LocatedExecutionMemory result = engine.predict(input);
-			for (int b = 0; b < result.size(); b++)
-				delete ((unsigned char*)result[b][0]);
+			engine.predict(input, output);
 
 			auto t_end = std::chrono::high_resolution_clock::now();
 			auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(t_end - t_start).count();

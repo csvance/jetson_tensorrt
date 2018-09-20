@@ -31,89 +31,80 @@
 #include <string>
 #include <vector>
 
-#include "NvInfer.h"
 #include "NvCaffeParser.h"
+#include "NvInfer.h"
 #include "NvUtils.h"
 
+#include "CUDANode.h"
+#include "CUDANodeIO.h"
+#include "CUDAPipeline.h"
 #include "CaffeRTEngine.h"
-#include "ImageNetPreprocessor.h"
 #include "ClusteredNonMaximumSuppression.h"
 
 namespace jetson_tensorrt {
 
-
-
 /**
  * @brief	Loads and manages a DIGITS DetectNet graph with TensorRT
  */
-class DIGITSDetector: public CaffeRTEngine {
+class DIGITSDetector : public CaffeRTEngine {
 public:
-	/**
-	 * @brief	Creates a new instance of DIGITSDetector
-	 * @param	prototextPath	Path to the .prototext file
-	 * @param	modelPath	Path to the .caffemodel file
-	 * @param	cachePath	Path to the .tensorcache file which will be loaded instead of building the network if present
-	 * @param	nbChannels	Number of channels in the input image. 1 for greyscale, 3 for RGB
-	 * @param	width	Width of the input image
-	 * @param	height	Height of the input image
-	 * @param	nbClasses	Number of classes to predict
-	 * @param	dataType	The data type used to contstruct the TensorRT network. Use FLOAT unless you know how it will effect your model.
-	 * @param	maxNetworkSize	Maximum size in bytes of the TensorRT network in device memory
-	 */
-	DIGITSDetector(std::string prototextPath, std::string modelPath, std::string cachePath =
-			"detection.tensorcache", size_t nbChannels = CHANNELS_BGR, size_t width = 1024,
-			size_t height = 512, size_t nbClasses = 1, float3 imageNetMean = {
-					0.0, 0.0, 0.0 }, nvinfer1::DataType dataType =
-					nvinfer1::DataType::kFLOAT, size_t maxNetworkSize = (1 << 30));
+  /**
+   * @brief	Creates a new instance of DIGITSDetector
+   * @param	prototextPath	Path to the .prototext file
+   * @param	modelPath	Path to the .caffemodel file
+   * @param	cachePath	Path to the .tensorcache file which will be loaded
+   * instead of building the network if present
+   * @param	nbChannels	Number of channels in the input image. 1 for
+   * greyscale, 3 for RGB
+   * @param	width	Width of the input image
+   * @param	height	Height of the input image
+   * @param	nbClasses	Number of classes to predict
+   * @param	dataType	The data type used to contstruct the TensorRT network.
+   * Use FLOAT unless you know how it will effect your model.
+   * @param	maxNetworkSize	Maximum size in bytes of the TensorRT network in
+   * device memory
+   */
+  DIGITSDetector(std::string prototextPath, std::string modelPath,
+                 std::string cachePath = "detection.tensorcache",
+                 size_t nbChannels = CHANNELS_BGR, size_t width = 1024,
+                 size_t height = 512, size_t nbClasses = 1,
+                 nvinfer1::DataType dataType = nvinfer1::DataType::kFLOAT,
+                 size_t maxNetworkSize = (1 << 30));
 
-	/**
-	 * @brief DIGITSDetector destructor
-	 */
-	virtual ~DIGITSDetector();
+  /**
+   * @brief DIGITSDetector destructor
+   */
+  virtual ~DIGITSDetector();
 
-	/**
-	 * @brief	Detects in a a single RBGA format image.
-	 * @param	rbga	Pointer to the RBGA image in host memory
-	 * @param	width	Width of the image in pixels
-	 * @param	height	Height of the input image in pixels
-	 * @param	threshold	Minimum coverage threshold for detected regions
-	 * @param	preprocessOutputAsInput	Don't load memory from the host, instead the output of the last preprocessing operation as the input
-	 * @return	Pointer to a one dimensional array of probabilities for each class
-	 */
-	std::vector<ClassRectangle> detectRGBAf(float* rbga, size_t width, size_t height, float threshold=0.5, bool preprocessOutputAsInput=false);
+  /**
+   * @brief	Detects a single BGR format image.
+   * @param	inputs Graph inputs indexed by [batchIndex][inputIndex]
+   * @param	outputs Graph inputs indexed by [batchIndex][inputIndex]
+   * @param	threshold	Minimum coverage threshold for detected regions
+   * @returned	vector of ClassRectangles representing the detections
+   */
+  std::vector<ClassRectangle> detect(LocatedExecutionMemory &inputs,
+                                     LocatedExecutionMemory &outputs,
+                                     float threshold = 0.5);
 
-	/**
-	 * @brief	Detects in a a single NV12 format image.
-	 * @param	nv12	Pointer to the nv12 image in host memory
-	 * @param	width	Width of the image in pixels
-	 * @param	height	Height of the input image in pixels
-	 * @param	threshold	Minimum coverage threshold for detected regions
-	 * @return	Pointer to a one dimensional array of probabilities for each class
-	 *
-	 */
-	std::vector<ClassRectangle> detectNV12(uint8_t* nv12, size_t width, size_t height, float threshold=0.5);
+  size_t modelWidth;
+  size_t modelHeight;
+  size_t modelDepth;
 
-	size_t modelWidth;
-	size_t modelHeight;
-	size_t modelDepth;
+  size_t nbClasses;
 
-	size_t nbClasses;
-
-	static const size_t CHANNELS_GREYSCALE = 1;
-	static const size_t CHANNELS_BGR = 3;
+  static const size_t CHANNELS_GREYSCALE = 1;
+  static const size_t CHANNELS_BGR = 3;
 
 private:
-	static const std::string INPUT_NAME;
-	static const std::string OUTPUT_COVERAGE_NAME;
-	static const std::string OUTPUT_BBOXES_NAME;
+  static const std::string INPUT_NAME;
+  static const std::string OUTPUT_COVERAGE_NAME;
+  static const std::string OUTPUT_BBOXES_NAME;
 
-	static const size_t BBOX_DIM_X = 64;
-	static const size_t BBOX_DIM_Y = 32;
+  static const size_t BBOX_DIM_X = 64;
+  static const size_t BBOX_DIM_Y = 32;
 
-	ImageNetPreprocessor* preprocessor;
-
-	ClusteredNonMaximumSuppression suppressor;
-
+  ClusteredNonMaximumSuppression suppressor;
 };
 
 } /* namespace jetson_tensorrt */
