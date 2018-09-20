@@ -2,18 +2,14 @@ add_subdirectory(cuda)
 
 add_library(
     jetson_tensorrt STATIC
-    
     CaffeRTEngine.cpp
-    ClusteredNonMaximumSuppression.cpp
     CUDACommon.cpp
     CUDANode.cpp
-    CUDAPipeIO.cpp
-    CUDANodeIO.cpp
     CUDAPipeline.cpp
+    CUDAPipeNodes.cpp
     DIGITSClassifier.cpp
     DIGITSDetector.cpp
-    NetworkIO.cpp
-    RTCommon.cpp
+    NetworkDataTypes.cpp
     TensorRTEngine.cpp
     TensorflowRTEngine.cpp
 )
