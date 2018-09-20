@@ -85,8 +85,8 @@ void TensorRTEngine::allocGPUBuffer() {
     }
 
     /* Allocate GPU Output memory */
-    for (int i = 0; i < networkOutputs.size(); i++) {
-      size_t outputSize = networkOutputs[i].size();
+    for (int o = 0; o < networkOutputs.size(); o++) {
+      size_t outputSize = networkOutputs[o].size();
 
       preAllocatedGPUBuffers[bindingIdx + b * stepSize] =
           safeCudaMalloc(outputSize);
@@ -240,17 +240,8 @@ void TensorRTEngine::predict(LocatedExecutionMemory &inputs,
 
       } else if (outputs.location == MemoryLocation::HOST) {
 
-        // If the batches are in host memory, we need to copy them to the device
         transactionGPUBuffers[bindingIdx + b * stepSize] =
             preAllocatedGPUBuffers[bindingIdx + b * stepSize];
-
-        cudaError_t hostDeviceError =
-            cudaMemcpy(transactionGPUBuffers[bindingIdx + b * stepSize],
-                       outputs[b][o], outputSize, cudaMemcpyHostToDevice);
-        if (hostDeviceError != 0)
-          throw std::runtime_error("Unable to copy host memory to device for "
-                                   "prediction. CUDA Error: " +
-                                   std::to_string(hostDeviceError));
       }
 
       bindingIdx++;
