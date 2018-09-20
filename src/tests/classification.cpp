@@ -25,10 +25,10 @@
 #define NUM_SAMPLES 10
 #define BATCH_SIZE 1
 
-#define IMAGE_WIDTH 224
-#define IMAGE_HEIGHT 224
-#define IMAGE_DEPTH 3
-#define IMAGE_ELESIZE 4
+#define MODEL_IMAGE_WIDTH 224
+#define MODEL_IMAGE_HEIGHT 224
+#define MODEL_IMAGE_DEPTH 3
+#define MODEL_IMAGE_ELESIZE 4
 
 #define INPUT_IMAGE_WIDTH 640
 #define INPUT_IMAGE_HEIGHT 480
@@ -45,15 +45,15 @@ using namespace jetson_tensorrt;
 int main(int argc, char **argv) {
 
   DIGITSClassifier engine =
-      DIGITSClassifier(MODEL_FILE, WEIGHTS_FILE, CACHE_FILE, IMAGE_DEPTH,
-                       IMAGE_WIDTH, IMAGE_HEIGHT, NB_CLASSES);
+      DIGITSClassifier(MODEL_FILE, WEIGHTS_FILE, CACHE_FILE, MODEL_IMAGE_DEPTH,
+                       MODEL_IMAGE_WIDTH, MODEL_IMAGE_HEIGHT, NB_CLASSES);
 
   std::cout << engine.engineSummary() << std::endl;
 
   // Loads the image into device memory and preprocesses it
   CUDAPipeline *preprocessPipeline = CUDAPipeline::createRGBAfImageNetPipeline(
-      INPUT_IMAGE_WIDTH, INPUT_IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_HEIGHT,
-      make_float3(0.0, 0.0, 0.0));
+      INPUT_IMAGE_WIDTH, INPUT_IMAGE_HEIGHT, MODEL_IMAGE_WIDTH,
+      MODEL_IMAGE_HEIGHT, make_float3(0.0, 0.0, 0.0));
 
   /* Create input structure for predictions */
   LocatedExecutionMemory input = engine.allocInputs(MemoryLocation::NONE);
@@ -66,7 +66,8 @@ int main(int argc, char **argv) {
   CUDANodeIO preprocessInput = CUDANodeIO(
       MemoryLocation::HOST,
       new float[INPUT_IMAGE_DEPTH * INPUT_IMAGE_WIDTH * INPUT_IMAGE_HEIGHT],
-      INPUT_IMAGE_DEPTH *INPUT_IMAGE_WIDTH *INPUT_IMAGE_HEIGHT);
+      INPUT_IMAGE_ELESIZE *INPUT_IMAGE_DEPTH *INPUT_IMAGE_WIDTH
+          *INPUT_IMAGE_HEIGHT);
 
   for (;;) {
     int totalMs = 0;

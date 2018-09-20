@@ -66,7 +66,8 @@ int main(int argc, char **argv) {
   CUDANodeIO preprocessInput = CUDANodeIO(
       MemoryLocation::HOST,
       new float[INPUT_IMAGE_DEPTH * INPUT_IMAGE_WIDTH * INPUT_IMAGE_HEIGHT],
-      INPUT_IMAGE_DEPTH *INPUT_IMAGE_WIDTH *INPUT_IMAGE_HEIGHT);
+      INPUT_IMAGE_ELESIZE *INPUT_IMAGE_DEPTH *INPUT_IMAGE_WIDTH
+          *INPUT_IMAGE_HEIGHT);
 
   for (;;) {
     int totalMs = 0;
