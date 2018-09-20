@@ -10,8 +10,6 @@
 #include <unordered_map>
 #include <vector>
 
-#include "NvInfer.h"
-
 #include "CUDANode.h"
 #include "CUDANodeIO.h"
 #include "CUDAPipeline.h"
@@ -38,7 +36,6 @@
 #define NB_CLASSES 1
 #define CLASS_ELESIZE 4
 
-using namespace nvinfer1;
 using namespace std;
 using namespace jetson_tensorrt;
 
@@ -56,18 +53,19 @@ int main(int argc, char **argv) {
       MODEL_IMAGE_HEIGHT, make_float3(0.0, 0.0, 0.0));
 
   /* Create input structure for predictions */
-  LocatedExecutionMemory input = engine.allocInputs(MemoryLocation::NONE);
-  input.location = MemoryLocation::DEVICE;
+  LocatedExecutionMemory input =
+      engine.allocInputs(MemoryLocation::DEVICE, true);
 
   /* Create and allocate output structure */
-  LocatedExecutionMemory output = engine.allocOutputs(MemoryLocation::HOST);
+  LocatedExecutionMemory output = engine.allocOutputs(MemoryLocation::MAPPED);
 
   // Allocate the image memory
-  CUDANodeIO preprocessInput = CUDANodeIO(
-      MemoryLocation::HOST,
-      new float[INPUT_IMAGE_DEPTH * INPUT_IMAGE_WIDTH * INPUT_IMAGE_HEIGHT],
-      INPUT_IMAGE_ELESIZE *INPUT_IMAGE_DEPTH *INPUT_IMAGE_WIDTH
-          *INPUT_IMAGE_HEIGHT);
+  CUDANodeIO preprocessInput =
+      CUDANodeIO(MemoryLocation::MAPPED,
+                 safeCudaHostMalloc(INPUT_IMAGE_ELESIZE * INPUT_IMAGE_DEPTH *
+                                    INPUT_IMAGE_WIDTH * INPUT_IMAGE_HEIGHT),
+                 INPUT_IMAGE_ELESIZE * INPUT_IMAGE_DEPTH * INPUT_IMAGE_WIDTH *
+                     INPUT_IMAGE_HEIGHT);
 
   for (;;) {
     int totalMs = 0;

@@ -113,7 +113,8 @@ void TensorRTEngine::freeGPUBuffer() {
   }
 }
 
-LocatedExecutionMemory TensorRTEngine::allocInputs(MemoryLocation location) {
+LocatedExecutionMemory TensorRTEngine::allocInputs(MemoryLocation location,
+                                                   bool skipMalloc) {
   LocatedExecutionMemory memory = LocatedExecutionMemory(
       location, std::vector<std::vector<void *>>(maxBatchSize));
 
@@ -122,22 +123,23 @@ LocatedExecutionMemory TensorRTEngine::allocInputs(MemoryLocation location) {
     /* Input memory management */
     for (int i = 0; i < networkInputs.size(); i++) {
       size_t inputSize = networkInputs[i].size();
-      if (location == MemoryLocation::HOST) {
+      if (skipMalloc || location == MemoryLocation::NONE) {
+        memory[b].push_back(nullptr);
+      } else if (location == MemoryLocation::HOST) {
         memory[b].push_back(safeMalloc(inputSize));
       } else if (location == MemoryLocation::DEVICE) {
         memory[b].push_back(safeCudaMalloc(inputSize));
-      } else if (location == location == MemoryLocation::MAPPED) {
+      } else if (location == MemoryLocation::MAPPED) {
         memory[b].push_back(safeCudaHostMalloc(inputSize));
-      } else if (location == MemoryLocation::NONE) {
-        memory[b].push_back(nullptr);
       }
     }
   }
 
   return memory;
-}
+} // namespace jetson_tensorrt
 
-LocatedExecutionMemory TensorRTEngine::allocOutputs(MemoryLocation location) {
+LocatedExecutionMemory TensorRTEngine::allocOutputs(MemoryLocation location,
+                                                    bool skipMalloc) {
   LocatedExecutionMemory memory = LocatedExecutionMemory(
       location, std::vector<std::vector<void *>>(maxBatchSize));
 
@@ -146,18 +148,20 @@ LocatedExecutionMemory TensorRTEngine::allocOutputs(MemoryLocation location) {
     /* Input memory management */
     for (int o = 0; o < networkOutputs.size(); o++) {
       size_t outputSize = networkOutputs[o].size();
-      if (location == MemoryLocation::HOST) {
+      if (skipMalloc || location == MemoryLocation::NONE) {
+        memory[b].push_back(nullptr);
+      } else if (location == MemoryLocation::HOST) {
         memory[b].push_back(safeMalloc(outputSize));
       } else if (location == MemoryLocation::DEVICE) {
         memory[b].push_back(safeCudaMalloc(outputSize));
-      } else if (location == location == MemoryLocation::MAPPED) {
+      } else if (location == MemoryLocation::MAPPED) {
         memory[b].push_back(safeCudaHostMalloc(outputSize));
       }
     }
   }
 
   return memory;
-}
+} // namespace jetson_tensorrt
 
 void TensorRTEngine::predict(LocatedExecutionMemory &inputs,
                              LocatedExecutionMemory &outputs) {
