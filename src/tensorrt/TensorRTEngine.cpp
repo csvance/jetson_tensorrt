@@ -44,7 +44,7 @@
 
 using namespace nvinfer1;
 
-#include "RTCommon.h"
+#include "CUDACommon.h"
 #include "TensorRTEngine.h"
 
 namespace jetson_tensorrt {
@@ -393,5 +393,41 @@ void Logger::log(nvinfer1::ILogger::Severity severity, const char *msg) {
     break;
   }
   std::cerr << msg << std::endl;
+}
+
+
+NetworkIO::NetworkIO(std::string name, nvinfer1::Dims dims, size_t eleSize) {
+	this->name = name;
+	this->dims = dims;
+	this->eleSize = eleSize;
+}
+
+
+NetworkIO::~NetworkIO() {
+}
+
+
+size_t NetworkIO::size() {
+	int64_t volume = 1;
+	for (int64_t i = 0; i < dims.nbDims; i++)
+		volume *= dims.d[i];
+
+	return (size_t) volume * eleSize;
+}
+
+NetworkInput::NetworkInput(std::string name, nvinfer1::Dims dims,
+		size_t eleSize) :
+		NetworkIO(name, dims, eleSize) {
+}
+
+NetworkInput::~NetworkInput() {
+}
+
+NetworkOutput::NetworkOutput(std::string name, nvinfer1::Dims dims,
+		size_t eleSize) :
+		NetworkIO(name, dims, eleSize) {
+}
+
+NetworkOutput::~NetworkOutput() {
 }
 } // namespace jetson_tensorrt

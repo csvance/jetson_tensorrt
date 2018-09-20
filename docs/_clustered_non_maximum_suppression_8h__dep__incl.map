@@ -1,5 +1,3 @@
 <map id="src/tensorrt/ClusteredNonMaximumSuppression.h" name="src/tensorrt/ClusteredNonMaximumSuppression.h">
 <area shape="rect" id="node2" href="$_clustered_non_maximum_suppression_8cpp.html" title="Contains a class which handles refining the results of a DetectNet like detector. ..." alt="" coords="5,92,184,131"/>
-<area shape="rect" id="node3" href="$_d_i_g_i_t_s_detector_8h.html" title="Loads and manages a DIGITS DetectNet graph with TensorRT. " alt="" coords="208,99,405,124"/>
-<area shape="rect" id="node4" href="$_d_i_g_i_t_s_detector_8cpp.html" title="Loads and manages a DIGITS DetectNet graph with TensorRT. " alt="" coords="201,179,412,204"/>
 </map>

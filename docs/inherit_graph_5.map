@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structjetson__tensorrt_1_1float6.html" title="jetson_tensorrt::float6" alt="" coords="5,5,155,31"/>
+<area shape="rect" id="node1" href="$classjetson__tensorrt_1_1_c_u_d_a_pipe_node.html" title="jetson_tensorrt::CUDAPipeNode" alt="" coords="5,89,219,115"/>
+<area shape="rect" id="node2" href="$classjetson__tensorrt_1_1_n_v12to_r_g_b_af_node.html" title="jetson_tensorrt::NV12toRGBAfNode" alt="" coords="267,5,501,31"/>
+<area shape="rect" id="node3" href="$classjetson__tensorrt_1_1_r_g_b_af_to_image_net_node.html" title="jetson_tensorrt::RGBAfTo\lImageNetNode" alt="" coords="298,55,470,93"/>
+<area shape="rect" id="node4" href="$classjetson__tensorrt_1_1_r_g_b_to_r_g_b_af_node.html" title="jetson_tensorrt::RGBToRGBAfNode" alt="" coords="267,117,501,143"/>
+<area shape="rect" id="node5" href="$classjetson__tensorrt_1_1_to_device_p_t_r_node.html" title="jetson_tensorrt::ToDevice\lPTRNode" alt="" coords="298,167,470,205"/>
 </map>

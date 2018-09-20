@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['probability',['probability',['../structjetson__tensorrt_1_1_classification.html#a0d166cf45f7c2d233fe956839c7df379',1,'jetson_tensorrt::Classification']]]
+  ['probability',['probability',['../struct_classification.html#a8e332204bf436b15751c8d6e3ad628c3',1,'Classification']]]
 ];

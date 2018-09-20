@@ -8,8 +8,8 @@
 #include <sys/stat.h>
 #include <vector>
 
+#include "../tensorrt/CUDAPipeIO.h"
 #include "CUDANode.h"
-#include "CUDANodeIO.h"
 #include "CUDAPipeline.h"
 #include "TensorflowRTEngine.h"
 

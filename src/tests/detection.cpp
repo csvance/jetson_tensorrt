@@ -10,8 +10,8 @@
 #include <unordered_map>
 #include <vector>
 
+#include "../tensorrt/CUDAPipeIO.h"
 #include "CUDANode.h"
-#include "CUDANodeIO.h"
 #include "CUDAPipeline.h"
 #include "DIGITSDetector.h"
 #include "TensorRTEngine.h"
@@ -60,8 +60,8 @@ int main(int argc, char **argv) {
   LocatedExecutionMemory output = engine.allocOutputs(MemoryLocation::MAPPED);
 
   // Allocate the image memory
-  CUDANodeIO preprocessInput =
-      CUDANodeIO(MemoryLocation::MAPPED,
+  CUDAPipeIO preprocessInput =
+      CUDAPipeIO(MemoryLocation::MAPPED,
                  safeCudaHostMalloc(INPUT_IMAGE_ELESIZE * INPUT_IMAGE_DEPTH *
                                     INPUT_IMAGE_WIDTH * INPUT_IMAGE_HEIGHT),
                  INPUT_IMAGE_ELESIZE * INPUT_IMAGE_DEPTH * INPUT_IMAGE_WIDTH *
@@ -74,7 +74,7 @@ int main(int argc, char **argv) {
       auto t_start = std::chrono::high_resolution_clock::now();
 
       // Preprocess the image (and load to GPU if needed)
-      CUDANodeIO preprocessOutput = preprocessPipeline->pipe(preprocessInput);
+      CUDAPipeIO preprocessOutput = preprocessPipeline->pipe(preprocessInput);
 
       // Load the image into the network inputs (1st batch, 1st input)
       input[0][0] = preprocessOutput.data;

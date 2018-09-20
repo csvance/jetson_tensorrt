@@ -27,12 +27,21 @@
  */
 
 #include "CUDANode.h"
-#include "CUDANodeIO.h"
 #include "CUDAPipeline.h"
 
 namespace jetson_tensorrt {
 
-void CUDAPipeline::addNode(CUDANode* node) { nodes.push_back(node); }
+CUDAPipeIO::CUDAPipeIO(MemoryLocation location) { this->location = location; }
+
+CUDAPipeIO::CUDAPipeIO(MemoryLocation location, void *data, size_t dataSize) {
+  this->location = location;
+  this->data = data;
+  this->dataSize = dataSize;
+}
+
+size_t CUDAPipeIO::size() { return dataSize; }
+
+void CUDAPipeline::addNode(CUDAPipeNode* node) { nodes.push_back(node); }
 
 CUDAPipeline::CUDAPipeline(){}
 CUDAPipeline::~CUDAPipeline(){
@@ -40,8 +49,8 @@ CUDAPipeline::~CUDAPipeline(){
     delete nodes[node];
 }
 
-CUDANodeIO CUDAPipeline::pipe(CUDANodeIO& input) {
-  CUDANodeIO result = input;
+CUDAPipeIO CUDAPipeline::pipe(CUDAPipeIO& input) {
+  CUDAPipeIO result = input;
 
   // Move through the pipe
   for (int node=0;node<nodes.size();node++)

@@ -31,10 +31,22 @@
 
 #include <vector>
 
-#include "CUDANode.h"
-#include "CUDANodeIO.h"
+#include "CUDAPipeNodes.h"
+#include "CUDACommon.h"
 
 namespace jetson_tensorrt {
+
+class CUDAPipeIO {
+public:
+  CUDAPipeIO(MemoryLocation location);
+  CUDAPipeIO(MemoryLocation location, void *data, size_t dataSize);
+
+  size_t size();
+
+  MemoryLocation location;
+  size_t dataSize;
+  void *data;
+};
 
 class CUDAPipeline {
 
@@ -46,14 +58,14 @@ public:
      @brief Add a node to the pipeline
      @param node The node
    */
-  void addNode(CUDANode* node);
+  void addNode(CUDAPipeNode* node);
 
   /**
      @brief Send an input through the pipeline and get back the output
      @param input The input to the pipeline
      @return The output of the pipeline
    */
-  CUDANodeIO pipe(CUDANodeIO &input);
+  CUDAPipeIO pipe(CUDAPipeIO &input);
 
   /**
   @brief Create an NV12 -> ImageNet preprocessing pipeline
@@ -98,7 +110,7 @@ public:
                                             int outputWidth, int outputHeight,
                                             float3 mean);
 
-  std::vector<CUDANode*> nodes;
+  std::vector<CUDAPipeNode*> nodes;
 };
 
 } // namespace jetson_tensorrt

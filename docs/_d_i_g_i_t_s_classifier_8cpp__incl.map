@@ -1,10 +1,7 @@
 <map id="src/tensorrt/DIGITSClassifier.cpp" name="src/tensorrt/DIGITSClassifier.cpp">
-<area shape="rect" id="node9" href="$_d_i_g_i_t_s_classifier_8h.html" title="Loads and manages a DIGITS ImageNet graph with TensorRT. " alt="" coords="1047,79,1178,104"/>
-<area shape="rect" id="node10" href="$_caffe_r_t_engine_8h.html" title="Loads and manages a Caffe graph with TensorRT. " alt="" coords="1051,152,1174,177"/>
-<area shape="rect" id="node14" href="$_r_t_common_8h.html" title="Contains common functionality used by the TensoRT layer. " alt="" coords="195,299,299,324"/>
-<area shape="rect" id="node16" href="$_image_net_preprocessor_8h.html" title="Class representing a CUDA accelerated ImageNet image preprocessor. " alt="" coords="761,152,930,177"/>
-<area shape="rect" id="node11" href="$_tensor_r_t_engine_8h.html" title="Abstract class which loads and manages a TensorRT graph. " alt="" coords="992,225,1123,251"/>
-<area shape="rect" id="node13" href="$_network_i_o_8h.html" title="Contains classes managing neural network layer dimensions and size. " alt="" coords="872,299,968,324"/>
-<area shape="rect" id="node19" href="$_c_u_d_a_image_preprocessor_8h.html" title="Abstract class representing a CUDA accelerated image preprocessor. " alt="" coords="409,225,594,251"/>
-<area shape="rect" id="node20" href="$_c_u_d_a_sized_mem_cache_8h.html" title="Abstract class of a cached CUDA allocation of a specific size. " alt="" coords="373,299,545,324"/>
+<area shape="rect" id="node9" href="$_d_i_g_i_t_s_classifier_8h.html" title="Loads and manages a DIGITS ImageNet graph with TensorRT. " alt="" coords="441,79,572,104"/>
+<area shape="rect" id="node10" href="$_caffe_r_t_engine_8h.html" title="Loads and manages a Caffe graph with TensorRT. " alt="" coords="657,152,780,177"/>
+<area shape="rect" id="node20" href="$_network_data_types_8h.html" title="Neural network input and output data types. " alt="" coords="488,152,633,177"/>
+<area shape="rect" id="node11" href="$_tensor_r_t_engine_8h.html" title="Abstract class which loads and manages a TensorRT graph. " alt="" coords="598,225,730,251"/>
+<area shape="rect" id="node13" href="$_c_u_d_a_common_8h.html" title="Wrappers for common CUDA functions. " alt="" coords="631,299,756,324"/>
 </map>

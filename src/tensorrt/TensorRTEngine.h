@@ -35,10 +35,79 @@
 #include "NvInfer.h"
 #include "NvUtils.h"
 
-#include "NetworkIO.h"
-#include "RTCommon.h"
+#include "CUDACommon.h"
 
 namespace jetson_tensorrt {
+
+/**
+ * @brief Abstract class representing a node in a neural network which takes
+ * input or generates output
+ */
+class NetworkIO {
+public:
+  /**
+   * @brief	Creates a new NetworkIO object
+   * @param	name	Name of the network layer
+   * @param	dims	Dimensions of the network layer
+   * @param	eleSize	Size of each individual dimension element
+   */
+  NetworkIO(std::string name, nvinfer1::Dims dims, size_t eleSize);
+
+  /**
+   * @brief	NetworkIO destructor
+   */
+  virtual ~NetworkIO();
+
+  /**
+   * @brief	Returns the size in bytes of the network layer
+   * @returns	Size sum in bytes of every element
+   */
+  size_t size();
+
+  std::string name;
+  nvinfer1::Dims dims;
+  size_t eleSize;
+};
+
+/**
+ * @brief Represents an input node in a neural network which accepts a certain
+ * dimension and size
+ */
+class NetworkInput : public NetworkIO {
+public:
+  /**
+   * @brief	Creates a new NetworkInput object
+   * @param	name	Name of the network input layer
+   * @param	dims	Dimensions of the network input layer
+   * @param	eleSize	Size of each individual dimension element
+   */
+  NetworkInput(std::string name, nvinfer1::Dims dims, size_t eleSize);
+
+  /**
+   * @brief	NetworkInput destructor
+   */
+  virtual ~NetworkInput();
+};
+
+/**
+ * @brief Represents an output node in a neural network which outputs a certain
+ * dimension and size
+ */
+class NetworkOutput : public NetworkIO {
+public:
+  /**
+   * @brief	Creates a new NetworkOutput object
+   * @param	name	Name of the network output layer
+   * @param	dims	Dimensions of the network output layer
+   * @param	eleSize	Size of each individual dimension element
+   */
+  NetworkOutput(std::string name, nvinfer1::Dims dims, size_t eleSize);
+
+  /**
+   * @brief	NetworkOutput destructor
+   */
+  virtual ~NetworkOutput();
+};
 
 /**
  * @brief Logger for GIE info/warning/errors
@@ -46,6 +115,67 @@ namespace jetson_tensorrt {
 class Logger : public nvinfer1::ILogger {
 public:
   void log(nvinfer1::ILogger::Severity, const char *) override;
+};
+
+/**
+ * @brief Represents all of a batches inputs or outputs located either in host,
+ * device, or mapped memory
+ */
+struct LocatedExecutionMemory {
+  /**
+   * @brief LocatedExecutionMemory constructor
+   * @param location	The location of the batch inputs or outputs, either in
+   * HOST, MAPPED, or DEVICE memory
+   * @param batch	Batch of inputs or outputs
+   */
+  LocatedExecutionMemory(MemoryLocation location,
+                         std::vector<std::vector<void *>> batch) {
+    this->batch = batch;
+    this->location = location;
+  }
+
+  MemoryLocation location;
+  std::vector<std::vector<void *>> batch;
+
+  std::vector<void *> &operator[](const int index) { return batch[index]; }
+
+  /**
+   * @brief Gets the number of units in a batch
+   * @return	Number of units in a batch
+   */
+  size_t size() { return batch.size(); }
+
+  /**
+   * @brief Frees the allocated memory
+   */
+  void release() {
+
+    for (int b = 0; b < batch.size(); b++) {
+      for (int c = 0; c < batch[b].size(); c++) {
+
+        if (location == MemoryLocation::HOST) {
+
+          free(batch[b][c]);
+
+        } else if (location == MemoryLocation::DEVICE) {
+
+          cudaError_t deviceFreeError = cudaFree(batch[b][c]);
+          if (deviceFreeError != 0) {
+            throw std::runtime_error(
+                "Error freeing device memory. CUDA Error: " +
+                std::to_string(deviceFreeError));
+          }
+
+        } else if (location == location == MemoryLocation::MAPPED) {
+          cudaError_t hostFreeError = cudaFreeHost(batch[b][c]);
+          if (hostFreeError != 0) {
+            throw std::runtime_error("Error freeing host memory. CUDA Error: " +
+                                     std::to_string(hostFreeError));
+          }
+        }
+      }
+    }
+  }
 };
 
 /**

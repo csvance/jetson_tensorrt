@@ -66,7 +66,6 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structjetson__tensorrt_1_1_located_execution_memory-members.html">List of all members</a>  </div>
@@ -75,44 +74,41 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Represents all of a batches inputs or outputs located either in host or device memory.  
+<p>Represents all of a batches inputs or outputs located either in host, device, or mapped memory.  
  <a href="structjetson__tensorrt_1_1_located_execution_memory.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="_r_t_common_8h_source.html">RTCommon.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_tensor_r_t_engine_8h_source.html">TensorRTEngine.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a5793c4748f3668ac373d3793e4ca9197"><td class="memItemLeft" align="right" valign="top"><a id="a5793c4748f3668ac373d3793e4ca9197"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Location</b> { <b>HOST</b>, 
-<b>DEVICE</b>
- }</td></tr>
-<tr class="separator:a5793c4748f3668ac373d3793e4ca9197"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac6d34ab6e3bdd4c177a8ec1d0b0a9d91"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html#ac6d34ab6e3bdd4c177a8ec1d0b0a9d91">LocatedExecutionMemory</a> (Location location, std::vector&lt; std::vector&lt; void *&gt; &gt; batch)</td></tr>
-<tr class="memdesc:ac6d34ab6e3bdd4c177a8ec1d0b0a9d91"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html" title="Represents all of a batches inputs or outputs located either in host or device memory. ">LocatedExecutionMemory</a> constructor.  <a href="#ac6d34ab6e3bdd4c177a8ec1d0b0a9d91">More...</a><br /></td></tr>
-<tr class="separator:ac6d34ab6e3bdd4c177a8ec1d0b0a9d91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe128bda90fdf90d68f5f4ee8ce59e9e"><td class="memItemLeft" align="right" valign="top"><a id="abe128bda90fdf90d68f5f4ee8ce59e9e"></a>
+<tr class="memitem:ac5bf8db1cfc8a76dd62571ede7473e69"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html#ac5bf8db1cfc8a76dd62571ede7473e69">LocatedExecutionMemory</a> (MemoryLocation location, std::vector&lt; std::vector&lt; void *&gt;&gt; batch)</td></tr>
+<tr class="memdesc:ac5bf8db1cfc8a76dd62571ede7473e69"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html" title="Represents all of a batches inputs or outputs located either in host, device, or mapped memory...">LocatedExecutionMemory</a> constructor.  <a href="#ac5bf8db1cfc8a76dd62571ede7473e69">More...</a><br /></td></tr>
+<tr class="separator:ac5bf8db1cfc8a76dd62571ede7473e69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d478241a6c74c979bf58fc4d74e895b"><td class="memItemLeft" align="right" valign="top"><a id="a6d478241a6c74c979bf58fc4d74e895b"></a>
 std::vector&lt; void * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (const int index)</td></tr>
-<tr class="separator:abe128bda90fdf90d68f5f4ee8ce59e9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a6d478241a6c74c979bf58fc4d74e895b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb66ef3cd1abaa6396fbd063554c4871"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html#adb66ef3cd1abaa6396fbd063554c4871">size</a> ()</td></tr>
 <tr class="memdesc:adb66ef3cd1abaa6396fbd063554c4871"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of units in a batch.  <a href="#adb66ef3cd1abaa6396fbd063554c4871">More...</a><br /></td></tr>
 <tr class="separator:adb66ef3cd1abaa6396fbd063554c4871"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0af4011009921abd66d7e9eb175c6c8"><td class="memItemLeft" align="right" valign="top"><a id="ad0af4011009921abd66d7e9eb175c6c8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html#ad0af4011009921abd66d7e9eb175c6c8">release</a> ()</td></tr>
+<tr class="memdesc:ad0af4011009921abd66d7e9eb175c6c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees the allocated memory. <br /></td></tr>
+<tr class="separator:ad0af4011009921abd66d7e9eb175c6c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aecb267b33885b777dc9fb1aaa9c2626d"><td class="memItemLeft" align="right" valign="top"><a id="aecb267b33885b777dc9fb1aaa9c2626d"></a>
-Location&#160;</td><td class="memItemRight" valign="bottom"><b>location</b></td></tr>
-<tr class="separator:aecb267b33885b777dc9fb1aaa9c2626d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e4be2ba0d9d340f67f2976dbf832bdb"><td class="memItemLeft" align="right" valign="top"><a id="a4e4be2ba0d9d340f67f2976dbf832bdb"></a>
+<tr class="memitem:ab6bd3601505785204241a63e6e6ecbd8"><td class="memItemLeft" align="right" valign="top"><a id="ab6bd3601505785204241a63e6e6ecbd8"></a>
+MemoryLocation&#160;</td><td class="memItemRight" valign="bottom"><b>location</b></td></tr>
+<tr class="separator:ab6bd3601505785204241a63e6e6ecbd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd7811f98d03dfa2873ea7a77a2f90d2"><td class="memItemLeft" align="right" valign="top"><a id="acd7811f98d03dfa2873ea7a77a2f90d2"></a>
 std::vector&lt; std::vector&lt; void * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>batch</b></td></tr>
-<tr class="separator:a4e4be2ba0d9d340f67f2976dbf832bdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:acd7811f98d03dfa2873ea7a77a2f90d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents all of a batches inputs or outputs located either in host or device memory. </p>
+<div class="textblock"><p>Represents all of a batches inputs or outputs located either in host, device, or mapped memory. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac6d34ab6e3bdd4c177a8ec1d0b0a9d91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6d34ab6e3bdd4c177a8ec1d0b0a9d91">&#9670;&nbsp;</a></span>LocatedExecutionMemory()</h2>
+<a id="ac5bf8db1cfc8a76dd62571ede7473e69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5bf8db1cfc8a76dd62571ede7473e69">&#9670;&nbsp;</a></span>LocatedExecutionMemory()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -123,13 +119,13 @@ std::vector&lt; std::vector&lt; void * &gt; &gt;&#160;</td><td class="memItemRig
         <tr>
           <td class="memname">jetson_tensorrt::LocatedExecutionMemory::LocatedExecutionMemory </td>
           <td>(</td>
-          <td class="paramtype">Location&#160;</td>
+          <td class="paramtype">MemoryLocation&#160;</td>
           <td class="paramname"><em>location</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::vector&lt; std::vector&lt; void *&gt; &gt;&#160;</td>
+          <td class="paramtype">std::vector&lt; std::vector&lt; void *&gt;&gt;&#160;</td>
           <td class="paramname"><em>batch</em>&#160;</td>
         </tr>
         <tr>
@@ -145,10 +141,10 @@ std::vector&lt; std::vector&lt; void * &gt; &gt;&#160;</td><td class="memItemRig
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html" title="Represents all of a batches inputs or outputs located either in host or device memory. ">LocatedExecutionMemory</a> constructor. </p>
+<p><a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html" title="Represents all of a batches inputs or outputs located either in host, device, or mapped memory...">LocatedExecutionMemory</a> constructor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">location</td><td>The location of the batch inputs or outputs, either in HOST or DEVICE memory </td></tr>
+    <tr><td class="paramname">location</td><td>The location of the batch inputs or outputs, either in HOST, MAPPED, or DEVICE memory </td></tr>
     <tr><td class="paramname">batch</td><td>Batch of inputs or outputs </td></tr>
   </table>
   </dd>
@@ -186,7 +182,7 @@ std::vector&lt; std::vector&lt; void * &gt; &gt;&#160;</td><td class="memItemRig
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>src/tensorrt/<a class="el" href="_r_t_common_8h_source.html">RTCommon.h</a></li>
+<li>src/tensorrt/<a class="el" href="_tensor_r_t_engine_8h_source.html">TensorRTEngine.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['w',['w',['../structjetson__tensorrt_1_1_class_rectangle.html#a9d8f6a58d268ff5ece6c3238713aa2ad',1,'jetson_tensorrt::ClassRectangle']]]
+  ['x',['x',['../struct_class_rectangle.html#a00d6fd93ca08fd0f0641a9cb3e30a074',1,'ClassRectangle']]]
 ];

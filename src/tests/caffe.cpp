@@ -12,8 +12,6 @@
 
 #include "NvInfer.h"
 
-#include "CUDANode.h"
-#include "CUDANodeIO.h"
 #include "CUDAPipeline.h"
 #include "CaffeRTEngine.h"
 

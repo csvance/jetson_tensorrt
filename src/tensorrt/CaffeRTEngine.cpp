@@ -25,12 +25,12 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#include <string>
 #include <cassert>
 #include <stdexcept>
+#include <string>
 
-#include "NvInfer.h"
 #include "NvCaffeParser.h"
+#include "NvInfer.h"
 #include "NvUtils.h"
 
 #include "CaffeRTEngine.h"
@@ -39,97 +39,88 @@ using namespace nvinfer1;
 
 namespace jetson_tensorrt {
 
-
-CaffeRTEngine::CaffeRTEngine() :
-		TensorRTEngine() {
-	parser = nvcaffeparser1::createCaffeParser();
+CaffeRTEngine::CaffeRTEngine() : TensorRTEngine() {
+  parser = nvcaffeparser1::createCaffeParser();
 }
 
-
-CaffeRTEngine::~CaffeRTEngine() {
-	parser->destroy();
-}
-
+CaffeRTEngine::~CaffeRTEngine() { parser->destroy(); }
 
 void CaffeRTEngine::addInput(std::string layer, nvinfer1::Dims dims,
-		size_t eleSize) {
-	networkInputs.push_back(NetworkInput(layer, dims, eleSize));
+                             size_t eleSize) {
+  networkInputs.push_back(NetworkInput(layer, dims, eleSize));
 }
 
-
 void CaffeRTEngine::addOutput(std::string layer, nvinfer1::Dims dims,
-		size_t eleSize) {
-	networkOutputs.push_back(NetworkOutput(layer, dims, eleSize));
+                              size_t eleSize) {
+  networkOutputs.push_back(NetworkOutput(layer, dims, eleSize));
 }
 
 void CaffeRTEngine::loadModel(std::string prototextPath, std::string modelPath,
-		size_t maxBatchSize, nvinfer1::DataType dataType,
-		size_t maxNetworkSize) {
+                              size_t maxBatchSize, nvinfer1::DataType dataType,
+                              size_t maxNetworkSize) {
 
-	if (networkInputs.size() == 0 || networkOutputs.size() == 0)
-		throw std::invalid_argument(
-				"Must add inputs and outputs before calling loadModel");
+  if (networkInputs.size() == 0 || networkOutputs.size() == 0)
+    throw std::invalid_argument(
+        "Must add inputs and outputs before calling loadModel");
 
-	this->dataType = dataType;
-	this->maxBatchSize = maxBatchSize;
+  this->dataType = dataType;
+  this->maxBatchSize = maxBatchSize;
 
-	IBuilder* builder = createInferBuilder(logger);
+  IBuilder *builder = createInferBuilder(logger);
 
-	INetworkDefinition* network = builder->createNetwork();
+  INetworkDefinition *network = builder->createNetwork();
 
-	const nvcaffeparser1::IBlobNameToTensor *blobNameToTensor = parser->parse(
-			prototextPath.c_str(), modelPath.c_str(), *network, dataType);
+  const nvcaffeparser1::IBlobNameToTensor *blobNameToTensor = parser->parse(
+      prototextPath.c_str(), modelPath.c_str(), *network, dataType);
 
-	if (dataType == DataType::kFLOAT) {
+  if (dataType == DataType::kFLOAT) {
 
-	} else if (dataType == DataType::kHALF) {
-		builder->setHalf2Mode(true);
+  } else if (dataType == DataType::kHALF) {
+    builder->setHalf2Mode(true);
 
-	} else if (dataType == DataType::kINT8) {
-		builder->setInt8Mode(true);
-	}
+  } else if (dataType == DataType::kINT8) {
+    builder->setInt8Mode(true);
+  }
 
-	if (!blobNameToTensor)
-		throw std::invalid_argument("Failed to parse Caffe network");
+  if (!blobNameToTensor)
+    throw std::invalid_argument("Failed to parse Caffe network");
 
-	// Register outputs with engine
-	for (int n = 0; n < networkOutputs.size(); n++) {
-		nvinfer1::ITensor* tensor = blobNameToTensor->find(
-				networkOutputs[n].name.c_str());
-		network->markOutput(*tensor);
-	}
+  // Register outputs with engine
+  for (int n = 0; n < networkOutputs.size(); n++) {
+    nvinfer1::ITensor *tensor =
+        blobNameToTensor->find(networkOutputs[n].name.c_str());
+    network->markOutput(*tensor);
+  }
 
-	builder->setMaxBatchSize(maxBatchSize);
-	builder->setMaxWorkspaceSize(maxNetworkSize);
+  builder->setMaxBatchSize(maxBatchSize);
+  builder->setMaxWorkspaceSize(maxNetworkSize);
 
-	engine = builder->buildCudaEngine(*network);
-	if (!engine)
-		throw std::runtime_error("Failed to create TensorRT engine");
+  engine = builder->buildCudaEngine(*network);
+  if (!engine)
+    throw std::runtime_error("Failed to create TensorRT engine");
 
-	// Verify registered input shapes match parser
-	for (int n = 0; n < networkInputs.size(); n++) {
-		nvinfer1::Dims dims = engine->getBindingDimensions(n);
+  // Verify registered input shapes match parser
+  for (int n = 0; n < networkInputs.size(); n++) {
+    nvinfer1::Dims dims = engine->getBindingDimensions(n);
 
-		if (dims.nbDims != networkInputs[n].dims.nbDims)
-			throw std::invalid_argument(
-					"Model number of input dimensions do not match what was registered with addInput");
+    if (dims.nbDims != networkInputs[n].dims.nbDims)
+      throw std::invalid_argument("Model number of input dimensions do not "
+                                  "match what was registered with addInput");
 
-		for (int d = 0; d < dims.nbDims; d++)
-			if (dims.d[d] != networkInputs[n].dims.d[d])
-				throw std::invalid_argument(
-						"Model input dimensions do not match what was registered with addInput");
+    for (int d = 0; d < dims.nbDims; d++)
+      if (dims.d[d] != networkInputs[n].dims.d[d])
+        throw std::invalid_argument("Model input dimensions do not match what "
+                                    "was registered with addInput");
+  }
 
-	}
+  /* Reclaim memory */
+  network->destroy();
+  builder->destroy();
+  parser->destroy();
 
-	/* Reclaim memory */
-	network->destroy();
-	builder->destroy();
-	parser->destroy();
+  context = engine->createExecutionContext();
 
-	context = engine->createExecutionContext();
-
-	numBindings = engine->getNbBindings();
-
+  numBindings = engine->getNbBindings();
 }
 
-}
+} // namespace jetson_tensorrt

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['imagenetpreprocessor_2ecpp',['ImageNetPreprocessor.cpp',['../_image_net_preprocessor_8cpp.html',1,'']]],
-  ['imagenetpreprocessor_2eh',['ImageNetPreprocessor.h',['../_image_net_preprocessor_8h.html',1,'']]]
+  ['networkdatatypes_2ecpp',['NetworkDataTypes.cpp',['../_network_data_types_8cpp.html',1,'']]],
+  ['networkdatatypes_2eh',['NetworkDataTypes.h',['../_network_data_types_8h.html',1,'']]]
 ];

@@ -30,8 +30,8 @@
 
 #include <string>
 
-#include "NvInfer.h"
 #include "NvCaffeParser.h"
+#include "NvInfer.h"
 #include "NvUtils.h"
 
 #include "TensorRTEngine.h"
@@ -41,54 +41,59 @@ namespace jetson_tensorrt {
 /**
  * @brief Loads and manages a Caffe network in TensorRT
  */
-class CaffeRTEngine: public TensorRTEngine {
+class CaffeRTEngine : public TensorRTEngine {
 public:
+  /**
+   * @brief	Creates a new instance of CaffeRTEngine
+   */
+  CaffeRTEngine();
 
-	/**
-	 * @brief	Creates a new instance of CaffeRTEngine
-	 */
-	CaffeRTEngine();
+  /**
+   * @brief	CaffeRTEngine Destructor
+   */
+  virtual ~CaffeRTEngine();
 
-	/**
-	 * @brief	CaffeRTEngine Destructor
-	 */
-	virtual ~CaffeRTEngine();
+  /**
+   * @brief	Loads a trained Caffe model.
+   * @usage	Should be called after registering inputs and outputs with
+   * addInput() and addOutput().
+   * @param	prototextPath	Path to the models prototxt file
+   * @param	modelPath	Path to the .caffemodel file
+   * @param	maxBatchSize	The maximum number of records to run a forward
+   * network pass on. For maximum performance, this should be the only batch
+   * size passed to the network.
+   * @param	dataType	The data type of the network to load into
+   * TensorRT
+   * @param	maxNetworkSize	Maximum amount of GPU RAM the Tensorflow graph
+   * is allowed to use
+   */
+  void loadModel(std::string prototextPath, std::string modelPath,
+                 size_t maxBatchSize = 1,
+                 nvinfer1::DataType dataType = nvinfer1::DataType::kFLOAT,
+                 size_t maxNetworkSize = (1 << 30));
 
-	/**
-	 * @brief	Loads a trained Caffe model.
-	 * @usage	Should be called after registering inputs and outputs with addInput() and addOutput().
-	 * @param	prototextPath	Path to the models prototxt file
-	 * @param	modelPath	Path to the .caffemodel file
-	 * @param	maxBatchSize	The maximum number of records to run a forward network pass on. For maximum performance, this should be the only batch size passed to the network.
-	 * @param	dataType	The data type of the network to load into TensorRT
-	 * @param	maxNetworkSize	Maximum amount of GPU RAM the Tensorflow graph is allowed to use
-	 */
-	void loadModel(std::string prototextPath, std::string modelPath, size_t maxBatchSize = 1,
-			nvinfer1::DataType dataType = nvinfer1::DataType::kFLOAT,
-			size_t maxNetworkSize = (1 << 30));
+  /**
+   * @brief	Registers an input to the Caffe network.
+   * @usage	Must be called before loadModel().
+   * @param	layer	The name of the input layer (i.e. "input_1")
+   * @param	dims	Dimensions of the input layer in CHW format
+   * @param	eleSize	Size of each element in bytes
+   */
+  void addInput(std::string layer, nvinfer1::Dims dims, size_t eleSize);
 
-	/**
-	 * @brief	Registers an input to the Caffe network.
-	 * @usage	Must be called before loadModel().
-	 * @param	layer	The name of the input layer (i.e. "input_1")
-	 * @param	dims	Dimensions of the input layer in CHW format
-	 * @param	eleSize	Size of each element in bytes
-	 */
-	void addInput(std::string layer, nvinfer1::Dims dims, size_t eleSize);
-
-	/**
-	 * @brief	Registers an output from the Caffe network.
-	 * @usage	Must be called before loadModel().
-	 * @param	layer	The name of the input layer (i.e. "input_1")
-	 * @param	dims	Dimension of outputs
-	 * @param	eleSize	Size of each element in bytes
-	 */
-	void addOutput(std::string layer, nvinfer1::Dims dims, size_t eleSize);
+  /**
+   * @brief	Registers an output from the Caffe network.
+   * @usage	Must be called before loadModel().
+   * @param	layer	The name of the input layer (i.e. "input_1")
+   * @param	dims	Dimension of outputs
+   * @param	eleSize	Size of each element in bytes
+   */
+  void addOutput(std::string layer, nvinfer1::Dims dims, size_t eleSize);
 
 private:
-	nvcaffeparser1::ICaffeParser* parser;
+  nvcaffeparser1::ICaffeParser *parser;
 };
 
-}
+} // namespace jetson_tensorrt
 
 #endif /* CAFFERTENGINE_H_ */

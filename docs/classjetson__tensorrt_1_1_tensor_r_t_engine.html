@@ -109,9 +109,9 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a5827e6a45961997612abd071eb283489">~TensorRTEngine</a> ()</td></tr>
 <tr class="memdesc:a5827e6a45961997612abd071eb283489"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html" title="Abstract base class which loads and manages a TensorRT model which hides device/host memory managemen...">TensorRTEngine</a> destructor. <br /></td></tr>
 <tr class="separator:a5827e6a45961997612abd071eb283489"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76a179006a6fa4d445e19de632435035"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a76a179006a6fa4d445e19de632435035">predict</a> (<a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a> &amp;inputs, bool copyOutputToHost=true)</td></tr>
-<tr class="memdesc:a76a179006a6fa4d445e19de632435035"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does a forward pass of the neural network loaded in TensorRT  Should be called after loading the graph and calling allocGPUBuffer()  <a href="#a76a179006a6fa4d445e19de632435035">More...</a><br /></td></tr>
-<tr class="separator:a76a179006a6fa4d445e19de632435035"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46cc29b4f63f68136406a7360aabb45b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a46cc29b4f63f68136406a7360aabb45b">predict</a> (<a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a> &amp;inputs, <a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a> &amp;outputs)</td></tr>
+<tr class="memdesc:a46cc29b4f63f68136406a7360aabb45b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does a forward pass of the neural network loaded in TensorRT  Should be called after loading the graph and calling allocGPUBuffer()  <a href="#a46cc29b4f63f68136406a7360aabb45b">More...</a><br /></td></tr>
+<tr class="separator:a46cc29b4f63f68136406a7360aabb45b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3cb4769d3d947aba0b9baeffc68f547e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a3cb4769d3d947aba0b9baeffc68f547e">loadCache</a> (std::string cachePath, size_t maxBatchSize=1)</td></tr>
 <tr class="memdesc:a3cb4769d3d947aba0b9baeffc68f547e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quick load the TensorRT optimized network  Should be called after addInput and addOutput without calling loadModel.  <a href="#a3cb4769d3d947aba0b9baeffc68f547e">More...</a><br /></td></tr>
 <tr class="separator:a3cb4769d3d947aba0b9baeffc68f547e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,6 +127,12 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:a2759405de044e028586f068f5e631a61"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a2759405de044e028586f068f5e631a61">addOutput</a> (std::string layerName, nvinfer1::Dims dims, size_t eleSize)=0</td></tr>
 <tr class="memdesc:a2759405de044e028586f068f5e631a61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract method which registers an output to the network.  <a href="#a2759405de044e028586f068f5e631a61">More...</a><br /></td></tr>
 <tr class="separator:a2759405de044e028586f068f5e631a61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2844f621525838cab8fc403e96c73af4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a2844f621525838cab8fc403e96c73af4">allocInputs</a> (MemoryLocation location, bool skipMalloc=false)</td></tr>
+<tr class="memdesc:a2844f621525838cab8fc403e96c73af4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a located execution memory structure for inputs.  <a href="#a2844f621525838cab8fc403e96c73af4">More...</a><br /></td></tr>
+<tr class="separator:a2844f621525838cab8fc403e96c73af4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c0b9b09d6273ad211d36196f47520bc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_tensor_r_t_engine.html#a4c0b9b09d6273ad211d36196f47520bc">allocOutputs</a> (MemoryLocation location, bool skipMalloc=false)</td></tr>
+<tr class="memdesc:a4c0b9b09d6273ad211d36196f47520bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a located execution memory structure for outputs.  <a href="#a4c0b9b09d6273ad211d36196f47520bc">More...</a><br /></td></tr>
+<tr class="separator:a4c0b9b09d6273ad211d36196f47520bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -139,6 +145,12 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>numBindings</b></td></
 <tr class="memitem:a361ed692f7ee58e11fc09fb8b611e456"><td class="memItemLeft" align="right" valign="top"><a id="a361ed692f7ee58e11fc09fb8b611e456"></a>
 nvinfer1::DataType&#160;</td><td class="memItemRight" valign="bottom"><b>dataType</b></td></tr>
 <tr class="separator:a361ed692f7ee58e11fc09fb8b611e456"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3430066aaef2ead6f826dfe0ffff5b41"><td class="memItemLeft" align="right" valign="top"><a id="a3430066aaef2ead6f826dfe0ffff5b41"></a>
+std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_input.html">NetworkInput</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>networkInputs</b></td></tr>
+<tr class="separator:a3430066aaef2ead6f826dfe0ffff5b41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a054d0ea3c8eb979518936e939bb61fd5"><td class="memItemLeft" align="right" valign="top"><a id="a054d0ea3c8eb979518936e939bb61fd5"></a>
+std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.html">NetworkOutput</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>networkOutputs</b></td></tr>
+<tr class="separator:a054d0ea3c8eb979518936e939bb61fd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -151,12 +163,6 @@ nvinfer1::IExecutionContext *&#160;</td><td class="memItemRight" valign="bottom"
 <tr class="memitem:a988907fdc98bb4ddb231a819c71e357b"><td class="memItemLeft" align="right" valign="top"><a id="a988907fdc98bb4ddb231a819c71e357b"></a>
 <a class="el" href="classjetson__tensorrt_1_1_logger.html">Logger</a>&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b></td></tr>
 <tr class="separator:a988907fdc98bb4ddb231a819c71e357b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3430066aaef2ead6f826dfe0ffff5b41"><td class="memItemLeft" align="right" valign="top"><a id="a3430066aaef2ead6f826dfe0ffff5b41"></a>
-std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_input.html">NetworkInput</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>networkInputs</b></td></tr>
-<tr class="separator:a3430066aaef2ead6f826dfe0ffff5b41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a054d0ea3c8eb979518936e939bb61fd5"><td class="memItemLeft" align="right" valign="top"><a id="a054d0ea3c8eb979518936e939bb61fd5"></a>
-std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.html">NetworkOutput</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>networkOutputs</b></td></tr>
-<tr class="separator:a054d0ea3c8eb979518936e939bb61fd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract base class which loads and manages a TensorRT model which hides device/host memory management. </p>
@@ -269,6 +275,82 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
 
 </div>
 </div>
+<a id="a2844f621525838cab8fc403e96c73af4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2844f621525838cab8fc403e96c73af4">&#9670;&nbsp;</a></span>allocInputs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a> jetson_tensorrt::TensorRTEngine::allocInputs </td>
+          <td>(</td>
+          <td class="paramtype">MemoryLocation&#160;</td>
+          <td class="paramname"><em>location</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>skipMalloc</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocates a located execution memory structure for inputs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">location</td><td>Whether the memory should be allocated on the HOST, DEVICE, or MAPPED </td></tr>
+    <tr><td class="paramname">skipMalloc</td><td>Create the input structure but do not allocate memory </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The allocated or mapped inputs </dd></dl>
+
+</div>
+</div>
+<a id="a4c0b9b09d6273ad211d36196f47520bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c0b9b09d6273ad211d36196f47520bc">&#9670;&nbsp;</a></span>allocOutputs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a> jetson_tensorrt::TensorRTEngine::allocOutputs </td>
+          <td>(</td>
+          <td class="paramtype">MemoryLocation&#160;</td>
+          <td class="paramname"><em>location</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>skipMalloc</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocates a located execution memory structure for outputs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">location</td><td>Whether the memory should be allocated on the HOST, DEVICE, or MAPPED </td></tr>
+    <tr><td class="paramname">skipMalloc</td><td>Create the input structure but do not allocate memory </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The allocated or mapped outputs </dd></dl>
+
+</div>
+</div>
 <a id="ac170c23a337a439cb674a40b005483ff"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac170c23a337a439cb674a40b005483ff">&#9670;&nbsp;</a></span>engineSummary()</h2>
 
@@ -326,14 +408,14 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
 
 </div>
 </div>
-<a id="a76a179006a6fa4d445e19de632435035"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76a179006a6fa4d445e19de632435035">&#9670;&nbsp;</a></span>predict()</h2>
+<a id="a46cc29b4f63f68136406a7360aabb45b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46cc29b4f63f68136406a7360aabb45b">&#9670;&nbsp;</a></span>predict()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a> jetson_tensorrt::TensorRTEngine::predict </td>
+          <td class="memname">void jetson_tensorrt::TensorRTEngine::predict </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a> &amp;&#160;</td>
           <td class="paramname"><em>inputs</em>, </td>
@@ -341,8 +423,8 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>copyOutputToHost</em> = <code>true</code>&#160;</td>
+          <td class="paramtype"><a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a> &amp;&#160;</td>
+          <td class="paramname"><em>outputs</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -355,12 +437,11 @@ std::vector&lt; <a class="el" href="classjetson__tensorrt_1_1_network_output.htm
 <p>Does a forward pass of the neural network loaded in TensorRT  Should be called after loading the graph and calling allocGPUBuffer() </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">inputs</td><td>Graph inputs on either the device or host, indexed by [batchIndex][inputIndex] </td></tr>
-    <tr><td class="paramname">copyOutputToHost</td><td>Controls whether the outputs are copied back to host memory (true) or left in device memory (false) after executing the prediction </td></tr>
+    <tr><td class="paramname">inputs</td><td>Graph inputs indexed by [batchIndex][inputIndex] </td></tr>
+    <tr><td class="paramname">outputs</td><td>Graph inputs indexed by [batchIndex][inputIndex] </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A LocatedResult of outputs, indexed by [batchIndex][outputNumber] </dd></dl>
 
 </div>
 </div>

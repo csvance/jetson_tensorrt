@@ -35,13 +35,80 @@
 #include "NvInfer.h"
 #include "NvUtils.h"
 
-#include "CUDANode.h"
-#include "CUDANodeIO.h"
 #include "CUDAPipeline.h"
 #include "CaffeRTEngine.h"
-#include "ClusteredNonMaximumSuppression.h"
+#include "NetworkDataTypes.h"
 
 namespace jetson_tensorrt {
+
+/**
+ * @brief Class which handles refining the results of a DetectNet like detector
+ */
+class ClusteredNonMaximumSuppression {
+public:
+  /**
+   * @brief	Creates a new ClusteredNonMaximumSupression object
+   */
+  ClusteredNonMaximumSuppression();
+
+  /**
+   * @brief	ClusteredNonMaximumSuppression destructor
+   */
+  virtual ~ClusteredNonMaximumSuppression();
+
+  /**
+   * @brief	Configures the input image dimensions
+   * @usage	Should be called before execute().
+   * @param	imageDimX	X dimension of the entire grid
+   * @param	imageDimY	Y dimension of the entire grid
+   */
+  void setupImage(size_t imageDimX, size_t imageDimY);
+
+  /**
+   * @brief	Configures the  network input dimensions
+   * @usage	Should be called before execute().
+   * @param	inputDimX	Width of the original input image
+   * @param	inputDimY	Height of the original input image
+   */
+  void setupInput(size_t inputDimX, size_t inputDimY);
+
+  /**
+   * @brief	Configures the output dimensions
+   * @usage	Should be called before execute().
+   * @param	gridDimX	X dimension of the entire grid
+   * @param	gridDimY	Y dimension of the entire grid
+   */
+  void setupGrid(size_t gridDimX, size_t gridDimY);
+
+  /**
+   * @brief 	Executes the non maximum suppression.
+   * @usage	Should only be called after setupInput() and setupOutput()
+   * @param	coverage	Coverage Map - Pointer to an n dimensional array
+   * of floating point values representing the most dominance of an object in a
+   * grid rectangle indexed by [class][y][x]
+   * @param	bboxes	Detection Regions - Pointer to a 4 dimensional array of
+   * floating point values representing a rectangle indexed by [x1=0, y1=1,
+   * x2=2, y2=3][y][x]
+   * @param	nbClasses	Number of classes in the coverage map
+   * @param	coverageThreshold	The threshold a detection region must have
+   * to be considered
+   * @return	A vector of class tagged detection regions
+   */
+  std::vector<ClassRectangle> execute(float *coverage, float *bboxes,
+                                      size_t nbClasses = 1,
+                                      float detectionThreshold = 0.5);
+
+private:
+  bool imageReady, inputReady, gridReady;
+
+  size_t imageDimX, imageDimY;
+  float imageScaleX, imageScaleY;
+
+  size_t inputDimX, inputDimY;
+  size_t gridDimX, gridDimY, cellWidth, cellHeight, gridSize;
+
+  void calculateScale();
+};
 
 /**
  * @brief	Loads and manages a DIGITS DetectNet graph with TensorRT
@@ -52,15 +119,15 @@ public:
    * @brief	Creates a new instance of DIGITSDetector
    * @param	prototextPath	Path to the .prototext file
    * @param	modelPath	Path to the .caffemodel file
-   * @param	cachePath	Path to the .tensorcache file which will be loaded
-   * instead of building the network if present
+   * @param	cachePath	Path to the .tensorcache file which will be
+   * loaded instead of building the network if present
    * @param	nbChannels	Number of channels in the input image. 1 for
    * greyscale, 3 for RGB
    * @param	width	Width of the input image
    * @param	height	Height of the input image
    * @param	nbClasses	Number of classes to predict
-   * @param	dataType	The data type used to contstruct the TensorRT network.
-   * Use FLOAT unless you know how it will effect your model.
+   * @param	dataType	The data type used to contstruct the TensorRT
+   * network. Use FLOAT unless you know how it will effect your model.
    * @param	maxNetworkSize	Maximum size in bytes of the TensorRT network in
    * device memory
    */
