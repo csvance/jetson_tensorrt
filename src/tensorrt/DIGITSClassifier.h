@@ -45,6 +45,8 @@ namespace jetson_tensorrt {
  */
 class DIGITSClassifier : public CaffeRTEngine {
 public:
+  enum DEFAULT { WIDTH = 224, HEIGHT = 224, DEPTH = 3, CLASSES = 1 };
+
   DIGITSClassifier() {}
   /**
    * @brief	Creates a new instance of DIGITSClassifier
@@ -64,8 +66,10 @@ public:
    */
   DIGITSClassifier(std::string prototextPath, std::string modelPath,
                    std::string cachePath = "classification.tensorcache",
-                   size_t nbChannels = CHANNELS_BGR, size_t width = 224,
-                   size_t height = 224, size_t nbClasses = 1,
+                   size_t nbChannels = DEFAULT::DEPTH,
+                   size_t width = DEFAULT::WIDTH,
+                   size_t height = DEFAULT::HEIGHT,
+                   size_t nbClasses = DEFAULT::CLASSES,
                    nvinfer1::DataType dataType = nvinfer1::DataType::kFLOAT,
                    size_t maxNetworkSize = (1 << 30));
 
@@ -78,8 +82,8 @@ public:
    * @brief	Classifies a single BGR format image.
    * @param	inputs Graph inputs indexed by [batchIndex][inputIndex]
    * @param	outputs Graph inputs indexed by [batchIndex][inputIndex]
-   * @param	threshold	Minimum probability of a class detection for it to
-   * be returned as a result
+   * @param	threshold	Minimum probability of a class detection for it
+   * to be returned as a result
    * @return	vector of Classification objects above the threshold
    *
    */

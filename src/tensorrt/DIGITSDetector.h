@@ -114,7 +114,10 @@ private:
  * @brief	Loads and manages a DIGITS DetectNet graph with TensorRT
  */
 class DIGITSDetector : public CaffeRTEngine {
+
 public:
+  enum DEFAULT { WIDTH = 1024, HEIGHT = 512, DEPTH = 1, CLASSES = 1 };
+
   DIGITSDetector() {}
 
   /**
@@ -135,8 +138,9 @@ public:
    */
   DIGITSDetector(std::string prototextPath, std::string modelPath,
                  std::string cachePath = "detection.tensorcache",
-                 size_t nbChannels = CHANNELS_BGR, size_t width = 1024,
-                 size_t height = 512, size_t nbClasses = 1,
+                 size_t nbChannels = DEFAULT::DEPTH,
+                 size_t width = DEFAULT::WIDTH, size_t height = DEFAULT::HEIGHT,
+                 size_t nbClasses = DEFAULT::CLASSES,
                  nvinfer1::DataType dataType = nvinfer1::DataType::kFLOAT,
                  size_t maxNetworkSize = (1 << 30));
 

@@ -32,7 +32,9 @@
 
 #include "DIGITSDetector.h"
 
-jetson_tensorrt::DIGITSDetector engine;
+using namespace jetson_tensorrt;
+
+DIGITSDetector engine;
 
 void imageCallback(const sensor_msgs::Image::ConstPtr &msg) {}
 
@@ -44,24 +46,24 @@ int main(int argc, char **argv) {
   std::string model_path, cache_path, weights_path;
 
   nh.getParam("model_path", model_path);
-  nh.getParam("cache_path", cache_path);
   nh.getParam("weights_path", weights_path);
+  nh.getParam("cache_path", cache_path);
 
   int image_depth, image_width, image_height;
-  nh.param("image_depth", image_depth);   // default: 1
-  nh.param("image_width", image_width);   // default: 1024
-  nh.param("image_height", image_height); // default: 512
+  nh.param("image_depth", image_depth, (int)DIGITSDetector::DEFAULT::DEPTH);
+  nh.param("image_width", image_width, (int)DIGITSDetector::DEFAULT::WIDTH);
+  nh.param("image_height", image_height, (int)DIGITSDetector::DEFAULT::HEIGHT);
 
   int num_classes;
-  nh.param("num_classes", num_classes);
+  nh.param("num_classes", (int)num_classes);
 
   ROS_INFO("Loading nVidia DIGITS model...");
-  engine = jetson_tensorrt::DIGITSDetector(model_path, weights_path, cache_path,
-                                           image_depth, image_width,
-                                           image_height, num_classes);
+  engine = DIGITSDetector(model_path, weights_path, cache_path, image_depth,
+                          image_width, image_height, num_classes);
 
   std::string image_subscribe_topic;
-  nh.param("image_subscribe_topic", image_subscribe_topic); // default: "camera"
+  nh.param("image_subscribe_topic", image_subscribe_topic,
+           std::string("camera"));
 
   ros::Subscriber image_sub =
       nh.subscribe<sensor_msgs::Image>(image_subscribe_topic, 5, imageCallback);
