@@ -25,8 +25,8 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef DETECTIONRTENGINE_H_
-#define DETECTIONRTENGINE_H_
+#ifndef DIGITS_DETECTOR_H_
+#define DIGITS_DETECTOR_H_
 
 #include <string>
 #include <vector>
@@ -90,8 +90,8 @@ public:
    * floating point values representing a rectangle indexed by [x1=0, y1=1,
    * x2=2, y2=3][y][x]
    * @param	nbClasses	Number of classes in the coverage map
-   * @param	coverageThreshold	The threshold a detection region must have
-   * to be considered
+   * @param	coverageThreshold	The threshold a detection region must
+   * have to be considered
    * @return	A vector of class tagged detection regions
    */
   std::vector<ClassRectangle> execute(float *coverage, float *bboxes,
@@ -115,6 +115,8 @@ private:
  */
 class DIGITSDetector : public CaffeRTEngine {
 public:
+  DIGITSDetector() {}
+
   /**
    * @brief	Creates a new instance of DIGITSDetector
    * @param	prototextPath	Path to the .prototext file
@@ -176,4 +178,4 @@ private:
 
 } /* namespace jetson_tensorrt */
 
-#endif /* DETECTIONRTENGINE_H_ */
+#endif /* DIGITS_DETECTOR_H_ */

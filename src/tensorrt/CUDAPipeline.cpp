@@ -26,8 +26,9 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#include "CUDANode.h"
 #include "CUDAPipeline.h"
+
+#include "CUDAPipeNodes.h"
 
 namespace jetson_tensorrt {
 
@@ -41,35 +42,35 @@ CUDAPipeIO::CUDAPipeIO(MemoryLocation location, void *data, size_t dataSize) {
 
 size_t CUDAPipeIO::size() { return dataSize; }
 
-void CUDAPipeline::addNode(CUDAPipeNode* node) { nodes.push_back(node); }
+void CUDAPipeline::addNode(CUDAPipeNode *node) { nodes.push_back(node); }
 
-CUDAPipeline::CUDAPipeline(){}
-CUDAPipeline::~CUDAPipeline(){
-  for (int node=0;node<nodes.size();node++)
+CUDAPipeline::CUDAPipeline() {}
+CUDAPipeline::~CUDAPipeline() {
+  for (int node = 0; node < nodes.size(); node++)
     delete nodes[node];
 }
 
-CUDAPipeIO CUDAPipeline::pipe(CUDAPipeIO& input) {
+CUDAPipeIO CUDAPipeline::pipe(CUDAPipeIO &input) {
   CUDAPipeIO result = input;
 
   // Move through the pipe
-  for (int node=0;node<nodes.size();node++)
+  for (int node = 0; node < nodes.size(); node++)
     result = nodes[node]->pipe(result);
 
   return result;
 }
 
-CUDAPipeline* CUDAPipeline::createNV12ImageNetPipeline(int inputWidth,
-                                                             int inputHeight,
-                                                             int outputWidth,
-                                                             int outputHeight,
-                                                             float3 mean) {
-  ToDevicePTRNode* ptrNode = new ToDevicePTRNode();
-  NV12toRGBAfNode* nv12Node = new NV12toRGBAfNode(inputWidth, inputHeight);
-  RGBAfToImageNetNode* imgNetNode = new RGBAfToImageNetNode(
+CUDAPipeline *CUDAPipeline::createNV12ImageNetPipeline(int inputWidth,
+                                                       int inputHeight,
+                                                       int outputWidth,
+                                                       int outputHeight,
+                                                       float3 mean) {
+  ToDevicePTRNode *ptrNode = new ToDevicePTRNode();
+  NV12toRGBAfNode *nv12Node = new NV12toRGBAfNode(inputWidth, inputHeight);
+  RGBAfToImageNetNode *imgNetNode = new RGBAfToImageNetNode(
       inputWidth, inputHeight, outputWidth, outputHeight, mean);
 
-  CUDAPipeline* pipe = new CUDAPipeline();
+  CUDAPipeline *pipe = new CUDAPipeline();
   pipe->addNode(ptrNode);
   pipe->addNode(nv12Node);
   pipe->addNode(imgNetNode);
@@ -77,17 +78,17 @@ CUDAPipeline* CUDAPipeline::createNV12ImageNetPipeline(int inputWidth,
   return pipe;
 }
 
-CUDAPipeline* CUDAPipeline::createRGBImageNetPipeline(int inputWidth,
-                                                             int inputHeight,
-                                                             int outputWidth,
-                                                             int outputHeight,
-                                                             float3 mean) {
-  ToDevicePTRNode* ptrNode = new ToDevicePTRNode();
-  RGBToRGBAfNode* rbgNode = new RGBToRGBAfNode(inputWidth, inputHeight);
-  RGBAfToImageNetNode* imgNetNode = new RGBAfToImageNetNode(
+CUDAPipeline *CUDAPipeline::createRGBImageNetPipeline(int inputWidth,
+                                                      int inputHeight,
+                                                      int outputWidth,
+                                                      int outputHeight,
+                                                      float3 mean) {
+  ToDevicePTRNode *ptrNode = new ToDevicePTRNode();
+  RGBToRGBAfNode *rbgNode = new RGBToRGBAfNode(inputWidth, inputHeight);
+  RGBAfToImageNetNode *imgNetNode = new RGBAfToImageNetNode(
       inputWidth, inputHeight, outputWidth, outputHeight, mean);
 
-  CUDAPipeline* pipe = new CUDAPipeline();
+  CUDAPipeline *pipe = new CUDAPipeline();
   pipe->addNode(ptrNode);
   pipe->addNode(rbgNode);
   pipe->addNode(imgNetNode);
@@ -95,16 +96,16 @@ CUDAPipeline* CUDAPipeline::createRGBImageNetPipeline(int inputWidth,
   return pipe;
 }
 
-CUDAPipeline* CUDAPipeline::createRGBAfImageNetPipeline(int inputWidth,
-                                                             int inputHeight,
-                                                             int outputWidth,
-                                                             int outputHeight,
-                                                             float3 mean) {
-  ToDevicePTRNode* ptrNode = new ToDevicePTRNode();
-  RGBAfToImageNetNode* imgNetNode = new RGBAfToImageNetNode(
+CUDAPipeline *CUDAPipeline::createRGBAfImageNetPipeline(int inputWidth,
+                                                        int inputHeight,
+                                                        int outputWidth,
+                                                        int outputHeight,
+                                                        float3 mean) {
+  ToDevicePTRNode *ptrNode = new ToDevicePTRNode();
+  RGBAfToImageNetNode *imgNetNode = new RGBAfToImageNetNode(
       inputWidth, inputHeight, outputWidth, outputHeight, mean);
 
-  CUDAPipeline* pipe = new CUDAPipeline();
+  CUDAPipeline *pipe = new CUDAPipeline();
   pipe->addNode(ptrNode);
   pipe->addNode(imgNetNode);
 

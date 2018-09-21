@@ -45,19 +45,20 @@ namespace jetson_tensorrt {
  */
 class DIGITSClassifier : public CaffeRTEngine {
 public:
+  DIGITSClassifier() {}
   /**
    * @brief	Creates a new instance of DIGITSClassifier
    * @param	prototextPath	Path to the .prototext file
    * @param	modelPath	Path to the .caffemodel file
-   * @param	cachePath	Path to the .tensorcache file which will be loaded
-   * instead of building the network if present
+   * @param	cachePath	Path to the .tensorcache file which will be
+   * loaded instead of building the network if present
    * @param	nbChannels	Number of channels in the input image. 1 for
    * greyscale, 3 for RGB
    * @param	width	Width of the input image
    * @param	height	Height of the input image
    * @param	nbClasses	Number of classes to predict
-   * @param	dataType	The data type used to contstruct the TensorRT network.
-   * Use FLOAT unless you know how it will effect your model.
+   * @param	dataType	The data type used to contstruct the TensorRT
+   * network. Use FLOAT unless you know how it will effect your model.
    * @param	maxNetworkSize	Maximum size in bytes of the TensorRT network in
    * device memory
    */
@@ -77,8 +78,8 @@ public:
    * @brief	Classifies a single BGR format image.
    * @param	inputs Graph inputs indexed by [batchIndex][inputIndex]
    * @param	outputs Graph inputs indexed by [batchIndex][inputIndex]
-   * @param	threshold	Minimum probability of a class detection for it to be
-   * returned as a result
+   * @param	threshold	Minimum probability of a class detection for it to
+   * be returned as a result
    * @return	vector of Classification objects above the threshold
    *
    */

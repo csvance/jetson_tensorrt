@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   sensor_msgs
   std_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -69,10 +70,12 @@ add_message_files(
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   geometry_msgs#   sensor_msgs#   std_msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  sensor_msgs
+  std_msgs
+  geometry_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -104,10 +107,10 @@ add_message_files(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES jetson_tensorrt
-#  CATKIN_DEPENDS geometry_msgs roscpp sensor_msgs std_msgs
-#  DEPENDS system_lib
+  INCLUDE_DIRS include
+  LIBRARIES jetson_tensorrt
+  CATKIN_DEPENDS message_runtime geometry_msgs roscpp sensor_msgs std_msgs
+  DEPENDS system_lib
 )
 
 ###########

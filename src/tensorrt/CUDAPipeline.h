@@ -31,7 +31,6 @@
 
 #include <vector>
 
-#include "CUDAPipeNodes.h"
 #include "CUDACommon.h"
 
 namespace jetson_tensorrt {
@@ -48,6 +47,24 @@ public:
   void *data;
 };
 
+class CUDAPipeNode {
+public:
+  /**
+     @brief Send an input through the node and get back the output
+     @param input The input to the node
+     @return The output of the node
+   */
+  virtual CUDAPipeIO pipe(CUDAPipeIO &input) {}
+
+  void *data;
+  size_t size();
+
+protected:
+  bool allocated;
+  size_t allocSize;
+  MemoryLocation allocLocation;
+};
+
 class CUDAPipeline {
 
 public:
@@ -58,7 +75,7 @@ public:
      @brief Add a node to the pipeline
      @param node The node
    */
-  void addNode(CUDAPipeNode* node);
+  void addNode(CUDAPipeNode *node);
 
   /**
      @brief Send an input through the pipeline and get back the output
@@ -76,11 +93,9 @@ public:
   @param mean ImageNet mean
   @return CUDAPipeline configured to do the required image preprocessing
   */
-  static CUDAPipeline* createNV12ImageNetPipeline(int inputWidth,
-                                                               int inputHeight,
-                                                               int outputWidth,
-                                                               int outputHeight,
-                                                               float3 mean);
+  static CUDAPipeline *
+  createNV12ImageNetPipeline(int inputWidth, int inputHeight, int outputWidth,
+                             int outputHeight, float3 mean);
   /**
   @brief Create an RGB -> ImageNet preprocessing pipeline
   @param inputWidth RGB image width
@@ -90,11 +105,10 @@ public:
   @param mean ImageNet mean
   @return CUDAPipeline configured to do the required image preprocessing
   */
-  static CUDAPipeline* createRGBImageNetPipeline(int inputWidth,
-                                                              int inputHeight,
-                                                              int outputWidth,
-                                                              int outputHeight,
-                                                              float3 mean);
+  static CUDAPipeline *createRGBImageNetPipeline(int inputWidth,
+                                                 int inputHeight,
+                                                 int outputWidth,
+                                                 int outputHeight, float3 mean);
 
   /**
   @brief Create an RGBAf -> ImageNet preprocessing pipeline
@@ -105,12 +119,11 @@ public:
   @param mean ImageNet mean
   @return CUDAPipeline configured to do the required image preprocessing
   */
-  static CUDAPipeline*
-  createRGBAfImageNetPipeline(int inputWidth, int inputHeight,
-                                            int outputWidth, int outputHeight,
-                                            float3 mean);
+  static CUDAPipeline *
+  createRGBAfImageNetPipeline(int inputWidth, int inputHeight, int outputWidth,
+                              int outputHeight, float3 mean);
 
-  std::vector<CUDAPipeNode*> nodes;
+  std::vector<CUDAPipeNode *> nodes;
 };
 
 } // namespace jetson_tensorrt
