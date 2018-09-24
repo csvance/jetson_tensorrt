@@ -30,46 +30,102 @@
 #include "ros/ros.h"
 #include "sensor_msgs/Image.h"
 
+#include "CUDAPipeline.h"
 #include "DIGITSDetector.h"
 
 using namespace jetson_tensorrt;
 
+/* TensorRT */
+CUDAPipeline *preprocessPipeline = nullptr;
+LocatedExecutionMemory input, output;
 DIGITSDetector engine;
 
-void imageCallback(const sensor_msgs::Image::ConstPtr &msg) {}
+/* ROS */
+ros::Publisher region_pub;
+
+/* Params */
+float threshold;
+std::string model_path, cache_path, weights_path;
+std::string image_subscribe_topic;
+int model_image_depth, model_image_width, model_image_height, model_num_classes;
+
+void imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
+  /* 1. Preprocess */
+  if (preprocessPipeline == nullptr) {
+    if (msg.encoding == sensor_msgs::image_encodings::RGB8) {
+      preprocessPipeline = createRGBImageNetPipeline(
+          msg.width, msg.height, model_image_width, model_image_height);
+    } else if (msg.encoding == sensor_msgs::image_encodings::YUV422) {
+      // TODO: Implement YUV422 preprocess pipeline
+      ROS_INFO("Unsupported image encoding: %s", msg.encoding);
+    }
+  } else {
+    ROS_INFO("Unsupported image encoding: %s", msg.encoding);
+    return;
+  }
+
+  CUDAPipeIO input =
+      CUDAPipeIO(MemoryLocation::HOST, msg.data, msg.height * msg.step);
+
+  CUDAPipeIO output = preprocessPipeline->pipe(input);
+
+  input.batch[0][0] = output.data;
+
+  /* 2. Inference */
+  std::vector<ClassRectangle> rects = engine.predict(input, output, threshold);
+
+  /* 3. Publish */
+  CategorizedRegionsOfInterest regions;
+
+  for (std::vector<T>::iterator it = rects.begin(); it != rects.end(); ++it) {
+    CategorizedRegionOfInterest region;
+    region.x = (*it).x;
+    region.y = (*it).y;
+    region.w = (*it).w;
+    region.h = (*it).h;
+    region.id = (*it).id;
+
+    regions.regions.add(region);
+  }
+
+  region_pub.publish(regions);
+}
 
 int main(int argc, char **argv) {
 
   ros::init(argc, argv, "digits_detect");
   ros::NodeHandle nh;
 
-  std::string model_path, cache_path, weights_path;
-
   nh.getParam("model_path", model_path);
   nh.getParam("weights_path", weights_path);
   nh.getParam("cache_path", cache_path);
 
-  int image_depth, image_width, image_height;
-  nh.param("image_depth", image_depth, (int)DIGITSDetector::DEFAULT::DEPTH);
-  nh.param("image_width", image_width, (int)DIGITSDetector::DEFAULT::WIDTH);
-  nh.param("image_height", image_height, (int)DIGITSDetector::DEFAULT::HEIGHT);
+  nh.param("model_image_depth", model_image_depth,
+           (int)DIGITSDetector::DEFAULT::DEPTH);
+  nh.param("model_image_width", model_image_width,
+           (int)DIGITSDetector::DEFAULT::WIDTH);
+  nh.param("model_image_height", model_image_height,
+           (int)DIGITSDetector::DEFAULT::HEIGHT);
+  nh.param("model_num_classes", model_num_classes,
+           (int)DIGITSDetector::DEFAULT::CLASSES);
 
-  int num_classes;
-  nh.param("num_classes", (int)num_classes);
+  nh.param("threshold", threshold, 0.5);
 
   ROS_INFO("Loading nVidia DIGITS model...");
-  engine = DIGITSDetector(model_path, weights_path, cache_path, image_depth,
-                          image_width, image_height, num_classes);
+  engine =
+      DIGITSDetector(model_path, weights_path, cache_path, model_image_depth,
+                     model_image_width, model_image_height, model_num_classes);
 
-  std::string image_subscribe_topic;
+  input = engine.allocInputs(MemoryLocation::HOST);
+  output = engine.allocOutputs(MemoryLocation::HOST);
+
   nh.param("image_subscribe_topic", image_subscribe_topic,
            std::string("camera"));
 
   ros::Subscriber image_sub =
       nh.subscribe<sensor_msgs::Image>(image_subscribe_topic, 5, imageCallback);
-  ros::Publisher region_pub =
-      nh.advertise<jetson_tensorrt::CategorizedRegionsOfInterest>("detections",
-                                                                  5);
+  region_pub = nh.advertise<jetson_tensorrt::CategorizedRegionsOfInterest>(
+      "detections", 5);
 
   ros::spin();
 
