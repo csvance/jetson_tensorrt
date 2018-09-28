@@ -122,6 +122,9 @@ public:
  * device, or mapped memory
  */
 struct LocatedExecutionMemory {
+
+  LocatedExecutionMemory() {}
+
   /**
    * @brief LocatedExecutionMemory constructor
    * @param location	The location of the batch inputs or outputs, either in
