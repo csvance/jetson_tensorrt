@@ -116,7 +116,7 @@ private:
 class DIGITSDetector : public CaffeRTEngine {
 
 public:
-  enum DEFAULT { WIDTH = 1024, HEIGHT = 512, DEPTH = 1, CLASSES = 1 };
+  enum DEFAULT { WIDTH = 1024, HEIGHT = 512, DEPTH = 3, CLASSES = 1 };
 
   DIGITSDetector() {}
 

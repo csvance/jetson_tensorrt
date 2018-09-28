@@ -100,11 +100,19 @@ void imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
 int main(int argc, char **argv) {
 
   ros::init(argc, argv, "digits_detect");
-  ros::NodeHandle nh;
+  ros::NodeHandle nh("~");
 
-  nh.getParam("model_path", model_path);
-  nh.getParam("weights_path", weights_path);
-  nh.getParam("cache_path", cache_path);
+  nh.param("model_path", model_path,
+           std::string("/home/nvidia/ros_jetson_tensorrt/detectnet.prototxt"));
+  nh.param("weights_path", weights_path,
+           std::string("/home/nvidia/ros_jetson_tensorrt/ped-100.caffemodel"));
+  nh.param(
+      "cache_path", cache_path,
+      std::string("/home/nvidia/ros_jetson_tensorrt/detection.tensorcache"));
+
+  ROS_INFO("model_path: %s", model_path.c_str());
+  ROS_INFO("weights_path: %s", weights_path.c_str());
+  ROS_INFO("cache_path: %s", cache_path.c_str());
 
   nh.param("model_image_depth", model_image_depth,
            (int)DIGITSDetector::DEFAULT::DEPTH);
@@ -125,12 +133,13 @@ int main(int argc, char **argv) {
   engine =
       DIGITSDetector(model_path, weights_path, cache_path, model_image_depth,
                      model_image_width, model_image_height, model_num_classes);
+  ROS_INFO("Done loading nVidia DIGITS model.");
 
   tensor_input = engine.allocInputs(MemoryLocation::HOST);
   tensor_output = engine.allocOutputs(MemoryLocation::HOST);
 
   nh.param("image_subscribe_topic", image_subscribe_topic,
-           std::string("camera"));
+           std::string("/csi_cam/image_raw"));
 
   ros::Subscriber image_sub =
       nh.subscribe<sensor_msgs::Image>(image_subscribe_topic, 5, imageCallback);
