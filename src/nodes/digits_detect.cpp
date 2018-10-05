@@ -24,12 +24,18 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
+#include "cv_bridge/cv_bridge.h"
 #include "digits_detect.h"
 #include "jetson_tensorrt/CategorizedRegionOfInterest.h"
 #include "jetson_tensorrt/CategorizedRegionsOfInterest.h"
 #include "ros/ros.h"
 #include "sensor_msgs/Image.h"
 #include "sensor_msgs/image_encodings.h"
+
+#include "opencv2/core/utility.hpp"
+#include "opencv2/highgui.hpp"
+#include "opencv2/imgcodecs.hpp"
+#include "opencv2/imgproc.hpp"
 
 #include "CUDAPipeline.h"
 #include "DIGITSDetector.h"
@@ -43,6 +49,7 @@ DIGITSDetector *engine = nullptr;
 
 /* ROS */
 ros::Publisher region_pub;
+ros::Publisher debug_pub;
 
 /* Params */
 float threshold;
@@ -50,6 +57,7 @@ std::string model_path, cache_path, weights_path;
 std::string image_subscribe_topic;
 int model_image_depth, model_image_width, model_image_height, model_num_classes;
 float mean_0, mean_1, mean_2;
+int debug;
 
 void imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
 
@@ -95,6 +103,13 @@ void imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
   /* 3. Publish */
   CategorizedRegionsOfInterest regions;
 
+  cv_bridge::CvImagePtr cv_ptr;
+  if (debug)
+    cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::RGB8);
+
+  float x_scale = (float)msg->width / (float)model_image_width;
+  float y_scale = (float)msg->height / (float)model_image_height;
+
   for (std::vector<ClassRectangle>::iterator it = rects.begin();
        it != rects.end(); ++it) {
     CategorizedRegionOfInterest region;
@@ -104,8 +119,20 @@ void imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
     region.h = (*it).h;
     region.id = (*it).id;
 
+    if (debug) {
+      ROS_INFO("%d,%d %dx%d", (int)(region.x * x_scale),
+               (int)(region.y * y_scale), (int)(region.w * x_scale),
+               (int)(region.h * y_scale));
+
+      cv::Rect rect((int)(region.x * x_scale), (int)(region.y * y_scale),
+                    (int)(region.w * x_scale), (int)(region.h * y_scale));
+      cv::rectangle(cv_ptr->image, rect, cv::Scalar(0, 255, 0), 8);
+    }
+
     regions.regions.push_back(region);
   }
+
+  debug_pub.publish(cv_ptr->toImageMsg());
 
   region_pub.publish(regions);
 }
@@ -142,11 +169,16 @@ int main(int argc, char **argv) {
 
   nh.param("threshold", threshold, (float)0.5);
 
+  nh.param("debug", debug, 1);
+
   nh.param("image_subscribe_topic", image_subscribe_topic,
            std::string("/csi_cam/image_raw"));
 
   ros::Subscriber image_sub =
       nh.subscribe<sensor_msgs::Image>(image_subscribe_topic, 5, imageCallback);
+
+  if (debug)
+    debug_pub = nh.advertise<sensor_msgs::Image>("debug", 5);
   region_pub = nh.advertise<jetson_tensorrt::CategorizedRegionsOfInterest>(
       "detections", 5);
 
