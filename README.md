@@ -1,6 +1,6 @@
 # ros_jetson_tensorrt
-**This repository is in heavy active development**. contains 
-ROS Nodes for nVidias' Jetson platform utilizing TensorRT.
+**This repository is in heavy active development**. Contains
+ROS nodes for nVidias' Jetson platform utilizing TensorRT.
 
 # Planned Network Support
 - [DIGITS][digits] - ImageNet, DetectNet, SegNet
