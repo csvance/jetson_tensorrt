@@ -235,15 +235,13 @@ void TensorRTEngine::predict(LocatedExecutionMemory &inputs,
           throw std::runtime_error(
               "Unable to get device pointer for CUDA mapped alloc: " +
               std::to_string(getDevicePtrError));
+        }
 
-        } else if (outputs.location == MemoryLocation::DEVICE)
-
-          // Since the inputs are already in the device, all we need to do is
-          // assign them to the transaction buffer
-          transactionGPUBuffers[bindingIdx + b * stepSize] = outputs[b][o];
-
+      } else if (outputs.location == MemoryLocation::DEVICE) {
+        // Since the inputs are already in the device, all we need to do is
+        // assign them to the transaction buffer
+        transactionGPUBuffers[bindingIdx + b * stepSize] = outputs[b][o];
       } else if (outputs.location == MemoryLocation::HOST) {
-
         transactionGPUBuffers[bindingIdx + b * stepSize] =
             preAllocatedGPUBuffers[bindingIdx + b * stepSize];
       }
@@ -395,39 +393,31 @@ void Logger::log(nvinfer1::ILogger::Severity severity, const char *msg) {
   std::cerr << msg << std::endl;
 }
 
-
 NetworkIO::NetworkIO(std::string name, nvinfer1::Dims dims, size_t eleSize) {
-	this->name = name;
-	this->dims = dims;
-	this->eleSize = eleSize;
+  this->name = name;
+  this->dims = dims;
+  this->eleSize = eleSize;
 }
 
-
-NetworkIO::~NetworkIO() {
-}
-
+NetworkIO::~NetworkIO() {}
 
 size_t NetworkIO::size() {
-	int64_t volume = 1;
-	for (int64_t i = 0; i < dims.nbDims; i++)
-		volume *= dims.d[i];
+  int64_t volume = 1;
+  for (int64_t i = 0; i < dims.nbDims; i++)
+    volume *= dims.d[i];
 
-	return (size_t) volume * eleSize;
+  return (size_t)volume * eleSize;
 }
 
 NetworkInput::NetworkInput(std::string name, nvinfer1::Dims dims,
-		size_t eleSize) :
-		NetworkIO(name, dims, eleSize) {
-}
+                           size_t eleSize)
+    : NetworkIO(name, dims, eleSize) {}
 
-NetworkInput::~NetworkInput() {
-}
+NetworkInput::~NetworkInput() {}
 
 NetworkOutput::NetworkOutput(std::string name, nvinfer1::Dims dims,
-		size_t eleSize) :
-		NetworkIO(name, dims, eleSize) {
-}
+                             size_t eleSize)
+    : NetworkIO(name, dims, eleSize) {}
 
-NetworkOutput::~NetworkOutput() {
-}
+NetworkOutput::~NetworkOutput() {}
 } // namespace jetson_tensorrt

@@ -1,8 +1,7 @@
 <map id="src/tensorrt/DIGITSDetector.h" name="src/tensorrt/DIGITSDetector.h">
-<area shape="rect" id="node7" href="$_c_u_d_a_pipeline_8h.html" title="Abstract class representing a CUDA input / output processing pipeline. " alt="" coords="625,79,743,104"/>
-<area shape="rect" id="node16" href="$_caffe_r_t_engine_8h.html" title="Loads and manages a Caffe graph with TensorRT. " alt="" coords="227,79,350,104"/>
-<area shape="rect" id="node19" href="$_network_data_types_8h.html" title="Neural network input and output data types. " alt="" coords="768,79,913,104"/>
-<area shape="rect" id="node8" href="$_c_u_d_a_pipe_nodes_8h.html" title="Nodes for a CUDAPipeline. " alt="" coords="725,152,860,177"/>
-<area shape="rect" id="node9" href="$_c_u_d_a_common_8h.html" title="Wrappers for common CUDA functions. " alt="" coords="702,225,826,251"/>
-<area shape="rect" id="node17" href="$_tensor_r_t_engine_8h.html" title="Abstract class which loads and manages a TensorRT graph. " alt="" coords="172,152,303,177"/>
+<area shape="rect" id="node7" href="$_c_u_d_a_pipeline_8h.html" title="Abstract class representing a CUDA input / output processing pipeline. " alt="" coords="319,152,436,177"/>
+<area shape="rect" id="node15" href="$_caffe_r_t_engine_8h.html" title="Loads and manages a Caffe graph with TensorRT. " alt="" coords="665,79,788,104"/>
+<area shape="rect" id="node18" href="$_network_data_types_8h.html" title="Neural network input and output data types. " alt="" coords="1012,79,1157,104"/>
+<area shape="rect" id="node8" href="$_c_u_d_a_common_8h.html" title="Wrappers for common CUDA functions. " alt="" coords="257,225,381,251"/>
+<area shape="rect" id="node16" href="$_tensor_r_t_engine_8h.html" title="Abstract class which loads and manages a TensorRT graph. " alt="" coords="460,152,591,177"/>
 </map>

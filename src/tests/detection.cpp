@@ -10,8 +10,6 @@
 #include <unordered_map>
 #include <vector>
 
-#include "../tensorrt/CUDAPipeIO.h"
-#include "CUDANode.h"
 #include "CUDAPipeline.h"
 #include "DIGITSDetector.h"
 #include "TensorRTEngine.h"

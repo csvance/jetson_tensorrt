@@ -4,7 +4,6 @@ add_library(
     jetson_tensorrt STATIC
     CaffeRTEngine.cpp
     CUDACommon.cpp
-    CUDANode.cpp
     CUDAPipeline.cpp
     CUDAPipeNodes.cpp
     DIGITSClassifier.cpp

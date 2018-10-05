@@ -25,8 +25,8 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef DETECTIONRTENGINE_H_
-#define DETECTIONRTENGINE_H_
+#ifndef DIGITS_DETECTOR_H_
+#define DIGITS_DETECTOR_H_
 
 #include <string>
 #include <vector>
@@ -90,8 +90,8 @@ public:
    * floating point values representing a rectangle indexed by [x1=0, y1=1,
    * x2=2, y2=3][y][x]
    * @param	nbClasses	Number of classes in the coverage map
-   * @param	coverageThreshold	The threshold a detection region must have
-   * to be considered
+   * @param	coverageThreshold	The threshold a detection region must
+   * have to be considered
    * @return	A vector of class tagged detection regions
    */
   std::vector<ClassRectangle> execute(float *coverage, float *bboxes,
@@ -114,7 +114,12 @@ private:
  * @brief	Loads and manages a DIGITS DetectNet graph with TensorRT
  */
 class DIGITSDetector : public CaffeRTEngine {
+
 public:
+  enum DEFAULT { WIDTH = 1024, HEIGHT = 512, DEPTH = 3, CLASSES = 1 };
+
+  DIGITSDetector() {}
+
   /**
    * @brief	Creates a new instance of DIGITSDetector
    * @param	prototextPath	Path to the .prototext file
@@ -133,8 +138,9 @@ public:
    */
   DIGITSDetector(std::string prototextPath, std::string modelPath,
                  std::string cachePath = "detection.tensorcache",
-                 size_t nbChannels = CHANNELS_BGR, size_t width = 1024,
-                 size_t height = 512, size_t nbClasses = 1,
+                 size_t nbChannels = DEFAULT::DEPTH,
+                 size_t width = DEFAULT::WIDTH, size_t height = DEFAULT::HEIGHT,
+                 size_t nbClasses = DEFAULT::CLASSES,
                  nvinfer1::DataType dataType = nvinfer1::DataType::kFLOAT,
                  size_t maxNetworkSize = (1 << 30));
 
@@ -176,4 +182,4 @@ private:
 
 } /* namespace jetson_tensorrt */
 
-#endif /* DETECTIONRTENGINE_H_ */
+#endif /* DIGITS_DETECTOR_H_ */

@@ -25,31 +25,13 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef CUDANODE_H_
-#define CUDANODE_H_
+#ifndef CUDAPIPENODES_H_
+#define CUDAPIPENODES_H_
 
 #include "CUDACommon.h"
 #include "CUDAPipeline.h"
 
 namespace jetson_tensorrt {
-
-class CUDAPipeNode {
-public:
-  /**
-     @brief Send an input through the node and get back the output
-     @param input The input to the node
-     @return The output of the node
-   */
-  virtual CUDAPipeIO pipe(CUDAPipeIO &input) {}
-
-  void *data;
-  size_t size();
-
-protected:
-  bool allocated;
-  size_t allocSize;
-  MemoryLocation allocLocation;
-};
 
 class ToDevicePTRNode : public CUDAPipeNode {
 public:
@@ -78,7 +60,7 @@ public:
     this->inputWidth = inputWidth;
     this->inputHeight = inputHeight;
   }
-  virtual ~NV12toRGBAfNode();
+  virtual ~NV12toRGBAfNode() {}
 
   CUDAPipeIO pipe(CUDAPipeIO &input);
 

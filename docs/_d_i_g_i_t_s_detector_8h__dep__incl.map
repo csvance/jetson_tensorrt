@@ -1,3 +1,4 @@
 <map id="src/tensorrt/DIGITSDetector.h" name="src/tensorrt/DIGITSDetector.h">
-<area shape="rect" id="node2" href="$_d_i_g_i_t_s_detector_8cpp.html" title="Loads and manages a DIGITS DetectNet graph with TensorRT. " alt="" coords="5,79,216,104"/>
+<area shape="rect" id="node2" href="$digits__detect_8cpp.html" title="nVidia DIGITS Detection ROS Node " alt="" coords="5,79,188,104"/>
+<area shape="rect" id="node3" href="$_d_i_g_i_t_s_detector_8cpp.html" title="Loads and manages a DIGITS DetectNet graph with TensorRT. " alt="" coords="213,79,424,104"/>
 </map>
