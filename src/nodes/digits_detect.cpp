@@ -39,7 +39,7 @@ using namespace jetson_tensorrt;
 /* TensorRT */
 CUDAPipeline *preprocessPipeline = nullptr;
 LocatedExecutionMemory tensor_input, tensor_output;
-DIGITSDetector engine;
+DIGITSDetector *engine = nullptr;
 
 /* ROS */
 ros::Publisher region_pub;
@@ -53,22 +53,35 @@ float mean_0, mean_1, mean_2;
 
 void imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
 
-  /* 1. Preprocess */
-  if (preprocessPipeline == nullptr) {
-    if (msg->encoding == sensor_msgs::image_encodings::RGB8) {
+  /* 0. Initialize */
+  if (engine == nullptr) {
+
+    ROS_INFO("Loading nVidia DIGITS model...");
+    engine = new DIGITSDetector(model_path, weights_path, cache_path,
+                                model_image_depth, model_image_width,
+                                model_image_height, model_num_classes);
+    ROS_INFO("Done loading nVidia DIGITS model.");
+
+    tensor_input = engine->allocInputs(MemoryLocation::DEVICE, true);
+    tensor_output = engine->allocOutputs(MemoryLocation::MAPPED);
+
+    if (msg->encoding.compare(sensor_msgs::image_encodings::RGB8) == 0) {
       preprocessPipeline = CUDAPipeline::createRGBImageNetPipeline(
           msg->width, msg->height, model_image_width, model_image_height,
           make_float3(mean_0, mean_1, mean_2));
-    } else if (msg->encoding == sensor_msgs::image_encodings::YUV422) {
+    } else if (msg->encoding.compare(sensor_msgs::image_encodings::YUV422) ==
+               0) {
       // TODO: Implement YUV422 preprocess pipeline
       ROS_INFO("Unsupported image encoding: %s", msg->encoding.c_str());
+      return;
+    } else {
+      ROS_INFO("Unsupported image encoding: %s", msg->encoding.c_str());
+      return;
     }
-  } else {
-    ROS_INFO("Unsupported image encoding: %s", msg->encoding.c_str());
-    return;
   }
 
-  CUDAPipeIO input = CUDAPipeIO(MemoryLocation::HOST, (void *)&(msg->data),
+  /* 1. Preprocess */
+  CUDAPipeIO input = CUDAPipeIO(MemoryLocation::HOST, (void *)&msg->data[0],
                                 (size_t)(msg->height * msg->step));
 
   CUDAPipeIO output = preprocessPipeline->pipe(input);
@@ -77,7 +90,7 @@ void imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
 
   /* 2. Inference */
   std::vector<ClassRectangle> rects =
-      engine.detect(tensor_input, tensor_output, threshold);
+      engine->detect(tensor_input, tensor_output, threshold);
 
   /* 3. Publish */
   CategorizedRegionsOfInterest regions;
@@ -128,15 +141,6 @@ int main(int argc, char **argv) {
   nh.param("mean3", mean_2, (float)0.0);
 
   nh.param("threshold", threshold, (float)0.5);
-
-  ROS_INFO("Loading nVidia DIGITS model...");
-  engine =
-      DIGITSDetector(model_path, weights_path, cache_path, model_image_depth,
-                     model_image_width, model_image_height, model_num_classes);
-  ROS_INFO("Done loading nVidia DIGITS model.");
-
-  tensor_input = engine.allocInputs(MemoryLocation::HOST);
-  tensor_output = engine.allocOutputs(MemoryLocation::HOST);
 
   nh.param("image_subscribe_topic", image_subscribe_topic,
            std::string("/csi_cam/image_raw"));
