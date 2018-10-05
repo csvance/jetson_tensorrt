@@ -2,8 +2,11 @@
 **This repository is in heavy active development**. Contains
 ROS nodes for nVidias' Jetson platform utilizing TensorRT.
 
-# Planned Network Support
-- [DIGITS][digits] - ImageNet, DetectNet, SegNet
+# Implemented Nodes
+- [DIGITS][digits] - DetectNet
+
+# Planned Nodes
+- [DIGITS][digits] - ImageNet, SegNet
 - Caffe - Generic
 - Tensorflow - Generic
 - PyTorch - Generic
