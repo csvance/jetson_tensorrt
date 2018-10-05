@@ -38,6 +38,8 @@ namespace jetson_tensorrt {
 CUDAPipeIO ToDevicePTRNode::pipe(CUDAPipeIO &input) {
   CUDAPipeIO output = CUDAPipeIO(MemoryLocation::DEVICE, nullptr, input.size());
 
+  output.dataSize = input.dataSize;
+
   if (input.location == MemoryLocation::DEVICE) {
 
     output.data = input.data;
@@ -149,9 +151,8 @@ CUDAPipeIO RGBAfToImageNetNode::pipe(CUDAPipeIO &input) {
     throw std::runtime_error(
         "RGBAfToImageNetNode requires inputs in MemoryLocation::DEVICE");
 
-  CUDAPipeIO output =
-      CUDAPipeIO(MemoryLocation::DEVICE, nullptr,
-                 3 * outputWidth * outputHeight * sizeof(float));
+  CUDAPipeIO output = CUDAPipeIO(MemoryLocation::DEVICE, nullptr,
+                                 outputWidth * outputHeight * sizeof(float4));
 
   if (!allocated) {
     data = safeCudaMalloc(output.size());

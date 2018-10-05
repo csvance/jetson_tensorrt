@@ -66,6 +66,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
@@ -99,11 +100,20 @@ Collaboration diagram for jetson_tensorrt::DIGITSDetector:</div>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a31efada843ae53eb2c3e9b275d176e83"><td class="memItemLeft" align="right" valign="top"><a id="a31efada843ae53eb2c3e9b275d176e83"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>DEFAULT</b> { <b>WIDTH</b> = 1024, 
+<b>HEIGHT</b> = 512, 
+<b>DEPTH</b> = 3, 
+<b>CLASSES</b> = 1
+ }</td></tr>
+<tr class="separator:a31efada843ae53eb2c3e9b275d176e83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a578042a61daa60fc22c534a3e533bf8f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html#a578042a61daa60fc22c534a3e533bf8f">DIGITSDetector</a> (std::string prototextPath, std::string modelPath, std::string cachePath=&quot;detection.tensorcache&quot;, size_t nbChannels=CHANNELS_BGR, size_t width=1024, size_t height=512, size_t nbClasses=1, nvinfer1::DataType dataType=nvinfer1::DataType::kFLOAT, size_t maxNetworkSize=(1&lt;&lt; 30))</td></tr>
-<tr class="memdesc:a578042a61daa60fc22c534a3e533bf8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new instance of <a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html" title="Loads and manages a DIGITS DetectNet graph with TensorRT. ">DIGITSDetector</a>.  <a href="#a578042a61daa60fc22c534a3e533bf8f">More...</a><br /></td></tr>
-<tr class="separator:a578042a61daa60fc22c534a3e533bf8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6dfdedc5f11df0827ce18c2a385a4eb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html#aa6dfdedc5f11df0827ce18c2a385a4eb">DIGITSDetector</a> (std::string prototextPath, std::string modelPath, std::string cachePath=&quot;detection.tensorcache&quot;, size_t nbChannels=DEFAULT::DEPTH, size_t width=DEFAULT::WIDTH, size_t height=DEFAULT::HEIGHT, size_t nbClasses=DEFAULT::CLASSES, nvinfer1::DataType dataType=nvinfer1::DataType::kFLOAT, size_t maxNetworkSize=(1&lt;&lt; 30))</td></tr>
+<tr class="memdesc:aa6dfdedc5f11df0827ce18c2a385a4eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new instance of <a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html" title="Loads and manages a DIGITS DetectNet graph with TensorRT. ">DIGITSDetector</a>.  <a href="#aa6dfdedc5f11df0827ce18c2a385a4eb">More...</a><br /></td></tr>
+<tr class="separator:aa6dfdedc5f11df0827ce18c2a385a4eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73a2e3a8fa4c9541f1e8ebadbe5b06ef"><td class="memItemLeft" align="right" valign="top"><a id="a73a2e3a8fa4c9541f1e8ebadbe5b06ef"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html#a73a2e3a8fa4c9541f1e8ebadbe5b06ef">~DIGITSDetector</a> ()</td></tr>
 <tr class="memdesc:a73a2e3a8fa4c9541f1e8ebadbe5b06ef"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html" title="Loads and manages a DIGITS DetectNet graph with TensorRT. ">DIGITSDetector</a> destructor. <br /></td></tr>
@@ -213,8 +223,8 @@ nvinfer1::IExecutionContext *&#160;</td><td class="memItemRight" valign="bottom"
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Loads and manages a DIGITS DetectNet graph with TensorRT. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a578042a61daa60fc22c534a3e533bf8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a578042a61daa60fc22c534a3e533bf8f">&#9670;&nbsp;</a></span>DIGITSDetector()</h2>
+<a id="aa6dfdedc5f11df0827ce18c2a385a4eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6dfdedc5f11df0827ce18c2a385a4eb">&#9670;&nbsp;</a></span>DIGITSDetector()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -241,25 +251,25 @@ nvinfer1::IExecutionContext *&#160;</td><td class="memItemRight" valign="bottom"
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>nbChannels</em> = <code>CHANNELS_BGR</code>, </td>
+          <td class="paramname"><em>nbChannels</em> = <code>DEFAULT::DEPTH</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>width</em> = <code>1024</code>, </td>
+          <td class="paramname"><em>width</em> = <code>DEFAULT::WIDTH</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>height</em> = <code>512</code>, </td>
+          <td class="paramname"><em>height</em> = <code>DEFAULT::HEIGHT</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>nbClasses</em> = <code>1</code>, </td>
+          <td class="paramname"><em>nbClasses</em> = <code>DEFAULT::CLASSES</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

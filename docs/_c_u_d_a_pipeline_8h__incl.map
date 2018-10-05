@@ -1,4 +1,3 @@
 <map id="src/tensorrt/CUDAPipeline.h" name="src/tensorrt/CUDAPipeline.h">
-<area shape="rect" id="node3" href="$_c_u_d_a_pipe_nodes_8h.html" title="Nodes for a CUDAPipeline. " alt="" coords="112,79,247,104"/>
-<area shape="rect" id="node4" href="$_c_u_d_a_common_8h.html" title="Wrappers for common CUDA functions. " alt="" coords="223,152,347,177"/>
+<area shape="rect" id="node3" href="$_c_u_d_a_common_8h.html" title="Wrappers for common CUDA functions. " alt="" coords="189,79,314,104"/>
 </map>
