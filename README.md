@@ -1,5 +1,5 @@
 # ros_jetson_tensorrt
-Deep learning ROS nodes for nVidias' Jetson platform utilizing TensorRT. **Warning: This repository is in heavy active development**.
+**Warning: This repository is in heavy active development**.
 
 ## Implemented Nodes
 - [DIGITS][digits] - DetectNet
