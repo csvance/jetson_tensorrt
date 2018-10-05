@@ -66,7 +66,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">digits_detect.cpp File Reference</div>  </div>
 </div><!--header-->
@@ -74,22 +75,102 @@ $(function() {
 
 <p>nVidia DIGITS Detection ROS Node  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="digits__detect_8h_source.html">digits_detect.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;cv_bridge/cv_bridge.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="digits__detect_8h_source.html">digits_detect.h</a>&quot;</code><br />
+<code>#include &quot;jetson_tensorrt/CategorizedRegionOfInterest.h&quot;</code><br />
+<code>#include &quot;jetson_tensorrt/CategorizedRegionsOfInterest.h&quot;</code><br />
 <code>#include &quot;ros/ros.h&quot;</code><br />
+<code>#include &quot;sensor_msgs/Image.h&quot;</code><br />
+<code>#include &quot;sensor_msgs/image_encodings.h&quot;</code><br />
+<code>#include &quot;opencv2/core/utility.hpp&quot;</code><br />
+<code>#include &quot;opencv2/highgui.hpp&quot;</code><br />
+<code>#include &quot;opencv2/imgcodecs.hpp&quot;</code><br />
+<code>#include &quot;opencv2/imgproc.hpp&quot;</code><br />
+<code>#include &quot;<a class="el" href="_c_u_d_a_pipeline_8h_source.html">CUDAPipeline.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_d_i_g_i_t_s_detector_8h_source.html">DIGITSDetector.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for digits_detect.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="digits__detect_8cpp__incl.png" border="0" usemap="#src_2nodes_2digits__detect_8cpp" alt=""/></div>
 <map name="src_2nodes_2digits__detect_8cpp" id="src_2nodes_2digits__detect_8cpp">
-<area shape="rect" id="node2" href="digits__detect_8h.html" title="nVidia DIGITS Detection ROS Node " alt="" coords="5,79,113,104"/>
+<area shape="rect" id="node3" href="digits__detect_8h.html" title="nVidia DIGITS Detection ROS Node " alt="" coords="181,85,288,111"/>
+<area shape="rect" id="node13" href="_c_u_d_a_pipeline_8h.html" title="Abstract class representing a CUDA input / output processing pipeline. " alt="" coords="1925,239,2043,264"/>
+<area shape="rect" id="node22" href="_d_i_g_i_t_s_detector_8h.html" title="Loads and manages a DIGITS DetectNet graph with TensorRT. " alt="" coords="2118,85,2245,111"/>
+<area shape="rect" id="node15" href="_c_u_d_a_common_8h.html" title="Wrappers for common CUDA functions. " alt="" coords="1982,312,2106,337"/>
+<area shape="rect" id="node27" href="_caffe_r_t_engine_8h.html" title="Loads and manages a Caffe graph with TensorRT. " alt="" coords="2388,165,2511,191"/>
+<area shape="rect" id="node30" href="_network_data_types_8h.html" title="Neural network input and output data types. " alt="" coords="2218,165,2363,191"/>
+<area shape="rect" id="node28" href="_tensor_r_t_engine_8h.html" title="Abstract class which loads and manages a TensorRT graph. " alt="" coords="2413,239,2544,264"/>
 </map>
 </div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ae6dc68047ee1361fa0a8e12e9a36c2ef"><td class="memItemLeft" align="right" valign="top"><a id="ae6dc68047ee1361fa0a8e12e9a36c2ef"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>imageCallback</b> (const sensor_msgs::Image::ConstPtr &amp;msg)</td></tr>
+<tr class="separator:ae6dc68047ee1361fa0a8e12e9a36c2ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memItemLeft" align="right" valign="top"><a id="a3c04138a5bfe5d72780bb7e82a18e627"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> (int argc, char **argv)</td></tr>
 <tr class="separator:a3c04138a5bfe5d72780bb7e82a18e627"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a1e2812f68a90aa511c8b45be0a33c228"><td class="memItemLeft" align="right" valign="top"><a id="a1e2812f68a90aa511c8b45be0a33c228"></a>
+<a class="el" href="classjetson__tensorrt_1_1_c_u_d_a_pipeline.html">CUDAPipeline</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>preprocessPipeline</b> = nullptr</td></tr>
+<tr class="separator:a1e2812f68a90aa511c8b45be0a33c228"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cdbad44ee58f7b913af3dfbdee5ab31"><td class="memItemLeft" align="right" valign="top"><a id="a5cdbad44ee58f7b913af3dfbdee5ab31"></a>
+<a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a>&#160;</td><td class="memItemRight" valign="bottom"><b>tensor_input</b></td></tr>
+<tr class="separator:a5cdbad44ee58f7b913af3dfbdee5ab31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aece95539391bea8877e081e96b3f7363"><td class="memItemLeft" align="right" valign="top"><a id="aece95539391bea8877e081e96b3f7363"></a>
+<a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a>&#160;</td><td class="memItemRight" valign="bottom"><b>tensor_output</b></td></tr>
+<tr class="separator:aece95539391bea8877e081e96b3f7363"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a6a01c27cb7b079e0008b633fdde9b2"><td class="memItemLeft" align="right" valign="top"><a id="a6a6a01c27cb7b079e0008b633fdde9b2"></a>
+<a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html">DIGITSDetector</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>engine</b> = nullptr</td></tr>
+<tr class="separator:a6a6a01c27cb7b079e0008b633fdde9b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3246a2d274106277788585c801eff322"><td class="memItemLeft" align="right" valign="top"><a id="a3246a2d274106277788585c801eff322"></a>
+ros::Publisher&#160;</td><td class="memItemRight" valign="bottom"><b>region_pub</b></td></tr>
+<tr class="separator:a3246a2d274106277788585c801eff322"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac41e4767a1574dd813fa9bbc1a1e5d98"><td class="memItemLeft" align="right" valign="top"><a id="ac41e4767a1574dd813fa9bbc1a1e5d98"></a>
+ros::Publisher&#160;</td><td class="memItemRight" valign="bottom"><b>debug_pub</b></td></tr>
+<tr class="separator:ac41e4767a1574dd813fa9bbc1a1e5d98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a376acef8954eadc70f4b55e8e0588e13"><td class="memItemLeft" align="right" valign="top"><a id="a376acef8954eadc70f4b55e8e0588e13"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>threshold</b></td></tr>
+<tr class="separator:a376acef8954eadc70f4b55e8e0588e13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f479489d1860644526a4ecfc8889575"><td class="memItemLeft" align="right" valign="top"><a id="a4f479489d1860644526a4ecfc8889575"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>model_path</b></td></tr>
+<tr class="separator:a4f479489d1860644526a4ecfc8889575"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e7751051e5caced60a563d614d258d2"><td class="memItemLeft" align="right" valign="top"><a id="a7e7751051e5caced60a563d614d258d2"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>cache_path</b></td></tr>
+<tr class="separator:a7e7751051e5caced60a563d614d258d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0ea0b68eb341c079b34af11a78bf431"><td class="memItemLeft" align="right" valign="top"><a id="ac0ea0b68eb341c079b34af11a78bf431"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>weights_path</b></td></tr>
+<tr class="separator:ac0ea0b68eb341c079b34af11a78bf431"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8e85090831855e01f8a20a7281ca0ef"><td class="memItemLeft" align="right" valign="top"><a id="ab8e85090831855e01f8a20a7281ca0ef"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>image_subscribe_topic</b></td></tr>
+<tr class="separator:ab8e85090831855e01f8a20a7281ca0ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecffd6c72997b2579db65390a130482b"><td class="memItemLeft" align="right" valign="top"><a id="aecffd6c72997b2579db65390a130482b"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>model_image_depth</b></td></tr>
+<tr class="separator:aecffd6c72997b2579db65390a130482b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbdbcbf1e6244b1f960ccd4f0ea3e034"><td class="memItemLeft" align="right" valign="top"><a id="acbdbcbf1e6244b1f960ccd4f0ea3e034"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>model_image_width</b></td></tr>
+<tr class="separator:acbdbcbf1e6244b1f960ccd4f0ea3e034"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a18abfc81237b7d1145cf811de9aa0d"><td class="memItemLeft" align="right" valign="top"><a id="a9a18abfc81237b7d1145cf811de9aa0d"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>model_image_height</b></td></tr>
+<tr class="separator:a9a18abfc81237b7d1145cf811de9aa0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf22e3f34e2508e8648c471276310c8b"><td class="memItemLeft" align="right" valign="top"><a id="abf22e3f34e2508e8648c471276310c8b"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>model_num_classes</b></td></tr>
+<tr class="separator:abf22e3f34e2508e8648c471276310c8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac9abdda5e9b9f30da1fb2f3267401b0"><td class="memItemLeft" align="right" valign="top"><a id="aac9abdda5e9b9f30da1fb2f3267401b0"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>mean_0</b></td></tr>
+<tr class="separator:aac9abdda5e9b9f30da1fb2f3267401b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e0627af9dbfa605462265b8c44b7038"><td class="memItemLeft" align="right" valign="top"><a id="a5e0627af9dbfa605462265b8c44b7038"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>mean_1</b></td></tr>
+<tr class="separator:a5e0627af9dbfa605462265b8c44b7038"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6ccca9cf9fc18f98dc00af549d20086"><td class="memItemLeft" align="right" valign="top"><a id="ab6ccca9cf9fc18f98dc00af549d20086"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>mean_2</b></td></tr>
+<tr class="separator:ab6ccca9cf9fc18f98dc00af549d20086"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3e1795766a80ec63b157951b4b9a7d4"><td class="memItemLeft" align="right" valign="top"><a id="ac3e1795766a80ec63b157951b4b9a7d4"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>debug</b></td></tr>
+<tr class="separator:ac3e1795766a80ec63b157951b4b9a7d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>nVidia DIGITS Detection ROS Node </p>

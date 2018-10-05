@@ -66,6 +66,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
@@ -99,11 +100,20 @@ Collaboration diagram for jetson_tensorrt::DIGITSClassifier:</div>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:aecb31651cacf1327c0d972d3fc373319"><td class="memItemLeft" align="right" valign="top"><a id="aecb31651cacf1327c0d972d3fc373319"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>DEFAULT</b> { <b>WIDTH</b> = 224, 
+<b>HEIGHT</b> = 224, 
+<b>DEPTH</b> = 3, 
+<b>CLASSES</b> = 1
+ }</td></tr>
+<tr class="separator:aecb31651cacf1327c0d972d3fc373319"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a33426eb6c0add60492c4d92ea0c7e631"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html#a33426eb6c0add60492c4d92ea0c7e631">DIGITSClassifier</a> (std::string prototextPath, std::string modelPath, std::string cachePath=&quot;classification.tensorcache&quot;, size_t nbChannels=CHANNELS_BGR, size_t width=224, size_t height=224, size_t nbClasses=1, nvinfer1::DataType dataType=nvinfer1::DataType::kFLOAT, size_t maxNetworkSize=(1&lt;&lt; 30))</td></tr>
-<tr class="memdesc:a33426eb6c0add60492c4d92ea0c7e631"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new instance of <a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html" title="Loads and manages a DIGITS ImageNet graph with TensorRT. ">DIGITSClassifier</a>.  <a href="#a33426eb6c0add60492c4d92ea0c7e631">More...</a><br /></td></tr>
-<tr class="separator:a33426eb6c0add60492c4d92ea0c7e631"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18db7cfb9dccb6acd70fe93865c29098"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html#a18db7cfb9dccb6acd70fe93865c29098">DIGITSClassifier</a> (std::string prototextPath, std::string modelPath, std::string cachePath=&quot;classification.tensorcache&quot;, size_t nbChannels=DEFAULT::DEPTH, size_t width=DEFAULT::WIDTH, size_t height=DEFAULT::HEIGHT, size_t nbClasses=DEFAULT::CLASSES, nvinfer1::DataType dataType=nvinfer1::DataType::kFLOAT, size_t maxNetworkSize=(1&lt;&lt; 30))</td></tr>
+<tr class="memdesc:a18db7cfb9dccb6acd70fe93865c29098"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new instance of <a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html" title="Loads and manages a DIGITS ImageNet graph with TensorRT. ">DIGITSClassifier</a>.  <a href="#a18db7cfb9dccb6acd70fe93865c29098">More...</a><br /></td></tr>
+<tr class="separator:a18db7cfb9dccb6acd70fe93865c29098"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3374b2511fa9a43071df0fdc92767779"><td class="memItemLeft" align="right" valign="top"><a id="a3374b2511fa9a43071df0fdc92767779"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html#a3374b2511fa9a43071df0fdc92767779">~DIGITSClassifier</a> ()</td></tr>
 <tr class="memdesc:a3374b2511fa9a43071df0fdc92767779"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html" title="Loads and manages a DIGITS ImageNet graph with TensorRT. ">DIGITSClassifier</a> destructor. <br /></td></tr>
@@ -213,8 +223,8 @@ nvinfer1::IExecutionContext *&#160;</td><td class="memItemRight" valign="bottom"
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Loads and manages a DIGITS ImageNet graph with TensorRT. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a33426eb6c0add60492c4d92ea0c7e631"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33426eb6c0add60492c4d92ea0c7e631">&#9670;&nbsp;</a></span>DIGITSClassifier()</h2>
+<a id="a18db7cfb9dccb6acd70fe93865c29098"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18db7cfb9dccb6acd70fe93865c29098">&#9670;&nbsp;</a></span>DIGITSClassifier()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -241,25 +251,25 @@ nvinfer1::IExecutionContext *&#160;</td><td class="memItemRight" valign="bottom"
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>nbChannels</em> = <code>CHANNELS_BGR</code>, </td>
+          <td class="paramname"><em>nbChannels</em> = <code>DEFAULT::DEPTH</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>width</em> = <code>224</code>, </td>
+          <td class="paramname"><em>width</em> = <code>DEFAULT::WIDTH</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>height</em> = <code>224</code>, </td>
+          <td class="paramname"><em>height</em> = <code>DEFAULT::HEIGHT</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>nbClasses</em> = <code>1</code>, </td>
+          <td class="paramname"><em>nbClasses</em> = <code>DEFAULT::CLASSES</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
