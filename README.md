@@ -1,21 +1,20 @@
 # ros_jetson_tensorrt
-**This repository is in heavy active development**. Contains
-ROS nodes for nVidias' Jetson platform utilizing TensorRT.
+Deep learning ROS nodes for nVidias' Jetson platform utilizing TensorRT. **Warning: This repository is in heavy active development**.
 
-# Implemented Nodes
+## Implemented Nodes
 - [DIGITS][digits] - DetectNet
 
-# Planned Nodes
+## Planned Nodes
 - [DIGITS][digits] - ImageNet, SegNet
 - Caffe - Generic
 - Tensorflow - Generic
 - PyTorch - Generic
 
-# Requirements
+## Requirements
 - Jetpack 3.3
 - CMake
 
-# Build
+## Build
 ```
 cd ros_jetson_tensorrt
 mkdir build && cd build
@@ -23,10 +22,10 @@ cmake ..
 make
 ```
 
-# Documentation
+## Documentation
 - [Doxygen][docs]
 
-# Test Graphs
+## Test Graphs
 - [Download][test_graphs]
 - Caffe - GoogLeNet
 - Tensorflow - Inception v3
