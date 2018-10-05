@@ -12,15 +12,10 @@ Deep learning ROS nodes for nVidias' Jetson platform utilizing TensorRT. **Warni
 
 ## Requirements
 - Jetpack 3.3
-- CMake
+- TensorRT 4.0
 
-## Build
-```
-cd ros_jetson_tensorrt
-mkdir build && cd build
-cmake ..
-make
-```
+## Build / Installation
+Clone ros_jetson_tensorrt into your catkin_ws/src folder and run catkin_make
 
 ## Documentation
 - [Doxygen][docs]
