@@ -4,8 +4,7 @@
 ## Implemented Nodes
 ### [DIGITS][digits] DetectNet
 - detectnet.launch uses the builtin camera on the TX2 and publishes to /detector/debug_output
-
-** DetectNet Parameters **
+#### Parameters
 - model_path - string - absolute path to the model file (.prototxt)
 - weights_path - string - absolute path to the weights file (.caffemodel)
 - cache_path - string - absolute path to the automatically generated tensorcache file
