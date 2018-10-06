@@ -17,7 +17,7 @@
 #### Topics
 - publish - detections - CategorizedRegionsOfInterest
 - subscribe - image_subscribe_topic - Image
-#### Message Types
+#### Messages
 ```
 # CategorizedRegionOfInterest
 int32 x
