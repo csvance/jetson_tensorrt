@@ -1,4 +1,4 @@
-# ros_jetson_tensorrt
+# jetson_tensorrt
 **Warning: This repository is in heavy active development**.
 
 ## Implemented Nodes
