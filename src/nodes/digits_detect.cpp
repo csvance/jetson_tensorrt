@@ -24,10 +24,13 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
+#include <chrono>
+
 #include "cv_bridge/cv_bridge.h"
 #include "digits_detect.h"
 #include "jetson_tensorrt/CategorizedRegionOfInterest.h"
 #include "jetson_tensorrt/CategorizedRegionsOfInterest.h"
+#include "ros/package.h"
 #include "ros/ros.h"
 #include "sensor_msgs/Image.h"
 #include "sensor_msgs/image_encodings.h"
@@ -59,6 +62,9 @@ int model_image_depth, model_image_width, model_image_height, model_num_classes;
 float mean_0, mean_1, mean_2;
 int debug;
 
+std::chrono::time_point<std::chrono::system_clock> start_t;
+int frames;
+
 void imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
 
   /* 0. Initialize */
@@ -86,6 +92,10 @@ void imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
       ROS_INFO("Unsupported image encoding: %s", msg->encoding.c_str());
       return;
     }
+
+    // Statistics
+    start_t = std::chrono::system_clock::now();
+    frames = 0;
   }
 
   /* 1. Preprocess */
@@ -120,7 +130,7 @@ void imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
     region.id = (*it).id;
 
     if (debug) {
-      ROS_INFO("%d,%d %dx%d", (int)(region.x * x_scale),
+      ROS_INFO("DETECT(%d): %d,%d %dx%d", region.id, (int)(region.x * x_scale),
                (int)(region.y * y_scale), (int)(region.w * x_scale),
                (int)(region.h * y_scale));
 
@@ -131,24 +141,36 @@ void imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
 
     regions.regions.push_back(region);
   }
-
-  debug_pub.publish(cv_ptr->toImageMsg());
-
   region_pub.publish(regions);
+
+  if (debug)
+    debug_pub.publish(cv_ptr->toImageMsg());
+
+  frames++;
+  if (frames > 0 && frames % 10 == 0) {
+    ROS_INFO("%f FPS",
+             ((float)frames) / std::chrono::duration_cast<std::chrono::seconds>(
+                                   std::chrono::system_clock::now() - start_t)
+                                   .count());
+
+    start_t = std::chrono::system_clock::now();
+    frames = 0;
+  }
 }
 
 int main(int argc, char **argv) {
+
+  std::string package_path = ros::package::getPath("jetson_tensorrt");
 
   ros::init(argc, argv, "digits_detect");
   ros::NodeHandle nh("~");
 
   nh.param("model_path", model_path,
-           std::string("/home/nvidia/ros_jetson_tensorrt/detectnet.prototxt"));
+           package_path + std::string("/networks/detectnet.prototxt"));
   nh.param("weights_path", weights_path,
-           std::string("/home/nvidia/ros_jetson_tensorrt/ped-100.caffemodel"));
-  nh.param(
-      "cache_path", cache_path,
-      std::string("/home/nvidia/ros_jetson_tensorrt/detection.tensorcache"));
+           package_path + std::string("/networks/ped-100.caffemodel"));
+  nh.param("cache_path", cache_path,
+           package_path + std::string("/networks/detection.tensorcache"));
 
   ROS_INFO("model_path: %s", model_path.c_str());
   ROS_INFO("weights_path: %s", weights_path.c_str());
@@ -169,13 +191,13 @@ int main(int argc, char **argv) {
 
   nh.param("threshold", threshold, (float)0.5);
 
-  nh.param("debug", debug, 1);
+  nh.param("debug", debug, 0);
 
   nh.param("image_subscribe_topic", image_subscribe_topic,
            std::string("/csi_cam/image_raw"));
 
   ros::Subscriber image_sub =
-      nh.subscribe<sensor_msgs::Image>(image_subscribe_topic, 5, imageCallback);
+      nh.subscribe<sensor_msgs::Image>(image_subscribe_topic, 2, imageCallback);
 
   if (debug)
     debug_pub = nh.advertise<sensor_msgs::Image>("debug", 5);
