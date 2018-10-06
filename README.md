@@ -2,7 +2,18 @@
 **Warning: This repository is in heavy active development**.
 
 ## Implemented Nodes
-- [DIGITS][digits] - DetectNet
+### [DIGITS][digits] DetectNet
+- detectnet.launch uses the builtin camera on the TX2 and publishes to /detector/debug_output
+
+** DetectNet Parameters **
+- model_path - string - absolute path to the model file (.prototxt)
+- weights_path - string - absolute path to the weights file (.caffemodel)
+- cache_path - string - absolute path to the automatically generated tensorcache file
+- model_image_depth - int - model input image depth / number of channels
+- model_image_width - int - model INPUT width in pixels
+- model_image_height - int - model input height in pixels
+- mean1, mean2, mean3 - float - ImageNet means
+
 
 ## Planned Nodes
 - [DIGITS][digits] - ImageNet, SegNet
@@ -15,7 +26,7 @@
 - TensorRT 4.0
 
 ## Build / Installation
-Clone ros_jetson_tensorrt into your catkin_ws/src folder and run catkin_make
+Clone jetson_tensorrt into your catkin_ws/src folder and run catkin_make
 
 ## Documentation
 - [Doxygen][docs]

@@ -200,7 +200,8 @@ int main(int argc, char **argv) {
       nh.subscribe<sensor_msgs::Image>(image_subscribe_topic, 2, imageCallback);
 
   if (debug)
-    debug_pub = nh.advertise<sensor_msgs::Image>("debug", 5);
+    debug_pub = nh.advertise<sensor_msgs::Image>("debug_output", 5);
+
   region_pub = nh.advertise<jetson_tensorrt::CategorizedRegionsOfInterest>(
       "detections", 5);
 
