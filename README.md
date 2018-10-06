@@ -5,18 +5,23 @@
 ### [DIGITS][digits] DetectNet
 - detectnet.launch uses the builtin camera on the TX2 and publishes to /detector/debug_output
 #### Parameters
-- image_subscribe_topic - string - image topic to run detections on
-- model_path - string - absolute path to the model file (.prototxt)
-- weights_path - string - absolute path to the weights file (.caffemodel)
-- cache_path - string - absolute path to the automatically generated tensorcache file
-- model_image_depth - int - model input image depth / number of channels
-- model_image_width - int - model INPUT width in pixels
-- model_image_height - int - model input height in pixels
-- threshold - float - confidence threshold of detections, between 0.0 and 1.0
-- mean1, mean2, mean3 - float - ImageNet means
+
+| Param | Type  | Description  |
+| :------------- |:-------------| :-----|
+| image_subscribe_topic | string | image topic to run detections on |
+| model_path | string | absolute path to the model file (.prototxt) |
+| weights_path | string | absolute path to the weights file (.caffemodel) |
+| cache_path | string | absolute path to the automatically generated tensorcache file |
+| model_image_depth | int | model input image depth / number of channels |
+| model_image_width | int | model INPUT width in pixels |
+| model_image_height | int | model input height in pixels |
+| threshold | float | confidence threshold of detections, between 0.0 and 1.0 |
+| mean1, mean2, mean3 | float | ImageNet means |
 #### Topics
-- publish - detections - CategorizedRegionsOfInterest
-- subscribe - image_subscribe_topic - Image
+| Publish/Subscribe | Topic | Type |
+| :------------- |:-------------| :-----|
+| publish | detections | CategorizedRegionsOfInterest |
+| subscribe | image_subscribe_topic | Image |
 #### Messages
 ```
 # CategorizedRegionOfInterest
