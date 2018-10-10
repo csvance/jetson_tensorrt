@@ -59,6 +59,20 @@ void *safeCudaMalloc(size_t memSize) {
   return deviceMem;
 }
 
+void *safeCudaUnifiedMalloc(size_t memSize) {
+  void *deviceMem;
+
+  cudaError_t cudaMallocManagedError = cudaMallocManaged(&deviceMem, memSize);
+  if (cudaMallocManagedError != 0) {
+    throw std::runtime_error("CUDA Malloc Error: " +
+                             std::to_string(cudaMallocManagedError));
+  } else if (deviceMem == nullptr) {
+    throw std::runtime_error("Out of device memory");
+  }
+
+  return deviceMem;
+}
+
 void *safeMalloc(size_t memSize) {
   void *deviceMem;
 

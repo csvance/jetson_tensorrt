@@ -94,6 +94,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aace1f654945dc3a0a12ec52f6a533825"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_u_d_a_common_8cpp.html#aace1f654945dc3a0a12ec52f6a533825">jetson_tensorrt::safeCudaMalloc</a> (size_t memSize)</td></tr>
 <tr class="memdesc:aace1f654945dc3a0a12ec52f6a533825"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates CUDA device memory or throws an exception.  <a href="_c_u_d_a_common_8cpp.html#aace1f654945dc3a0a12ec52f6a533825">More...</a><br /></td></tr>
 <tr class="separator:aace1f654945dc3a0a12ec52f6a533825"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51720015b7ec0f908b82c34e9e18633b"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_u_d_a_common_8cpp.html#a51720015b7ec0f908b82c34e9e18633b">jetson_tensorrt::safeCudaUnifiedMalloc</a> (size_t memSize)</td></tr>
+<tr class="memdesc:a51720015b7ec0f908b82c34e9e18633b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates unified device memory or throws an exception.  <a href="_c_u_d_a_common_8cpp.html#a51720015b7ec0f908b82c34e9e18633b">More...</a><br /></td></tr>
+<tr class="separator:a51720015b7ec0f908b82c34e9e18633b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55740624e670b9e4cdff85c9a939e266"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_c_u_d_a_common_8cpp.html#a55740624e670b9e4cdff85c9a939e266">jetson_tensorrt::safeMalloc</a> (size_t memSize)</td></tr>
 <tr class="memdesc:a55740624e670b9e4cdff85c9a939e266"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates host memory or throws an exception.  <a href="_c_u_d_a_common_8cpp.html#a55740624e670b9e4cdff85c9a939e266">More...</a><br /></td></tr>
 <tr class="separator:a55740624e670b9e4cdff85c9a939e266"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,6 +152,33 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Allocates CUDA device memory or throws an exception. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">memSize</td><td>The size of the requested memory allocation in bytes </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A handle corresponding to the device memory allocation. </dd></dl>
+
+</div>
+</div>
+<a id="file_a51720015b7ec0f908b82c34e9e18633b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#file_a51720015b7ec0f908b82c34e9e18633b">&#9670;&nbsp;</a></span>safeCudaUnifiedMalloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * jetson_tensorrt::safeCudaUnifiedMalloc </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>memSize</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocates unified device memory or throws an exception. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">memSize</td><td>The size of the requested memory allocation in bytes </td></tr>

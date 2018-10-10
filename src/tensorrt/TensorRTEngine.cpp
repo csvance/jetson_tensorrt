@@ -131,6 +131,8 @@ LocatedExecutionMemory TensorRTEngine::allocInputs(MemoryLocation location,
         memory[b].push_back(safeCudaMalloc(inputSize));
       } else if (location == MemoryLocation::MAPPED) {
         memory[b].push_back(safeCudaHostMalloc(inputSize));
+      } else if (location == MemoryLocation::UNIFIED) {
+        memory[b].push_back(safeCudaUnifiedMalloc(inputSize));
       }
     }
   }
@@ -156,6 +158,8 @@ LocatedExecutionMemory TensorRTEngine::allocOutputs(MemoryLocation location,
         memory[b].push_back(safeCudaMalloc(outputSize));
       } else if (location == MemoryLocation::MAPPED) {
         memory[b].push_back(safeCudaHostMalloc(outputSize));
+      } else if (location == MemoryLocation::UNIFIED) {
+        memory[b].push_back(safeCudaUnifiedMalloc(outputSize));
       }
     }
   }
@@ -212,7 +216,8 @@ void TensorRTEngine::predict(LocatedExecutionMemory &inputs,
                                    "prediction. CUDA Error: " +
                                    std::to_string(hostDeviceError));
 
-      } else if (inputs.location == MemoryLocation::DEVICE) {
+      } else if (inputs.location == MemoryLocation::DEVICE ||
+                 inputs.location == MemoryLocation::UNIFIED) {
 
         // Since the inputs are already in the device, all we need to do is
         // assign them to the transaction buffer
@@ -237,11 +242,13 @@ void TensorRTEngine::predict(LocatedExecutionMemory &inputs,
               std::to_string(getDevicePtrError));
         }
 
-      } else if (outputs.location == MemoryLocation::DEVICE) {
+      } else if (outputs.location == MemoryLocation::DEVICE ||
+                 outputs.location == MemoryLocation::UNIFIED) {
         // Since the inputs are already in the device, all we need to do is
         // assign them to the transaction buffer
         transactionGPUBuffers[bindingIdx + b * stepSize] = outputs[b][o];
       } else if (outputs.location == MemoryLocation::HOST) {
+
         transactionGPUBuffers[bindingIdx + b * stepSize] =
             preAllocatedGPUBuffers[bindingIdx + b * stepSize];
       }
@@ -262,7 +269,8 @@ void TensorRTEngine::predict(LocatedExecutionMemory &inputs,
     for (int o = 0; o < networkOutputs.size(); o++) {
       size_t outputSize = networkOutputs[o].size();
 
-      if (outputs.location == MemoryLocation::MAPPED) {
+      if (outputs.location == MemoryLocation::MAPPED ||
+          outputs.location == MemoryLocation::UNIFIED) {
 
         // Don't need to do anything, memory is already mapped
 

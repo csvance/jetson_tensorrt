@@ -2,6 +2,7 @@ var searchData=
 [
   ['safecudahostmalloc',['safeCudaHostMalloc',['../_c_u_d_a_common_8cpp.html#a782eaf579c85e3422616df73c1932e34',1,'jetson_tensorrt']]],
   ['safecudamalloc',['safeCudaMalloc',['../_c_u_d_a_common_8cpp.html#aace1f654945dc3a0a12ec52f6a533825',1,'jetson_tensorrt']]],
+  ['safecudaunifiedmalloc',['safeCudaUnifiedMalloc',['../_c_u_d_a_common_8cpp.html#a51720015b7ec0f908b82c34e9e18633b',1,'jetson_tensorrt']]],
   ['safemalloc',['safeMalloc',['../_c_u_d_a_common_8cpp.html#a55740624e670b9e4cdff85c9a939e266',1,'jetson_tensorrt']]],
   ['savecache',['saveCache',['../classjetson__tensorrt_1_1_tensor_r_t_engine.html#a07eab63439fd6c12542d1f37540175a9',1,'jetson_tensorrt::TensorRTEngine']]],
   ['setupgrid',['setupGrid',['../classjetson__tensorrt_1_1_clustered_non_maximum_suppression.html#aa5ba5c0afa4d52e0df47529ef5fb0f18',1,'jetson_tensorrt::ClusteredNonMaximumSuppression']]],

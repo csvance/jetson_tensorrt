@@ -1,4 +1,3 @@
-
 <launch>
 
 <node pkg="jetson_tensorrt" type="digits_detect" name="detector" output="screen">

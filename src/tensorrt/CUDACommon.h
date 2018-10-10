@@ -55,13 +55,21 @@ void *safeCudaMalloc(size_t memSize);
 void *safeCudaHostMalloc(size_t memSize);
 
 /**
+ * @brief	Allocates unified device memory or throws an
+ * exception
+ * @param	memSize	The size of the requested memory allocation in bytes
+ * @return	A handle corresponding to the device memory allocation.
+ */
+void *safeCudaUnifiedMalloc(size_t memSize);
+
+/**
  * @brief	Allocates host memory or throws an exception
  * @param	memSize	The size of the requested memory allocation in bytes
  * @return	A handle corresponding to the device memory allocation.
  */
 void *safeMalloc(size_t memSize);
 
-enum MemoryLocation { HOST, DEVICE, MAPPED, NONE };
+enum MemoryLocation { HOST, DEVICE, MAPPED, UNIFIED, NONE };
 
 } // namespace jetson_tensorrt
 

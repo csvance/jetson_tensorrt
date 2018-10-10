@@ -76,6 +76,9 @@ CUDAPipeIO ToDevicePTRNode::pipe(CUDAPipeIO &input) {
           "Unable to get device pointer for CUDA mapped alloc: " +
           std::to_string(getDevicePtrError));
     }
+  } else if (input.location == MemoryLocation::UNIFIED) {
+    output.data = input.data;
+    output.location = MemoryLocation::DEVICE;
   }
 
   return output;

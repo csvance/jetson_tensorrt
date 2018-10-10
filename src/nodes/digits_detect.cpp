@@ -77,7 +77,7 @@ void imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
     ROS_INFO("Done loading nVidia DIGITS model.");
 
     tensor_input = engine->allocInputs(MemoryLocation::DEVICE, true);
-    tensor_output = engine->allocOutputs(MemoryLocation::MAPPED);
+    tensor_output = engine->allocOutputs(MemoryLocation::UNIFIED);
 
     if (msg->encoding.compare(sensor_msgs::image_encodings::RGB8) == 0) {
       preprocessPipeline = CUDAPipeline::createRGBImageNetPipeline(
