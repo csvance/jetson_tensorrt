@@ -1,7 +1,7 @@
 /**
  * @file	digits_detect.cpp
  * @author	Carroll Vance
- * @brief	nVidia DIGITS Detection ROS Node
+ * @brief	nVidia DIGITS Detection ROS Driver
  *
  * Copyright (c) 2018 Carroll Vance.
  *
@@ -24,48 +24,11 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#include <chrono>
-
-#include "cv_bridge/cv_bridge.h"
 #include "digits_detect.h"
-#include "jetson_tensorrt/CategorizedRegionOfInterest.h"
-#include "jetson_tensorrt/CategorizedRegionsOfInterest.h"
-#include "ros/package.h"
-#include "ros/ros.h"
-#include "sensor_msgs/Image.h"
-#include "sensor_msgs/image_encodings.h"
 
-#include "opencv2/core/utility.hpp"
-#include "opencv2/highgui.hpp"
-#include "opencv2/imgcodecs.hpp"
-#include "opencv2/imgproc.hpp"
+namespace jetson_tensorrt {
 
-#include "CUDAPipeline.h"
-#include "DIGITSDetector.h"
-
-using namespace jetson_tensorrt;
-
-/* TensorRT */
-CUDAPipeline *preprocessPipeline = nullptr;
-LocatedExecutionMemory tensor_input, tensor_output;
-DIGITSDetector *engine = nullptr;
-
-/* ROS */
-ros::Publisher region_pub;
-ros::Publisher debug_pub;
-
-/* Params */
-float threshold;
-std::string model_path, cache_path, weights_path;
-std::string image_subscribe_topic;
-int model_image_depth, model_image_width, model_image_height, model_num_classes;
-float mean_0, mean_1, mean_2;
-int debug;
-
-std::chrono::time_point<std::chrono::system_clock> start_t;
-int frames;
-
-void imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
+void ROSDIGITSDetector::imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
 
   /* 0. Initialize */
   if (engine == nullptr) {
@@ -149,63 +112,67 @@ void imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
   frames++;
   if (frames > 0 && frames % 10 == 0) {
     ROS_INFO("%f FPS",
-             ((float)frames) / std::chrono::duration_cast<std::chrono::seconds>(
-                                   std::chrono::system_clock::now() - start_t)
-                                   .count());
+             (1000 * (float)frames) /
+                 std::chrono::duration_cast<std::chrono::milliseconds>(
+                     std::chrono::system_clock::now() - start_t)
+                     .count());
 
     start_t = std::chrono::system_clock::now();
     frames = 0;
   }
 }
 
-int main(int argc, char **argv) {
+ROSDIGITSDetector::ROSDIGITSDetector(ros::NodeHandle nh,
+                                     ros::NodeHandle nh_private) {
 
   std::string package_path = ros::package::getPath("jetson_tensorrt");
 
-  ros::init(argc, argv, "digits_detect");
-  ros::NodeHandle nh("~");
-
-  nh.param("model_path", model_path,
-           package_path + std::string("/networks/detectnet.prototxt"));
-  nh.param("weights_path", weights_path,
-           package_path + std::string("/networks/ped-100.caffemodel"));
-  nh.param("cache_path", cache_path,
-           package_path + std::string("/networks/detection.tensorcache"));
+  nh_private.param("model_path", model_path,
+                   package_path + std::string("/networks/detectnet.prototxt"));
+  nh_private.param("weights_path", weights_path,
+                   package_path + std::string("/networks/ped-100.caffemodel"));
+  nh_private.param("cache_path", cache_path,
+                   package_path +
+                       std::string("/networks/detection.tensorcache"));
 
   ROS_INFO("model_path: %s", model_path.c_str());
   ROS_INFO("weights_path: %s", weights_path.c_str());
   ROS_INFO("cache_path: %s", cache_path.c_str());
 
-  nh.param("model_image_depth", model_image_depth,
-           (int)DIGITSDetector::DEFAULT::DEPTH);
-  nh.param("model_image_width", model_image_width,
-           (int)DIGITSDetector::DEFAULT::WIDTH);
-  nh.param("model_image_height", model_image_height,
-           (int)DIGITSDetector::DEFAULT::HEIGHT);
-  nh.param("model_num_classes", model_num_classes,
-           (int)DIGITSDetector::DEFAULT::CLASSES);
+  nh_private.param("model_image_depth", model_image_depth,
+                   (int)DIGITSDetector::DEFAULT::DEPTH);
+  nh_private.param("model_image_width", model_image_width,
+                   (int)DIGITSDetector::DEFAULT::WIDTH);
+  nh_private.param("model_image_height", model_image_height,
+                   (int)DIGITSDetector::DEFAULT::HEIGHT);
+  nh_private.param("model_num_classes", model_num_classes,
+                   (int)DIGITSDetector::DEFAULT::CLASSES);
 
-  nh.param("mean1", mean_0, (float)0.0);
-  nh.param("mean2", mean_1, (float)0.0);
-  nh.param("mean3", mean_2, (float)0.0);
+  nh_private.param("mean1", mean_0, (float)0.0);
+  nh_private.param("mean2", mean_1, (float)0.0);
+  nh_private.param("mean3", mean_2, (float)0.0);
 
-  nh.param("threshold", threshold, (float)0.5);
+  nh_private.param("threshold", threshold, (float)0.5);
 
-  nh.param("debug", debug, 0);
+  nh_private.param("debug", debug, 0);
 
-  nh.param("image_subscribe_topic", image_subscribe_topic,
-           std::string("/csi_cam/image_raw"));
+  nh_private.param("image_subscribe_topic", image_subscribe_topic,
+                   std::string("/csi_cam/image_raw"));
 
-  ros::Subscriber image_sub =
-      nh.subscribe<sensor_msgs::Image>(image_subscribe_topic, 2, imageCallback);
+  ROS_INFO("image_subscribe_topic: %s", image_subscribe_topic.c_str());
+
+  image_sub = nh.subscribe<sensor_msgs::Image>(
+      image_subscribe_topic, 2, &ROSDIGITSDetector::imageCallback, this);
 
   if (debug)
-    debug_pub = nh.advertise<sensor_msgs::Image>("debug_output", 5);
+    debug_pub = nh_private.advertise<sensor_msgs::Image>("debug_output", 5);
 
-  region_pub = nh.advertise<jetson_tensorrt::CategorizedRegionsOfInterest>(
-      "detections", 5);
+  region_pub =
+      nh_private.advertise<jetson_tensorrt::CategorizedRegionsOfInterest>(
+          "detections", 5);
 
-  ros::spin();
-
-  return 0;
+  this->nh = nh;
+  this->nh_private = nh_private;
 }
+
+} // namespace jetson_tensorrt

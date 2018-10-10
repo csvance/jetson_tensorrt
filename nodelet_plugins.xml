@@ -1,0 +1,10 @@
+<library path="lib/libDIGITSDetect">
+  <class
+    name="jetson_tensorrt/DIGITSDetectNodelet"
+    type="jetson_tensorrt::DIGITSDetectNodelet"
+    base_class_type="nodelet::Nodelet">
+    <description>
+      Nodelet for running a DIGITS DetectNet on image data
+    </description>
+  </class>
+</library>

@@ -1,7 +1,7 @@
 /**
  * @file	digits_detect.h
  * @author	Carroll Vance
- * @brief	nVidia DIGITS Detection ROS Node
+ * @brief	nVidia DIGITS Detection ROS Driver
  *
  * Copyright (c) 2018 Carroll Vance.
  *
@@ -27,4 +27,58 @@
 #ifndef DIGITS_DETECT_H_
 #define DIGITS_DETECT_H_
 
+#include <chrono>
+
+#include "cv_bridge/cv_bridge.h"
+#include "jetson_tensorrt/CategorizedRegionOfInterest.h"
+#include "jetson_tensorrt/CategorizedRegionsOfInterest.h"
+#include "ros/package.h"
+#include "ros/ros.h"
+#include "sensor_msgs/Image.h"
+#include "sensor_msgs/image_encodings.h"
+
+#include "opencv2/core/utility.hpp"
+#include "opencv2/highgui.hpp"
+#include "opencv2/imgcodecs.hpp"
+#include "opencv2/imgproc.hpp"
+
+#include "CUDAPipeline.h"
+#include "DIGITSDetector.h"
+
+namespace jetson_tensorrt {
+
+class ROSDIGITSDetector {
+public:
+  ROSDIGITSDetector(ros::NodeHandle nh, ros::NodeHandle nh_private);
+  void imageCallback(const sensor_msgs::Image::ConstPtr &msg);
+
+private:
+  /* TensorRT */
+  jetson_tensorrt::CUDAPipeline *preprocessPipeline = nullptr;
+  jetson_tensorrt::LocatedExecutionMemory tensor_input, tensor_output;
+  jetson_tensorrt::DIGITSDetector *engine = nullptr;
+
+  /* ROS */
+  ros::Publisher region_pub;
+  ros::Publisher debug_pub;
+
+  /* Params */
+  float threshold;
+  std::string model_path, cache_path, weights_path;
+  std::string image_subscribe_topic;
+  int model_image_depth, model_image_width, model_image_height,
+      model_num_classes;
+  float mean_0, mean_1, mean_2;
+  int debug;
+
+  std::chrono::time_point<std::chrono::system_clock> start_t;
+  int frames;
+
+  ros::NodeHandle nh;
+  ros::NodeHandle nh_private;
+
+  ros::Subscriber image_sub;
+};
+
+} // namespace jetson_tensorrt
 #endif /* DIGITS_DETECT_H_ */
