@@ -85,27 +85,30 @@ void ROSDIGITSDetector::imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
 
   for (std::vector<RTClassifiedRegionOfInterest>::iterator it = regions.begin();
        it != regions.end(); ++it) {
-    ClassifiedRegionOfInterest region;
 
-    region.id = it->id;
-    region.confidence = it->confidence;
-    region.x = it->x;
-    region.y = it->y;
-    region.w = it->w;
-    region.h = it->h;
+    if (it->confidence > threshold) {
+      ClassifiedRegionOfInterest region;
 
-    if (debug) {
-      ROS_INFO("DETECT(%d): %d,%d %dx%d %f", region.id,
-               (int)(region.x * x_scale), (int)(region.y * y_scale),
-               (int)(region.w * x_scale), (int)(region.h * y_scale),
-               region.confidence);
+      region.id = it->id;
+      region.confidence = it->confidence;
+      region.x = it->x;
+      region.y = it->y;
+      region.w = it->w;
+      region.h = it->h;
 
-      cv::Rect rect((int)(region.x * x_scale), (int)(region.y * y_scale),
-                    (int)(region.w * x_scale), (int)(region.h * y_scale));
-      cv::rectangle(cv_ptr->image, rect, cv::Scalar(0, 255, 0), 8);
+      if (debug) {
+        ROS_INFO("DETECT(%d): %d,%d %dx%d %f", region.id,
+                 (int)(region.x * x_scale), (int)(region.y * y_scale),
+                 (int)(region.w * x_scale), (int)(region.h * y_scale),
+                 region.confidence);
+
+        cv::Rect rect((int)(region.x * x_scale), (int)(region.y * y_scale),
+                      (int)(region.w * x_scale), (int)(region.h * y_scale));
+        cv::rectangle(cv_ptr->image, rect, cv::Scalar(0, 255, 0), 8);
+      }
+
+      msg_regions.regions.push_back(region);
     }
-
-    msg_regions.regions.push_back(region);
   }
   region_pub.publish(msg_regions);
 

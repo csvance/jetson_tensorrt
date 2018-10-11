@@ -80,41 +80,51 @@ void ROSDIGITSClassifier::imageCallback(
   /* 3. Publish */
   Classifications msg_classifications;
 
-  cv_bridge::CvImagePtr cv_ptr;
-  if (debug)
-    cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::RGB8);
+  float maxConfidence = 0.0;
+  int maxId = 0;
 
   for (std::vector<RTClassification>::iterator it = classifications.begin();
        it != classifications.end(); ++it) {
 
-    Classification classification;
-    classification.id = it->id;
-    classification.confidence = it->confidence;
+    if (it->confidence > threshold) {
 
-    if (it->id < classes.size())
-      classification.desc = classes[it->id];
-    else
-      classification.desc = "";
+      Classification classification;
 
-    if (debug) {
+      classification.id = it->id;
+      classification.confidence = it->confidence;
 
-      std::string debug_msg =
-          classes[it->id] + " : " + std::to_string(classification.confidence);
+      if (it->id < classes.size())
+        classification.desc = classes[it->id];
+      else
+        classification.desc = "";
 
-      ROS_INFO("CLASSIFY(%d): %s", classification.id, debug_msg.c_str());
+      if (it->confidence > maxConfidence) {
+        maxConfidence = it->confidence;
+        maxId = it->id;
+      }
 
-      putText(cv_ptr->image, debug_msg.c_str(), cvPoint(30, 30),
-              CV_FONT_HERSHEY_SIMPLEX, 0.8, cvScalar(200, 200, 250), 1, CV_AA,
-              true);
+      msg_classifications.classifications.push_back(classification);
     }
-
-    msg_classifications.classifications.push_back(classification);
   }
 
   classification_pub.publish(msg_classifications);
 
-  if (debug)
+  if (debug && maxConfidence > threshold) {
+
+    cv_bridge::CvImagePtr cv_ptr =
+        cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::RGB8);
+
+    std::string debug_msg =
+        classes[maxId] + " : " + std::to_string(maxConfidence);
+
+    ROS_INFO("CLASSIFY(%d): %s", maxId, debug_msg.c_str());
+
+    putText(cv_ptr->image, debug_msg.c_str(), cvPoint(30, 30),
+            CV_FONT_HERSHEY_SIMPLEX, 0.8, cvScalar(200, 200, 250), 1, CV_AA,
+            true);
+
     debug_pub.publish(cv_ptr->toImageMsg());
+  }
 
   frames++;
   if (frames > 0 && frames % 10 == 0) {
