@@ -35,7 +35,7 @@ namespace jetson_tensorrt {
 
 class ToDevicePTRNode : public CUDAPipeNode {
 public:
-  ToDevicePTRNode() {}
+  ToDevicePTRNode() : CUDAPipeNode() {}
   virtual ~ToDevicePTRNode() {}
 
   CUDAPipeIO pipe(CUDAPipeIO &input);
@@ -43,7 +43,7 @@ public:
 
 class RGBToRGBAfNode : public CUDAPipeNode {
 public:
-  RGBToRGBAfNode(size_t inputWidth, size_t inputHeight) {
+  RGBToRGBAfNode(size_t inputWidth, size_t inputHeight) : CUDAPipeNode() {
     this->inputWidth = inputWidth;
     this->inputHeight = inputHeight;
   }
@@ -56,7 +56,7 @@ public:
 
 class NV12toRGBAfNode : public CUDAPipeNode {
 public:
-  NV12toRGBAfNode(size_t inputWidth, size_t inputHeight) {
+  NV12toRGBAfNode(size_t inputWidth, size_t inputHeight) : CUDAPipeNode() {
     this->inputWidth = inputWidth;
     this->inputHeight = inputHeight;
   }
@@ -70,7 +70,8 @@ public:
 class RGBAfToImageNetNode : public CUDAPipeNode {
 public:
   RGBAfToImageNetNode(size_t inputWidth, size_t inputHeight, size_t outputWidth,
-                      size_t outputHeight, float3 mean) {
+                      size_t outputHeight, float3 mean)
+      : CUDAPipeNode() {
     this->inputWidth = inputWidth;
     this->inputHeight = inputHeight;
     this->outputWidth = outputWidth;

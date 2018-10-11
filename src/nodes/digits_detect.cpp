@@ -92,9 +92,6 @@ void ROSDIGITSDetector::imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
       region.w = (int)(it->w * x_scale);
       region.h = (int)(it->h * y_scale);
 
-      ROS_DEBUG("DETECT(%d): %d,%d %dx%d %f", region.id, region.x, region.y,
-                region.w, region.h, region.confidence);
-
       msg_regions.regions.push_back(region);
     }
   }

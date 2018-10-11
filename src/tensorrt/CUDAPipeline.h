@@ -49,6 +49,7 @@ public:
 
 class CUDAPipeNode {
 public:
+  CUDAPipeNode() { this->allocated = false; }
   /**
      @brief Send an input through the node and get back the output
      @param input The input to the node
