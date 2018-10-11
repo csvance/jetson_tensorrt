@@ -2,7 +2,7 @@
 
 ## Implemented Nodes
 ### [DIGITS][digits] ImageNet (classification)
-- classify_nodes.launch uses the builtin camera on the TX2 and publishes to /classifier/debug_output
+- classify_nodes.launch uses the builtin camera on the TX2 and publishes to /rt_debug
 #### Parameters
 
 | Param | Type  | Description  |
@@ -36,7 +36,7 @@ ClassifiedRegionOfInterest[] regions
 ```
 
 ### [DIGITS][digits] DetectNet (detection)
-- detect_nodes.launch uses the builtin camera on the TX2 and publishes to /detector/debug_output
+- detect_nodes.launch uses the builtin camera on the TX2 and publishes to /rt_debug
 #### Parameters
 | Param | Type  | Description  |
 | :------------- |:-------------| :-----|

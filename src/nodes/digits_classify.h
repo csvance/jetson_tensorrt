@@ -37,11 +37,6 @@
 #include "sensor_msgs/Image.h"
 #include "sensor_msgs/image_encodings.h"
 
-#include "opencv2/core/utility.hpp"
-#include "opencv2/highgui.hpp"
-#include "opencv2/imgcodecs.hpp"
-#include "opencv2/imgproc.hpp"
-
 #include "CUDAPipeline.h"
 #include "DIGITSClassifier.h"
 
@@ -62,7 +57,7 @@ private:
 
   /* ROS */
   ros::Publisher classification_pub;
-  ros::Publisher debug_pub;
+  ros::Subscriber image_sub;
 
   /* Params */
   float threshold;
@@ -71,15 +66,12 @@ private:
   int model_image_depth, model_image_width, model_image_height,
       model_num_classes;
   double mean_1, mean_2, mean_3;
-  int debug;
 
   std::chrono::time_point<std::chrono::system_clock> start_t;
   int frames;
 
   ros::NodeHandle nh;
   ros::NodeHandle nh_private;
-
-  ros::Subscriber image_sub;
 };
 
 } // namespace jetson_tensorrt

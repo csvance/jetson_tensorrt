@@ -27,7 +27,6 @@
 	    name="classifier"
 	    args="load jetson_tensorrt/DIGITSClassifyNodelet standalone_nodelet"
 	    output="screen">
-			<param name="debug" value="1"/>
 			<param name="mean0" value="104.0069879317889"/>
 			<param name="mean1" value="116.66876761696767"/>
 			<param name="mean2" value="122.6789143406786"/>

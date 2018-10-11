@@ -27,7 +27,6 @@
 	    name="detector"
 	    args="load jetson_tensorrt/DIGITSDetectNodelet standalone_nodelet"
 	    output="screen">
-			<param name="debug" value="1"/>
 	</node>
 
   <!-- Start the GSCAM nodelet -->

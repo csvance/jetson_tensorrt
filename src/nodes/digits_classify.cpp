@@ -37,11 +37,11 @@ void ROSDIGITSClassifier::imageCallback(
   /* 0. Initialize */
   if (engine == nullptr) {
 
-    ROS_INFO("Loading nVidia DIGITS model...");
+    ROS_INFO("Loading nVidia DIGITS model (this can take a while)...");
     engine = new DIGITSClassifier(model_path, weights_path, cache_path,
                                   model_image_depth, model_image_width,
                                   model_image_height, model_num_classes);
-    ROS_INFO("Done loading nVidia DIGITS model.");
+    ROS_INFO("Done loading nVidia DIGITS model!");
 
     tensor_input = engine->allocInputs(MemoryLocation::DEVICE, true);
     tensor_output = engine->allocOutputs(MemoryLocation::UNIFIED);
@@ -53,10 +53,10 @@ void ROSDIGITSClassifier::imageCallback(
     } else if (msg->encoding.compare(sensor_msgs::image_encodings::YUV422) ==
                0) {
       // TODO: Implement YUV422 preprocess pipeline
-      ROS_INFO("Unsupported image encoding: %s", msg->encoding.c_str());
+      ROS_ERROR("Unsupported image encoding: %s", msg->encoding.c_str());
       return;
     } else {
-      ROS_INFO("Unsupported image encoding: %s", msg->encoding.c_str());
+      ROS_ERROR("Unsupported image encoding: %s", msg->encoding.c_str());
       return;
     }
 
@@ -109,42 +109,22 @@ void ROSDIGITSClassifier::imageCallback(
 
   classification_pub.publish(msg_classifications);
 
-  if (debug && maxConfidence > threshold) {
-
-    cv_bridge::CvImagePtr cv_ptr =
-        cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::RGB8);
-
-    std::string debug_msg =
-        classes[maxId] + " : " + std::to_string(maxConfidence);
-
-    ROS_INFO("CLASSIFY(%d): %s", maxId, debug_msg.c_str());
-
-    putText(cv_ptr->image, debug_msg.c_str(), cvPoint(30, 30),
-            CV_FONT_HERSHEY_SIMPLEX, 0.8, cvScalar(200, 200, 250), 1, CV_AA,
-            true);
-
-    debug_pub.publish(cv_ptr->toImageMsg());
-  }
-
   frames++;
   if (frames > 0 && frames % 10 == 0) {
-    ROS_INFO("%f FPS",
-             (1000 * (float)frames) /
-                 std::chrono::duration_cast<std::chrono::milliseconds>(
-                     std::chrono::system_clock::now() - start_t)
-                     .count());
-
-    start_t = std::chrono::system_clock::now();
-    frames = 0;
+    ROS_DEBUG("%f FPS",
+              (1000 * (float)frames) /
+                  std::chrono::duration_cast<std::chrono::milliseconds>(
+                      std::chrono::system_clock::now() - start_t)
+                      .count());
   }
+  start_t = std::chrono::system_clock::now();
+  frames = 0;
 }
 
 ROSDIGITSClassifier::ROSDIGITSClassifier(ros::NodeHandle nh,
                                          ros::NodeHandle nh_private) {
 
   std::string package_path = ros::package::getPath("jetson_tensorrt");
-
-  nh_private.param("debug", debug, 0);
 
   nh_private.param("model_path", model_path,
                    package_path + std::string("/networks/googlenet.prototxt"));
@@ -168,8 +148,7 @@ ROSDIGITSClassifier::ROSDIGITSClassifier(ros::NodeHandle nh,
   int index = 0;
   while (end != std::string::npos) {
 
-    if (debug)
-      ROS_INFO("%d: %s", index, text.substr(start, end - start).c_str());
+    ROS_DEBUG("class(%d): %s", index, text.substr(start, end - start).c_str());
 
     classes.push_back(text.substr(start, end - start));
 
@@ -178,10 +157,10 @@ ROSDIGITSClassifier::ROSDIGITSClassifier(ros::NodeHandle nh,
     index++;
   }
 
-  ROS_INFO("model_path: %s", model_path.c_str());
-  ROS_INFO("weights_path: %s", weights_path.c_str());
-  ROS_INFO("cache_path: %s", cache_path.c_str());
-  ROS_INFO("sysnet_words_path: %s", sysnet_words_path.c_str());
+  ROS_DEBUG("model_path: %s", model_path.c_str());
+  ROS_DEBUG("weights_path: %s", weights_path.c_str());
+  ROS_DEBUG("cache_path: %s", cache_path.c_str());
+  ROS_DEBUG("sysnet_words_path: %s", sysnet_words_path.c_str());
 
   nh_private.param("model_image_depth", model_image_depth,
                    (int)DIGITSClassifier::DEFAULT::DEPTH);
@@ -196,18 +175,15 @@ ROSDIGITSClassifier::ROSDIGITSClassifier(ros::NodeHandle nh,
   nh_private.param("mean2", mean_2, 0.0);
   nh_private.param("mean3", mean_3, 0.0);
 
-  nh_private.param("threshold", threshold, (float)0.5);
+  nh_private.param("threshold", threshold, (float)0.2);
 
   nh_private.param("image_subscribe_topic", image_subscribe_topic,
                    std::string("/csi_cam/image_raw"));
 
-  ROS_INFO("image_subscribe_topic: %s", image_subscribe_topic.c_str());
+  ROS_DEBUG("image_subscribe_topic: %s", image_subscribe_topic.c_str());
 
   image_sub = nh.subscribe<sensor_msgs::Image>(
       image_subscribe_topic, 2, &ROSDIGITSClassifier::imageCallback, this);
-
-  if (debug)
-    debug_pub = nh_private.advertise<sensor_msgs::Image>("debug_output", 5);
 
   classification_pub = nh_private.advertise<jetson_tensorrt::Classifications>(
       "classifications", 100);

@@ -37,11 +37,6 @@
 #include "sensor_msgs/Image.h"
 #include "sensor_msgs/image_encodings.h"
 
-#include "opencv2/core/utility.hpp"
-#include "opencv2/highgui.hpp"
-#include "opencv2/imgcodecs.hpp"
-#include "opencv2/imgproc.hpp"
-
 #include "CUDAPipeline.h"
 #include "DIGITSDetector.h"
 
@@ -62,8 +57,6 @@ private:
   ros::Publisher region_pub;
   ros::Subscriber image_sub;
 
-  ros::Publisher debug_pub;
-
   /* Params */
   float threshold;
   std::string model_path, cache_path, weights_path;
@@ -71,7 +64,6 @@ private:
   int model_image_depth, model_image_width, model_image_height,
       model_num_classes;
   double mean_1, mean_2, mean_3;
-  int debug;
 
   std::chrono::time_point<std::chrono::system_clock> start_t;
   int frames;

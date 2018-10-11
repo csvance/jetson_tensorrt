@@ -1,11 +1,11 @@
 <launch>
 
 	<node pkg="jetson_tensorrt" type="digits_classify" name="classifier" output="screen">
-		<param name="debug" value="1"/>
 		<param name="mean1" value="104.0069879317889"/>
 		<param name="mean2" value="116.66876761696767"/>
 		<param name="mean3" value="122.6789143406786"/>
 	</node>
+	<node pkg="jetson_tensorrt" type="debug_node.py" name="rt_debug" output="screen"/>
 
   <!-- Command Line Arguments -->
   <arg name="cam_name" default="csi_cam" />                  <!-- The name of the camera (corrsponding to the camera info) -->
