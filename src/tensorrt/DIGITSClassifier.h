@@ -45,7 +45,7 @@ namespace jetson_tensorrt {
  */
 class DIGITSClassifier : public CaffeRTEngine {
 public:
-  enum DEFAULT { WIDTH = 224, HEIGHT = 224, DEPTH = 3, CLASSES = 1 };
+  enum DEFAULT { WIDTH = 224, HEIGHT = 224, DEPTH = 3, CLASSES = 1000 };
 
   DIGITSClassifier() {}
   /**
@@ -87,9 +87,9 @@ public:
    * @return	vector of Classification objects above the threshold
    *
    */
-  std::vector<Classification> classify(LocatedExecutionMemory &inputs,
-                                       LocatedExecutionMemory &outputs,
-                                       float threshold = 0.5);
+  std::vector<RTClassification> classify(LocatedExecutionMemory &inputs,
+                                         LocatedExecutionMemory &outputs,
+                                         float threshold = 0.5);
 
   static const size_t CHANNELS_GREYSCALE = 1;
   static const size_t CHANNELS_BGR = 3;

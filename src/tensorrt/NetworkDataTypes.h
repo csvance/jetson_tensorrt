@@ -32,12 +32,12 @@
  * @brief	Represents a classified region of an image with a zero indexed
  * class ID and probability value
  */
-struct ClassRectangle {
+struct RTClassifiedRegionOfInterest {
 
-  ClassRectangle(unsigned int id, float coverage, size_t x, size_t y, size_t w,
-                 size_t h) {
+  RTClassifiedRegionOfInterest(unsigned int id, float confidence, size_t x,
+                               size_t y, size_t w, size_t h) {
     this->id = id;
-    this->coverage = coverage;
+    this->confidence = confidence;
     this->x = x;
     this->y = y;
     this->w = w;
@@ -52,7 +52,7 @@ struct ClassRectangle {
   /**
    * @brief	The confidence of the model's prediction
    */
-  float coverage;
+  float confidence;
 
   /**
    * @brief	X Coordinate in pixels
@@ -79,11 +79,11 @@ struct ClassRectangle {
  * @brief Represents the probability that a specific class was in a prediction
  * input
  */
-struct Classification {
+struct RTClassification {
 
-  Classification(unsigned int id, float probability) {
+  RTClassification(unsigned int id, float confidence) {
     this->id = id;
-    this->probability = probability;
+    this->confidence = confidence;
   }
 
   /**
@@ -92,9 +92,9 @@ struct Classification {
   unsigned int id;
 
   /**
-   * @brief	Probability that a specific class was in the input
+   * @brief	Confidence that a specific class was in the input
    */
-  float probability;
+  float confidence;
 };
 
 #endif /* TENSORRT_NETWORKIOTYPES_H_ */

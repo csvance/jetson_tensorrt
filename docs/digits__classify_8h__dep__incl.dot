@@ -1,0 +1,14 @@
+digraph "src/nodes/digits_classify.h"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node31 [label="src/nodes/digits_classify.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node31 -> Node32 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node32 [label="src/nodes/digits_classify.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$digits__classify_8cpp.html",tooltip="nVidia DIGITS Classification ROS Node "];
+  Node31 -> Node33 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node33 [label="src/nodes/digits_classify\l_node.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$digits__classify__node_8cpp.html",tooltip="nVidia DIGITS Classification ROS Node "];
+  Node31 -> Node34 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node34 [label="src/nodes/digits_classify\l_nodelet.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$digits__classify__nodelet_8h.html",tooltip="nVidia DIGITS Classification ROS Nodelet "];
+  Node34 -> Node35 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node35 [label="src/nodes/digits_classify\l_nodelet.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$digits__classify__nodelet_8cpp.html",tooltip="nVidia DIGITS Classification ROS Nodelet "];
+}

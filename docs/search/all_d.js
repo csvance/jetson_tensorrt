@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['w',['w',['../struct_class_rectangle.html#a5274ab8b5b3ac5e0174a06064647d968',1,'ClassRectangle']]]
+  ['w',['w',['../struct_r_t_classified_region_of_interest.html#afe558bd35930882630195399ea251fc0',1,'RTClassifiedRegionOfInterest']]]
 ];

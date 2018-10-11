@@ -53,8 +53,10 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate messages in the 'msg' folder
 add_message_files(
   FILES
-  CategorizedRegionOfInterest.msg
-  CategorizedRegionsOfInterest.msg
+  ClassifiedRegionOfInterest.msg
+  ClassifiedRegionsOfInterest.msg
+  Classification.msg
+  Classifications.msg
 )
 
 ## Generate services in the 'srv' folder

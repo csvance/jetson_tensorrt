@@ -8,3 +8,13 @@
     </description>
   </class>
 </library>
+<library path="lib/libDIGITSClassify">
+  <class
+    name="jetson_tensorrt/DIGITSClassifyNodelet"
+    type="jetson_tensorrt::DIGITSClassifyNodelet"
+    base_class_type="nodelet::Nodelet">
+    <description>
+      Nodelet for running a DIGITS Classify on image data
+    </description>
+  </class>
+</library>

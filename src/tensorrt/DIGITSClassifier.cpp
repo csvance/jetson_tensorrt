@@ -73,7 +73,7 @@ DIGITSClassifier::DIGITSClassifier(std::string prototextPath,
 
 DIGITSClassifier::~DIGITSClassifier() {}
 
-std::vector<Classification>
+std::vector<RTClassification>
 DIGITSClassifier::classify(LocatedExecutionMemory &inputs,
                            LocatedExecutionMemory &outputs, float threshold) {
 
@@ -82,11 +82,11 @@ DIGITSClassifier::classify(LocatedExecutionMemory &inputs,
 
   float *classProbabilities = (float *)outputs[0][0];
 
-  std::vector<Classification> classifications;
+  std::vector<RTClassification> classifications;
 
   for (int c = 0; c < nbClasses; c++) {
     if (classProbabilities[c] > threshold)
-      classifications.push_back(Classification(c, classProbabilities[c]));
+      classifications.push_back(RTClassification(c, classProbabilities[c]));
   }
 
   return classifications;

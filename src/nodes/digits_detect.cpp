@@ -45,7 +45,7 @@ void ROSDIGITSDetector::imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
     if (msg->encoding.compare(sensor_msgs::image_encodings::RGB8) == 0) {
       preprocessPipeline = CUDAPipeline::createRGBImageNetPipeline(
           msg->width, msg->height, model_image_width, model_image_height,
-          make_float3(mean_0, mean_1, mean_2));
+          make_float3(mean_1, mean_2, mean_3));
     } else if (msg->encoding.compare(sensor_msgs::image_encodings::YUV422) ==
                0) {
       // TODO: Implement YUV422 preprocess pipeline
@@ -70,11 +70,11 @@ void ROSDIGITSDetector::imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
   tensor_input.batch[0][0] = output.data;
 
   /* 2. Inference */
-  std::vector<ClassRectangle> rects =
+  std::vector<RTClassifiedRegionOfInterest> regions =
       engine->detect(tensor_input, tensor_output, threshold);
 
   /* 3. Publish */
-  CategorizedRegionsOfInterest regions;
+  ClassifiedRegionsOfInterest msg_regions;
 
   cv_bridge::CvImagePtr cv_ptr;
   if (debug)
@@ -83,28 +83,31 @@ void ROSDIGITSDetector::imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
   float x_scale = (float)msg->width / (float)model_image_width;
   float y_scale = (float)msg->height / (float)model_image_height;
 
-  for (std::vector<ClassRectangle>::iterator it = rects.begin();
-       it != rects.end(); ++it) {
-    CategorizedRegionOfInterest region;
-    region.x = (*it).x;
-    region.y = (*it).y;
-    region.w = (*it).w;
-    region.h = (*it).h;
-    region.id = (*it).id;
+  for (std::vector<RTClassifiedRegionOfInterest>::iterator it = regions.begin();
+       it != regions.end(); ++it) {
+    ClassifiedRegionOfInterest region;
+
+    region.id = it->id;
+    region.confidence = it->confidence;
+    region.x = it->x;
+    region.y = it->y;
+    region.w = it->w;
+    region.h = it->h;
 
     if (debug) {
-      ROS_INFO("DETECT(%d): %d,%d %dx%d", region.id, (int)(region.x * x_scale),
-               (int)(region.y * y_scale), (int)(region.w * x_scale),
-               (int)(region.h * y_scale));
+      ROS_INFO("DETECT(%d): %d,%d %dx%d %f", region.id,
+               (int)(region.x * x_scale), (int)(region.y * y_scale),
+               (int)(region.w * x_scale), (int)(region.h * y_scale),
+               region.confidence);
 
       cv::Rect rect((int)(region.x * x_scale), (int)(region.y * y_scale),
                     (int)(region.w * x_scale), (int)(region.h * y_scale));
       cv::rectangle(cv_ptr->image, rect, cv::Scalar(0, 255, 0), 8);
     }
 
-    regions.regions.push_back(region);
+    msg_regions.regions.push_back(region);
   }
-  region_pub.publish(regions);
+  region_pub.publish(msg_regions);
 
   if (debug)
     debug_pub.publish(cv_ptr->toImageMsg());
@@ -127,6 +130,8 @@ ROSDIGITSDetector::ROSDIGITSDetector(ros::NodeHandle nh,
 
   std::string package_path = ros::package::getPath("jetson_tensorrt");
 
+  nh_private.param("debug", debug, 0);
+
   nh_private.param("model_path", model_path,
                    package_path + std::string("/networks/detectnet.prototxt"));
   nh_private.param("weights_path", weights_path,
@@ -148,13 +153,11 @@ ROSDIGITSDetector::ROSDIGITSDetector(ros::NodeHandle nh,
   nh_private.param("model_num_classes", model_num_classes,
                    (int)DIGITSDetector::DEFAULT::CLASSES);
 
-  nh_private.param("mean1", mean_0, (float)0.0);
-  nh_private.param("mean2", mean_1, (float)0.0);
-  nh_private.param("mean3", mean_2, (float)0.0);
+  nh_private.param("mean1", mean_1, 0.0);
+  nh_private.param("mean2", mean_2, 0.0);
+  nh_private.param("mean3", mean_3, 0.0);
 
   nh_private.param("threshold", threshold, (float)0.5);
-
-  nh_private.param("debug", debug, 0);
 
   nh_private.param("image_subscribe_topic", image_subscribe_topic,
                    std::string("/csi_cam/image_raw"));
@@ -168,7 +171,7 @@ ROSDIGITSDetector::ROSDIGITSDetector(ros::NodeHandle nh,
     debug_pub = nh_private.advertise<sensor_msgs::Image>("debug_output", 5);
 
   region_pub =
-      nh_private.advertise<jetson_tensorrt::CategorizedRegionsOfInterest>(
+      nh_private.advertise<jetson_tensorrt::ClassifiedRegionsOfInterest>(
           "detections", 5);
 
   this->nh = nh;

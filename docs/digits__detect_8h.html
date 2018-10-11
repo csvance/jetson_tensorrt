@@ -65,14 +65,37 @@ $(function() {
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
 <div class="title">digits_detect.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>nVidia DIGITS Detection ROS Node  
+<p>nVidia DIGITS Detection ROS Driver  
 <a href="#details">More...</a></p>
-<div class="textblock"><div class="dynheader">
+<div class="textblock"><code>#include &lt;chrono&gt;</code><br />
+<code>#include &quot;cv_bridge/cv_bridge.h&quot;</code><br />
+<code>#include &quot;jetson_tensorrt/ClassifiedRegionOfInterest.h&quot;</code><br />
+<code>#include &quot;jetson_tensorrt/ClassifiedRegionsOfInterest.h&quot;</code><br />
+<code>#include &quot;ros/package.h&quot;</code><br />
+<code>#include &quot;ros/ros.h&quot;</code><br />
+<code>#include &quot;sensor_msgs/Image.h&quot;</code><br />
+<code>#include &quot;sensor_msgs/image_encodings.h&quot;</code><br />
+<code>#include &quot;opencv2/core/utility.hpp&quot;</code><br />
+<code>#include &quot;opencv2/highgui.hpp&quot;</code><br />
+<code>#include &quot;opencv2/imgcodecs.hpp&quot;</code><br />
+<code>#include &quot;opencv2/imgproc.hpp&quot;</code><br />
+<code>#include &quot;<a class="el" href="_c_u_d_a_pipeline_8h_source.html">CUDAPipeline.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_d_i_g_i_t_s_detector_8h_source.html">DIGITSDetector.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for digits_detect.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="digits__detect_8h__incl.png" border="0" usemap="#src_2nodes_2digits__detect_8h" alt=""/></div>
+<map name="src_2nodes_2digits__detect_8h" id="src_2nodes_2digits__detect_8h">
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="digits__detect_8h__dep__incl.png" border="0" usemap="#src_2nodes_2digits__detect_8hdep" alt=""/></div>
@@ -82,8 +105,14 @@ This graph shows which files directly or indirectly include this file:</div>
 </div>
 </div>
 <p><a href="digits__detect_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_r_o_s_d_i_g_i_t_s_detector.html">jetson_tensorrt::ROSDIGITSDetector</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>nVidia DIGITS Detection ROS Node </p>
+<div class="textblock"><p>nVidia DIGITS Detection ROS Driver </p>
 <dl class="section author"><dt>Author</dt><dd>Carroll Vance Copyright (c) 2018 Carroll Vance.</dd></dl>
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
 <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>

@@ -94,9 +94,9 @@ public:
    * have to be considered
    * @return	A vector of class tagged detection regions
    */
-  std::vector<ClassRectangle> execute(float *coverage, float *bboxes,
-                                      size_t nbClasses = 1,
-                                      float detectionThreshold = 0.5);
+  std::vector<RTClassifiedRegionOfInterest>
+  execute(float *coverage, float *bboxes, size_t nbClasses = 1,
+          float detectionThreshold = 0.5);
 
 private:
   bool imageReady, inputReady, gridReady;
@@ -156,9 +156,9 @@ public:
    * @param	threshold	Minimum coverage threshold for detected regions
    * @returned	vector of ClassRectangles representing the detections
    */
-  std::vector<ClassRectangle> detect(LocatedExecutionMemory &inputs,
-                                     LocatedExecutionMemory &outputs,
-                                     float threshold = 0.5);
+  std::vector<RTClassifiedRegionOfInterest>
+  detect(LocatedExecutionMemory &inputs, LocatedExecutionMemory &outputs,
+         float threshold = 0.5);
 
   size_t modelWidth;
   size_t modelHeight;

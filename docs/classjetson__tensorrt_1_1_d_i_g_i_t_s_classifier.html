@@ -105,7 +105,7 @@ Public Types</h2></td></tr>
 <tr class="memitem:aecb31651cacf1327c0d972d3fc373319"><td class="memItemLeft" align="right" valign="top"><a id="aecb31651cacf1327c0d972d3fc373319"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>DEFAULT</b> { <b>WIDTH</b> = 224, 
 <b>HEIGHT</b> = 224, 
 <b>DEPTH</b> = 3, 
-<b>CLASSES</b> = 1
+<b>CLASSES</b> = 1000
  }</td></tr>
 <tr class="separator:aecb31651cacf1327c0d972d3fc373319"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -118,9 +118,9 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html#a3374b2511fa9a43071df0fdc92767779">~DIGITSClassifier</a> ()</td></tr>
 <tr class="memdesc:a3374b2511fa9a43071df0fdc92767779"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html" title="Loads and manages a DIGITS ImageNet graph with TensorRT. ">DIGITSClassifier</a> destructor. <br /></td></tr>
 <tr class="separator:a3374b2511fa9a43071df0fdc92767779"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae7acfd1aaa4e8fd22b6e3696a05f241"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="struct_classification.html">Classification</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html#aae7acfd1aaa4e8fd22b6e3696a05f241">classify</a> (<a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a> &amp;inputs, <a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a> &amp;outputs, float threshold=0.5)</td></tr>
-<tr class="memdesc:aae7acfd1aaa4e8fd22b6e3696a05f241"><td class="mdescLeft">&#160;</td><td class="mdescRight">Classifies a single BGR format image.  <a href="#aae7acfd1aaa4e8fd22b6e3696a05f241">More...</a><br /></td></tr>
-<tr class="separator:aae7acfd1aaa4e8fd22b6e3696a05f241"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a556a1c391ea9700499b61e3b8b972d25"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="struct_r_t_classification.html">RTClassification</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_d_i_g_i_t_s_classifier.html#a556a1c391ea9700499b61e3b8b972d25">classify</a> (<a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a> &amp;inputs, <a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a> &amp;outputs, float threshold=0.5)</td></tr>
+<tr class="memdesc:a556a1c391ea9700499b61e3b8b972d25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Classifies a single BGR format image.  <a href="#a556a1c391ea9700499b61e3b8b972d25">More...</a><br /></td></tr>
+<tr class="separator:a556a1c391ea9700499b61e3b8b972d25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classjetson__tensorrt_1_1_caffe_r_t_engine"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classjetson__tensorrt_1_1_caffe_r_t_engine')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classjetson__tensorrt_1_1_caffe_r_t_engine.html">jetson_tensorrt::CaffeRTEngine</a></td></tr>
 <tr class="memitem:a57470dca90931e8a11c771f79cbc849f inherit pub_methods_classjetson__tensorrt_1_1_caffe_r_t_engine"><td class="memItemLeft" align="right" valign="top"><a id="a57470dca90931e8a11c771f79cbc849f"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classjetson__tensorrt_1_1_caffe_r_t_engine.html#a57470dca90931e8a11c771f79cbc849f">CaffeRTEngine</a> ()</td></tr>
@@ -310,14 +310,14 @@ nvinfer1::IExecutionContext *&#160;</td><td class="memItemRight" valign="bottom"
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aae7acfd1aaa4e8fd22b6e3696a05f241"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae7acfd1aaa4e8fd22b6e3696a05f241">&#9670;&nbsp;</a></span>classify()</h2>
+<a id="a556a1c391ea9700499b61e3b8b972d25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a556a1c391ea9700499b61e3b8b972d25">&#9670;&nbsp;</a></span>classify()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="struct_classification.html">Classification</a> &gt; jetson_tensorrt::DIGITSClassifier::classify </td>
+          <td class="memname">std::vector&lt; <a class="el" href="struct_r_t_classification.html">RTClassification</a> &gt; jetson_tensorrt::DIGITSClassifier::classify </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structjetson__tensorrt_1_1_located_execution_memory.html">LocatedExecutionMemory</a> &amp;&#160;</td>
           <td class="paramname"><em>inputs</em>, </td>
@@ -351,7 +351,7 @@ nvinfer1::IExecutionContext *&#160;</td><td class="memItemRight" valign="bottom"
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>vector of <a class="el" href="struct_classification.html" title="Represents the probability that a specific class was in a prediction input. ">Classification</a> objects above the threshold </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>vector of Classification objects above the threshold </dd></dl>
 
 </div>
 </div>

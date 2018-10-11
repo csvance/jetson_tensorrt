@@ -82,7 +82,7 @@ DIGITSDetector::DIGITSDetector(std::string prototextPath, std::string modelPath,
 
 DIGITSDetector::~DIGITSDetector() {}
 
-std::vector<ClassRectangle>
+std::vector<RTClassifiedRegionOfInterest>
 DIGITSDetector::detect(LocatedExecutionMemory &inputs,
                        LocatedExecutionMemory &outputs, float threshold) {
 
@@ -218,8 +218,10 @@ static void mergeRect(std::vector<float6> &rects, const float6 &rect) {
     rects.push_back(rect);
 }
 
-std::vector<ClassRectangle> ClusteredNonMaximumSuppression::execute(
-    float *coverage, float *bboxes, size_t nbClasses, float coverageThreshold) {
+std::vector<RTClassifiedRegionOfInterest>
+ClusteredNonMaximumSuppression::execute(float *coverage, float *bboxes,
+                                        size_t nbClasses,
+                                        float coverageThreshold) {
 
   // Cluster the rects
   std::vector<std::vector<float6>> rects;
@@ -253,7 +255,7 @@ std::vector<ClassRectangle> ClusteredNonMaximumSuppression::execute(
     }
   }
 
-  std::vector<ClassRectangle> classRectangles;
+  std::vector<RTClassifiedRegionOfInterest> classRectangles;
 
   const size_t maxBoundingBoxes = gridSize * nbClasses;
   int boxIndex = 0;
@@ -273,8 +275,8 @@ std::vector<ClassRectangle> ClusteredNonMaximumSuppression::execute(
       const size_t x2 = (size_t)r.z;
       const size_t y2 = (size_t)r.w;
 
-      classRectangles.push_back(
-          ClassRectangle(classID, coverage, x1, y1, x2 - x1, y2 - y1));
+      classRectangles.push_back(RTClassifiedRegionOfInterest(
+          classID, coverage, x1, y1, x2 - x1, y2 - y1));
 
       boxIndex++;
     }

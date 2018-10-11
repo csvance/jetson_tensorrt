@@ -19,4 +19,3 @@ include_directories(
 
 add_subdirectory(tensorrt)
 add_subdirectory(nodes)
-add_subdirectory(tests)

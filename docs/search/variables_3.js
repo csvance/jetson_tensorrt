@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['probability',['probability',['../struct_classification.html#a8e332204bf436b15751c8d6e3ad628c3',1,'Classification']]]
+  ['w',['w',['../struct_r_t_classified_region_of_interest.html#afe558bd35930882630195399ea251fc0',1,'RTClassifiedRegionOfInterest']]]
 ];

@@ -30,8 +30,8 @@
 #include <chrono>
 
 #include "cv_bridge/cv_bridge.h"
-#include "jetson_tensorrt/CategorizedRegionOfInterest.h"
-#include "jetson_tensorrt/CategorizedRegionsOfInterest.h"
+#include "jetson_tensorrt/ClassifiedRegionOfInterest.h"
+#include "jetson_tensorrt/ClassifiedRegionsOfInterest.h"
 #include "ros/package.h"
 #include "ros/ros.h"
 #include "sensor_msgs/Image.h"
@@ -60,6 +60,8 @@ private:
 
   /* ROS */
   ros::Publisher region_pub;
+  ros::Subscriber image_sub;
+
   ros::Publisher debug_pub;
 
   /* Params */
@@ -68,7 +70,7 @@ private:
   std::string image_subscribe_topic;
   int model_image_depth, model_image_width, model_image_height,
       model_num_classes;
-  float mean_0, mean_1, mean_2;
+  double mean_1, mean_2, mean_3;
   int debug;
 
   std::chrono::time_point<std::chrono::system_clock> start_t;
@@ -76,8 +78,6 @@ private:
 
   ros::NodeHandle nh;
   ros::NodeHandle nh_private;
-
-  ros::Subscriber image_sub;
 };
 
 } // namespace jetson_tensorrt

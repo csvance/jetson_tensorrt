@@ -1,0 +1,18 @@
+digraph "src/tensorrt/DIGITSClassifier.h"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node17 [label="src/tensorrt/DIGITSClassifier.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node17 -> Node18 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node18 [label="src/nodes/digits_classify.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$digits__classify_8h.html",tooltip="nVidia DIGITS Classification ROS Node "];
+  Node18 -> Node19 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node19 [label="src/nodes/digits_classify.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$digits__classify_8cpp.html",tooltip="nVidia DIGITS Classification ROS Node "];
+  Node18 -> Node20 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node20 [label="src/nodes/digits_classify\l_node.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$digits__classify__node_8cpp.html",tooltip="nVidia DIGITS Classification ROS Node "];
+  Node18 -> Node21 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node21 [label="src/nodes/digits_classify\l_nodelet.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$digits__classify__nodelet_8h.html",tooltip="nVidia DIGITS Classification ROS Nodelet "];
+  Node21 -> Node22 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node22 [label="src/nodes/digits_classify\l_nodelet.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$digits__classify__nodelet_8cpp.html",tooltip="nVidia DIGITS Classification ROS Nodelet "];
+  Node17 -> Node23 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node23 [label="src/tensorrt/DIGITSClassifier.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_d_i_g_i_t_s_classifier_8cpp.html",tooltip="Loads and manages a DIGITS ImageNet graph with TensorRT. "];
+}
