@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['confidence',['confidence',['../struct_r_t_classified_region_of_interest.html#ad1b1dde44c7e4178188183fcdd198b23',1,'RTClassifiedRegionOfInterest::confidence()'],['../struct_r_t_classification.html#a500cbd07840e5d79a87b398daa15c595',1,'RTClassification::confidence()']]]
+  ['confidence',['confidence',['../structjetson__tensorrt_1_1_r_t_classified_region_of_interest.html#ae12414d41984cb21c8343b721bd30b9f',1,'jetson_tensorrt::RTClassifiedRegionOfInterest::confidence()'],['../structjetson__tensorrt_1_1_r_t_classification.html#a70a8a37b91c118b0ff564a47c6995cc1',1,'jetson_tensorrt::RTClassification::confidence()']]]
 ];

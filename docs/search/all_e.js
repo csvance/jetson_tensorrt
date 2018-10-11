@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['x',['x',['../struct_r_t_classified_region_of_interest.html#acca83ceeeeb18b0f675368222d3cf6d3',1,'RTClassifiedRegionOfInterest']]]
+  ['x',['x',['../structjetson__tensorrt_1_1_r_t_classified_region_of_interest.html#adda7c570ace5e6eba858993a5fe882b3',1,'jetson_tensorrt::RTClassifiedRegionOfInterest']]]
 ];

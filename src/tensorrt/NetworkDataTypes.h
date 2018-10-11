@@ -28,6 +28,8 @@
 #ifndef TENSORRT_NETWORKIOTYPES_H_
 #define TENSORRT_NETWORKIOTYPES_H_
 
+namespace jetson_tensorrt {
+
 /**
  * @brief	Represents a classified region of an image with a zero indexed
  * class ID and probability value
@@ -96,5 +98,7 @@ struct RTClassification {
    */
   float confidence;
 };
+
+} // namespace jetson_tensorrt
 
 #endif /* TENSORRT_NETWORKIOTYPES_H_ */

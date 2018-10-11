@@ -80,9 +80,6 @@ void ROSDIGITSClassifier::imageCallback(
   /* 3. Publish */
   Classifications msg_classifications;
 
-  float maxConfidence = 0.0;
-  int maxId = 0;
-
   for (std::vector<RTClassification>::iterator it = classifications.begin();
        it != classifications.end(); ++it) {
 
@@ -97,11 +94,6 @@ void ROSDIGITSClassifier::imageCallback(
         classification.desc = classes[it->id];
       else
         classification.desc = "";
-
-      if (it->confidence > maxConfidence) {
-        maxConfidence = it->confidence;
-        maxId = it->id;
-      }
 
       msg_classifications.classifications.push_back(classification);
     }
