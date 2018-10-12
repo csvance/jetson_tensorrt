@@ -7,6 +7,8 @@
 	<arg name="height" default="720" />                       <!-- Image Height -->
 	<arg name="fps" default="30" />                            <!-- Desired framerate. True framerate may not reach this if set too high. -->
 
+	<node pkg="jetson_tensorrt" type="debug_node.py" name="rt_debug" output="screen"/>
+
 	<!-- Make arguments available to parameter server -->
 	<param name="$(arg cam_name)/image_width" type="int" value="$(arg width)" />
 	<param name="$(arg cam_name)/image_height" type="int" value="$(arg height)" />

@@ -63,7 +63,7 @@ class DebugNode(object):
         self._class_lock.release()
 
         if maxClass is not None:
-            cv2.putText(frame, "%.1f%% : %s" % (maxConf*100, maxClass.desc), (60, 60), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 255, 0), 6, cv2.LINE_AA)
+            cv2.putText(frame, "%.1f%% : %s" % (maxConf*100, maxClass.desc), (60, 60), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 3, cv2.LINE_AA)
 
         self._publisher.publish(self._cv_br.cv2_to_imgmsg(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)))
 
