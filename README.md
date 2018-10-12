@@ -33,6 +33,7 @@ string desc
 ```
 # Classifications
 ClassifiedRegionOfInterest[] regions
+Header header
 ```
 
 ### [DIGITS][digits] DetectNet (detection)
@@ -67,6 +68,7 @@ float32 confidence
 ```
 # ClassifiedRegionsOfInterest
 ClassifiedRegionOfInterest[] regions
+Header header
 ```
 
 ## Planned Nodes

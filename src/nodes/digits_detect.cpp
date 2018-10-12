@@ -76,6 +76,8 @@ void ROSDIGITSDetector::imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
   /* 3. Publish */
   ClassifiedRegionsOfInterest msg_regions;
 
+  msg_regions.header.stamp = ros::Time::now();
+
   float x_scale = (float)msg->width / (float)model_image_width;
   float y_scale = (float)msg->height / (float)model_image_height;
 

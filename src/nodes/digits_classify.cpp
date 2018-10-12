@@ -80,6 +80,8 @@ void ROSDIGITSClassifier::imageCallback(
   /* 3. Publish */
   Classifications msg_classifications;
 
+  msg_classifications.header.stamp = ros::Time::now();
+
   for (std::vector<RTClassification>::iterator it = classifications.begin();
        it != classifications.end(); ++it) {
 
