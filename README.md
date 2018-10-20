@@ -74,7 +74,7 @@ Header header
 ## Planned Nodes
 - [DIGITS][digits] - SegNet
 - MobileNet-SSD
-- Tiny Yolo V3
+- Tiny YOLO-V3
 
 ## Requirements
 - Jetpack 3.3
