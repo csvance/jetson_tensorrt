@@ -34,9 +34,12 @@ void ROSDIGITSDetector::imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
   if (engine == nullptr) {
 
     ROS_INFO("Loading nVidia DIGITS model (this can take a while)...");
-    engine = new DIGITSDetector(model_path, weights_path, cache_path,
-                                model_image_depth, model_image_width,
-                                model_image_height, model_num_classes);
+
+    nvinfer1::DataType d_type;
+
+    engine = new DIGITSDetector(
+        model_path, weights_path, cache_path, model_image_depth,
+        model_image_width, model_image_height, model_num_classes, data_type);
     ROS_INFO("Done loading nVidia DIGITS model!");
 
     tensor_input = engine->allocInputs(MemoryLocation::DEVICE, true);
@@ -141,6 +144,21 @@ ROSDIGITSDetector::ROSDIGITSDetector(ros::NodeHandle nh,
   nh_private.param("mean1", mean_1, 0.0);
   nh_private.param("mean2", mean_2, 0.0);
   nh_private.param("mean3", mean_3, 0.0);
+
+  int d_type;
+  nh_private.param("data_type", d_type, 32);
+
+  switch (d_type) {
+  case 32:
+    data_type = nvinfer1::DataType::kFLOAT;
+    break;
+  case 16:
+    data_type = nvinfer1::DataType::kHALF;
+    break;
+  case 8:
+    data_type = nvinfer1::DataType::kINT8;
+    break;
+  }
 
   nh_private.param("threshold", threshold, (float)0.2);
 

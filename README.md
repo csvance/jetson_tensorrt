@@ -12,11 +12,13 @@
 | weights_path | string | absolute path to the weights file (.caffemodel) |
 | cache_path | string | absolute path to the automatically generated tensorcache file |
 | sysnet_words_path | string | absolute path to the sysnet words text file |
+| data_type | int | TensorRT data type. 32 for kFLOAT, 16 for kHALF, 8 for kINT8 |
 | model_image_depth | int | model input image depth / number of channels |
 | model_image_width | int | model input width in pixels |
 | model_image_height | int | model input height in pixels |
 | threshold | float | confidence threshold of classifications, between 0.0 and 1.0 |
 | mean1, mean2, mean3 | float | ImageNet means |
+
 #### Topics
 | Action | Topic | Type |
 | :------------- |:-------------| :-----|
@@ -39,12 +41,14 @@ Header header
 ### [DIGITS][digits] DetectNet (detection)
 - detect_nodes.launch uses the builtin camera on the TX2 and publishes to /rt_debug
 #### Parameters
+
 | Param | Type  | Description  |
 | :------------- |:-------------| :-----|
 | image_subscribe_topic | string | image topic to run detections on |
 | model_path | string | absolute path to the model file (.prototxt) |
 | weights_path | string | absolute path to the weights file (.caffemodel) |
 | cache_path | string | absolute path to the automatically generated tensorcache file |
+| data_type | int | TensorRT data type. 32 for kFLOAT, 16 for kHALF, 8 for kINT8 |
 | model_image_depth | int | model input image depth / number of channels |
 | model_image_width | int | model input width in pixels |
 | model_image_height | int | model input height in pixels |

@@ -63,6 +63,7 @@ private:
   float threshold;
   std::string model_path, cache_path, weights_path, sysnet_words_path;
   std::string image_subscribe_topic;
+  nvinfer1::DataType data_type;
   int model_image_depth, model_image_width, model_image_height,
       model_num_classes;
   double mean_1, mean_2, mean_3;

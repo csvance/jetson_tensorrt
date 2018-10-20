@@ -38,9 +38,9 @@ void ROSDIGITSClassifier::imageCallback(
   if (engine == nullptr) {
 
     ROS_INFO("Loading nVidia DIGITS model (this can take a while)...");
-    engine = new DIGITSClassifier(model_path, weights_path, cache_path,
-                                  model_image_depth, model_image_width,
-                                  model_image_height, model_num_classes);
+    engine = new DIGITSClassifier(
+        model_path, weights_path, cache_path, model_image_depth,
+        model_image_width, model_image_height, model_num_classes, data_type);
     ROS_INFO("Done loading nVidia DIGITS model!");
 
     tensor_input = engine->allocInputs(MemoryLocation::DEVICE, true);
@@ -110,9 +110,10 @@ void ROSDIGITSClassifier::imageCallback(
                   std::chrono::duration_cast<std::chrono::milliseconds>(
                       std::chrono::system_clock::now() - start_t)
                       .count());
+
+    start_t = std::chrono::system_clock::now();
+    frames = 0;
   }
-  start_t = std::chrono::system_clock::now();
-  frames = 0;
 }
 
 ROSDIGITSClassifier::ROSDIGITSClassifier(ros::NodeHandle nh,
@@ -164,6 +165,21 @@ ROSDIGITSClassifier::ROSDIGITSClassifier(ros::NodeHandle nh,
                    (int)DIGITSClassifier::DEFAULT::HEIGHT);
   nh_private.param("model_num_classes", model_num_classes,
                    (int)DIGITSClassifier::DEFAULT::CLASSES);
+
+  int d_type;
+  nh_private.param("data_type", d_type, 32);
+
+  switch (d_type) {
+  case 32:
+    data_type = nvinfer1::DataType::kFLOAT;
+    break;
+  case 16:
+    data_type = nvinfer1::DataType::kHALF;
+    break;
+  case 8:
+    data_type = nvinfer1::DataType::kINT8;
+    break;
+  }
 
   nh_private.param("mean1", mean_1, 0.0);
   nh_private.param("mean2", mean_2, 0.0);
