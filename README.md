@@ -73,9 +73,8 @@ Header header
 
 ## Planned Nodes
 - [DIGITS][digits] - SegNet
-- Caffe - Generic
-- Tensorflow - Generic
-- PyTorch - Generic
+- MobileNet-SSD
+- Tiny Yolo V3
 
 ## Requirements
 - Jetpack 3.3
