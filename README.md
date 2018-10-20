@@ -11,7 +11,7 @@
 | model_path | string | absolute path to the model file (.prototxt) |
 | weights_path | string | absolute path to the weights file (.caffemodel) |
 | cache_path | string | absolute path to the automatically generated tensorcache file |
-| sysnet_words_path | string | absolute path to the sysnet words text file |
+| classes_path | string | newline delimited list of class descriptions starting at id 0 |
 | data_type | int | TensorRT data type. 32 for kFLOAT, 16 for kHALF, 8 for kINT8 |
 | model_image_depth | int | model input image depth / number of channels |
 | model_image_width | int | model input width in pixels |
@@ -48,6 +48,7 @@ Header header
 | model_path | string | absolute path to the model file (.prototxt) |
 | weights_path | string | absolute path to the weights file (.caffemodel) |
 | cache_path | string | absolute path to the automatically generated tensorcache file |
+| classes_path | string | newline delimited list of class descriptions starting at id 0 |
 | data_type | int | TensorRT data type. 32 for kFLOAT, 16 for kHALF, 8 for kINT8 |
 | model_image_depth | int | model input image depth / number of channels |
 | model_image_width | int | model input width in pixels |
@@ -68,6 +69,7 @@ int32 w
 int32 h
 uint32 id
 float32 confidence
+string desc
 ```
 ```
 # ClassifiedRegionsOfInterest

@@ -57,9 +57,11 @@ private:
   ros::Publisher region_pub;
   ros::Subscriber image_sub;
 
+  std::vector<std::string> classes;
+
   /* Params */
   float threshold;
-  std::string model_path, cache_path, weights_path;
+  std::string model_path, cache_path, weights_path, classes_path;
   std::string image_subscribe_topic;
   nvinfer1::DataType data_type;
   int model_image_depth, model_image_width, model_image_height,

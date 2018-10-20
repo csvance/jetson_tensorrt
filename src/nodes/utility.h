@@ -1,7 +1,7 @@
 /**
- * @file	tensorflow_generic.h
+ * @file	utility.h
  * @author	Carroll Vance
- * @brief	Generic Tensorflow ROS Node
+ * @brief	Node Utility Functions
  *
  * Copyright (c) 2018 Carroll Vance.
  *
@@ -24,7 +24,12 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef TENSORFLOW_GENERIC_H_
-#define TENSORFLOW_GENERIC_H_
+#ifndef UTILITY_H_
+#define UTILITY_H_
 
-#endif /* TENSORFLOW_GENERIC_H_ */
+#include <string>
+#include <vector>
+
+std::vector<std::string> load_class_descriptions(std::string filename);
+
+#endif

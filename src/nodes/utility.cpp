@@ -1,7 +1,7 @@
 /**
- * @file	tensorflow_generic.cpp
+ * @file	utility.cpp
  * @author	Carroll Vance
- * @brief	Generic Tensorflow ROS Node
+ * @brief	Node Utility Functions
  *
  * Copyright (c) 2018 Carroll Vance.
  *
@@ -24,11 +24,31 @@
  * DEALINGS IN THE SOFTWARE.
  */
 
- #include "tensorflow_generic.h"
+#include <fstream>
+#include <streambuf>
 
- #include "ros/ros.h"
+#include "utility.h"
 
- int main(int argc, char **argv)
- {
-   return 0;
- }
+std::vector<std::string> load_class_descriptions(std::string filename) {
+
+  std::vector<std::string> classes;
+
+  std::ifstream words_file(filename.c_str());
+  std::string text((std::istreambuf_iterator<char>(words_file)),
+                   std::istreambuf_iterator<char>());
+
+  std::string delim = "\n";
+  auto start = 0U;
+  auto end = text.find(delim);
+  int index = 0;
+  while (end != std::string::npos) {
+
+    classes.push_back(text.substr(start, end - start));
+
+    start = end + delim.length();
+    end = text.find(delim, start);
+    index++;
+  }
+
+  return classes;
+}

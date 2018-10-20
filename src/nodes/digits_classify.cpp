@@ -25,8 +25,7 @@
  */
 
 #include "digits_classify.h"
-#include <fstream>
-#include <streambuf>
+#include "utility.h"
 #include <string>
 
 namespace jetson_tensorrt {
@@ -129,33 +128,16 @@ ROSDIGITSClassifier::ROSDIGITSClassifier(ros::NodeHandle nh,
   nh_private.param("cache_path", cache_path,
                    package_path +
                        std::string("/networks/classify.tensorcache"));
-  nh_private.param("sysnet_words_path", sysnet_words_path,
+  nh_private.param("classes_path", classes_path,
                    package_path +
-                       std::string("/networks/ilsvrc12_synset_words.txt"));
-
-  std::ifstream words_file(sysnet_words_path.c_str());
-  std::string text((std::istreambuf_iterator<char>(words_file)),
-                   std::istreambuf_iterator<char>());
-
-  std::string delim = "\n";
-  auto start = 0U;
-  auto end = text.find(delim);
-  int index = 0;
-  while (end != std::string::npos) {
-
-    ROS_DEBUG("class(%d): %s", index, text.substr(start, end - start).c_str());
-
-    classes.push_back(text.substr(start, end - start));
-
-    start = end + delim.length();
-    end = text.find(delim, start);
-    index++;
-  }
+                       std::string("/networks/ilsvrc12_classes.txt"));
 
   ROS_DEBUG("model_path: %s", model_path.c_str());
   ROS_DEBUG("weights_path: %s", weights_path.c_str());
   ROS_DEBUG("cache_path: %s", cache_path.c_str());
-  ROS_DEBUG("sysnet_words_path: %s", sysnet_words_path.c_str());
+  ROS_DEBUG("classes_path: %s", classes_path.c_str());
+
+  classes = load_class_descriptions(classes_path);
 
   nh_private.param("model_image_depth", model_image_depth,
                    (int)DIGITSClassifier::DEFAULT::DEPTH);

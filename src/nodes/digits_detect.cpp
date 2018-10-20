@@ -25,6 +25,7 @@
  */
 
 #include "digits_detect.h"
+#include "utility.h"
 
 namespace jetson_tensorrt {
 
@@ -97,6 +98,11 @@ void ROSDIGITSDetector::imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
       region.w = (int)(it->w * x_scale);
       region.h = (int)(it->h * y_scale);
 
+      if (it->id < classes.size())
+        region.desc = classes[it->id];
+      else
+        region.desc = "";
+
       msg_regions.regions.push_back(region);
     }
   }
@@ -127,10 +133,16 @@ ROSDIGITSDetector::ROSDIGITSDetector(ros::NodeHandle nh,
   nh_private.param("cache_path", cache_path,
                    package_path +
                        std::string("/networks/detection.tensorcache"));
+  nh_private.param("classes_path", classes_path,
+                   package_path +
+                       std::string("/networks/pedestrian_classes.txt"));
 
   ROS_DEBUG("model_path: %s", model_path.c_str());
   ROS_DEBUG("weights_path: %s", weights_path.c_str());
   ROS_DEBUG("cache_path: %s", cache_path.c_str());
+  ROS_DEBUG("classes_path: %s", classes_path.c_str());
+
+  classes = load_class_descriptions(classes_path);
 
   nh_private.param("model_image_depth", model_image_depth,
                    (int)DIGITSDetector::DEFAULT::DEPTH);
