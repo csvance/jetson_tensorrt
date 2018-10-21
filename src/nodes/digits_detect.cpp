@@ -170,6 +170,10 @@ ROSDIGITSDetector::ROSDIGITSDetector(ros::NodeHandle nh,
   case 8:
     data_type = nvinfer1::DataType::kINT8;
     break;
+  default:
+    ROS_INFO("Invalid data_type: %d, using kFLOAT", d_type);
+    data_type = nvinfer1::DataType::kFLOAT;
+    break;
   }
 
   nh_private.param("threshold", threshold, (float)0.2);

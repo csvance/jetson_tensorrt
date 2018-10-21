@@ -161,6 +161,10 @@ ROSDIGITSClassifier::ROSDIGITSClassifier(ros::NodeHandle nh,
   case 8:
     data_type = nvinfer1::DataType::kINT8;
     break;
+  default:
+    ROS_INFO("Invalid data_type: %d, using kFLOAT", d_type);
+    data_type = nvinfer1::DataType::kFLOAT;
+    break;
   }
 
   nh_private.param("mean1", mean_1, 0.0);
