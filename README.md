@@ -53,6 +53,7 @@ Header header
 | model_image_depth | int | model input image depth / number of channels |
 | model_image_width | int | model input width in pixels |
 | model_image_height | int | model input height in pixels |
+| model_stride | int | model stride size - this determines size of network outputs |
 | threshold | float | confidence threshold of detections, between 0.0 and 1.0 |
 | mean1, mean2, mean3 | float | ImageNet means |
 #### Topics
