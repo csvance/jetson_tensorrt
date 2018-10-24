@@ -116,7 +116,7 @@ private:
 class DIGITSDetector : public CaffeRTEngine {
 
 public:
-  enum DEFAULT { WIDTH = 1024, HEIGHT = 512, DEPTH = 3, CLASSES = 1 };
+  enum DEFAULT { WIDTH = 1024, HEIGHT = 512, DEPTH = 3, CLASSES = 1, STRIDE = 16 };
 
   DIGITSDetector() {}
 
@@ -130,6 +130,7 @@ public:
    * greyscale, 3 for RGB
    * @param	width	Width of the input image
    * @param	height	Height of the input image
+   * @param	stride	Stride size of the DetectNet
    * @param	nbClasses	Number of classes to predict
    * @param	dataType	The data type used to contstruct the TensorRT
    * network. Use FLOAT unless you know how it will effect your model.
@@ -140,6 +141,7 @@ public:
                  std::string cachePath = "detection.tensorcache",
                  size_t nbChannels = DEFAULT::DEPTH,
                  size_t width = DEFAULT::WIDTH, size_t height = DEFAULT::HEIGHT,
+                 size_t stride = DEFAULT::STRIDE,
                  size_t nbClasses = DEFAULT::CLASSES,
                  nvinfer1::DataType dataType = nvinfer1::DataType::kFLOAT,
                  size_t maxNetworkSize = (1 << 30));
@@ -173,9 +175,6 @@ private:
   static const std::string INPUT_NAME;
   static const std::string OUTPUT_COVERAGE_NAME;
   static const std::string OUTPUT_BBOXES_NAME;
-
-  static const size_t BBOX_DIM_X = 64;
-  static const size_t BBOX_DIM_Y = 32;
 
   ClusteredNonMaximumSuppression suppressor;
 };

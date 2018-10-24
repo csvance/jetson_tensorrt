@@ -38,9 +38,10 @@ void ROSDIGITSDetector::imageCallback(const sensor_msgs::Image::ConstPtr &msg) {
 
     nvinfer1::DataType d_type;
 
-    engine = new DIGITSDetector(
-        model_path, weights_path, cache_path, model_image_depth,
-        model_image_width, model_image_height, model_num_classes, data_type);
+    engine = new DIGITSDetector(model_path, weights_path, cache_path,
+                                model_image_depth, model_image_width,
+                                model_image_height, model_stride,
+                                model_num_classes, data_type);
     ROS_INFO("Done loading nVidia DIGITS model!");
 
     tensor_input = engine->allocInputs(MemoryLocation::DEVICE, true);
@@ -150,6 +151,8 @@ ROSDIGITSDetector::ROSDIGITSDetector(ros::NodeHandle nh,
                    (int)DIGITSDetector::DEFAULT::WIDTH);
   nh_private.param("model_image_height", model_image_height,
                    (int)DIGITSDetector::DEFAULT::HEIGHT);
+  nh_private.param("model_stride", model_stride,
+                   (int)DIGITSDetector::DEFAULT::STRIDE);
   nh_private.param("model_num_classes", model_num_classes,
                    (int)DIGITSDetector::DEFAULT::CLASSES);
 

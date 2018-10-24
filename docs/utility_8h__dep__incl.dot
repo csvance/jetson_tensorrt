@@ -1,0 +1,12 @@
+digraph "src/nodes/utility.h"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node3 [label="src/nodes/utility.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="src/nodes/digits_classify.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$digits__classify_8cpp.html",tooltip="nVidia DIGITS Classification ROS Node "];
+  Node3 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="src/nodes/digits_detect.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$digits__detect_8cpp.html",tooltip="nVidia DIGITS Detection ROS Driver "];
+  Node3 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="src/nodes/utility.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$utility_8cpp.html",tooltip="Node Utility Functions. "];
+}

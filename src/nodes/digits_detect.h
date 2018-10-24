@@ -65,7 +65,7 @@ private:
   std::string image_subscribe_topic;
   nvinfer1::DataType data_type;
   int model_image_depth, model_image_width, model_image_height,
-      model_num_classes;
+      model_num_classes, model_stride;
   double mean_1, mean_2, mean_3;
 
   std::chrono::time_point<std::chrono::system_clock> start_t;

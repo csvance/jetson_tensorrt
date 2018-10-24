@@ -15,7 +15,7 @@ var searchData=
   ['digitsclassifier_2eh',['DIGITSClassifier.h',['../_d_i_g_i_t_s_classifier_8h.html',1,'']]],
   ['digitsclassifynodelet',['DIGITSClassifyNodelet',['../classjetson__tensorrt_1_1_d_i_g_i_t_s_classify_nodelet.html',1,'jetson_tensorrt']]],
   ['digitsdetectnodelet',['DIGITSDetectNodelet',['../classjetson__tensorrt_1_1_d_i_g_i_t_s_detect_nodelet.html',1,'jetson_tensorrt']]],
-  ['digitsdetector',['DIGITSDetector',['../classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html',1,'jetson_tensorrt::DIGITSDetector'],['../classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html#aa6dfdedc5f11df0827ce18c2a385a4eb',1,'jetson_tensorrt::DIGITSDetector::DIGITSDetector()']]],
+  ['digitsdetector',['DIGITSDetector',['../classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html',1,'jetson_tensorrt::DIGITSDetector'],['../classjetson__tensorrt_1_1_d_i_g_i_t_s_detector.html#a72ffa931b7e18754ccaf9e0ca28d3446',1,'jetson_tensorrt::DIGITSDetector::DIGITSDetector()']]],
   ['digitsdetector_2ecpp',['DIGITSDetector.cpp',['../_d_i_g_i_t_s_detector_8cpp.html',1,'']]],
   ['digitsdetector_2eh',['DIGITSDetector.h',['../_d_i_g_i_t_s_detector_8h.html',1,'']]]
 ];

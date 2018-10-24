@@ -37,8 +37,8 @@ const std::string DIGITSDetector::OUTPUT_BBOXES_NAME = "bboxes";
 
 DIGITSDetector::DIGITSDetector(std::string prototextPath, std::string modelPath,
                                std::string cachePath, size_t nbChannels,
-                               size_t width, size_t height, size_t nbClasses,
-                               nvinfer1::DataType dataType,
+                               size_t width, size_t height, size_t stride,
+                               size_t nbClasses, nvinfer1::DataType dataType,
                                size_t maxNetworkSize)
     : CaffeRTEngine() {
 
@@ -51,15 +51,15 @@ DIGITSDetector::DIGITSDetector(std::string prototextPath, std::string modelPath,
   nvinfer1::Dims outputDimsCoverage;
   outputDimsCoverage.nbDims = 3;
   outputDimsCoverage.d[0] = nbClasses;
-  outputDimsCoverage.d[1] = BBOX_DIM_Y;
-  outputDimsCoverage.d[2] = BBOX_DIM_X;
+  outputDimsCoverage.d[1] = (size_t)(height / stride);
+  outputDimsCoverage.d[2] = (size_t)(width / stride);
   addOutput(OUTPUT_COVERAGE_NAME, outputDimsCoverage, sizeof(float));
 
   nvinfer1::Dims outputDimsBboxes;
   outputDimsBboxes.nbDims = 3;
   outputDimsBboxes.d[0] = 4;
-  outputDimsBboxes.d[1] = BBOX_DIM_Y;
-  outputDimsBboxes.d[2] = BBOX_DIM_X;
+  outputDimsBboxes.d[1] = (size_t)(height / stride);
+  outputDimsBboxes.d[2] = (size_t)(width / stride);
   addOutput(OUTPUT_BBOXES_NAME, outputDimsBboxes, sizeof(float));
 
   std::ifstream infile(cachePath);
@@ -77,7 +77,7 @@ DIGITSDetector::DIGITSDetector(std::string prototextPath, std::string modelPath,
 
   // Configure non-maximum suppression based on what we currently know
   suppressor.setupInput(width, height);
-  suppressor.setupGrid(BBOX_DIM_X, BBOX_DIM_Y);
+  suppressor.setupGrid((size_t)(width / stride), (size_t)(height / stride));
 }
 
 DIGITSDetector::~DIGITSDetector() {}
