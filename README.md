@@ -80,8 +80,6 @@ Header header
 
 ## Planned Nodes
 - [DIGITS][digits] - SegNet
-- MobileNet-SSD
-- Tiny YOLO-V3
 
 ## Requirements
 - Jetpack 3.3
