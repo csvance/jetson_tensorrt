@@ -114,7 +114,6 @@ catkin_package(
   INCLUDE_DIRS include
   LIBRARIES jetson_tensorrt
   CATKIN_DEPENDS message_runtime geometry_msgs roscpp sensor_msgs std_msgs
-  DEPENDS system_lib
 )
 
 ###########
