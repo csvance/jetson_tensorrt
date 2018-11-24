@@ -2,7 +2,7 @@
 
 ## Implemented Nodes
 ### [DIGITS][digits] ImageNet (classification)
-- classify_nodes.launch uses the builtin camera on the TX2 and publishes to /rt_debug
+- classify_nodes.launch runs a classifier trained on ILSVRC2012 with the builtin camera and publishes to /rt_debug
 #### Parameters
 
 | Param | Type  | Description  |
@@ -39,7 +39,7 @@ Header header
 ```
 
 ### [DIGITS][digits] DetectNet (detection)
-- detect_nodes.launch uses the builtin camera on the TX2 and publishes to /rt_debug
+- detect_nodes.launch runs pedestrian detection on the builtin camera and publishes to /rt_debug
 #### Parameters
 
 | Param | Type  | Description  |
